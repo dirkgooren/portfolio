@@ -1,0 +1,36 @@
+# Dirk Gooren
+
+> UX design lead specialising in enterprise UX: business-critical tools for people at work, where a bad decision costs the organisation real time and money. Background in Industrial Design (MSc), working in design since 2010 across healthcare, national government, housing and finance.
+
+## Positioning
+
+- Connects UX and business: judges a release by whether it moved the organisation, not by whether it shipped.
+- Works upstream: time inside the real work before a screen exists, trade-offs decided before anything is designed, prototypes to settle what opinions cannot.
+- Leaves behind principles, patterns and documentation that keep working without him.
+- Languages: Dutch and English. Contact: dirkgooren@gmail.com
+
+## Services
+
+- Research: user research, behavioural research, observation, interviews, accessibility, journey mapping, usability testing, data analysis, context mapping, competitor analysis.
+- Strategy: value proposition, UX strategy, product direction, design vision, roadmapping, concept development, business modelling.
+- Design: UX design, interaction design, service design, prototyping, design systems, information architecture, wireframing, UI design, behavioural design, AI interaction.
+- Workshops: facilitation, alignment sessions, co-creation with stakeholders.
+
+## Case studies
+
+- AmbuSuite (Radboud umc, 2012-2014): real-time communication between ambulances and emergency departments; in daily use at Radboud umc and other hospitals.
+- Klantverwachtingssysteem (ZIG, 2016-2021): one multichannel customer service system plus a design system for housing corporations.
+- Prijsobservatie (Centraal Bureau voor de Statistiek, 2015): price observation tooling, still in use in 24 European countries.
+- Huurdersportaal (ZIG, 2016-2021): tenant portal launched in 2022, used by corporations serving half a million households.
+- Van applicatielandschap naar visie (Belastingdienst, 2022-2025): UX strategy and facilitation across 22 applications, 4 work processes and 67 stakeholders.
+- De HLP-werkomgeving (Belastingdienst, 2024): one work environment across micro-frontend teams, governed by five design principles.
+- From ESG obligation to value creation (Planet Yes, 2025): product strategy and design system for ESG programme management and reporting.
+- Transfers, without the second guess (ING / Bank Mendes Gans, 2025): redesign of the transfer application treasurers move millions with.
+- An AI marketplace for government (Ministry of the Interior and Kingdom Relations, 2026-2027): sAIdkick, a marketplace for Dutch public organisations to find, judge and safely reuse each other's AI.
+- Making the visual part of the record (Tweede Kamer, 2026): treating images and infographics as content in parliamentary documents, accessible by construction.
+- The evolution of design systems (2016-2026): from handcrafted elements, to standardised systems, to customised white-label systems, to AI generated systems, and the guidelines, boundaries and design principles that keep generated components on brand.
+
+## Notes
+
+- Some case studies are password protected while the work is still confidential with the client.
+- The site is a single page: sections for work, about, services and contact, with case studies at #case/<key>.
