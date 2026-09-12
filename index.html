@@ -51,6 +51,9 @@
     --mock-bar: #FFFFFF; --mock-dot: rgba(32,33,51,0.45); --mock-pill: rgba(32,33,51,0.14); --mock-edge: rgba(255,255,255,0.92);
     --muted: rgba(236,231,221,0.45); --muted2: rgba(236,231,221,0.62); --muted3: rgba(236,231,221,0.4); --hair: rgba(236,231,221,0.16);
   }
+  /* Menu / login overlays fill the viewport, so the page ground behind them
+     (overscroll, safe areas) must read as the same dark blue. */
+  [data-overlay="ink"] body { background: var(--ink); }
   body { margin: 0; background: var(--bg); color: var(--fg); font-family: 'Archivo', system-ui, sans-serif; transition: background 260ms ease-out, color 260ms ease-out; }
   [data-theme="dark"] #about, [data-theme="dark"] [data-light-surface] {
     --fg: #202133; --muted: rgba(32,33,51,0.45); --muted2: rgba(32,33,51,0.62); --muted3: rgba(32,33,51,0.4); --hair: rgba(32,33,51,0.14);
@@ -70,19 +73,25 @@
   [data-logo] { background-color: #202133; mask-composite: add; -webkit-mask-composite: source-over; opacity: 1 !important; }
   [data-theme="dark"] [data-logo] { background-color: #ECE7DD; }
   [data-theme="dark"] [data-illo] { filter: invert(1) hue-rotate(180deg); }
+  /* The animated illustrations are SVG stacks: only their bitmaps invert, so the
+     patch rects keep matching the page ground in dark mode. */
+  [data-theme="dark"] svg[data-illo] { filter: none; }
+  [data-theme="dark"] svg[data-illo] image { filter: invert(1) hue-rotate(180deg); }
   h1, h2 { font-family: 'Archivo Narrow', 'Archivo', system-ui, sans-serif; font-stretch: normal; }
   h3, h4 { font-family: 'Archivo', system-ui, sans-serif; font-stretch: normal; }
   * { box-sizing: border-box; }
   a { color: inherit; text-decoration: none; }
   [data-close-case]:hover svg { transform: rotate(90deg); }
   [data-industry-chip][data-active="0"]:hover { background: rgba(32,33,51,0.14) !important; color: var(--fg) !important; }
+  @keyframes dgPanelDown { from { transform: translateY(-100%); } to { transform: none; } }
+  [data-overlay-panel] { animation: dgPanelDown 520ms cubic-bezier(.22,1,.36,1) both; }
   @keyframes dgGateIn { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: none; } }
   [data-gate-in] > * { opacity: 0; animation: dgGateIn 620ms cubic-bezier(.22,1,.36,1) forwards; }
-  [data-gate-in] > *:nth-child(1) { animation-delay: 60ms; }
-  [data-gate-in] > *:nth-child(2) { animation-delay: 120ms; }
-  [data-gate-in] > *:nth-child(3) { animation-delay: 180ms; }
-  [data-gate-in] > *:nth-child(4) { animation-delay: 240ms; }
-  [data-gate-in] > *:nth-child(5) { animation-delay: 300ms; }
+  [data-gate-in] > *:nth-child(1) { animation-delay: 480ms; }
+  [data-gate-in] > *:nth-child(2) { animation-delay: 540ms; }
+  [data-gate-in] > *:nth-child(3) { animation-delay: 600ms; }
+  [data-gate-in] > *:nth-child(4) { animation-delay: 660ms; }
+  [data-gate-in] > *:nth-child(5) { animation-delay: 720ms; }
   [data-industry-chip][data-active="1"]:hover { background: rgba(32,33,51,0.82) !important; }
   [data-theme="dark"] [data-industry-chip][data-active="0"] { background: rgba(236,231,221,0.10) !important; color: rgba(236,231,221,0.72) !important; }
   [data-theme="dark"] [data-industry-chip][data-active="0"]:hover { background: rgba(236,231,221,0.2) !important; color: #ECE7DD !important; }
@@ -102,6 +111,14 @@
     [data-case-cols][data-flip] > h2, [data-case-cols][data-flip] > [data-case-body] { grid-column: 2; }
   }
   @media (min-width: 620px) { [data-services-grid] { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; } }
+  /* Tighter gutters on phones: more room for content than for margin. */
+  @media (max-width: 619px) {
+    :root { --sec-x: 16px; }
+    [data-page] > section { padding-left: 16px !important; padding-right: 16px !important; }
+    [data-site-header], [data-case-pane] > header { padding-left: 16px !important; padding-right: 16px !important; }
+    [data-menu-nav], [data-menu-lang] { padding-left: 16px !important; padding-right: 16px !important; }
+    [data-preloader] { padding-left: 16px !important; padding-right: 16px !important; }
+  }
   @media (min-width: 1100px) { [data-services-grid] { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; } }
   x-dc, #dc-root { display: block; max-width: 1920px; margin-inline: auto; overflow-x: clip; }
   /* Case pages are position:fixed, so they escape the 1920px root cap — re-apply it. */
@@ -110,7 +127,13 @@
   /* Illustrations differ in aspect ratio, so the wrapper is fixed height and
      bottom-aligned: every service eyebrow then starts on the same line. */
   [data-illo-wrap] { height: clamp(128px, 13vw, 188px); display: flex; align-items: flex-end; }
-  [data-illo-wrap] > img[data-illo] { width: 100%; height: 100%; padding-top: 0 !important; object-fit: contain; object-position: left bottom; }
+  [data-illo-wrap] > img[data-illo], [data-illo-wrap] > svg[data-illo] { width: 100%; height: 100% !important; padding-top: 0 !important; object-fit: contain; object-position: left bottom; }
+  /* Single column below the grid breakpoint: no eyebrow row to align to, so the
+     illustration keeps its natural height instead of overflowing the box. */
+  @media (max-width: 619px) {
+    [data-illo-wrap] { height: auto !important; }
+    [data-illo-wrap] > img[data-illo], [data-illo-wrap] > svg[data-illo] { height: auto !important; }
+  }
   [data-service-tag] { transition: background 180ms ease-out, color 180ms ease-out, box-shadow 180ms ease-out, transform 180ms ease-out; }
   [data-service-tag]:hover { cursor: pointer; }
   [data-service-tag][data-tip] { position: relative; }
@@ -156,6 +179,33 @@
   [data-illo-dot]:nth-of-type(6) { animation-name: dgDot2; animation-duration: 21s; animation-delay: -16.200000000000003s; }
   [data-illo-dot] { animation: dgDot1 13s ease-in-out infinite; will-change: transform; }
 
+  /* Hovering a service card animates the FIGURES, not the picture: each head is
+     a clipped copy of the same drawing pivoting on its own neck, so tables,
+     boards and chairs stay perfectly still. A ground-coloured patch under each
+     copy hides the static head so nothing doubles. */
+  /* The fixed header blends with difference, so the nav ink is the value that
+     inverts to --fg against each theme ground. */
+  :root { --nav-ink: #D4D0BC; }
+  [data-theme="dark"] { --nav-ink: #FFFFFF; }
+  [data-illo-head] { transform-box: view-box; will-change: transform; }
+  @keyframes dgHead1 { 0%,100%{transform:rotate(0)} 10%{transform:rotate(calc(var(--amp,1) * 1deg))} 22%,29%{transform:rotate(calc(var(--amp,1) * 0.7deg))} 44%{transform:rotate(calc(var(--amp,1) * -0.75deg))} 58%,66%{transform:rotate(calc(var(--amp,1) * -0.35deg))} 82%{transform:rotate(calc(var(--amp,1) * 0.25deg))} }
+  @keyframes dgHead2 { 0%,100%{transform:rotate(0)} 14%,20%{transform:rotate(calc(var(--amp,1) * -0.85deg))} 33%{transform:rotate(calc(var(--amp,1) * 0.5deg))} 49%{transform:rotate(calc(var(--amp,1) * 0.95deg))} 64%,72%{transform:rotate(calc(var(--amp,1) * 0.2deg))} 87%{transform:rotate(calc(var(--amp,1) * -0.4deg))} }
+  @keyframes dgHead3 { 0%,100%{transform:rotate(0)} 8%{transform:rotate(calc(var(--amp,1) * -0.5deg))} 26%,36%{transform:rotate(calc(var(--amp,1) * 0.9deg))} 52%{transform:rotate(calc(var(--amp,1) * -0.3deg))} 70%{transform:rotate(calc(var(--amp,1) * -0.9deg))} 88%,94%{transform:rotate(calc(var(--amp,1) * -0.15deg))} }
+  @keyframes dgHead4 { 0%,100%{transform:rotate(0)} 12%{transform:rotate(calc(var(--amp,1) * 0.45deg))} 30%{transform:rotate(calc(var(--amp,1) * -0.95deg))} 41%,50%{transform:rotate(calc(var(--amp,1) * -0.6deg))} 68%{transform:rotate(calc(var(--amp,1) * 0.8deg))} 84%{transform:rotate(calc(var(--amp,1) * 0.3deg))} }
+  @keyframes dgHead5 { 0%,100%{transform:rotate(0)} 16%{transform:rotate(calc(var(--amp,1) * 0.8deg))} 28%,37%{transform:rotate(calc(var(--amp,1) * -0.25deg))} 55%{transform:rotate(calc(var(--amp,1) * -0.85deg))} 74%,80%{transform:rotate(calc(var(--amp,1) * 0.4deg))} 92%{transform:rotate(calc(var(--amp,1) * 0.15deg))} }
+  [data-service-card]:hover [data-illo-head] { animation: dgHead1 3.4s cubic-bezier(.4,0,.3,1) infinite; }
+  @keyframes dgHead6 { 0%,100%{transform:rotate(0)} 18%,30%{transform:rotate(calc(var(--amp,1) * -1deg))} 44%{transform:rotate(calc(var(--amp,1) * 0.35deg))} 60%,70%{transform:rotate(calc(var(--amp,1) * -0.55deg))} 86%{transform:rotate(calc(var(--amp,1) * 0.2deg))} }
+  [data-service-card]:hover [data-illo-head="6"] { animation: dgHead6 3.9s cubic-bezier(.4,0,.3,1) -0.8s infinite; }
+  @keyframes dgHead7 { 0%,100%{transform:rotate(0)} 14%{transform:rotate(calc(var(--amp,1) * -1deg))} 28%{transform:rotate(calc(var(--amp,1) * 0.85deg))} 42%{transform:rotate(calc(var(--amp,1) * -0.75deg))} 57%{transform:rotate(calc(var(--amp,1) * 1deg))} 71%{transform:rotate(calc(var(--amp,1) * -0.55deg))} 86%{transform:rotate(calc(var(--amp,1) * 0.45deg))} }
+  @keyframes dgHead8 { 0%,10%{transform:rotate(calc(var(--amp,1) * -1deg))} 46%,56%{transform:rotate(calc(var(--amp,1) * 1deg))} 94%,100%{transform:rotate(calc(var(--amp,1) * -1deg))} }
+  [data-service-card]:hover [data-illo-head="7"] { animation: dgHead7 1.15s cubic-bezier(.5,0,.5,1) infinite; }
+  [data-service-card]:hover [data-illo-head="8"] { animation: dgHead8 2.8s cubic-bezier(.45,0,.55,1) infinite; }
+  [data-service-card]:hover [data-illo-head="2"] { animation: dgHead2 3.8s cubic-bezier(.4,0,.3,1) -1.4s infinite; }
+  [data-service-card]:hover [data-illo-head="3"] { animation: dgHead3 3.2s cubic-bezier(.4,0,.3,1) -2.1s infinite; }
+  [data-service-card]:hover [data-illo-head="4"] { animation: dgHead4 4.1s cubic-bezier(.4,0,.3,1) -2.2s infinite; }
+  [data-service-card]:hover [data-illo-head="5"] { animation: dgHead5 3.6s cubic-bezier(.4,0,.3,1) -3.5s infinite; }
+  @media (prefers-reduced-motion: reduce) { [data-service-card]:hover [data-illo-head] { animation: none !important; } }
+
   [data-next-arrow-wrap] { display: inline-flex; }
   [data-next-link]:hover [data-next-arrow-wrap] { animation: dgNextNudge 2.8s cubic-bezier(.37,0,.63,1) infinite; }
   [data-next-arrow] { transition: transform var(--t-slow) var(--ease); will-change: transform; }
@@ -164,11 +214,16 @@
   @keyframes dgNextNudge { 0% { transform: translateX(0) } 50% { transform: translateX(0.16em) } 100% { transform: translateX(0) } }
   @keyframes dgMenuIn { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: none; } }
   [data-menu-nav] > * { opacity: 0; animation: dgMenuIn 620ms cubic-bezier(.22,1,.36,1) forwards; }
-  [data-menu-nav] > *:nth-child(1) { animation-delay: 90ms; }
-  [data-menu-nav] > *:nth-child(2) { animation-delay: 170ms; }
-  [data-menu-nav] > *:nth-child(3) { animation-delay: 250ms; }
-  [data-menu-nav] > *:nth-child(4) { animation-delay: 330ms; }
-  [data-menu-lang] { opacity: 0; animation: dgMenuIn 620ms cubic-bezier(.22,1,.36,1) 430ms forwards; }
+  [data-menu-nav] > *:nth-child(1) { animation-delay: 510ms; }
+  [data-menu-nav] > *:nth-child(2) { animation-delay: 590ms; }
+  [data-menu-nav] > *:nth-child(3) { animation-delay: 670ms; }
+  [data-menu-nav] > *:nth-child(4) { animation-delay: 750ms; }
+  [data-menu-lang] { opacity: 0; animation: dgMenuIn 620ms cubic-bezier(.22,1,.36,1) 850ms forwards; }
+  /* Nav links get an invisible, larger hit/hover area than their glyphs. */
+  [data-desktop-nav] > a, [data-menu-nav] > a, [data-menu-lang] > a { position: relative; }
+  [data-desktop-nav] > a::before { content: ''; position: absolute; inset: -16px -10px; }
+  [data-menu-nav] > a::before { content: ''; position: absolute; inset: -6px -16px; }
+  [data-menu-lang] > a::before { content: ''; position: absolute; inset: -18px -14px; }
   @media (max-width: 760px) {
     [data-desktop-nav] { display: none !important; }
     [data-burger] { display: flex !important; }
@@ -247,7 +302,10 @@
   [data-theme="dark"] ::-moz-selection { background: var(--highlight); color: #0C2E4E; }
   @keyframes dgSpin { to { transform: rotate(360deg); } }
   [data-preload-mark] { animation: dgSpin 1100ms linear infinite; transform-origin: 50% 50%; }
-  [data-preloader][data-out] { opacity: 0; pointer-events: none; }
+  [data-preloader][data-out] { background: transparent !important; pointer-events: none; }
+  /* The header logo cross-fades in as the settled spinner fades out. */
+  [data-booting] [data-site-header] [data-mark-link] { visibility: hidden; }
+  [data-preload-mark][data-fading] { opacity: 0; transition: opacity 520ms ease-out; }
   [data-booting] [data-title-in], [data-booting] [data-hero-in], [data-booting] [data-card-eyebrow] { animation-play-state: paused !important; }
   [data-carousel]::-webkit-scrollbar { display: none; }
   [data-car-btn]:hover { background: rgba(32,33,51,0.14) !important; color: var(--fg) !important; }
@@ -298,11 +356,11 @@
 </style>
 </helmet>
 
-<div data-booting="{{ bootAttr }}" style="min-height:100vh;background:var(--bg);color:var(--fg);font-family:'Archivo',system-ui,sans-serif;overflow-x:hidden">
+<div data-page="" data-booting="{{ bootAttr }}" style="min-height:100vh;background:var(--bg);color:var(--fg);font-family:'Archivo',system-ui,sans-serif;overflow-x:hidden">
 
   <sc-if value="{{ booting }}" hint-placeholder-val="{{ true }}">
-    <div data-preloader="" style="position:fixed;inset:0;z-index:400;display:flex;align-items:center;justify-content:center;background:var(--bg);transition:opacity 460ms ease-out">
-      <svg data-preload-mark="" width="58" height="58" viewBox="0 0 73 73" fill="none" aria-hidden="true" style="color:var(--fg)">
+    <div data-preloader="" style="position:fixed;inset:0;z-index:400;display:flex;align-items:flex-start;justify-content:flex-start;padding:clamp(18px,2.4vw,32px) calc(clamp(24px,5vw,72px) + max(0px, calc((100vw - 1920px) / 2)));background:var(--bg);transition:background-color 520ms ease-out">
+      <svg data-preload-mark="" width="58" height="58" viewBox="0 0 73 73" fill="none" aria-hidden="true" style="color:var(--fg);flex:0 0 auto;width:clamp(44px,4.2vw,58px);height:clamp(44px,4.2vw,58px)">
         <circle cx="27.3108" cy="27.3108" r="8.81081" stroke="currentColor" stroke-width="4"></circle>
         <circle cx="45.6892" cy="45.6892" r="10.8108" fill="currentColor"></circle>
       </svg>
@@ -321,15 +379,15 @@
   </sc-if>
 
   <sc-if value="{{ gate }}" hint-placeholder-val="{{ false }}">
-    <div style="position:fixed;inset:0;z-index:95;display:flex;align-items:center;justify-content:center;padding:clamp(20px,5vw,64px);background:var(--ink);color:var(--on-dark)">
-      <a href="#top" onClick="{{ goHome }}" data-mark-link="" aria-label="Dirk Gooren, home" style="position:absolute;top:clamp(18px,2.4vw,32px);left:calc(clamp(24px,5vw,72px) + max(0px, calc((100vw - 1920px) / 2)));display:inline-flex;align-items:center;font-size: var(--t-label);font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--on-dark);cursor:pointer">
+    <div data-overlay-panel="" style="position:fixed;inset:0;z-index:95;display:flex;align-items:center;justify-content:center;padding:clamp(20px,5vw,64px);background:var(--ink);color:var(--on-dark)">
+      <a href="#top" onClick="{{ goHome }}" data-mark-link="" aria-label="Dirk Gooren, home" style="position:absolute;top:clamp(18px,2.4vw,32px);left:calc(var(--sec-x) + max(0px, calc((100vw - 1920px) / 2)));display:inline-flex;align-items:center;font-size: var(--t-label);font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--on-dark);cursor:pointer">
         <svg data-mark="" width="40" height="40" viewBox="0 0 73 73" fill="none" aria-hidden="true" style="flex:0 0 auto;width:clamp(44px,4.2vw,58px);height:clamp(44px,4.2vw,58px);overflow:visible">
           <circle data-c1="" cx="27.3108" cy="27.3108" r="8.81081" stroke="currentColor" stroke-width="4"></circle>
           <circle data-c2="" cx="45.6892" cy="45.6892" r="10.8108" fill="currentColor"></circle>
         </svg>
         <span data-mark-word=""><span style="display:inline-block">D</span><span style="display:inline-block">I</span><span style="display:inline-block">R</span><span style="display:inline-block">K</span><span style="display:inline-block">G</span><span style="display:inline-block">O</span><span style="display:inline-block">O</span><span style="display:inline-block">R</span><span style="display:inline-block">E</span><span style="display:inline-block">N</span></span>
       </a>
-      <a href="#work" onClick="{{ closeGate }}" data-close-case="" aria-label="Close" style="position:absolute;top:clamp(18px,2.4vw,32px);right:calc(clamp(24px,5vw,72px) + max(0px, calc((100vw - 1920px) / 2)));display:inline-flex;align-items:center;gap:6px;font-size: var(--t-label);font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--on-dark);cursor:pointer;transition:opacity var(--t-fast) ease-out" style-hover="opacity:0.6"><span style="position:relative;display:block;width:30px;height:30px;flex:0 0 auto"><span data-x-bar="a" style="position:absolute;left:2px;display:block;width:26px;height:2px;background:currentColor;top:14px;"></span><span data-x-bar="b" style="position:absolute;left:2px;display:block;width:26px;height:2px;background:currentColor;top:14px;"></span></span><span>{{ t.close }}</span></a>
+      <a href="#work" onClick="{{ closeGate }}" data-close-case="" aria-label="Close" style="position: absolute; top: clamp(18px,2.4vw,32px); right: calc(var(--sec-x) + max(0px, calc((100vw - 1920px) / 2))); height: clamp(44px,4.2vw,58px); display: inline-flex; align-items: center; gap: 6px; font-size: var(--t-label); font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--on-dark); cursor: pointer; transition: opacity var(--t-fast) ease-out" style-hover="opacity:0.6"><span style="position:relative;display:block;width:30px;height:30px;flex:0 0 auto"><span data-x-bar="a" style="position:absolute;left:2px;display:block;width:26px;height:2px;background:currentColor;top:14px;"></span><span data-x-bar="b" style="position:absolute;left:2px;display:block;width:26px;height:2px;background:currentColor;top:14px;"></span></span><span>{{ t.close }}</span></a>
       <div data-gate-in="" style="width: 309px; max-width: 520px; height: 416px">
         <div aria-hidden="true" onDoubleClick="{{ bypassGate }}" title="" style="display:flex;justify-content:center;margin:0 0 clamp(16px,2vw,24px);color:#F2C4BB;user-select:none">
           <svg width="91" height="91" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10.5" width="16" height="10.5" rx="2"></rect><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"></path></svg>
@@ -521,8 +579,8 @@
             </figure>
           </sc-if>
           <sc-if value="{{ sec.hasCarousel }}" hint-placeholder-val="{{ false }}">
-            <div data-carousel-wrap="" data-case-media="" style="margin:clamp(32px,5vw,64px) calc(-1 * clamp(24px,5vw,72px)) 0">
-              <div data-carousel="" style="display:flex;gap:clamp(12px,1.6vw,20px);overflow-x:auto;scroll-snap-type:none;scrollbar-width:none;padding:0 clamp(24px,5vw,72px) 4px;scroll-padding-left:clamp(24px,5vw,72px)">
+            <div data-carousel-wrap="" data-case-media="" style="margin:clamp(32px,5vw,64px) calc(-1 * var(--sec-x)) 0">
+              <div data-carousel="" style="display:flex;gap:clamp(12px,1.6vw,20px);overflow-x:auto;scroll-snap-type:none;scrollbar-width:none;padding:0 var(--sec-x) 4px;scroll-padding-left:var(--sec-x)">
                 <sc-for list="{{ sec.gallery }}" as="g" hint-placeholder-count="0">
                   <figure style="flex:0 0 auto;display:flex;flex-direction:column;gap:12px;margin:0">
                     <sc-if value="{{ g.plain }}" hint-placeholder-val="{{ true }}">
@@ -543,7 +601,7 @@
                   </figure>
                 </sc-for>
               </div>
-              <div data-carousel-nav="" style="display:flex;align-items:center;justify-content:center;gap:8px;margin:clamp(12px,1.6vw,18px) clamp(24px,5vw,72px) 0">
+              <div data-carousel-nav="" style="display:flex;align-items:center;justify-content:center;gap:8px;margin:clamp(12px,1.6vw,18px) var(--sec-x) 0">
                 <button type="button" aria-label="Previous image" data-dir="-1" onClick="{{ carScroll }}" style="display:inline-flex;align-items:center;justify-content:center;gap:8px;height:28px;padding:0 24px;border:none;border-radius:999px;background:var(--chip);color:var(--fg);font-size: var(--t-xs);font-weight:600;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;transition:background var(--t-fast) ease-out,color var(--t-fast) ease-out" data-car-btn="">
                   <svg data-car-arrow="prev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"></path><path d="M11 6l-6 6"></path><path d="M11 18l-6 -6"></path></svg>
                 </button>
@@ -571,7 +629,7 @@
         </section>
       </sc-if>
 
-      <a href="#top" onClick="{{ openCase }}" data-next-link="" data-case="{{ openCaseData.nextKey }}" data-light-surface="" style="display:block;margin:clamp(64px,10vw,140px) clamp(24px,5vw,72px) clamp(24px,5vw,72px);padding:clamp(48px,8vw,110px) clamp(24px,5vw,72px);background:var(--highlight);color:#202133;cursor:pointer;text-decoration:none;transition:color var(--t-fast) ease-out" style-hover="color:#5C5D70">
+      <a href="#top" onClick="{{ openCase }}" data-next-link="" data-case="{{ openCaseData.nextKey }}" data-light-surface="" style="display:block;margin:clamp(64px,10vw,140px) var(--sec-x) clamp(24px,5vw,72px);padding:clamp(48px,8vw,110px) clamp(24px,5vw,72px);background:var(--highlight);color:#202133;cursor:pointer;text-decoration:none;transition:color var(--t-fast) ease-out" style-hover="color:#5C5D70">
         <p style="margin:0 0 clamp(18px,2.5vw,30px);font-size: var(--t-label);font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:inherit">{{ t.nextProject }}</p>
         <span style="display:flex;align-items:center;gap:0.3em;flex-wrap:wrap;max-width:24ch;font-size: var(--t-h1);line-height:1.05;font-weight:600;letter-spacing:-0.03em;color:inherit"><span>{{ openCaseData.nextDeck }}</span><span data-next-arrow-wrap=""><svg data-next-arrow="" width="0.8em" height="0.8em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l14 0"></path><path d="M13 18l6 -6"></path><path d="M13 6l6 6"></path></svg></span></span>
       </a>
@@ -604,31 +662,31 @@
       <span data-mark-word=""><span style="display:inline-block">D</span><span style="display:inline-block">I</span><span style="display:inline-block">R</span><span style="display:inline-block">K</span><span style="display:inline-block">G</span><span style="display:inline-block">O</span><span style="display:inline-block">O</span><span style="display:inline-block">R</span><span style="display:inline-block">E</span><span style="display:inline-block">N</span></span>
     </a>
     <nav data-desktop-nav="" style="display:flex;align-items:center;gap:clamp(16px,2.6vw,40px);font-size: var(--t-label);font-weight:600;letter-spacing:0.1em;text-transform:uppercase;pointer-events:auto;padding-right:clamp(11px,1.05vw,14.5px)">
-      <a href="#work" style="color:#FFFFFF" style-hover="color:#FFFFFF;opacity:0.6">{{ t.work }}</a>
-      <a href="#about" style="color:#FFFFFF" style-hover="color:#FFFFFF;opacity:0.6">{{ t.about }}</a>
-      <a href="#services" style="color:#FFFFFF" style-hover="color:#FFFFFF;opacity:0.6">{{ t.services }}</a>
-      <a href="#contact" style="color:#FFFFFF" style-hover="color:#FFFFFF;opacity:0.6">{{ t.contact }}</a>
-      <a href="#top" onClick="{{ toggleTheme }}" aria-label="Switch theme" style="display:inline-flex;align-items:center;color:#FFFFFF;cursor:pointer" style-hover="opacity:0.6">
+      <a href="#work" style="color:var(--nav-ink)" style-hover="color:var(--nav-ink);opacity:0.6">{{ t.work }}</a>
+      <a href="#about" style="color:var(--nav-ink)" style-hover="color:var(--nav-ink);opacity:0.6">{{ t.about }}</a>
+      <a href="#services" style="color:var(--nav-ink)" style-hover="color:var(--nav-ink);opacity:0.6">{{ t.services }}</a>
+      <a href="#contact" style="color:var(--nav-ink)" style-hover="color:var(--nav-ink);opacity:0.6">{{ t.contact }}</a>
+      <a href="#top" onClick="{{ toggleTheme }}" aria-label="Switch theme" style="display:inline-flex;align-items:center;color:var(--nav-ink);cursor:pointer" style-hover="opacity:0.6">
         <sc-if value="{{ isDark }}" hint-placeholder-val="{{ false }}"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.4" fill="currentColor" stroke="none"></circle><path d="M12 2v2.4M12 19.6V22M2 12h2.4M19.6 12H22M5.1 5.1l1.7 1.7M17.2 17.2l1.7 1.7M18.9 5.1l-1.7 1.7M6.8 17.2l-1.7 1.7"></path></svg></sc-if>
         <sc-if value="{{ isLight }}" hint-placeholder-val="{{ true }}"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z" fill="currentColor"></path></svg></sc-if>
       </a>
-      <a href="#top" onClick="{{ setLang }}" aria-label="Switch language" style="display:inline-flex;align-items:center;gap:6px;color:#FFFFFF;cursor:pointer" style-hover="color:#FFFFFF;opacity:0.6">
+      <a href="#top" onClick="{{ setLang }}" aria-label="Switch language" style="display:inline-flex;align-items:center;gap:6px;color:var(--nav-ink);cursor:pointer" style-hover="color:var(--nav-ink);opacity:0.6">
         <span style="{{ langEnStyle }}">EN</span>
         <span style="opacity:0.35">/</span>
         <span style="{{ langNlStyle }}">NL</span>
       </a>
     </nav>
-    <button data-burger="" type="button" onClick="{{ toggleMenu }}" aria-label="Menu" style="display:none;align-items:center;gap:6px;pointer-events:auto;flex:0 0 auto;height:44px;padding:0 clamp(11px,1.05vw,14.5px) 0 0;border:0;background:transparent;color:{{ burgerColor }};font-family:inherit;font-size: var(--t-label);font-weight:600;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer">
+    <button data-burger="" type="button" onClick="{{ toggleMenu }}" aria-label="Menu" style="display: none; align-items: center; gap: 6px; pointer-events: auto; flex: 0 0 auto; height: 44px; padding: 0 clamp(11px,1.05vw,14.5px) 0 0; border: 0; background: transparent; color: {{ burgerColor }}; font-family: inherit; font-size: var(--t-label); font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; text-align: left; padding-right: 0px">
       <span style="position:relative;display:block;width:30px;height:30px;flex:0 0 auto">
         <span style="{{ burgerBarTop }}"></span>
         <span style="{{ burgerBarBottom }}"></span>
       </span>
-      <span style="display:inline-block;min-width:4.6em;text-align:left">{{ burgerLabel }}</span>
+      <span style="display: inline-block; text-align: left">{{ burgerLabel }}</span>
     </button>
   </header>
 
   <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
-    <div style="position:fixed;inset:0;z-index:50;display:flex;flex-direction:column;background:var(--ink);color:var(--on-dark)">
+    <div data-overlay-panel="" style="position:fixed;inset:0;z-index:50;display:flex;flex-direction:column;background:var(--ink);color:var(--on-dark)">
       <nav data-menu-nav="" style="display:flex;flex-direction:column;gap:clamp(10px,2.4vw,20px);padding:clamp(104px,22vw,168px) clamp(24px,5vw,72px) 0;font-size:clamp(34px,10vw,56px);line-height:1.02;font-weight:600;letter-spacing:-0.03em">
         <a href="#work" onClick="{{ navMenu }}" style="color:var(--on-dark)" style-hover="color:rgba(242,196,187,0.62)">{{ t.work }}</a>
         <a href="#about" onClick="{{ navMenu }}" style="color:var(--on-dark)" style-hover="color:rgba(242,196,187,0.62)">{{ t.about }}</a>
@@ -657,7 +715,7 @@
 
   <section id="top" style="padding: var(--sec-y-lg) var(--sec-x) 0; min-height: 60svh; display: flex; flex-direction: column; justify-content: flex-end">
 <h1 style="margin:0;font-size:clamp(38px,8.4vw,132px);line-height:0.95;font-weight:600;letter-spacing:-0.035em;text-wrap:balance;position:relative;z-index:0;isolation:isolate">
-      <span data-hero-in="" style="display: block; font-size: clamp(46px,7.6vw,91px);white-space:pre-line">{{ t.heroPre }}{{ t.heroMark }}{{ t.heroPost1 }}{{ t.heroSqueeze }}{{ t.heroPost3 }}</span>
+      <span data-hero-in="" style="display: block; font-size: clamp(58px,7.6vw,91px);white-space:pre-line">{{ t.heroPre }}{{ t.heroMark }}{{ t.heroPost1 }}{{ t.heroSqueeze }}{{ t.heroPost3 }}</span>
       
     </h1>
   </section><section id="work" style="padding: var(--sec-y-lg) var(--sec-x) clamp(40px,6vw,80px)">
@@ -866,22 +924,22 @@
           <sc-if value="{{ s.illo }}" hint-placeholder-val="{{ false }}">
             <sc-if value="{{ s.illoIsResearch }}" hint-placeholder-val="{{ false }}">
               <div data-illo-wrap="" style="position:relative;margin-bottom:8px">
-                <img loading="lazy" decoding="async" src="assets/illustrations/conversation.png" data-illo="" alt="Line drawing of two people in conversation at a table" style="position: relative; display: block; width: 100%; height: auto; padding-top: 12px">
+                <svg data-illo="" viewBox="0 0 1600 813" preserveAspectRatio="xMinYMax meet" role="img" aria-label="Line drawing of two people in conversation at a table" style="position: relative; display: block; width: 100%; height: auto; padding-top: 12px"><defs><clipPath id="dg-conversation-pen"><polygon points="972,424 996,430 958,514 934,508"></polygon></clipPath><clipPath id="dg-conversation-h1"><rect x="355" y="-60" width="295" height="292"></rect></clipPath><clipPath id="dg-conversation-h2"><rect x="1015" y="-60" width="340" height="297"></rect></clipPath></defs><image href="assets/illustrations/conversation.png" x="0" y="0" width="1600" height="813"></image><rect x="355" y="-60" width="295" height="292" fill="var(--bg)"></rect><rect x="1015" y="-60" width="340" height="297" fill="var(--bg)"></rect><polygon points="972,424 996,430 958,514 934,508" fill="var(--bg)"></polygon><g clip-path="url(#dg-conversation-h1)"><g data-illo-head="1" style="transform-origin:505px 232px;--amp:4.5"><image href="assets/illustrations/conversation.png" x="0" y="0" width="1600" height="813"></image></g></g><g clip-path="url(#dg-conversation-h2)"><g data-illo-head="2" style="transform-origin:1140px 237px;--amp:3.6"><image href="assets/illustrations/conversation.png" x="0" y="0" width="1600" height="813"></image></g></g><g clip-path="url(#dg-conversation-pen)"><g data-illo-head="7" style="transform-origin:945px 508px;--amp:3"><image href="assets/illustrations/conversation.png" x="0" y="0" width="1600" height="813"></image></g></g></svg>
               </div>
             </sc-if>
             <sc-if value="{{ s.illoIsStrategy }}" hint-placeholder-val="{{ false }}">
               <div data-illo-wrap="" style="position:relative;margin-bottom:8px">
-                <img loading="lazy" decoding="async" src="assets/illustrations/strategy.png" data-illo="" alt="Line drawing of three people discussing a strategy board" style="position:relative;display:block;width:100%;height:auto">
+                <svg data-illo="" viewBox="0 0 1464 816" preserveAspectRatio="xMinYMax meet" role="img" aria-label="Line drawing of three people discussing a strategy board" style="position:relative;display:block;width:100%;height:auto"><defs><clipPath id="dg-strategy-arm"><polygon points="819,410 822,392 840,355 846,292 864,250 896,228 918,222 950,222 956,246 930,266 916,300 918,350 905,380 861,438"></polygon></clipPath><clipPath id="dg-strategy-h1"><rect x="140" y="105" width="253" height="230"></rect></clipPath><clipPath id="dg-strategy-h2"><rect x="532" y="151" width="190" height="174"></rect></clipPath><clipPath id="dg-strategy-h3"><rect x="1085" y="88" width="198" height="207"></rect></clipPath></defs><image href="assets/illustrations/strategy.png" x="0" y="0" width="1464" height="816"></image><rect x="140" y="105" width="253" height="230" fill="var(--bg)"></rect><rect x="532" y="151" width="190" height="174" fill="var(--bg)"></rect><rect x="1085" y="88" width="198" height="207" fill="var(--bg)"></rect><polygon points="819,410 822,392 840,355 846,292 864,250 896,228 918,222 950,222 956,246 930,266 916,300 918,350 905,380 861,438" fill="var(--bg)"></polygon><g clip-path="url(#dg-strategy-h1)"><g data-illo-head="1" style="transform-origin:330px 335px;--amp:2.4"><image href="assets/illustrations/strategy.png" x="0" y="0" width="1464" height="816"></image></g></g><g clip-path="url(#dg-strategy-h2)"><g data-illo-head="2" style="transform-origin:625px 325px;--amp:4.5"><image href="assets/illustrations/strategy.png" x="0" y="0" width="1464" height="816"></image></g></g><g clip-path="url(#dg-strategy-h3)"><g data-illo-head="3" style="transform-origin:1170px 295px;--amp:4"><image href="assets/illustrations/strategy.png" x="0" y="0" width="1464" height="816"></image></g></g><g clip-path="url(#dg-strategy-arm)"><g data-illo-head="8" style="transform-origin:845px 400px;--amp:2.5"><image href="assets/illustrations/strategy.png" x="0" y="0" width="1464" height="816"></image></g></g></svg>
               </div>
             </sc-if>
             <sc-if value="{{ s.illoIsUxdesign }}" hint-placeholder-val="{{ false }}">
               <div data-illo-wrap="" style="position:relative;margin-bottom:8px">
-                <img loading="lazy" decoding="async" src="assets/illustrations/uxdesign.png" data-illo="" alt="Line drawing of three people arranging cards on a table" style="position: relative; display: block; width: 100%; height: auto; padding-top: 0px; padding-bottom: 0px; margin-top: 0px; margin-bottom: -4px">
+                <svg data-illo="" viewBox="0 0 1500 844" preserveAspectRatio="xMinYMax meet" role="img" aria-label="Line drawing of three people arranging cards on a table" style="position: relative; display: block; width: 100%; height: auto; padding-top: 0px; padding-bottom: 0px; margin-top: 0px; margin-bottom: -4px"><defs><clipPath id="dg-uxdesign-h1"><rect x="272" y="206" width="295" height="228"></rect></clipPath><clipPath id="dg-uxdesign-h2"><rect x="615" y="172" width="168" height="167"></rect></clipPath><clipPath id="dg-uxdesign-h3"><rect x="972" y="254" width="225" height="183"></rect></clipPath></defs><image href="assets/illustrations/uxdesign.png" x="0" y="0" width="1500" height="844"></image><rect x="272" y="206" width="295" height="228" fill="var(--bg)"></rect><rect x="615" y="172" width="168" height="167" fill="var(--bg)"></rect><rect x="972" y="254" width="225" height="183" fill="var(--bg)"></rect><g clip-path="url(#dg-uxdesign-h1)"><g data-illo-head="1" style="transform-origin:470px 434px;--amp:2.4"><image href="assets/illustrations/uxdesign.png" x="0" y="0" width="1500" height="844"></image></g></g><g clip-path="url(#dg-uxdesign-h2)"><g data-illo-head="2" style="transform-origin:700px 339px;--amp:4.5"><image href="assets/illustrations/uxdesign.png" x="0" y="0" width="1500" height="844"></image></g></g><g clip-path="url(#dg-uxdesign-h3)"><g data-illo-head="3" style="transform-origin:1065px 437px;--amp:2.6"><image href="assets/illustrations/uxdesign.png" x="0" y="0" width="1500" height="844"></image></g></g></svg>
               </div>
             </sc-if>
             <sc-if value="{{ s.illoIsWorkshops }}" hint-placeholder-val="{{ false }}">
               <div data-illo-wrap="" style="position: relative; margin-bottom: 8px">
-                <img loading="lazy" decoding="async" src="assets/illustrations/workshops.png" data-illo="" alt="Line drawing of a speaker presenting to an audience" style="position: relative; display: block; width: 100%; height: auto; padding-top: 0px; padding-bottom: 0px">
+                <svg data-illo="" viewBox="0 0 1454 815" preserveAspectRatio="xMinYMax meet" role="img" aria-label="Line drawing of a speaker presenting to an audience" style="position: relative; display: block; width: 100%; height: auto; padding-top: 0px; padding-bottom: 0px"><defs><clipPath id="dg-workshops-h1"><rect x="322" y="-40" width="152" height="208"></rect></clipPath><clipPath id="dg-workshops-h2"><rect x="136" y="412" width="196" height="240"></rect></clipPath><clipPath id="dg-workshops-h3"><rect x="492" y="404" width="156" height="176"></rect></clipPath><clipPath id="dg-workshops-h4"><rect x="822" y="428" width="176" height="164"></rect></clipPath><clipPath id="dg-workshops-h6"><polygon points="540,258 560,225 620,214 704,214 704,262 660,278 610,292 572,310"></polygon></clipPath><clipPath id="dg-workshops-h5"><rect x="1092" y="404" width="172" height="171"></rect></clipPath></defs><image href="assets/illustrations/workshops.png" x="0" y="0" width="1454" height="815"></image><rect x="322" y="-40" width="152" height="208" fill="var(--bg)"></rect><rect x="136" y="412" width="196" height="240" fill="var(--bg)"></rect><rect x="492" y="404" width="156" height="176" fill="var(--bg)"></rect><rect x="822" y="428" width="176" height="164" fill="var(--bg)"></rect><rect x="1092" y="404" width="172" height="171" fill="var(--bg)"></rect><polygon points="540,258 560,225 620,214 704,214 704,262 660,278 610,292 572,310" fill="var(--bg)"></polygon><g clip-path="url(#dg-workshops-h1)"><g data-illo-head="1" style="transform-origin:396px 168px;--amp:5"><image href="assets/illustrations/workshops.png" x="0" y="0" width="1454" height="815"></image></g></g><g clip-path="url(#dg-workshops-h2)"><g data-illo-head="2" style="transform-origin:242px 652px;--amp:2.4"><image href="assets/illustrations/workshops.png" x="0" y="0" width="1454" height="815"></image></g></g><g clip-path="url(#dg-workshops-h3)"><g data-illo-head="3" style="transform-origin:566px 580px;--amp:4.5"><image href="assets/illustrations/workshops.png" x="0" y="0" width="1454" height="815"></image></g></g><g clip-path="url(#dg-workshops-h4)"><g data-illo-head="4" style="transform-origin:906px 592px;--amp:4"><image href="assets/illustrations/workshops.png" x="0" y="0" width="1454" height="815"></image></g></g><g clip-path="url(#dg-workshops-h5)"><g data-illo-head="5" style="transform-origin:1176px 575px;--amp:4.5"><image href="assets/illustrations/workshops.png" x="0" y="0" width="1454" height="815"></image></g></g><g clip-path="url(#dg-workshops-h6)"><g data-illo-head="6" style="transform-origin:555px 283px;--amp:4"><image href="assets/illustrations/workshops.png" x="0" y="0" width="1454" height="815"></image></g></g></svg>
               </div>
             </sc-if>
           </sc-if>
@@ -955,7 +1013,11 @@ class Component extends DCLogic {
   closeGate = (e) => {
     if (e && e.preventDefault) e.preventDefault();
     this.lockScroll(false);
-    if (this.keyFromHash()) window.location.hash = 'work';
+    if (this.keyFromHash()) {
+      // Clearing the deep-link hash must not move the page: replaceState keeps scroll.
+      try { history.replaceState(null, '', location.pathname + location.search); }
+      catch (err) { window.location.hash = 'work'; }
+    }
     this.setState({ gate: null, gateErr: false, gateBusy: false });
   };
   submitGate = async (e) => {
@@ -1521,9 +1583,17 @@ class Component extends DCLogic {
       });
     });
     if (!this._io) { Array.from(pending).forEach(n => this.revealNode(n, 0)); return; }
+    // The first row of case cards always animates in on load, even when it
+    // still sits below the fold, so the grid is already alive on arrival.
+    const topKey = rows.size ? Math.min.apply(null, Array.from(rows.keys())) : null;
+    const eager = topKey === null ? [] : rows.get(topKey);
     // Hold everything until the preloader starts fading, so cards already in
     // the viewport rise in on load instead of settling behind the splash.
-    const arm = () => { pending.forEach(n => this._io.observe(n)); this.sweepReveal(); };
+    const arm = () => {
+      eager.forEach((n, i) => this.revealNode(n, 40 + i * 70));
+      pending.forEach(n => this._io.observe(n));
+      this.sweepReveal();
+    };
     if (this._bootDone) arm();
     else { const prev = this._armReveal; this._armReveal = () => { if (prev) prev(); arm(); }; }
     if (this._revealWired) return;
@@ -2584,7 +2654,15 @@ class Component extends DCLogic {
       b.style.left = '';
       b.style.right = '';
       b.style.overflow = '';
-      if (!skipRestore) window.scrollTo(0, this._scrollY || 0);
+      if (!skipRestore) {
+        // Smooth scrolling would animate the restore; snap instead so closing
+        // an overlay simply leaves the page where it was.
+        const h = document.documentElement;
+        const prev = h.style.scrollBehavior;
+        h.style.scrollBehavior = 'auto';
+        window.scrollTo(0, this._scrollY || 0);
+        requestAnimationFrame(() => { h.style.scrollBehavior = prev; });
+      }
     }
   };
   applyTheme = (theme) => {
@@ -2626,7 +2704,8 @@ class Component extends DCLogic {
     this.setState(s => {
       const next = s.theme === 'dark' ? 'light' : 'dark';
       this.applyTheme(next);
-      return { theme: next };
+      if (s.menuOpen) this.lockScroll(false);
+      return { theme: next, menuOpen: false };
     }, () => {
       this.repaintHeaders();
       requestAnimationFrame(this.repaintHeaders);
@@ -2664,14 +2743,63 @@ class Component extends DCLogic {
   startBoot() {
     if (this._bootStarted) return;
     this._bootStarted = true;
+    // The spinner is the header mark, so it takes its size from it.
+    const sizeSpinner = () => {
+      const r = this.el || document;
+      const s = r.querySelector('[data-preload-mark]');
+      const l = r.querySelector('[data-site-header] [data-mark]');
+      if (!s || !l) return;
+      const b = l.getBoundingClientRect();
+      if (!b.width) return;
+      s.style.width = b.width + 'px';
+      s.style.height = b.height + 'px';
+    };
+    sizeSpinner();
+    this._sizeSpinner = sizeSpinner;
+    window.addEventListener('resize', sizeSpinner);
     const finish = () => {
       const root = this.el || document;
       const pre = root.querySelector('[data-preloader]');
-      if (pre) pre.setAttribute('data-out', '');
+      // Ease the spin to a stop on the upright mark before the splash fades,
+      // so the spinner settles into the header logo instead of snapping.
+      const mk = pre && pre.querySelector('[data-preload-mark]');
+      const logo = root.querySelector('[data-site-header] [data-mark]');
+      if (mk) {
+        let ang = 0;
+        try {
+          const m = new DOMMatrixReadOnly(getComputedStyle(mk).transform);
+          ang = Math.atan2(m.b, m.a) * 180 / Math.PI;
+        } catch (e) {}
+        const target = ang + (360 - ((ang % 360) + 360) % 360) + 360;
+        mk.style.animation = 'none';
+        mk.style.transform = 'rotate(' + ang + 'deg)';
+        void mk.offsetWidth;
+        // Duration derived from the spin's own angular speed, with a curve that
+        // starts at exactly that speed and decelerates: no jump, no snap.
+        const dur = Math.max(900, Math.min(2400, Math.round((target - ang) / (360 / 1100))));
+        mk.style.transition = 'transform ' + dur + 'ms cubic-bezier(.33,.33,.45,1)';
+        mk.style.transform = 'rotate(' + target + 'deg)';
+        this._settleMs = dur;
+      }
+      const settle = mk ? (this._settleMs || 1200) : 0;
       this._bootDone = true;
       if (this._armReveal) { const a = this._armReveal; this._armReveal = null; a(); }
       if (this._armSweep) { const s = this._armSweep; this._armSweep = null; s(); }
-      this._bootT = setTimeout(() => this.setState({ booting: false }), 480);
+      // Once upright, the mark fades out while the header logo fades in.
+      this._bootT = setTimeout(() => {
+        if (this._sizeSpinner) { window.removeEventListener('resize', this._sizeSpinner); this._sizeSpinner = null; }
+        const link = logo && logo.closest('[data-mark-link]');
+        if (link) {
+          link.style.visibility = 'visible';
+          link.style.opacity = '0';
+          link.style.transition = 'opacity 520ms ease-out';
+          requestAnimationFrame(() => { link.style.opacity = '1'; });
+        }
+        // The mark holds 200ms past the logo's arrival, then fades.
+        if (mk) setTimeout(() => mk.setAttribute('data-fading', ''), link ? 720 : 0);
+        if (pre) pre.setAttribute('data-out', '');
+        this._bootT = setTimeout(() => this.setState({ booting: false }), 1300);
+      }, settle);
     };
     const t0 = performance.now();
     const go = () => {
@@ -3266,8 +3394,14 @@ class Component extends DCLogic {
       nav.style.display = many && track.scrollWidth - track.clientWidth > 2 ? 'flex' : 'none';
     });
   }
+  syncOverlayGround() {
+    const on = !!(this.state.menuOpen || this.state.gate);
+    if (on) document.documentElement.setAttribute('data-overlay', 'ink');
+    else document.documentElement.removeAttribute('data-overlay');
+  }
   componentDidUpdate() {
     if (super.componentDidUpdate) super.componentDidUpdate();
+    this.syncOverlayGround();
     this.setupReveal();
     this.runFlip();
     this.runFlipCases();
@@ -3315,7 +3449,10 @@ class Component extends DCLogic {
   }
   setLang = (e) => {
     e.preventDefault();
-    this.setState(s => ({ lang: s.lang === 'nl' ? 'en' : 'nl' }), () => {
+    this.setState(s => {
+      if (s.menuOpen) this.lockScroll(false);
+      return { lang: s.lang === 'nl' ? 'en' : 'nl', menuOpen: false };
+    }, () => {
       try { this.seoInit(); this.seoSync(this.keyFromHash()); } catch (err) {}
     });
   };
@@ -3358,7 +3495,11 @@ class Component extends DCLogic {
   }
   renderVals() {
     const yearOf = (c) => { const m = String(c.year || '').match(/\d{4}/g); return m ? Math.max.apply(null, m.map(Number)) : 0; };
-    const all = this.caseData().slice().sort((a, b) => (this.isLocked(a.key) ? 1 : 0) - (this.isLocked(b.key) ? 1 : 0) || yearOf(b) - yearOf(a));
+    // Two cases are pinned to the front of the grid; the rest fall back to
+    // unlocked-first, then newest year.
+    const pin = { sidekick: 0, hlp: 1 };
+    const rank = (c) => (pin[c.key] === undefined ? 2 : pin[c.key]);
+    const all = this.caseData().slice().sort((a, b) => rank(a) - rank(b) || (this.isLocked(a.key) ? 1 : 0) - (this.isLocked(b.key) ? 1 : 0) || yearOf(b) - yearOf(a));
     const idx = all.findIndex(c => c.key === this.state.open);
     const active = idx > -1 ? all[idx] : null;
     const next = active ? all[(idx + 1) % all.length] : null;
@@ -3427,7 +3568,7 @@ class Component extends DCLogic {
       navMenu: this.navMenu,
       toggleMenu: this.toggleMenu,
       burgerLabel: this.state.menuOpen ? tr('Close') : tr('Menu'),
-      burgerColor: this.state.menuOpen ? '#F2C4BB' : '#FFFFFF',
+      burgerColor: this.state.menuOpen ? '#F2C4BB' : 'var(--nav-ink)',
       headerBlend: this.state.menuOpen ? 'normal' : 'difference',
       booting: this.state.booting,
       bootAttr: this.state.booting ? '' : null,
