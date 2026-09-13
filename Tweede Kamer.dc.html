@@ -26,8 +26,9 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Dirk Gooren · UX design lead for enterprise and government">
 <meta name="twitter:description" content="Enterprise UX, design strategy and design systems for healthcare, government, housing and finance.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..100,300..700;1,62..100,300..700&amp;family=Archivo+Narrow:wght@400..700&amp;display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..100,300..700&amp;family=Archivo+Narrow:wght@400..700&amp;display=swap">
 <script src="./image-slot.js"></script>
 <style>
   html { -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
@@ -997,14 +998,14 @@ class Component extends DCLogic {
   HOME_PAGE = 'index.html';
   casePages = {
       "radboud": "Radboud umc.dc.html",
-      "css": "ZIG - Klantverwachtingssysteem.dc.html",
-      "cbs": "Centraal Bureau voor de Statistiek.dc.html",
-      "hupo": "ZIG - Huurdersportaal.dc.html",
-      "hlp-strategie": "Belastingdienst - Van applicatielandschap naar visie.dc.html",
-      "hlp": "Belastingdienst - De HLP-werkomgeving.dc.html",
+      "css": "ZIG KVS.dc.html",
+      "cbs": "CBS.dc.html",
+      "hupo": "ZIG HUPO.dc.html",
+      "hlp-strategie": "Belastingdienst HLP 2030.dc.html",
+      "hlp": "Belastingdienst HLP.dc.html",
       "planetyes": "Planet Yes.dc.html",
       "bmg": "ING Bank Mendes Gans.dc.html",
-      "sidekick": "Ministry of the Interior and Kingdom Relations.dc.html",
+      "sidekick": "ai.overheid.dc.html",
       "tweedekamer": "Tweede Kamer.dc.html",
       "design-systems": "Design systems.dc.html"
   };
@@ -2127,7 +2128,7 @@ class Component extends DCLogic {
         role: 'Lead UX designer and researcher', team: 'BMG treasury operations, product owners and the platform development team', outcome: 'Routine transfers were completed noticeably faster in testing, private side-checks disappeared, and the pattern became the reference for other high-stakes flows.',
         blurb: 'Redesigning the transfer application treasurers use to move millions \u2014 where one mistyped field is a real problem.',
         deck: 'Redesigning the transfer application treasurers move millions with.',
-        typeCover: 'Transfers, without the second guess', coverSlot: 'dg-bmg-cover',
+        coverSlot: 'dg-bmg-cover',
         sections: [
           { title: 'The challenge', slot: 'dg-bmg-1', image: '', paras: [
             'Corporate treasurers at Bank Mendes Gans move large amounts between accounts, entities and currencies every day. The application they did it in had grown feature by feature: fields in the order the system needed them rather than the order a treasurer thinks in, validation that only spoke up at the end, and no clear moment where you could see what you were about to do.',
@@ -2886,7 +2887,7 @@ class Component extends DCLogic {
         void mk.offsetWidth;
         // Duration derived from the spin's own angular speed, with a curve that
         // starts at exactly that speed and decelerates: no jump, no snap.
-        const dur = Math.max(900, Math.min(2400, Math.round((target - ang) / (360 / 1100))));
+        const dur = Math.max(700, Math.min(1300, Math.round((target - ang) / (360 / 1100))));
         mk.style.transition = 'transform ' + dur + 'ms cubic-bezier(.33,.33,.45,1)';
         mk.style.transform = 'rotate(' + target + 'deg)';
         this._settleMs = dur;
@@ -2915,17 +2916,27 @@ class Component extends DCLogic {
           this._revHeld = [];
           held.forEach((n, i) => this.revealNode(n, i * 70));
           this.sweepReveal();
-        }), 1300);
+        }), 560);
       }, settle);
     };
     const t0 = performance.now();
     const go = () => {
-      const wait = Math.max(0, 700 - (performance.now() - t0));
+      if (this._bootGone) return;
+      this._bootGone = true;
+      const wait = Math.max(0, 360 - (performance.now() - t0));
       setTimeout(finish, wait);
     };
-    if (document.readyState === 'complete') go();
-    else window.addEventListener('load', go, { once: true });
-    this._bootFallback = setTimeout(finish, 4000);
+    // The splash waits for fonts and first paint, not for every image on the
+    // page: heavy covers stream in behind their own skeletons instead of
+    // holding the whole site back.
+    const ready = [];
+    if (document.fonts && document.fonts.ready) ready.push(document.fonts.ready);
+    ready.push(new Promise(res => {
+      if (document.readyState !== 'loading') res();
+      else document.addEventListener('DOMContentLoaded', res, { once: true });
+    }));
+    Promise.all(ready).then(() => requestAnimationFrame(() => requestAnimationFrame(go)));
+    this._bootFallback = setTimeout(go, 1800);
   }
   wireTips() {
     if (this._tipsWired) return;
@@ -3584,7 +3595,7 @@ class Component extends DCLogic {
       coverWidth: (this.ratios[c.src || c.cover] || 2) >= 1.2 ? '100%' : 'calc(74svh * ' + (this.ratios[c.src || c.cover] || 2) + ')',
       coverAlt: this.altFor(c.src || c.cover, tr(c.title) + ' \u2014 case cover'), cardAlt: this.altFor(c.src, tr(c.title) + ' \u2014 ' + tr(c.blurb)), plainImg: !c.orbs, coverPlain: !!(c.src || c.cover) && !c.fan && !c.orbs,
       quote: c.quote ? tr(c.quote) : c.quote, cite: c.cite ? tr(c.cite) : c.cite,
-      hasCardCover: !!(c.src && c.src.indexOf('assets/') === 0 && c.key !== 'design-systems'),
+      hasCardCover: !!(c.src && c.src.indexOf('assets/') === 0 && c.key !== 'design-systems' && c.key !== 'planetyes'),
       cardCoverSrc: c.src && c.src.indexOf('assets/') === 0 ? c.src : '',
       sections: c.sections.map((sec, si) => Object.assign({}, sec, {
         isIntro: si === 0,
