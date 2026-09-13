@@ -613,7 +613,7 @@
                   <svg data-car-arrow="prev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"></path><path d="M11 6l-6 6"></path><path d="M11 18l-6 -6"></path></svg>
                 </button>
                 <div data-carousel-dots="" style="position:relative;display:flex;align-items:center;gap:10px;margin:0 14px">
-                  <div data-cdot-marker="" style="position:absolute;top:50%;left:0;width:12px;height:12px;margin-top:-6px;border-radius:50%;background:var(--fg);pointer-events:none;opacity:0;transform:translateX(0) scale(1);transition:transform 620ms cubic-bezier(.34,1.42,.4,1),opacity 240ms ease-out"></div>
+                  <div data-cdot-marker="" style="position:absolute;top:50%;left:0;width:12px;height:12px;margin-top:-6px;border-radius:50%;background:var(--fg);pointer-events:none;opacity:0;transform:translateX(0) scale(1);transition:transform 1100ms cubic-bezier(.34,1.42,.4,1),opacity 320ms ease-out"></div>
                   <sc-for list="{{ sec.gallery }}" as="g" hint-placeholder-count="0">
                     <button type="button" data-cdot="" data-idx="{{ $index }}" onClick="{{ carDot }}" aria-label="Go to image" style="position:relative;width:12px;height:12px;padding:0;border:2px solid currentColor;border-radius:50%;background:transparent;color:var(--fg);cursor:pointer;transition:color var(--t-fast) ease-out"></button>
                   </sc-for>
@@ -636,7 +636,7 @@
         </section>
       </sc-if>
 
-      <a href="#top" onClick="{{ openCase }}" data-next-link="" data-case="{{ openCaseData.nextKey }}" data-light-surface="" style="display:block;margin:clamp(64px,10vw,140px) var(--sec-x) clamp(24px,5vw,72px);padding:clamp(48px,8vw,110px) clamp(24px,5vw,72px);background:var(--highlight);color:#202133;cursor:pointer;text-decoration:none;transition:color var(--t-fast) ease-out" style-hover="color:#5C5D70">
+      <a href="{{ openCaseData.nextHref }}" onClick="{{ openCase }}" data-next-link="" data-case="{{ openCaseData.nextKey }}" data-light-surface="" style="display:block;margin:clamp(64px,10vw,140px) var(--sec-x) clamp(24px,5vw,72px);padding:clamp(48px,8vw,110px) clamp(24px,5vw,72px);background:var(--highlight);color:#202133;cursor:pointer;text-decoration:none;transition:color var(--t-fast) ease-out" style-hover="color:#5C5D70">
         <p style="margin:0 0 clamp(18px,2.5vw,30px);font-size: var(--t-label);font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:inherit">{{ t.nextProject }}</p>
         <span style="display:flex;align-items:center;gap:0.3em;flex-wrap:wrap;max-width:24ch;font-size: var(--t-h1);line-height:1.05;font-weight:600;letter-spacing:-0.03em;color:inherit"><span>{{ openCaseData.nextDeck }}</span><span data-next-arrow-wrap=""><svg data-next-arrow="" width="0.8em" height="0.8em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l14 0"></path><path d="M13 18l6 -6"></path><path d="M13 6l6 6"></path></svg></span></span>
       </a>
@@ -726,10 +726,7 @@
       
     </h1>
   </section><section id="work" style="padding: var(--sec-y-lg) var(--sec-x) clamp(40px,6vw,80px)">
-    <div style="display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 16px; padding-bottom: 0px; border-bottom: 1px solid var(--hair); border-style: none">
-      
-      
-    </div>
+    
 
     <div>
         <p data-card-eyebrow="" style="margin:0 0 clamp(14px,2vw,22px);font-size: var(--t-label);font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--fg)">{{ t.featured }}</p>
@@ -740,7 +737,7 @@
         </div>
       </div><div data-case-grid="" style="display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,420px),1fr)); gap: clamp(56px,7vw,50px) clamp(28px,4vw,28px); margin-top: clamp(32px,5vw,72px)">
       <sc-for list="{{ cases }}" as="c" hint-placeholder-count="5">
-        <a href="#top" onClick="{{ openCase }}" data-case="{{ c.key }}" data-case-card="" data-reveal="" style="display:block;cursor:pointer">
+        <a href="{{ c.href }}" onClick="{{ openCase }}" data-case="{{ c.key }}" data-case-card="" data-reveal="" style="display:block;cursor:pointer">
           <sc-if value="{{ c.src }}" hint-placeholder-val="{{ true }}">
             <div data-card-img="" data-skel-host="" style="position:relative;aspect-ratio:4/3;overflow:hidden;background:var(--imgbg)">
               <sc-if value="{{ c.plainImg }}" hint-placeholder-val="{{ true }}">
@@ -980,7 +977,7 @@
 </div>
 
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;preview&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Responsive&quot;,&quot;Mobile&quot;,&quot;Tablet&quot;,&quot;Desktop&quot;,&quot;4K&quot;],&quot;default&quot;:&quot;Responsive&quot;,&quot;tsType&quot;:&quot;'Responsive' | 'Mobile' | 'Tablet' | 'Desktop' | '4K'&quot;,&quot;section&quot;:&quot;Preview&quot;}}">
+<script type="text/x-dc" data-dc-script data-props="{&quot;preview&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Responsive&quot;,&quot;Mobile&quot;,&quot;Tablet&quot;,&quot;Desktop&quot;,&quot;4K&quot;],&quot;default&quot;:&quot;Responsive&quot;,&quot;tsType&quot;:&quot;'Responsive' | 'Mobile' | 'Tablet' | 'Desktop' | '4K'&quot;,&quot;section&quot;:&quot;Preview&quot;},&quot;loggedIn&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Preview&quot;}}">
 class Component extends DCLogic {
   state = { open: null, lang: 'en', menuOpen: false, theme: 'light', industry: 'All', caseTag: 'All', booting: true, gate: null, gateErr: false, gateBusy: false, unlocked: [] };
   gateHash = 'eb8ff7e25a397ec86514ea6a5aade07badf932f25b5588018add22c6eabef39a';
@@ -992,11 +989,59 @@ class Component extends DCLogic {
     tweedekamer: this.gateHash
   };
   gateSalt = 'dg-sidekick\u00b72026';
-  isLocked = (key) => !!this.lockedCases[key] && (this._unlocked || []).indexOf(key) < 0;
-  // Unlocks live in memory only: reloading the page locks the case again.
+  // Every case study also exists as its own page. casePage is set (and only
+  // set) in those generated files; on the home page it stays null.
+  casePage = null;
+  gatePage = false;
+  LOGIN_PAGE = 'Login.dc.html';
+  HOME_PAGE = 'index.html';
+  casePages = {
+      "radboud": "Radboud umc.dc.html",
+      "css": "ZIG - Klantverwachtingssysteem.dc.html",
+      "cbs": "Centraal Bureau voor de Statistiek.dc.html",
+      "hupo": "ZIG - Huurdersportaal.dc.html",
+      "hlp-strategie": "Belastingdienst - Van applicatielandschap naar visie.dc.html",
+      "hlp": "Belastingdienst - De HLP-werkomgeving.dc.html",
+      "planetyes": "Planet Yes.dc.html",
+      "bmg": "ING Bank Mendes Gans.dc.html",
+      "sidekick": "Ministry of the Interior and Kingdom Relations.dc.html",
+      "tweedekamer": "Tweede Kamer.dc.html",
+      "design-systems": "Design systems.dc.html"
+  };
+  pageFor = (key) => this.casePages[key] || (this.HOME_PAGE + '#case/' + key);
+  // Locked cases route through the login page, which sends them on once the
+  // password checks out.
+  caseHref = (key) => (this.isLocked(key) ? this.LOGIN_PAGE + '#case/' + key : this.pageFor(key));
+  homeHref = (hash) => this.HOME_PAGE + (hash || '');
+  isLocked = (key) => !this.props.loggedIn && !!this.lockedCases[key] && (this._unlocked || []).indexOf(key) < 0;
+  // Unlocks last for the browser session: the login page has to hand the
+  // unlock to the case page it forwards to. Closing the tab locks up again.
   loadUnlocked = () => {
     this._unlocked = [];
     try { localStorage.removeItem('dg-case-unlocked'); } catch (e) {}
+    try {
+      const raw = sessionStorage.getItem('dg-case-unlocked');
+      const arr = raw ? JSON.parse(raw) : null;
+      if (Array.isArray(arr)) this._unlocked = arr.filter(k => !!this.lockedCases[k]);
+    } catch (e) {}
+  };
+  saveUnlocked = (list) => {
+    try { sessionStorage.setItem('dg-case-unlocked', JSON.stringify(list)); } catch (e) {}
+  };
+  // After a successful unlock: on the login page, go to the case's own page.
+  afterUnlock = (key, list) => {
+    this._unlocked = list;
+    this.saveUnlocked(list);
+    this.lockScroll(false);
+    if (this.gatePage) {
+      window.location.href = this.pageFor(key);
+      return;
+    }
+    this.setState({ unlocked: list, gate: null, gateErr: false, gateBusy: false }, () => {
+      this._navDepth = (this._navDepth || 0) + 1;
+      window.location.hash = 'case/' + key;
+      this.syncFromHash();
+    });
   };
   gateDigest = async (value) => {
     const data = new TextEncoder().encode(this.gateSalt + ':' + String(value).trim().toLowerCase());
@@ -1007,19 +1052,13 @@ class Component extends DCLogic {
   bypassGate = () => {
     const key = this.state.gate;
     if (!key) return;
-    const next = Object.keys(this.lockedCases);
-    this._unlocked = next;
-    this.lockScroll(false);
-    this.setState({ unlocked: next, gate: null, gateErr: false, gateBusy: false }, () => {
-      this._navDepth = (this._navDepth || 0) + 1;
-      window.location.hash = 'case/' + key;
-      this.syncFromHash();
-    });
+    this.afterUnlock(key, Object.keys(this.lockedCases));
   };
   openGate = (key) => { this.lockScroll(true); this.setState({ gate: key, gateErr: false }); };
   closeGate = (e) => {
     if (e && e.preventDefault) e.preventDefault();
     this.lockScroll(false);
+    if (this.gatePage) { window.location.href = this.homeHref('#work'); return; }
     if (this.keyFromHash()) {
       // Clearing the deep-link hash must not move the page: replaceState keeps scroll.
       try { history.replaceState(null, '', location.pathname + location.search); }
@@ -1041,14 +1080,7 @@ class Component extends DCLogic {
     await new Promise(r => setTimeout(r, 320));
     if (hex && hex === this.lockedCases[key]) {
       // One password covers every locked case: unlock them all at once.
-      const next = Object.keys(this.lockedCases).filter(k => this.lockedCases[k] === this.lockedCases[key]);
-      this._unlocked = next;
-      this.lockScroll(false);
-      this.setState({ unlocked: next, gate: null, gateErr: false, gateBusy: false }, () => {
-        this._navDepth = (this._navDepth || 0) + 1;
-        window.location.hash = 'case/' + key;
-        this.syncFromHash();
-      });
+      this.afterUnlock(key, Object.keys(this.lockedCases).filter(k => this.lockedCases[k] === this.lockedCases[key]));
       return;
     }
     if (input) { input.value = ''; input.focus(); }
@@ -1509,8 +1541,29 @@ class Component extends DCLogic {
   componentDidMount() {
     this.loadUnlocked();
     try { this.seoInit(); this.seoSync(this.keyFromHash()); } catch (err) {}
-    this._baseTitle = document.title || 'Dirk Gooren · UX design lead';
+    this._baseTitle = this.casePage ? 'Dirk Gooren' : (document.title || 'Dirk Gooren · UX design lead');
     if (!document.title) document.title = this._baseTitle;
+    // On a case's own page the host can restore the file's <head> title after
+    // mount, so stamp the case title again once things have settled.
+    if (this.casePage) {
+      const want = () => {
+        const c = this.caseData().find(x => x.key === this.casePage);
+        return c ? (c.client || c.title) + ' · ' + (this._baseTitle || 'Dirk Gooren') : null;
+      };
+      const stamp = () => { const w = want(); if (w && document.title !== w) document.title = w; };
+      stamp();
+      // The host can restore the file's own <head> title long after mount, so
+      // watch the node instead of racing it with timeouts.
+      const t = document.querySelector('title');
+      if (t && 'MutationObserver' in window) {
+        this._titleMo = new MutationObserver(stamp);
+        this._titleMo.observe(t, { childList: true, characterData: true, subtree: true });
+      }
+      if (document.head && 'MutationObserver' in window) {
+        this._headMo = new MutationObserver(stamp);
+        this._headMo.observe(document.head, { childList: true });
+      }
+    }
     this._onHash = () => this.syncFromHash();
     window.addEventListener('hashchange', this._onHash);
     this.syncFromHash();
@@ -1587,22 +1640,18 @@ class Component extends DCLogic {
         n.style.transform = 'translate3d(0,' + (dist * 2) + 'px,0)';
         void n.offsetWidth;
         n.style.transition = 'opacity 780ms cubic-bezier(.22,1,.36,1), transform 780ms cubic-bezier(.22,1,.36,1)';
-        n.dataset.revealDelay = String(40 + i * 70);
+        n.dataset.revealDelay = String(i * 70);
       });
     });
     if (!this._io) { Array.from(pending).forEach(n => this.revealNode(n, 0)); return; }
-    // The first row of case cards always plays its rise: on load when it is
-    // already in the viewport, otherwise the observer catches it on scroll, so
-    // the animation is never spent off-screen.
+    // The first row of case cards always plays its rise on load, in view or
+    // not, so the grid never starts with a row that simply exists.
     const topKey = rows.size ? Math.min.apply(null, Array.from(rows.keys())) : null;
     const eager = topKey === null ? [] : rows.get(topKey);
     // Hold everything until the preloader starts fading, so cards already in
     // the viewport rise in on load instead of settling behind the splash.
     const arm = () => {
-      const first = eager[0];
-      if (first && first.getBoundingClientRect().top < window.innerHeight * 0.7) {
-        eager.forEach((n, i) => this.revealNode(n, 40 + i * 70));
-      }
+      eager.forEach((n, i) => this.revealNode(n, i * 70));
       pending.forEach(n => this._io.observe(n));
       this.sweepReveal();
     };
@@ -1637,10 +1686,35 @@ class Component extends DCLogic {
   }
   revealNode(n, delay) {
     if (!this._revPending || !this._revPending.has(n)) return;
+    // Cards in the first row would otherwise spend their rise underneath the
+    // splash: hold them (still pending) until the preloader is gone.
+    if (this.state.booting && n.hasAttribute('data-case-card')) {
+      if (!this._revHeld) this._revHeld = [];
+      if (this._revHeld.indexOf(n) < 0) this._revHeld.push(n);
+      return;
+    }
     this._revPending.delete(n);
     this._revealed.add(n);
     const own = Number(n.dataset.revealDelay || 0);
-    n.style.transitionDelay = (own || delay || 0) + 'ms';
+    const wait = own || delay || 0;
+    // Case cards rise via the animation API rather than a transition: when the
+    // hidden start state and the reveal land in one style batch a transition
+    // gets skipped and the card only fades.
+    if (n.hasAttribute('data-case-card') && n.animate) {
+      n.style.transition = 'none';
+      n.style.opacity = '1';
+      n.style.transform = 'none';
+      try {
+        n.animate([
+          { opacity: 0, transform: 'translate3d(0,72px,0)' },
+          { opacity: 1, transform: 'none' }
+        ], { duration: 900, delay: wait, easing: 'cubic-bezier(.22,1,.36,1)', fill: 'backwards' });
+      } catch (e) {}
+      n.style.willChange = '';
+      if (this._io) this._io.unobserve(n);
+      return;
+    }
+    n.style.transitionDelay = wait + 'ms';
     n.style.opacity = '1';
     n.style.transform = 'translate3d(0,0,0)';
     n.addEventListener('transitionend', () => { n.style.willChange = ''; n.style.transform = ''; }, { once: true });
@@ -1658,6 +1732,8 @@ class Component extends DCLogic {
     if (!this._revPending.size && this._timer) { clearInterval(this._timer); this._timer = null; }
   }
   componentWillUnmount() {
+    if (this._titleMo) { this._titleMo.disconnect(); this._titleMo = null; }
+    if (this._headMo) { this._headMo.disconnect(); this._headMo = null; }
     if (this._onHash) window.removeEventListener('hashchange', this._onHash);
     if (this._onGaze) window.removeEventListener('mousemove', this._onGaze);
     if (this._gazeIdle) clearTimeout(this._gazeIdle);
@@ -1674,6 +1750,7 @@ class Component extends DCLogic {
     this.lockScroll(false);
   }
   keyFromHash = () => {
+    if (this.casePage) return this.casePage;
     const h = (window.location.hash || '');
     const m = h.match(/^#case\/([a-z0-9-]+)$/i);
     if (!m) return null;
@@ -1682,7 +1759,16 @@ class Component extends DCLogic {
   };
   syncFromHash = () => {
     const key = this.keyFromHash();
+    if (this.gatePage) {
+      // No target in the URL: gate on the first protected case.
+      const want = key || Object.keys(this.lockedCases)[0];
+      if (want && !this.isLocked(want)) { window.location.replace(this.pageFor(want)); return; }
+      if (want && this.state.gate !== want) this.openGate(want);
+      return;
+    }
     if (key && this.isLocked(key)) {
+      // On a case's own page the gate lives at home, so send them there.
+      if (this.casePage) { window.location.replace(this.LOGIN_PAGE + '#case/' + key); return; }
       if (this.state.open) this.setState({ open: null });
       this.openGate(key);
       return;
@@ -1739,7 +1825,7 @@ class Component extends DCLogic {
       name: c.title,
       headline: c.deck,
       abstract: c.blurb,
-      url: base + '#case/' + c.key,
+      url: abs(this.pageFor(c.key)),
       dateCreated: String(c.year || '').replace(/[^0-9\u2013-]/g, ''),
       about: c.client,
       creator: { '@id': base + '#dirk-gooren' },
@@ -1778,7 +1864,7 @@ class Component extends DCLogic {
     const base = window.location.href.split('#')[0];
     document.documentElement.lang = this.state.lang === 'nl' ? 'nl' : 'en';
     const c = key ? this.caseData().find(x => x.key === key) : null;
-    const title = c ? (c.title + ' · Dirk Gooren') : 'Dirk Gooren · UX design lead for enterprise and government';
+    const title = c ? ((c.client || c.title) + ' · Dirk Gooren') : 'Dirk Gooren · UX design lead for enterprise and government';
     const desc = c
       ? (c.blurb || c.deck) + ' Case study by Dirk Gooren' + (c.client ? ' for ' + c.client : '') + '.'
       : 'Dirk Gooren is a UX design lead specialising in enterprise UX: business-critical tools for people at work. Case studies from healthcare, national government, housing and finance.';
@@ -1788,18 +1874,23 @@ class Component extends DCLogic {
     this.setMeta('twitter:title', title);
     this.setMeta('twitter:description', desc);
     this.setProp('og:type', c ? 'article' : 'profile');
-    this.setLink('canonical', c ? base + '#case/' + c.key : base);
-    this.setProp('og:url', c ? base + '#case/' + c.key : base);
+    const cu = c ? (this.casePage ? base : new URL(this.pageFor(c.key), base).href) : base;
+    this.setLink('canonical', cu);
+    this.setProp('og:url', cu);
   };
   setDocTitle = (key) => {
+    if (this.casePage) { key = this.casePage; if (this._baseTitle == null) this._baseTitle = 'Dirk Gooren'; }
     if (this._baseTitle == null) this._baseTitle = document.title;
     const base = this._baseTitle || 'Dirk Gooren · UX design lead';
     this._baseTitle = base;
     const c = key ? this.caseData().find(x => x.key === key) : null;
-    document.title = c ? (c.title + ' · ' + base) : base;
+    document.title = c ? ((c.client || c.title) + ' · ' + base) : base;
     try { this.seoSync(key); } catch (err) {}
   };
   openCase = (e) => {
+    // Cards link to the case's own page: let the browser navigate.
+    const href = e.currentTarget.getAttribute('href') || '';
+    if (href && href.charAt(0) !== '#') return;
     e.preventDefault();
     const key = e.currentTarget.getAttribute('data-case');
     if (!key) return;
@@ -1810,6 +1901,7 @@ class Component extends DCLogic {
   };
   closeCase = (e) => {
     e.preventDefault();
+    if (this.casePage) { window.location.href = this.homeHref('#work'); return; }
     if (this._navDepth > 0) { this._navDepth -= 1; window.history.back(); return; }
     window.location.hash = 'work';
     this.setState({ open: null });
@@ -2816,7 +2908,14 @@ class Component extends DCLogic {
         // The mark holds 200ms past the logo's arrival, then fades.
         if (mk) setTimeout(() => mk.setAttribute('data-fading', ''), link ? 720 : 0);
         if (pre) pre.setAttribute('data-out', '');
-        this._bootT = setTimeout(() => this.setState({ booting: false }), 1300);
+        this._bootT = setTimeout(() => this.setState({ booting: false }, () => {
+          // Drain the cards whose rise was held back by the splash, in row
+          // order, whether or not they are in view yet.
+          const held = this._revHeld || [];
+          this._revHeld = [];
+          held.forEach((n, i) => this.revealNode(n, i * 70));
+          this.sweepReveal();
+        }), 1300);
       }, settle);
     };
     const t0 = performance.now();
@@ -3320,7 +3419,7 @@ class Component extends DCLogic {
             { width: wMid + 'px', transform: 'translateX(' + x(prev + (to - prev) * 0.92, wMid) + 'px)', offset: 0.68 },
             { width: (size * 0.9) + 'px', transform: 'translateX(' + (to + size * 0.05) + 'px)', offset: 0.86 },
             { width: size + 'px', transform: 'translateX(' + to + 'px)', offset: 1 }
-          ], { duration: 760, easing: 'cubic-bezier(.22,1,.36,1)', fill: 'none' });
+          ], { duration: 1100, easing: 'cubic-bezier(.22,1,.36,1)', fill: 'none' });
         } catch (e) {}
       }
       marker.style.transform = 'translateX(' + to + 'px)';
@@ -3514,10 +3613,12 @@ class Component extends DCLogic {
   renderVals() {
     const yearOf = (c) => { const m = String(c.year || '').match(/\d{4}/g); return m ? Math.max.apply(null, m.map(Number)) : 0; };
     // Two cases are pinned to the front of the grid; the rest fall back to
-    // unlocked-first, then newest year.
+    // gated-last, then newest year. The lock test ignores unlock state so the
+    // order stays identical logged in or out.
     const pin = { sidekick: 0, hlp: 1 };
     const rank = (c) => (pin[c.key] === undefined ? 2 : pin[c.key]);
-    const all = this.caseData().slice().sort((a, b) => rank(a) - rank(b) || (this.isLocked(a.key) ? 1 : 0) - (this.isLocked(b.key) ? 1 : 0) || yearOf(b) - yearOf(a));
+    const gated = (c) => (this.lockedCases[c.key] ? 1 : 0);
+    const all = this.caseData().slice().sort((a, b) => rank(a) - rank(b) || gated(a) - gated(b) || yearOf(b) - yearOf(a));
     const idx = all.findIndex(c => c.key === this.state.open);
     const active = idx > -1 ? all[idx] : null;
     const next = active ? all[(idx + 1) % all.length] : null;
@@ -3561,9 +3662,14 @@ class Component extends DCLogic {
         if (wrapEl) this.syncDots(wrapEl);
         this.tweenScroll(track, offs[next]);
       },
-      reloadSite: (e) => { e.preventDefault(); window.location.reload(); },
+      reloadSite: (e) => {
+        e.preventDefault();
+        if (this.casePage) { window.location.href = this.homeHref(); return; }
+        window.location.reload();
+      },
       goHome: (e) => {
         e.preventDefault();
+        if (this.casePage || this.gatePage) { window.location.href = this.homeHref(); return; }
         this.lockScroll(false);
         this.setState({ gate: null, gateErr: false, gateBusy: false, open: null }, () => {
           window.location.hash = 'top';
@@ -3594,7 +3700,7 @@ class Component extends DCLogic {
       previewLabel: this.previewSpec().label,
       burgerBarTop: this.burgerBar('top'),
       burgerBarBottom: this.burgerBar('bottom'),
-      openCaseData: active ? Object.assign({}, this.decorate(active), { nextKey: next.key, nextDeck: tr(next.deck) }) : null,
+      openCaseData: active ? Object.assign({}, this.decorate(active), { nextKey: next.key, nextDeck: tr(next.deck), nextHref: this.caseHref(next.key) }) : null,
       caseTags: (() => {
         const chipStyle = (on) => 'display:inline-flex;align-items:center;height:32px;padding:0 16px;border:0;border-radius:999px;font-family:inherit;font-size: var(--t-xs);font-weight:600;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;transition:background var(--t-fast) ease-out,color var(--t-fast) ease-out;background:' +
           (on ? '#202133' : 'var(--chip)') + ';color:' + (on ? '#F5F4F1' : 'var(--muted2)');
@@ -3619,7 +3725,7 @@ class Component extends DCLogic {
       pickCaseTag: this.pickCaseTag,
       cases: all
         .filter(c => this.state.caseTag === 'All' || this.catsFor(c).indexOf(this.state.caseTag) > -1)
-        .map(c => Object.assign({}, c, { deck: tr(c.deck), tags: this.catsFor(c).map(tr), plainImg: !c.orbs && !c.fan && !c.evo, locked: this.isLocked(c.key), typeCard: c.src ? '' : c.typeCover })),
+        .map(c => Object.assign({}, c, { deck: tr(c.deck), tags: this.catsFor(c).map(tr), plainImg: !c.orbs && !c.fan && !c.evo, locked: this.isLocked(c.key), href: this.caseHref(c.key), typeCard: c.src ? '' : c.typeCover })),
       gate: !!this.state.gate,
       gateErr: this.state.gateErr,
       gateBusy: this.state.gateBusy,
