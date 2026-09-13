@@ -995,24 +995,28 @@ class Component extends DCLogic {
   casePage = "design-systems";
   gatePage = false;
   LOGIN_PAGE = 'Login.dc.html';
+  // The project keeps .dc.html filenames; the export/ build strips the .dc so
+  // deployed URLs stay clean. DEPLOYED is stamped true only in those copies.
+  DEPLOYED = true;
+  pageName = (f) => (this.DEPLOYED ? String(f).replace(/\.dc\.html$/i, '.html') : f);
   HOME_PAGE = 'index.html';
   casePages = {
       "radboud": "Radboud umc.dc.html",
       "css": "ZIG KVS.dc.html",
       "cbs": "CBS.dc.html",
       "hupo": "ZIG HUPO.dc.html",
-      "hlp-strategie": "Belastingdienst HLP 2030.dc.html",
-      "hlp": "Belastingdienst HLP.dc.html",
+      "hlp-strategie": "HLP 2030.dc.html",
+      "hlp": "DWL.dc.html",
       "planetyes": "Planet Yes.dc.html",
-      "bmg": "ING Bank Mendes Gans.dc.html",
-      "sidekick": "ai.overheid.dc.html",
+      "bmg": "ING BMG.dc.html",
+      "sidekick": "MVBZ.dc.html",
       "tweedekamer": "Tweede Kamer.dc.html",
       "design-systems": "Design systems.dc.html"
   };
-  pageFor = (key) => this.casePages[key] || (this.HOME_PAGE + '#case/' + key);
+  pageFor = (key) => (this.casePages[key] ? this.pageName(this.casePages[key]) : this.HOME_PAGE + '#case/' + key);
   // Locked cases route through the login page, which sends them on once the
   // password checks out.
-  caseHref = (key) => (this.isLocked(key) ? this.LOGIN_PAGE + '#case/' + key : this.pageFor(key));
+  caseHref = (key) => (this.isLocked(key) ? this.pageName(this.LOGIN_PAGE) + '#case/' + key : this.pageFor(key));
   homeHref = (hash) => this.HOME_PAGE + (hash || '');
   isLocked = (key) => !this.props.loggedIn && !!this.lockedCases[key] && (this._unlocked || []).indexOf(key) < 0;
   // Unlocks last for the browser session: the login page has to hand the
@@ -1769,7 +1773,7 @@ class Component extends DCLogic {
     }
     if (key && this.isLocked(key)) {
       // On a case's own page the gate lives at home, so send them there.
-      if (this.casePage) { window.location.replace(this.LOGIN_PAGE + '#case/' + key); return; }
+      if (this.casePage) { window.location.replace(this.pageName(this.LOGIN_PAGE) + '#case/' + key); return; }
       if (this.state.open) this.setState({ open: null });
       this.openGate(key);
       return;
