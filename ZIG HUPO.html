@@ -999,7 +999,7 @@ class Component extends DCLogic {
   // deployed URLs stay clean. DEPLOYED is stamped true only in those copies.
   DEPLOYED = true;
   pageName = (f) => (this.DEPLOYED ? String(f).replace(/\.dc\.html$/i, '.html') : f);
-  HOME_PAGE = 'index.html';
+  HOME_PAGE = '/';
   casePages = {
       "radboud": "Radboud umc.dc.html",
       "css": "ZIG KVS.dc.html",
