@@ -214,17 +214,21 @@
   @keyframes dgHead5 { 0%,100%{transform:rotate(0)} 16%{transform:rotate(calc(var(--amp,1) * 0.8deg))} 28%,37%{transform:rotate(calc(var(--amp,1) * -0.25deg))} 55%{transform:rotate(calc(var(--amp,1) * -0.85deg))} 74%,80%{transform:rotate(calc(var(--amp,1) * 0.4deg))} 92%{transform:rotate(calc(var(--amp,1) * 0.15deg))} }
   [data-illo-head] { animation: dgHead1 3.4s cubic-bezier(.4,0,.3,1) infinite; }
   @keyframes dgHead6 { 0%,100%{transform:rotate(0)} 18%,30%{transform:rotate(calc(var(--amp,1) * -1deg))} 44%{transform:rotate(calc(var(--amp,1) * 0.35deg))} 60%,70%{transform:rotate(calc(var(--amp,1) * -0.55deg))} 86%{transform:rotate(calc(var(--amp,1) * 0.2deg))} }
-  [data-illo-head="6"] { animation: dgHead6 3.9s cubic-bezier(.4,0,.3,1) -0.8s infinite; }
+  [data-illo-head="6"] { animation: dgHead6 3.9s cubic-bezier(.4,0,.3,1) infinite; }
   @keyframes dgHead7 { 0%,100%{transform:rotate(0)} 14%{transform:rotate(calc(var(--amp,1) * -1deg))} 28%{transform:rotate(calc(var(--amp,1) * 0.85deg))} 42%{transform:rotate(calc(var(--amp,1) * -0.75deg))} 57%{transform:rotate(calc(var(--amp,1) * 1deg))} 71%{transform:rotate(calc(var(--amp,1) * -0.55deg))} 86%{transform:rotate(calc(var(--amp,1) * 0.45deg))} }
-  @keyframes dgHead8 { 0%,10%{transform:rotate(calc(var(--amp,1) * -1deg))} 46%,56%{transform:rotate(calc(var(--amp,1) * 1deg))} 94%,100%{transform:rotate(calc(var(--amp,1) * -1deg))} }
+  @keyframes dgHead8 { 0%{transform:rotate(0)} 12%,20%{transform:rotate(calc(var(--amp,1) * -1deg))} 50%,60%{transform:rotate(calc(var(--amp,1) * 1deg))} 92%,100%{transform:rotate(0)} }
   [data-illo-head="7"] { animation: dgHead7 1.15s cubic-bezier(.5,0,.5,1) infinite; }
   [data-illo-head="8"] { animation: dgHead8 2.8s cubic-bezier(.45,0,.55,1) infinite; }
-  [data-illo-head="2"] { animation: dgHead2 3.8s cubic-bezier(.4,0,.3,1) -1.4s infinite; }
-  [data-illo-head="3"] { animation: dgHead3 3.2s cubic-bezier(.4,0,.3,1) -2.1s infinite; }
-  [data-illo-head="4"] { animation: dgHead4 4.1s cubic-bezier(.4,0,.3,1) -2.2s infinite; }
-  [data-illo-head="5"] { animation: dgHead5 3.6s cubic-bezier(.4,0,.3,1) -3.5s infinite; }
+  [data-illo-head="2"] { animation: dgHead2 3.8s cubic-bezier(.4,0,.3,1) infinite; }
+  [data-illo-head="3"] { animation: dgHead3 3.2s cubic-bezier(.4,0,.3,1) infinite; }
+  [data-illo-head="4"] { animation: dgHead4 4.1s cubic-bezier(.4,0,.3,1) infinite; }
+  [data-illo-head="5"] { animation: dgHead5 3.6s cubic-bezier(.4,0,.3,1) infinite; }
   @media (prefers-reduced-motion: reduce) { [data-illo-head] { animation: none !important; } }
-  /* Figures only animate while their card is hovered. */
+  /* Figures only animate while their card is hovered. Every head cycle starts and
+     ends at rotate(0), and no cycle carries a negative delay, so the paused pose is
+     always the drawing's own rest pose: a frozen head can never sit offset from the
+     body underneath it (which read as a doubled outline). The cycles have different
+     durations, so they drift apart on their own without phase offsets. */
   [data-illo-head] { animation-play-state: paused !important; }
   [data-service-card]:hover [data-illo-head] { animation-play-state: running !important; }
   [data-illo-wrap] { transition: opacity 220ms ease-out; }
