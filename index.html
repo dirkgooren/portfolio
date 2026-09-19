@@ -665,7 +665,8 @@
       </a>
       <section style="margin:0;padding:var(--sec-y) var(--sec-x);background:var(--ink);color:var(--on-dark)">
         <p style="margin:0 0 clamp(20px,3vw,36px);font-size: var(--t-label);font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--on-dark)">{{ t.contact }}</p>
-        <h2 style="margin:0 0 64px;max-width:22ch;font-size: var(--t-h1);line-height:1.1;font-weight:700;letter-spacing:-0.015em;color:var(--on-dark);white-space:pre-line">{{ t.contactTitle }}</h2>
+        <h2 style="margin:0 0 64px;max-width:22ch;font-size: var(--t-h1);line-height:1.1;font-weight:700;letter-spacing:-0.015em;color:var(--on-dark);white-space:pre-line"><span style="font-family:'Archivo',system-ui,sans-serif;font-variation-settings:'wdth' 68;font-weight:200;font-style:italic;letter-spacing:0.018em">{{ t.contactTitleLead }}</span>
+{{ t.contactTitleRest }}</h2>
         <div style="display:flex;flex-wrap:wrap;align-items:center;gap:18px 40px">
           <a href="mailto:dirkgooren@gmail.com?subject=Hi!" style="display:inline-flex;align-items:center;gap:14px;font-size: var(--t-lead);line-height:1.24;font-weight:600;letter-spacing:-0.01em;color:var(--on-dark)" style-hover="color:var(--on-dark);opacity:0.65">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:0 0 auto"><path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z"></path><path d="M3 7l9 6l9 -6"></path></svg>
@@ -983,7 +984,8 @@
     </div>
   </section><section id="contact" style="margin: 0; padding: var(--sec-y) var(--sec-x); background: var(--ink); color: var(--on-dark); width: 100%; height: 100%; margin-bottom: 0px; margin-right: 0px; margin-left: 0px">
     <p data-reveal="" style="margin:0 0 clamp(20px,3vw,36px);font-size: var(--t-label);font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--on-dark)">{{ t.contact }}</p>
-    <h2 data-reveal="" style="margin: 0 0 64px; max-width: 22ch; font-size: var(--t-h1); line-height: 1; font-weight: 700; letter-spacing: -0.015em; color: var(--on-dark); white-space: pre-line">{{ t.contactTitle }}</h2>
+    <h2 data-reveal="" style="margin: 0 0 64px; max-width: 22ch; font-size: var(--t-h1); line-height: 1; font-weight: 700; letter-spacing: -0.015em; color: var(--on-dark); white-space: pre-line"><span style="font-family:'Archivo',system-ui,sans-serif;font-variation-settings:'wdth' 68;font-weight:200;font-style:italic;letter-spacing:0.018em">{{ t.contactTitleLead }}</span>
+{{ t.contactTitleRest }}</h2>
     <div style="display:flex;flex-wrap:wrap;align-items:center;gap:18px 40px">
       <a data-reveal="" href="mailto:dirkgooren@gmail.com?subject=Hi!" style="display:inline-flex;align-items:center;gap:14px;font-size: var(--t-lead);line-height:1.24;font-weight:600;letter-spacing:-0.01em;color:var(--on-dark)" style-hover="color:var(--on-dark);opacity:0.65">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:0 0 auto"><path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z"></path><path d="M3 7l9 6l9 -6"></path></svg>
@@ -1531,17 +1533,29 @@ class Component extends DCLogic {
 
     // Touch devices have no cursor, so scroll drives the gaze instead: low in the
     // viewport he looks up, mid-screen straight ahead, high in the viewport down.
-    // Double-clicking the head winks (one frame, ~650ms, then back to normal).
+    // Double-clicking the face winks. A real eyelid closes in roughly 70ms, rests
+    // shut for a moment and opens a little slower, so the wink frame fades in over
+    // the base rather than replacing it: the base stays opaque underneath, which
+    // keeps the head from popping and makes the lid read as travelling.
     this._onGazeDbl = (e) => {
       const wink = byDir['wink'];
-      if (!wink) return;
+      if (!wink || !base) return;
       const r = wrap.getBoundingClientRect();
       const fx = (e.clientX - r.left) / r.width, fy = (e.clientY - r.top) / r.height;
-      if (fx < 0.28 || fx > 0.72 || fy < 0.03 || fy > 0.27) return;
-      winkUntil = Date.now() + 650;
-      show(wink);
-      clearTimeout(this._winkT);
-      this._winkT = setTimeout(() => { cur = -1; resting = true; show(base); }, 650);
+      if (fx < 0.34 || fx > 0.66 || fy < 0.05 || fy > 0.23) return;
+      clearTimeout(this._winkT); clearTimeout(this._winkT2);
+      winkUntil = Date.now() + 320;
+      layers.forEach(l => { l.style.opacity = l === base ? '1' : '0'; });
+      wink.style.transition = 'opacity 70ms cubic-bezier(.4,0,.6,1)';
+      wink.style.opacity = '1';
+      this._winkT = setTimeout(() => {
+        wink.style.transition = 'opacity 140ms cubic-bezier(.3,0,.5,1)';
+        wink.style.opacity = '0';
+      }, 150);
+      this._winkT2 = setTimeout(() => {
+        wink.style.transition = '';
+        cur = -1; resting = true; show(base);
+      }, 320);
     };
     wrap.addEventListener('dblclick', this._onGazeDbl);
 
@@ -3879,6 +3893,8 @@ class Component extends DCLogic {
         servicesLead: tr('Research to understand, strategy to choose a direction, design to make it real, and workshops to get everyone moving.'),
         servicesIntro: tr("I bring structure to the ‘why’ and ‘how’ behind a client's question, and turn a long-term vision into something buildable now."),
         contactTitle: tr("I welcome complexity. I'll bring clarity.").replace('. ', '.\n'),
+        contactTitleLead: tr("I welcome complexity. I'll bring clarity.").replace('. ', '.\n').split('\n')[0],
+        contactTitleRest: tr("I welcome complexity. I'll bring clarity.").replace('. ', '.\n').split('\n').slice(1).join('\n'),
         gateTag: this.state.lang === 'nl' ? 'Beveiligd' : 'Protected',
         gateTitle: this.state.lang === 'nl' ? 'Je bent er bijna.' : 'Almost there.',
         gateBody: this.state.lang === 'nl' ? 'Deze case is voorlopig vertrouwelijk. Log in voor het hele verhaal.' : 'This case study is confidential for now. Log in to get the full story.',
