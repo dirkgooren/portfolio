@@ -126,6 +126,10 @@
     [data-preloader] { padding-left: 16px !important; padding-right: 16px !important; }
   }
   @media (min-width: 1100px) { [data-services-grid] { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; } }
+  /* Hero: fixed pixel heights per breakpoint (was 60svh) */
+  [data-hero-sec] { min-height: 420px; max-height: 500px; }
+  @media (min-width: 620px) { [data-hero-sec] { min-height: 460px; } }
+  @media (min-width: 1000px) { [data-hero-sec] { min-height: 500px; } }
   x-dc, #dc-root { display: block; max-width: 1920px; margin-inline: auto; overflow-x: clip; }
   /* Case pages are position:fixed, so they escape the 1920px root cap — re-apply it. */
   [data-case-pane] { padding-inline: max(0px, calc((100% - 1920px) / 2)); }
@@ -379,7 +383,7 @@
     <div style="position:fixed;inset:0;z-index:300;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:24px;background:#15161F">
       <div data-preview-stage="" style="display:flex;flex:1 1 auto;min-height:0;align-items:center;justify-content:center;width:100%">
       <div data-preview-frame="" style="position:relative;overflow:hidden;background:#000;box-shadow:0 30px 80px rgba(0,0,0,0.5)">
-        <iframe src="Dirk Gooren Portfolio.dc.html?frame=1" title="Preview" style="border:0;display:block"></iframe>
+        <iframe src="{{ previewSrc }}" title="Preview" style="border:0;display:block"></iframe>
       </div>
       </div>
       <p style="margin:0;font-size: var(--t-label);font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#8A8FA3">{{ previewLabel }}</p>
@@ -721,7 +725,7 @@
 
   
 
-  <section id="top" style="padding: var(--sec-y-lg) var(--sec-x) 0; min-height: 60svh; display: flex; flex-direction: column; justify-content: flex-end">
+  <section id="top" data-hero-sec="" style="padding: var(--sec-y-lg) var(--sec-x) 0; display: flex; flex-direction: column; justify-content: flex-end">
 <h1 style="margin:0;font-size:clamp(38px,8.4vw,132px);line-height:0.95;font-weight:600;letter-spacing:-0.035em;text-wrap:balance;position:relative;z-index:0;isolation:isolate">
       <span data-hero-in="" style="display: block; font-size: clamp(58px,7.6vw,91px);white-space:pre-line">{{ t.heroPre }}{{ t.heroMark }}{{ t.heroPost1 }}{{ t.heroSqueeze }}{{ t.heroPost3 }}</span>
       
@@ -999,7 +1003,7 @@ class Component extends DCLogic {
   // deployed URLs stay clean. DEPLOYED is stamped true only in those copies.
   DEPLOYED = true;
   pageName = (f) => (this.DEPLOYED ? String(f).replace(/\.dc\.html$/i, '.html') : f);
-  HOME_PAGE = '/';
+  HOME_PAGE = this.DEPLOYED ? 'index.html' : 'Home.dc.html';
   casePages = {
       "radboud": "Radboud umc.dc.html",
       "css": "ZIG KVS.dc.html",
@@ -3712,6 +3716,7 @@ class Component extends DCLogic {
       booting: this.state.booting,
       bootAttr: this.state.booting ? '' : null,
       framePreview: (this.props.preview ?? 'Responsive') !== 'Responsive',
+      previewSrc: this.HOME_PAGE + '?frame=1',
       previewLabel: this.previewSpec().label,
       burgerBarTop: this.burgerBar('top'),
       burgerBarBottom: this.burgerBar('bottom'),

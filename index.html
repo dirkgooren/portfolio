@@ -28,7 +28,7 @@
 <meta name="twitter:description" content="Enterprise UX, design strategy and design systems for healthcare, government, housing and finance.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..100,300..700&amp;family=Archivo+Narrow:wght@400..700&amp;display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&amp;family=Archivo+Narrow:wght@400..700&amp;display=swap">
 <script src="./image-slot.js"></script>
 <style>
   html { -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
@@ -126,6 +126,19 @@
     [data-preloader] { padding-left: 16px !important; padding-right: 16px !important; }
   }
   @media (min-width: 1100px) { [data-services-grid] { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; } }
+  /* The rotating hero words carry the brand pink; dark mode uses the softer
+     on-dark pink so it stays legible on the ink ground. */
+  /* The rotating words switch to a serif italic against the narrow sans headline. */
+  /* The rotating words read as outlined type: the stroke is painted first and the
+     page-ground fill covers its inner half, so the outline sits outside the glyph. */
+  /* Scaled down so the outlined words (glyph + outward stroke) end up the same
+     visual height as the static text; the stroke is re-based on the smaller em. */
+  [data-hero-rotate] { color: var(--fg); font-family: 'Archivo', system-ui, sans-serif; font-variation-settings: 'wdth' 68; font-weight: 200; font-style: italic; letter-spacing: 0.018em; }
+  /* Hero: fixed pixel heights per breakpoint (was 60svh) */
+  [data-hero-sec] { min-height: 420px; }
+  @media (min-width: 620px) { [data-hero-sec] { min-height: 460px; } }
+  @media (min-width: 1000px) { [data-hero-sec] { min-height: 520px; } }
+  @media (min-width: 1440px) { [data-hero-sec] { min-height: 560px; } }
   x-dc, #dc-root { display: block; max-width: 1920px; margin-inline: auto; overflow-x: clip; }
   /* Case pages are position:fixed, so they escape the 1920px root cap — re-apply it. */
   [data-case-pane] { padding-inline: max(0px, calc((100% - 1920px) / 2)); }
@@ -211,6 +224,15 @@
   [data-illo-head="4"] { animation: dgHead4 4.1s cubic-bezier(.4,0,.3,1) -2.2s infinite; }
   [data-illo-head="5"] { animation: dgHead5 3.6s cubic-bezier(.4,0,.3,1) -3.5s infinite; }
   @media (prefers-reduced-motion: reduce) { [data-illo-head] { animation: none !important; } }
+  /* Figures only animate while their card is hovered. */
+  [data-illo-head] { animation-play-state: paused !important; }
+  [data-service-card]:hover [data-illo-head] { animation-play-state: running !important; }
+  [data-illo-wrap] { transition: opacity 220ms ease-out; }
+  /* Hover thickens the line art: four sub-pixel drop-shadows fatten the strokes
+     (the drawings are bitmaps, so stroke-width is not available). */
+  svg[data-illo] image { transition: filter 200ms ease-out; }
+  [data-service-card]:hover svg[data-illo] image:not([data-illo-fill]):not([data-illo-mask]) { filter: drop-shadow(0.1px 0 0 #202133) drop-shadow(-0.1px 0 0 #202133) drop-shadow(0 0.1px 0 #202133) drop-shadow(0 -0.1px 0 #202133); }
+  [data-theme="dark"] [data-service-card]:hover svg[data-illo] image:not([data-illo-fill]):not([data-illo-mask]) { filter: drop-shadow(0.1px 0 0 #202133) drop-shadow(-0.1px 0 0 #202133) drop-shadow(0 0.1px 0 #202133) drop-shadow(0 -0.1px 0 #202133) invert(1) brightness(1.06); }
 
   [data-next-arrow-wrap] { display: inline-flex; }
   [data-next-link]:hover [data-next-arrow-wrap] { animation: dgNextNudge 2.8s cubic-bezier(.37,0,.63,1) infinite; }
@@ -379,7 +401,7 @@
     <div style="position:fixed;inset:0;z-index:300;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:24px;background:#15161F">
       <div data-preview-stage="" style="display:flex;flex:1 1 auto;min-height:0;align-items:center;justify-content:center;width:100%">
       <div data-preview-frame="" style="position:relative;overflow:hidden;background:#000;box-shadow:0 30px 80px rgba(0,0,0,0.5)">
-        <iframe src="Dirk Gooren Portfolio.dc.html?frame=1" title="Preview" style="border:0;display:block"></iframe>
+        <iframe src="{{ previewSrc }}" title="Preview" style="border:0;display:block"></iframe>
       </div>
       </div>
       <p style="margin:0;font-size: var(--t-label);font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#8A8FA3">{{ previewLabel }}</p>
@@ -674,14 +696,14 @@
       <a href="#about" style="color:var(--nav-ink)" style-hover="color:var(--nav-ink);opacity:0.6">{{ t.about }}</a>
       <a href="#services" style="color:var(--nav-ink)" style-hover="color:var(--nav-ink);opacity:0.6">{{ t.services }}</a>
       <a href="#contact" style="color:var(--nav-ink)" style-hover="color:var(--nav-ink);opacity:0.6">{{ t.contact }}</a>
-      <a href="#top" onClick="{{ toggleTheme }}" aria-label="Switch theme" style="display:inline-flex;align-items:center;color:var(--nav-ink);cursor:pointer" style-hover="opacity:0.6">
-        <sc-if value="{{ isDark }}" hint-placeholder-val="{{ false }}"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.4" fill="currentColor" stroke="none"></circle><path d="M12 2v2.4M12 19.6V22M2 12h2.4M19.6 12H22M5.1 5.1l1.7 1.7M17.2 17.2l1.7 1.7M18.9 5.1l-1.7 1.7M6.8 17.2l-1.7 1.7"></path></svg></sc-if>
-        <sc-if value="{{ isLight }}" hint-placeholder-val="{{ true }}"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z" fill="currentColor"></path></svg></sc-if>
-      </a>
       <a href="#top" onClick="{{ setLang }}" aria-label="Switch language" style="display:inline-flex;align-items:center;gap:6px;color:var(--nav-ink);cursor:pointer" style-hover="color:var(--nav-ink);opacity:0.6">
         <span style="{{ langEnStyle }}">EN</span>
         <span style="opacity:0.35">/</span>
         <span style="{{ langNlStyle }}">NL</span>
+      </a>
+      <a href="#top" onClick="{{ toggleTheme }}" aria-label="Switch theme" style="display:inline-flex;align-items:center;color:var(--nav-ink);cursor:pointer" style-hover="opacity:0.6">
+        <sc-if value="{{ isDark }}" hint-placeholder-val="{{ false }}"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.4" fill="currentColor" stroke="none"></circle><path d="M12 2v2.4M12 19.6V22M2 12h2.4M19.6 12H22M5.1 5.1l1.7 1.7M17.2 17.2l1.7 1.7M18.9 5.1l-1.7 1.7M6.8 17.2l-1.7 1.7"></path></svg></sc-if>
+        <sc-if value="{{ isLight }}" hint-placeholder-val="{{ true }}"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z" fill="currentColor"></path></svg></sc-if>
       </a>
     </nav>
     <button data-burger="" type="button" onClick="{{ toggleMenu }}" aria-label="Menu" style="display: none; align-items: center; gap: 6px; pointer-events: auto; flex: 0 0 auto; height: 44px; padding: 0 clamp(11px,1.05vw,14.5px) 0 0; border: 0; background: transparent; color: {{ burgerColor }}; font-family: inherit; font-size: var(--t-label); font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; text-align: left; padding-right: 0px">
@@ -721,9 +743,9 @@
 
   
 
-  <section id="top" style="padding: var(--sec-y-lg) var(--sec-x) 0; min-height: 60svh; display: flex; flex-direction: column; justify-content: flex-end">
-<h1 style="margin:0;font-size:clamp(38px,8.4vw,132px);line-height:0.95;font-weight:600;letter-spacing:-0.035em;text-wrap:balance;position:relative;z-index:0;isolation:isolate">
-      <span data-hero-in="" style="display: block; font-size: clamp(58px,7.6vw,91px);white-space:pre-line">{{ t.heroPre }}{{ t.heroMark }}{{ t.heroPost1 }}{{ t.heroSqueeze }}{{ t.heroPost3 }}</span>
+  <section id="top" data-hero-sec="" style="padding: var(--sec-y-lg) var(--sec-x) 0; display: flex; flex-direction: column; justify-content: flex-end">
+<h1 style="margin:0;padding-bottom:0.12em;font-family:'Archivo','Archivo Narrow',system-ui,sans-serif;font-variation-settings:'wdth' 68;font-size:clamp(38px,8.4vw,132px);line-height:1.02;font-weight:700;letter-spacing:-0.012em;text-wrap:balance;position:relative;isolation:isolate">
+      <span data-hero-in="" style="display: block; font-size: clamp(58px,7.6vw,91px);white-space:pre-line">{{ t.heroPre }}<span data-hero-rotate="1" onClick="{{ heroClick1 }}" title="Next word" style="display:inline-grid;vertical-align:baseline;cursor:pointer;clip-path:inset(-0.02em -0.6em -0.14em)"><sc-for list="{{ heroWords }}" as="w" hint-placeholder-count="1"><span style="{{ w.style }}"><sc-for list="{{ w.chars }}" as="c" hint-placeholder-count="2"><span style="{{ c.style }}">{{ c.ch }}</span></sc-for></span></sc-for></span>{{ t.heroPost1 }}<span data-hero-rotate="2" onClick="{{ heroClick2 }}" title="Next word" style="display:inline-grid;vertical-align:baseline;cursor:pointer;clip-path:inset(-0.02em -0.6em -0.14em)"><sc-for list="{{ heroWords2 }}" as="w" hint-placeholder-count="1"><span style="{{ w.style }}"><sc-for list="{{ w.chars }}" as="c" hint-placeholder-count="2"><span style="{{ c.style }}">{{ c.ch }}</span></sc-for></span></sc-for></span></span>
       
     </h1>
   </section><section id="work" style="padding: var(--sec-y-lg) var(--sec-x) clamp(40px,6vw,80px)">
@@ -858,7 +880,8 @@
     <div style="display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,320px),1fr)); gap: clamp(32px,5vw,88px); align-items: start; width: 100%">
       <div style="width: 100%; height: 100%; padding-bottom: var(--sec-y-lg)">
         <p data-reveal="" style="margin:0 0 clamp(14px,2vw,22px);font-size: var(--t-label);font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--fg)">{{ t.about }}</p>
-        <h2 data-reveal="" style="margin: 0 0 clamp(20px,3vw,36px); max-width: 22ch; font-size: var(--t-h1); line-height: 1; font-weight: 700; letter-spacing: -0.015em; text-wrap: balance; white-space: pre-line">{{ t.aboutTitle }}</h2>
+        <h2 data-reveal="" style="margin: 0 0 clamp(20px,3vw,36px); max-width: 22ch; font-size: var(--t-h1); line-height: 1; font-weight: 700; letter-spacing: -0.015em; text-wrap: balance; white-space: pre-line"><span style="font-family:'Archivo',system-ui,sans-serif;font-variation-settings:'wdth' 68;font-weight:200;font-style:italic;letter-spacing:0.018em">{{ t.aboutTitleLead }}</span>
+{{ t.aboutTitleRest }}</h2>
         <p data-reveal="" style="margin: 0 0 clamp(34px,4.4vw,56px); font-size: var(--t-body); line-height: 1.6; color: var(--fg); text-wrap: pretty; font-weight: 700">{{ t.aboutP1 }}</p>
         <div data-stat-grid="" style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(20px,2.4vw,32px);margin:0 0 clamp(40px,5.4vw,68px);max-width:44rem">
           <sc-for list="{{ stats }}" as="s" hint-placeholder-count="3">
@@ -920,7 +943,7 @@
   <section id="services" style="padding: var(--sec-y-lg) var(--sec-x)">
     <div style="margin-bottom:clamp(16px,2vw,28px)">
       <p data-reveal="" style="margin:0 0 clamp(14px,2vw,22px);font-size: var(--t-label);font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--fg)">{{ t.services }}</p>
-      <h2 data-reveal="" style="margin: 0; max-width: 22ch; font-size: var(--t-h1); line-height: 1; font-weight: 700; letter-spacing: -0.015em; white-space: pre-line">{{ t.servicesTitle }}</h2>
+      <h2 data-reveal="" style="margin: 0; max-width: 22ch; font-size: var(--t-h1); line-height: 1; font-weight: 700; letter-spacing: -0.015em; white-space: pre-line"><span style="font-family:'Archivo',system-ui,sans-serif;font-variation-settings:'wdth' 68;font-weight:200;font-style:italic;letter-spacing:0.018em">{{ t.servicesTitleLead }}</span> {{ t.servicesTitleRest }}</h2>
     </div>
     <div data-services-grid="" style="position:relative;display:grid;grid-template-columns:1fr;gap:clamp(20px,2.4vw,40px)">
       <svg data-tag-links="" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none;z-index:0"></svg>
@@ -980,7 +1003,7 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;preview&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Responsive&quot;,&quot;Mobile&quot;,&quot;Tablet&quot;,&quot;Desktop&quot;,&quot;4K&quot;],&quot;default&quot;:&quot;Responsive&quot;,&quot;tsType&quot;:&quot;'Responsive' | 'Mobile' | 'Tablet' | 'Desktop' | '4K'&quot;,&quot;section&quot;:&quot;Preview&quot;},&quot;loggedIn&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Preview&quot;}}">
 class Component extends DCLogic {
-  state = { open: null, lang: 'en', menuOpen: false, theme: 'light', industry: 'All', caseTag: 'All', booting: true, gate: null, gateErr: false, gateBusy: false, unlocked: [] };
+  state = { heroWord: 0, heroPrev: -1, heroWord2: 0, heroPrev2: -1, open: null, lang: 'en', menuOpen: false, theme: 'light', industry: 'All', caseTag: 'All', booting: true, gate: null, gateErr: false, gateBusy: false, unlocked: [] };
   gateHash = 'eb8ff7e25a397ec86514ea6a5aade07badf932f25b5588018add22c6eabef39a';
   lockedCases = {
     sidekick: this.gateHash,
@@ -999,7 +1022,7 @@ class Component extends DCLogic {
   // deployed URLs stay clean. DEPLOYED is stamped true only in those copies.
   DEPLOYED = true;
   pageName = (f) => (this.DEPLOYED ? String(f).replace(/\.dc\.html$/i, '.html') : f);
-  HOME_PAGE = '/';
+  HOME_PAGE = this.DEPLOYED ? 'index.html' : 'Home.dc.html';
   casePages = {
       "radboud": "Radboud umc.dc.html",
       "css": "ZIG KVS.dc.html",
@@ -1502,7 +1525,7 @@ class Component extends DCLogic {
       this._gazeIdle = setTimeout(() => {
         target = null; smooth = null; cur = -1; resting = true;
         show(base);
-      }, 2000);
+      }, 5000);
     };
     window.addEventListener('mousemove', this._onGaze, { passive: true });
 
@@ -1593,6 +1616,18 @@ class Component extends DCLogic {
     this._onPreviewResize = () => this.fitPreview();
     window.addEventListener('resize', this._onPreviewResize);
     this.setupReveal();
+    // Each track jumps to a random sibling, never repeating the word on screen.
+    const nextIdx = (cur) => { let n = cur; while (n === cur) n = Math.floor(Math.random() * 4); return n; };
+    this._heroTimer = setInterval(() => {
+      this.setState(s => ({
+        heroPrev: s.heroWord, heroWord: nextIdx(s.heroWord),
+        heroPrev2: s.heroWord2, heroWord2: nextIdx(s.heroWord2)
+      }));
+      // Once the roll is done, the outgoing word is parked back above the line,
+      // so every word always enters from the top, never from below.
+      clearTimeout(this._heroReset);
+      this._heroReset = setTimeout(() => this.setState({ heroPrev: -1, heroPrev2: -1 }), 1450);
+    }, 5000);
   }
   setupReveal() {
     const root = this.el || document;
@@ -1747,6 +1782,8 @@ class Component extends DCLogic {
     if (this._pending) clearTimeout(this._pending);
     if (this._io) this._io.disconnect();
     if (this._teardown) this._teardown();
+    if (this._heroTimer) { clearInterval(this._heroTimer); this._heroTimer = null; }
+    if (this._heroReset) { clearTimeout(this._heroReset); this._heroReset = null; }
     if (this._onPreviewResize) window.removeEventListener('resize', this._onPreviewResize);
     if (this._onTipClick) document.removeEventListener('click', this._onTipClick);
     if (this._onTipKey) document.removeEventListener('keydown', this._onTipKey);
@@ -2963,6 +3000,55 @@ class Component extends DCLogic {
     document.addEventListener('click', this._onTipClick);
     document.addEventListener('keydown', this._onTipKey);
   }
+  // The hero's subject cycles every 4s; all words share one grid cell so the
+  // line never reflows, and the swap is a cross-fade with a small vertical lift.
+  // Clicking a rotating word jumps it to the next one straight away.
+  heroAdvance(track) {
+    const pick = (cur) => { let n = cur; while (n === cur) n = Math.floor(Math.random() * 4); return n; };
+    this.setState(s => track === 2
+      ? { heroPrev2: s.heroWord2, heroWord2: pick(s.heroWord2) }
+      : { heroPrev: s.heroWord, heroWord: pick(s.heroWord) });
+    clearTimeout(this._heroReset);
+    this._heroReset = setTimeout(() => this.setState({ heroPrev: -1, heroPrev2: -1 }), 1450);
+  }
+  // Clicking a rotating word jumps it to the next one straight away.
+  heroAdvance(track) {
+    const pick = (cur) => { let n = cur; while (n === cur) n = Math.floor(Math.random() * 4); return n; };
+    this.setState(s => track === 2
+      ? { heroPrev2: s.heroWord2, heroWord2: pick(s.heroWord2) }
+      : { heroPrev: s.heroWord, heroWord: pick(s.heroWord) });
+    clearTimeout(this._heroReset);
+    this._heroReset = setTimeout(() => this.setState({ heroPrev: -1, heroPrev2: -1 }), 1450);
+  }
+  heroRotate(track) {
+    const sets = {
+      1: { en: ['organisations', 'teams', 'people', 'business'], nl: ['organisaties', 'teams', 'mensen', 'business'] },
+      2: { en: ['ux', 'research', 'design', 'strategy'], nl: ['ux', 'onderzoek', 'ontwerp', 'strategie'] }
+    };
+    const set = sets[track === 2 ? 2 : 1];
+    const words = this.state.lang === 'nl' ? set.nl : set.en;
+    const two = track === 2;
+    const i = (two ? this.state.heroWord2 : this.state.heroWord) % words.length;
+    const prev = two ? this.state.heroPrev2 : this.state.heroPrev;
+    // Each letter rolls in from above on its own small delay, so the word
+    // assembles left to right. Letters always enter from the top.
+    const ease = 'cubic-bezier(.33,0,.15,1)';
+    const lead = track === 2 ? 320 : 0;
+    const step = 15;
+    const wrap = 'grid-area:1/1;white-space:nowrap;';
+    const glyph = 'display:inline-block;transform-origin:50% 50%;will-change:transform;';
+    return words.map((label, n) => {
+      const on = n === i;
+      const out = n === prev;
+      const chars = label.split('').map((ch, k) => {
+        const d = lead + k * step;
+        if (on) return { ch, style: glyph + 'transition:transform 900ms ' + ease + ';transition-delay:' + d + 'ms;transform:translateY(0) scaleY(1);' };
+        if (out) return { ch, style: glyph + 'transition:transform 900ms ' + ease + ';transition-delay:' + d + 'ms;transform:translateY(165%) scaleY(1.16);pointer-events:none;' };
+        return { ch, style: glyph + 'transition:none;transform:translateY(-200%) scaleY(1.16);pointer-events:none;' };
+      });
+      return { label, chars, style: wrap + (on ? '' : 'pointer-events:none;') };
+    });
+  }
   previewSpec() {
     const mode = this.props.preview ?? 'Responsive';
     if (mode === 'Mobile') return { w: 390, h: 844, radius: 44, bezel: 10, label: 'Mobile · 390 × 844' };
@@ -3712,6 +3798,13 @@ class Component extends DCLogic {
       booting: this.state.booting,
       bootAttr: this.state.booting ? '' : null,
       framePreview: (this.props.preview ?? 'Responsive') !== 'Responsive',
+      heroWords: this.heroRotate(),
+      heroClick1: () => this.heroAdvance(1),
+      heroClick2: () => this.heroAdvance(2),
+      heroClick1: () => this.heroAdvance(1),
+      heroClick2: () => this.heroAdvance(2),
+      heroWords2: this.heroRotate(2),
+      previewSrc: this.HOME_PAGE + '?frame=1',
       previewLabel: this.previewSpec().label,
       burgerBarTop: this.burgerBar('top'),
       burgerBarBottom: this.burgerBar('bottom'),
@@ -3765,10 +3858,10 @@ class Component extends DCLogic {
         howTitle: tr('Direction first, then screens'),
  howLead: tr('The same five moves in every organisation I have led design in, from a national tax office to a four-person startup.'),
         heroTitle: tr('Moving organisations forward through UX'),
-        heroPre: this.state.lang === 'nl' ? 'Organisaties\nvooruit helpen\nmet ' : 'Moving organisations\nforward through ',
+        heroPre: this.state.lang === 'nl' ? '' : 'Moving ',
         heroMark: '',
         heroPost: '',
-        heroPost1: '',
+        heroPost1: this.state.lang === 'nl' ? '\nvooruit helpen\nmet ' : '\nforward through ',
         heroSqueeze: 'UX',
         heroWordA: 'UX',
         heroPost2: this.state.lang === 'nl' ? ' en ' : ' to ',
@@ -3776,9 +3869,13 @@ class Component extends DCLogic {
         heroPost3: '',
         featured: tr('FEATURED WORK'), trustedBy: tr('Created together with'),
         aboutTitle: tr("Now you are here.\nLet me introduce myself."),
+        aboutTitleLead: tr("Now you are here.\nLet me introduce myself.").split('\n')[0],
+        aboutTitleRest: tr("Now you are here.\nLet me introduce myself.").split('\n').slice(1).join('\n'),
  aboutP1: tr("I'm Dirk Gooren. I lead design where the hard part isn't the interface, but getting a large group to agree on what the work should become, and holding that direction while it gets built. I specialise in enterprise UX: business-critical tools for people at work, where a bad decision costs the organisation real time and money. My background is Industrial Design (MSc), and since 2010 I've worked in healthcare, government, housing and finance."),
  aboutP2: tr("The way I work is straightforward: I spend time inside the real work before a screen exists, get the trade-offs decided before anything is designed, and let prototypes settle what opinions can't. What I leave behind (principles, patterns, documentation) has to keep working without me. And I treat UX strategy as business strategy: I judge a release by whether it moved the organisation, not by whether it shipped."),
         servicesTitle: tr('I believe people are at their best when they create together.'),
+        servicesTitleLead: tr('I believe people are at their best when they create together.').split(' ').slice(0, 2).join(' '),
+        servicesTitleRest: tr('I believe people are at their best when they create together.').split(' ').slice(2).join(' '),
         servicesLead: tr('Research to understand, strategy to choose a direction, design to make it real, and workshops to get everyone moving.'),
         servicesIntro: tr("I bring structure to the ‘why’ and ‘how’ behind a client's question, and turn a long-term vision into something buildable now."),
         contactTitle: tr("I welcome complexity. I'll bring clarity.").replace('. ', '.\n'),

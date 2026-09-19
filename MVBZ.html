@@ -379,7 +379,7 @@
     <div style="position:fixed;inset:0;z-index:300;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:24px;background:#15161F">
       <div data-preview-stage="" style="display:flex;flex:1 1 auto;min-height:0;align-items:center;justify-content:center;width:100%">
       <div data-preview-frame="" style="position:relative;overflow:hidden;background:#000;box-shadow:0 30px 80px rgba(0,0,0,0.5)">
-        <iframe src="Dirk Gooren Portfolio.dc.html?frame=1" title="Preview" style="border:0;display:block"></iframe>
+        <iframe src="{{ previewSrc }}" title="Preview" style="border:0;display:block"></iframe>
       </div>
       </div>
       <p style="margin:0;font-size: var(--t-label);font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#8A8FA3">{{ previewLabel }}</p>
@@ -999,7 +999,7 @@ class Component extends DCLogic {
   // deployed URLs stay clean. DEPLOYED is stamped true only in those copies.
   DEPLOYED = true;
   pageName = (f) => (this.DEPLOYED ? String(f).replace(/\.dc\.html$/i, '.html') : f);
-  HOME_PAGE = '/';
+  HOME_PAGE = this.DEPLOYED ? 'index.html' : 'Home.dc.html';
   casePages = {
       "radboud": "Radboud umc.dc.html",
       "css": "ZIG KVS.dc.html",
@@ -3712,6 +3712,7 @@ class Component extends DCLogic {
       booting: this.state.booting,
       bootAttr: this.state.booting ? '' : null,
       framePreview: (this.props.preview ?? 'Responsive') !== 'Responsive',
+      previewSrc: this.HOME_PAGE + '?frame=1',
       previewLabel: this.previewSpec().label,
       burgerBarTop: this.burgerBar('top'),
       burgerBarBottom: this.burgerBar('bottom'),
