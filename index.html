@@ -56,6 +56,10 @@
      (overscroll, safe areas) must read as the same dark blue. */
   [data-overlay="ink"] body { background: var(--ink); }
   body { margin: 0; background: var(--bg); color: var(--fg); font-family: 'Archivo', system-ui, sans-serif; transition: background 260ms ease-out, color 260ms ease-out; }
+  /* During a theme switch the ground swaps in a single frame: a fading background
+     leaves the blended header compositing against a colour that is already gone,
+     which is what stranded the mark and the burger in the previous theme. */
+  [data-theme-switching] body, [data-theme-switching] body * { transition: none !important; }
   [data-theme="dark"] #about, [data-theme="dark"] [data-light-surface] {
     --fg: #202133; --muted: rgba(32,33,51,0.45); --muted2: rgba(32,33,51,0.62); --muted3: rgba(32,33,51,0.4); --hair: rgba(32,33,51,0.14);
     --chip: rgba(32,33,51,0.10); --imgbg: rgba(32,33,51,0.08);
@@ -74,6 +78,7 @@
   [data-logo] { background-color: #202133; mask-composite: add; -webkit-mask-composite: source-over; opacity: 1 !important; }
   [data-theme="dark"] [data-logo] { background-color: #ECE7DD; }
   [data-theme="dark"] [data-illo] { filter: invert(1) brightness(1.06); }
+  [data-theme="dark"] img[data-illo-art] { filter: none; }
   /* The animated illustrations are SVG stacks: only their bitmaps invert, so the
      patch rects keep matching the page ground in dark mode. */
   [data-theme="dark"] svg[data-illo] { filter: none; }
@@ -146,7 +151,10 @@
   /* Illustrations differ in aspect ratio, so the wrapper is fixed height and
      bottom-aligned: every service eyebrow then starts on the same line. */
   [data-illo-wrap] { height: clamp(128px, 13vw, 188px); display: flex; align-items: flex-end; }
+  [data-illo-wrap][data-illo-plate] { height: clamp(150px, 16vw, 230px); align-items: flex-end; justify-content: flex-start; margin-bottom: 4px !important; }
   [data-illo-wrap] > img[data-illo], [data-illo-wrap] > svg[data-illo] { width: 100%; height: 100% !important; padding-top: 0 !important; object-fit: contain; object-position: left bottom; }
+  img[data-illo-art] { width: 100%; height: 100%; object-fit: contain; object-position: left bottom; display: block; transition: transform 340ms cubic-bezier(.4,0,.3,1); }
+  [data-service-card]:hover img[data-illo-art] { transform: scale(1.04); }
   /* Single column below the grid breakpoint: no eyebrow row to align to, so the
      illustration keeps its natural height instead of overflowing the box. */
   @media (max-width: 619px) {
@@ -175,8 +183,8 @@
   [data-service-tag][data-tip][data-tip-edge="start"][data-tip-open]::after { transform: translate(0, 0); }
   [data-service-tag][data-linked="1"] { background: var(--highlight) !important; color: #202133 !important; }
   [data-theme="dark"] [data-service-tag][data-linked="1"] { background: var(--highlight) !important; color: #17171F !important; }
-  [data-service-tag]:hover { background: var(--highlight) !important; color: #202133 !important; transform: scale(1.08); }
-  [data-theme="dark"] [data-service-tag]:hover { background: var(--highlight) !important; color: #17171F !important; }
+  [data-service-tag]:hover { background: #F2C4BB !important; color: #202133 !important; transform: scale(1.08); }
+  [data-theme="dark"] [data-service-tag]:hover { background: #F2C4BB !important; color: #17171F !important; }
 @keyframes dgMarkA { from { transform: rotate(-1.6deg) scaleX(0) } to { transform: rotate(-1.6deg) scaleX(1) } }
   @keyframes dgMarkB { from { transform: rotate(1.4deg) scaleX(0) } to { transform: rotate(1.4deg) scaleX(1) } }
   [data-mark-a] { transform-origin: 0% 60%; animation: dgMarkA 760ms cubic-bezier(.2,.9,.2,1) 620ms both; }
@@ -955,26 +963,9 @@
       <sc-for list="{{ services }}" as="s" hint-placeholder-count="6">
         <div data-service-card="" data-reveal="" style="position: relative; display: flex; flex-direction: column; gap: 14px; padding: clamp(26px,2.8vw,38px) 0; background: transparent">
           <sc-if value="{{ s.illo }}" hint-placeholder-val="{{ false }}">
-            <sc-if value="{{ s.illoIsResearch }}" hint-placeholder-val="{{ false }}">
-              <div data-illo-wrap="" style="position:relative;margin-bottom:8px">
-                <svg data-illo="" viewBox="0 0 1600 813" preserveAspectRatio="xMinYMax meet" role="img" aria-label="Line drawing of two people in conversation at a table" style="position: relative; display: block; width: 100%; height: auto; padding-top: 12px"><defs><mask id="dg-conversation-h1" maskUnits="userSpaceOnUse" x="376" y="0" width="255" height="233"><image data-illo-mask="" href="assets/illustrations/conversation-h1-clip4.png" x="376" y="0" width="255" height="233"></image></mask><mask id="dg-conversation-h2" maskUnits="userSpaceOnUse" x="1039" y="0" width="307" height="249"><image data-illo-mask="" href="assets/illustrations/conversation-h2-clip4.png" x="1039" y="0" width="307" height="249"></image></mask><mask id="dg-conversation-l7" maskUnits="userSpaceOnUse" x="932" y="422" width="67" height="95"><image data-illo-mask="" href="assets/illustrations/conversation-l7-clip2.png" x="932" y="422" width="67" height="95"></image></mask></defs><image data-illo-fill="" href="assets/illustrations/conversation-fill.png" x="0" y="0" width="1600" height="813"></image><image href="assets/illustrations/conversation.png" x="0" y="0" width="1600" height="813"></image><g mask="url(#dg-conversation-h1)"><rect x="376" y="0" width="255" height="233" fill="var(--bg)"></rect><image data-illo-fill="" href="assets/illustrations/conversation-fill.png" x="0" y="0" width="1600" height="813"></image></g><g data-illo-head="1" style="transform-origin:505px 232px;--amp:4.9"><image href="assets/illustrations/conversation-h1-part3.png" x="376" y="0" width="255" height="233"></image></g><g mask="url(#dg-conversation-h2)"><rect x="1039" y="0" width="307" height="249" fill="var(--bg)"></rect><image data-illo-fill="" href="assets/illustrations/conversation-fill.png" x="0" y="0" width="1600" height="813"></image></g><g data-illo-head="2" style="transform-origin:1140px 237px;--amp:4.8"><image href="assets/illustrations/conversation-h2-part3.png" x="1039" y="0" width="307" height="249"></image></g><g mask="url(#dg-conversation-l7)"><rect x="932" y="422" width="67" height="95" fill="var(--bg)"></rect><image data-illo-fill="" href="assets/illustrations/conversation-fill.png" x="0" y="0" width="1600" height="813"></image></g><g data-illo-head="7" style="transform-origin:945px 508px;--amp:9"><image href="assets/illustrations/conversation-l7-part.png" x="932" y="422" width="67" height="95"></image></g></svg>
-              </div>
-            </sc-if>
-            <sc-if value="{{ s.illoIsStrategy }}" hint-placeholder-val="{{ false }}">
-              <div data-illo-wrap="" style="position:relative;margin-bottom:8px">
-                <svg data-illo="" viewBox="0 0 1464 816" preserveAspectRatio="xMinYMax meet" role="img" aria-label="Line drawing of three people discussing a strategy board" style="position:relative;display:block;width:100%;height:auto"><defs><mask id="dg-strategy-h1" maskUnits="userSpaceOnUse" x="136" y="55" width="289" height="300"><image data-illo-mask="" href="assets/illustrations/strategy-h1-clip4.png" x="136" y="55" width="289" height="300"></image></mask><mask id="dg-strategy-h2" maskUnits="userSpaceOnUse" x="532" y="101" width="231" height="225"><image data-illo-mask="" href="assets/illustrations/strategy-h2-clip4.png" x="532" y="101" width="231" height="225"></image></mask><mask id="dg-strategy-h3" maskUnits="userSpaceOnUse" x="1046" y="38" width="243" height="258"><image data-illo-mask="" href="assets/illustrations/strategy-h3-clip4.png" x="1046" y="38" width="243" height="258"></image></mask><mask id="dg-strategy-l8" maskUnits="userSpaceOnUse" x="817" y="220" width="142" height="221"><image data-illo-mask="" href="assets/illustrations/strategy-l8-clip2.png" x="817" y="220" width="142" height="221"></image></mask></defs><image data-illo-fill="" href="assets/illustrations/strategy-fill.png" x="0" y="0" width="1464" height="816"></image><image href="assets/illustrations/strategy.png" x="0" y="0" width="1464" height="816"></image><g mask="url(#dg-strategy-h1)"><rect x="136" y="55" width="289" height="300" fill="var(--bg)"></rect><image data-illo-fill="" href="assets/illustrations/strategy-fill.png" x="0" y="0" width="1464" height="816"></image></g><g data-illo-head="1" style="transform-origin:330px 335px;--amp:5.4"><image href="assets/illustrations/strategy-h1-part3.png" x="136" y="55" width="289" height="300"></image></g><g mask="url(#dg-strategy-h2)"><rect x="532" y="101" width="231" height="225" fill="var(--bg)"></rect><image data-illo-fill="" href="assets/illustrations/strategy-fill.png" x="0" y="0" width="1464" height="816"></image></g><g data-illo-head="2" style="transform-origin:625px 325px;--amp:5.1"><image href="assets/illustrations/strategy-h2-part3.png" x="532" y="101" width="231" height="225"></image></g><g mask="url(#dg-strategy-h3)"><rect x="1046" y="38" width="243" height="258" fill="var(--bg)"></rect><image data-illo-fill="" href="assets/illustrations/strategy-fill.png" x="0" y="0" width="1464" height="816"></image></g><g data-illo-head="3" style="transform-origin:1170px 295px;--amp:6.2"><image href="assets/illustrations/strategy-h3-part3.png" x="1046" y="38" width="243" height="258"></image></g><g mask="url(#dg-strategy-l8)"><rect x="817" y="220" width="142" height="221" fill="var(--bg)"></rect><image data-illo-fill="" href="assets/illustrations/strategy-fill.png" x="0" y="0" width="1464" height="816"></image></g><g data-illo-head="8" style="transform-origin:845px 400px;--amp:5"><image href="assets/illustrations/strategy-l8-part.png" x="817" y="220" width="142" height="221"></image></g></svg>
-              </div>
-            </sc-if>
-            <sc-if value="{{ s.illoIsUxdesign }}" hint-placeholder-val="{{ false }}">
-              <div data-illo-wrap="" style="position:relative;margin-bottom:8px">
-                <svg data-illo="" viewBox="0 0 1500 844" preserveAspectRatio="xMinYMax meet" role="img" aria-label="Line drawing of three people arranging cards on a table" style="position: relative; display: block; width: 100%; height: auto; padding-top: 0px; padding-bottom: 0px; margin-top: 0px; margin-bottom: -4px"><defs><mask id="dg-uxdesign-h1" maskUnits="userSpaceOnUse" x="262" y="156" width="313" height="279"><image data-illo-mask="" href="assets/illustrations/uxdesign-h1-clip4.png" x="262" y="156" width="313" height="279"></image></mask><mask id="dg-uxdesign-h2" maskUnits="userSpaceOnUse" x="612" y="166" width="212" height="174"><image data-illo-mask="" href="assets/illustrations/uxdesign-h2-clip4.png" x="612" y="166" width="212" height="174"></image></mask><mask id="dg-uxdesign-h3" maskUnits="userSpaceOnUse" x="958" y="204" width="280" height="234"><image data-illo-mask="" href="assets/illustrations/uxdesign-h3-clip2.png" x="958" y="204" width="280" height="234"></image></mask></defs><image data-illo-fill="" href="assets/illustrations/uxdesign-fill.png" x="0" y="0" width="1500" height="844"></image><image href="assets/illustrations/uxdesign.png" x="0" y="0" width="1500" height="844"></image><g mask="url(#dg-uxdesign-h1)"><rect x="262" y="156" width="313" height="279" fill="var(--bg)"></rect><image data-illo-fill="" href="assets/illustrations/uxdesign-fill.png" x="0" y="0" width="1500" height="844"></image></g><g data-illo-head="1" style="transform-origin:470px 434px;--amp:4.9"><image href="assets/illustrations/uxdesign-h1-part3.png" x="262" y="156" width="313" height="279"></image></g><g mask="url(#dg-uxdesign-h2)"><rect x="612" y="166" width="212" height="174" fill="var(--bg)"></rect><image data-illo-fill="" href="assets/illustrations/uxdesign-fill.png" x="0" y="0" width="1500" height="844"></image></g><g data-illo-head="2" style="transform-origin:700px 339px;--amp:7.5"><image href="assets/illustrations/uxdesign-h2-part3.png" x="612" y="166" width="212" height="174"></image></g><g mask="url(#dg-uxdesign-h3)"><rect x="958" y="204" width="280" height="234" fill="var(--bg)"></rect><image data-illo-fill="" href="assets/illustrations/uxdesign-fill.png" x="0" y="0" width="1500" height="844"></image></g><g data-illo-head="3" style="transform-origin:1065px 437px;--amp:5.8"><image href="assets/illustrations/uxdesign-h3-part.png" x="958" y="204" width="280" height="234"></image></g></svg>
-              </div>
-            </sc-if>
-            <sc-if value="{{ s.illoIsWorkshops }}" hint-placeholder-val="{{ false }}">
-              <div data-illo-wrap="" style="position: relative; margin-bottom: 8px">
-                <svg data-illo="" viewBox="0 0 1454 815" preserveAspectRatio="xMinYMax meet" role="img" aria-label="Line drawing of a speaker presenting to an audience" style="position: relative; display: block; width: 100%; height: auto; padding-top: 0px; padding-bottom: 0px"><defs><mask id="dg-workshops-h1" maskUnits="userSpaceOnUse" x="316" y="0" width="158" height="169"><image data-illo-mask="" href="assets/illustrations/workshops-h1-clip4.png" x="316" y="0" width="158" height="169"></image></mask><mask id="dg-workshops-h2" maskUnits="userSpaceOnUse" x="132" y="362" width="241" height="308"><image data-illo-mask="" href="assets/illustrations/workshops-h2-clip4.png" x="132" y="362" width="241" height="308"></image></mask><mask id="dg-workshops-h3" maskUnits="userSpaceOnUse" x="452" y="354" width="201" height="227"><image data-illo-mask="" href="assets/illustrations/workshops-h3-clip4.png" x="452" y="354" width="201" height="227"></image></mask><mask id="dg-workshops-h4" maskUnits="userSpaceOnUse" x="810" y="424" width="192" height="169"><image data-illo-mask="" href="assets/illustrations/workshops-h4-clip4.png" x="810" y="424" width="192" height="169"></image></mask><mask id="dg-workshops-h5" maskUnits="userSpaceOnUse" x="1088" y="401" width="175" height="176"><image data-illo-mask="" href="assets/illustrations/workshops-h5-clip4.png" x="1088" y="401" width="175" height="176"></image></mask><mask id="dg-workshops-l6" maskUnits="userSpaceOnUse" x="538" y="212" width="169" height="101"><image data-illo-mask="" href="assets/illustrations/workshops-l6-clip2.png" x="538" y="212" width="169" height="101"></image></mask></defs><image data-illo-fill="" href="assets/illustrations/workshops-fill.png" x="0" y="0" width="1454" height="815"></image><image href="assets/illustrations/workshops.png" x="0" y="0" width="1454" height="815"></image><g mask="url(#dg-workshops-h1)"><rect x="316" y="0" width="158" height="169" fill="var(--bg)"></rect><image data-illo-fill="" href="assets/illustrations/workshops-fill.png" x="0" y="0" width="1454" height="815"></image></g><g data-illo-head="1" style="transform-origin:396px 168px;--amp:7.7"><image href="assets/illustrations/workshops-h1-part3.png" x="316" y="0" width="158" height="169"></image></g><g mask="url(#dg-workshops-h2)"><rect x="132" y="362" width="241" height="308" fill="var(--bg)"></rect><image data-illo-fill="" href="assets/illustrations/workshops-fill.png" x="0" y="0" width="1454" height="815"></image></g><g data-illo-head="2" style="transform-origin:242px 652px;--amp:3.6"><image href="assets/illustrations/workshops-h2-part3.png" x="132" y="362" width="241" height="308"></image></g><g mask="url(#dg-workshops-h3)"><rect x="452" y="354" width="201" height="227" fill="var(--bg)"></rect><image data-illo-fill="" href="assets/illustrations/workshops-fill.png" x="0" y="0" width="1454" height="815"></image></g><g data-illo-head="3" style="transform-origin:566px 580px;--amp:7.4"><image href="assets/illustrations/workshops-h3-part3.png" x="452" y="354" width="201" height="227"></image></g><g mask="url(#dg-workshops-h4)"><rect x="810" y="424" width="192" height="169" fill="var(--bg)"></rect><image data-illo-fill="" href="assets/illustrations/workshops-fill.png" x="0" y="0" width="1454" height="815"></image></g><g data-illo-head="4" style="transform-origin:906px 592px;--amp:7.7"><image href="assets/illustrations/workshops-h4-part3.png" x="810" y="424" width="192" height="169"></image></g><g mask="url(#dg-workshops-h5)"><rect x="1088" y="401" width="175" height="176" fill="var(--bg)"></rect><image data-illo-fill="" href="assets/illustrations/workshops-fill.png" x="0" y="0" width="1454" height="815"></image></g><g data-illo-head="5" style="transform-origin:1176px 575px;--amp:7.2"><image href="assets/illustrations/workshops-h5-part3.png" x="1088" y="401" width="175" height="176"></image></g><g mask="url(#dg-workshops-l6)"><rect x="538" y="212" width="169" height="101" fill="var(--bg)"></rect><image data-illo-fill="" href="assets/illustrations/workshops-fill.png" x="0" y="0" width="1454" height="815"></image></g><g data-illo-head="6" style="transform-origin:555px 283px;--amp:7.5"><image href="assets/illustrations/workshops-l6-part.png" x="538" y="212" width="169" height="101"></image></g></svg>
-              </div>
-            </sc-if>
+            <div data-illo-wrap="" data-illo-plate="">
+              <img data-illo="" data-illo-art="" src="{{ s.illoSrc }}" alt="{{ s.illoAlt }}" loading="lazy" decoding="async">
+            </div>
           </sc-if>
           <p style="margin:0;font-size: var(--t-label);font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--fg);opacity:0.5">{{ s.title }}</p>
           <h3 style="margin: 0; max-width: none; font-size: clamp(22px,2vw,20px); line-height: 1.2; font-weight: 600; letter-spacing: -0.02em; text-wrap: pretty; font-family: archivo">{{ s.head }}</h3>
@@ -1144,6 +1135,12 @@ class Component extends DCLogic {
     { key: 'manntech.png', name: 'Manntech', industry: 'Industry' },
     { key: 'bmg.png', name: 'Bank Mendes Gans', industry: 'Finance' }
   ];
+  serviceArt = {
+    'dg-service-research': { src: 'assets/illustrations/services/research.png', alt: 'Illustration of a magnifying glass over a network of data points' },
+    'dg-service-strategy': { src: 'assets/illustrations/services/strategy.png', alt: 'Illustration of a compass pointing the way' },
+    'dg-service-uxdesign': { src: 'assets/illustrations/services/design.png', alt: 'Illustration of a pencil drawing a bezier curve over interface frames' },
+    'dg-service-workshops': { src: 'assets/illustrations/services/workshops.png', alt: 'Illustration of a board with sticky notes and speech bubbles' }
+  };
   caseCats = ['Research', 'Strategy', 'AI design', 'Service design', 'UX design', 'Design system'];
   aiCases = ['hlp', 'sidekick', 'design-systems', 'advance'];
   catMap = {
@@ -2911,8 +2908,11 @@ class Component extends DCLogic {
     }
   };
   applyTheme = (theme) => {
-    document.documentElement.setAttribute('data-theme', theme);
+    const root = document.documentElement;
+    root.setAttribute('data-theme-switching', '');
+    root.setAttribute('data-theme', theme);
     try { localStorage.setItem('dg-theme', theme); } catch (e) {}
+    requestAnimationFrame(() => requestAnimationFrame(() => root.removeAttribute('data-theme-switching')));
   };
   // Mobile browsers sometimes keep the blended header layer from the old theme.
   // Force the blend layer to re-composite after a theme change.
@@ -2924,9 +2924,11 @@ class Component extends DCLogic {
       const blend = n.style.mixBlendMode;
       n.style.mixBlendMode = 'normal';
       n.style.willChange = 'opacity';
+      n.style.opacity = '0.999';
       void n.offsetHeight;
       requestAnimationFrame(() => {
         n.style.mixBlendMode = blend || '';
+        n.style.opacity = '';
         n.style.willChange = '';
       });
     });
@@ -2954,6 +2956,8 @@ class Component extends DCLogic {
     }, () => {
       this.repaintHeaders();
       requestAnimationFrame(this.repaintHeaders);
+      setTimeout(this.repaintHeaders, 140);
+      setTimeout(this.repaintHeaders, 380);
     });
   };
   openMenu = () => { this.lockScroll(true); this.setState({ menuOpen: true }); };
@@ -3993,7 +3997,7 @@ class Component extends DCLogic {
  { illo: 'dg-service-strategy', title: 'Strategy', head: 'Turn insights into clear design direction', body: 'I identify new opportunities and formulate a fitting strategy based on real insight, shaping a design vision from insight, brand identity and business goals.', tags: ['Value proposition', 'UX strategy', 'Product direction', 'Design vision', 'Roadmapping', 'Concept development', 'Business modelling'] },
         { illo: 'dg-service-uxdesign', title: 'Design', head: 'Create products and services people really want to use', body: 'I translate that direction into products and services people can actually use, validated with the people who will use them.', tags: ['UX design', 'Interaction design', 'Service design', 'Prototyping', 'Design systems', 'UI design', 'Information architecture', 'Wireframing', 'AI interaction', 'Behavioural design'] },
  { illo: 'dg-service-workshops', title: 'Workshops, talks & coaching', head: 'Move teams and organisations forward', body: 'I speak and run sessions on where design, technology and human behaviour meet, for teams, clients and conferences.', tags: ['Knowledge sessions', 'Design critique', 'Co-design', 'Design leadership', 'Workshops', 'UX coaching', 'Team coaching', 'Agile UX', 'Guest lectures'] }
-      ].map(s => ({ illo: s.illo, illoIsResearch: s.illo === 'dg-service-research', illoIsStrategy: s.illo === 'dg-service-strategy', illoIsUxdesign: s.illo === 'dg-service-uxdesign', illoIsWorkshops: s.illo === 'dg-service-workshops', title: tr(s.title), head: tr(s.head), body: tr(s.body), tags: s.tags.map(x => ({ label: tr(x), tip: tr(this.tipFor(x)) })) })),
+      ].map(s => ({ illo: s.illo, illoSrc: this.serviceArt[s.illo].src, illoAlt: tr(this.serviceArt[s.illo].alt), illoIsResearch: s.illo === 'dg-service-research', illoIsStrategy: s.illo === 'dg-service-strategy', illoIsUxdesign: s.illo === 'dg-service-uxdesign', illoIsWorkshops: s.illo === 'dg-service-workshops', title: tr(s.title), head: tr(s.head), body: tr(s.body), tags: s.tags.map(x => ({ label: tr(x), tip: tr(this.tipFor(x)) })) })),
       industries: this.industries.map(i => ({
         key: i,
         label: tr(i),
