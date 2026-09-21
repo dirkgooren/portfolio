@@ -56,6 +56,10 @@
      (overscroll, safe areas) must read as the same dark blue. */
   [data-overlay="ink"] body { background: var(--ink); }
   body { margin: 0; background: var(--bg); color: var(--fg); font-family: 'Archivo', system-ui, sans-serif; transition: background 260ms ease-out, color 260ms ease-out; }
+  /* During a theme switch the ground swaps in a single frame: a fading background
+     leaves the blended header compositing against a colour that is already gone,
+     which is what stranded the mark and the burger in the previous theme. */
+  [data-theme-switching] body, [data-theme-switching] body * { transition: none !important; }
   [data-theme="dark"] #about, [data-theme="dark"] [data-light-surface] {
     --fg: #202133; --muted: rgba(32,33,51,0.45); --muted2: rgba(32,33,51,0.62); --muted3: rgba(32,33,51,0.4); --hair: rgba(32,33,51,0.14);
     --chip: rgba(32,33,51,0.10); --imgbg: rgba(32,33,51,0.08);
@@ -193,6 +197,11 @@
      inverts to --fg against each theme ground. */
   :root { --nav-ink: #D4D0BC; }
   [data-theme="dark"] { --nav-ink: #FFFFFF; }
+  /* Difference blending turns a mid-tone or brand-coloured ground into an
+     unrelated hue, so bands that cannot be inverted opt out and hand the
+     header a solid ink instead. */
+  [data-ink-solid] { mix-blend-mode: normal !important; }
+  [data-ink-solid] a, [data-ink-solid] button, [data-ink-solid] nav a, [data-ink-solid] [data-mark-link] { color: var(--ink-solid) !important; }
   [data-illo-head] { transform-box: view-box; will-change: transform; }
   @keyframes dgHead1 { 0%,100%{transform:rotate(0)} 10%{transform:rotate(calc(var(--amp,1) * 1deg))} 22%,29%{transform:rotate(calc(var(--amp,1) * 0.7deg))} 44%{transform:rotate(calc(var(--amp,1) * -0.75deg))} 58%,66%{transform:rotate(calc(var(--amp,1) * -0.35deg))} 82%{transform:rotate(calc(var(--amp,1) * 0.25deg))} }
   @keyframes dgHead2 { 0%,100%{transform:rotate(0)} 14%,20%{transform:rotate(calc(var(--amp,1) * -0.85deg))} 33%{transform:rotate(calc(var(--amp,1) * 0.5deg))} 49%{transform:rotate(calc(var(--amp,1) * 0.95deg))} 64%,72%{transform:rotate(calc(var(--amp,1) * 0.2deg))} 87%{transform:rotate(calc(var(--amp,1) * -0.4deg))} }
@@ -467,7 +476,7 @@
       </div>
 
       <sc-if value="{{ openCaseData.hasCardCover }}" hint-placeholder-val="{{ false }}">
-        <div data-cover-img="" style="margin: 0 var(--sec-x) clamp(28px,4vw,56px); overflow: hidden; background: var(--imgbg)">
+        <div data-cover-img="" data-ink="{{ openCaseData.coverInk }}" style="margin: 0 var(--sec-x) clamp(28px,4vw,56px); overflow: hidden; background: var(--imgbg)">
           <img loading="lazy" decoding="async" src="{{ openCaseData.cardCoverSrc }}" alt="{{ openCaseData.cardAlt }}" style="display:block;width:100%;height:auto">
         </div>
       </sc-if>
@@ -641,15 +650,16 @@
         <p style="margin:0 0 clamp(18px,2.5vw,30px);font-size: var(--t-label);font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:inherit">{{ t.nextProject }}</p>
         <span style="display:flex;align-items:center;gap:0.3em;flex-wrap:wrap;max-width:24ch;font-size: var(--t-h1);line-height:1.05;font-weight:600;letter-spacing:-0.03em;color:inherit"><span>{{ openCaseData.nextDeck }}</span><span data-next-arrow-wrap=""><svg data-next-arrow="" width="0.8em" height="0.8em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l14 0"></path><path d="M13 18l6 -6"></path><path d="M13 6l6 6"></path></svg></span></span>
       </a>
-      <section style="margin:0;padding:var(--sec-y) var(--sec-x);background:var(--ink);color:var(--on-dark)">
-        <p style="margin:0 0 clamp(20px,3vw,36px);font-size: var(--t-label);font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--on-dark)">{{ t.contact }}</p>
-        <h2 style="margin:0 0 64px;max-width:22ch;font-size: var(--t-h1);line-height:1.1;font-weight:700;letter-spacing:-0.015em;color:var(--on-dark);white-space:pre-line">{{ t.contactTitle }}</h2>
+      <section style="margin: 0; padding: var(--sec-y) var(--sec-x); background: var(--ink); color: var(--on-dark); width: 100%">
+        <p data-reveal="" style="margin:0 0 clamp(20px,3vw,36px);font-size: var(--t-label);font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--on-dark)">{{ t.contact }}</p>
+        <h2 data-reveal="" style="margin: 0 0 64px; max-width: 22ch; font-size: var(--t-h1); line-height: 1; font-weight: 700; letter-spacing: -0.015em; color: var(--on-dark); white-space: pre-line"><span style="font-family:'Archivo',system-ui,sans-serif;font-variation-settings:'wdth' 68;font-weight:200;font-style:italic;letter-spacing:0.018em">{{ t.contactTitleLead }}</span>
+{{ t.contactTitleRest }}</h2>
         <div style="display:flex;flex-wrap:wrap;align-items:center;gap:18px 40px">
-          <a href="mailto:dirkgooren@gmail.com?subject=Hi!" style="display:inline-flex;align-items:center;gap:14px;font-size: var(--t-lead);line-height:1.24;font-weight:600;letter-spacing:-0.01em;color:var(--on-dark)" style-hover="color:var(--on-dark);opacity:0.65">
+          <a data-reveal="" href="mailto:dirkgooren@gmail.com?subject=Hi!" style="display:inline-flex;align-items:center;gap:14px;font-size: var(--t-lead);line-height:1.24;font-weight:600;letter-spacing:-0.01em;color:var(--on-dark)" style-hover="color:var(--on-dark);opacity:0.65">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:0 0 auto"><path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z"></path><path d="M3 7l9 6l9 -6"></path></svg>
             <span>{{ t.email }}</span>
           </a>
-          <a href="https://www.linkedin.com/in/dirkgooren/" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:14px;font-size: var(--t-lead);line-height:1.24;font-weight:600;letter-spacing:-0.01em;color:var(--on-dark)" style-hover="color:var(--on-dark);opacity:0.65">
+          <a data-reveal="" href="https://www.linkedin.com/in/dirkgooren/" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:14px;font-size: var(--t-lead);line-height:1.24;font-weight:600;letter-spacing:-0.01em;color:var(--on-dark)" style-hover="color:var(--on-dark);opacity:0.65">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:0 0 auto"><path d="M8 11v5"></path><path d="M8 8v.01"></path><path d="M12 16v-5"></path><path d="M16 16v-3a2 2 0 1 0 -4 0"></path><path d="M3 7a4 4 0 0 1 4 -4h10a4 4 0 0 1 4 4v10a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4z"></path></svg>
             <span>LinkedIn</span>
           </a>
@@ -960,7 +970,8 @@
     </div>
   </section><section id="contact" style="margin: 0; padding: var(--sec-y) var(--sec-x); background: var(--ink); color: var(--on-dark); width: 100%; height: 100%; margin-bottom: 0px; margin-right: 0px; margin-left: 0px">
     <p data-reveal="" style="margin:0 0 clamp(20px,3vw,36px);font-size: var(--t-label);font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--on-dark)">{{ t.contact }}</p>
-    <h2 data-reveal="" style="margin: 0 0 64px; max-width: 22ch; font-size: var(--t-h1); line-height: 1; font-weight: 700; letter-spacing: -0.015em; color: var(--on-dark); white-space: pre-line">{{ t.contactTitle }}</h2>
+    <h2 data-reveal="" style="margin: 0 0 64px; max-width: 22ch; font-size: var(--t-h1); line-height: 1; font-weight: 700; letter-spacing: -0.015em; color: var(--on-dark); white-space: pre-line"><span style="font-family:'Archivo',system-ui,sans-serif;font-variation-settings:'wdth' 68;font-weight:200;font-style:italic;letter-spacing:0.018em">{{ t.contactTitleLead }}</span>
+{{ t.contactTitleRest }}</h2>
     <div style="display:flex;flex-wrap:wrap;align-items:center;gap:18px 40px">
       <a data-reveal="" href="mailto:dirkgooren@gmail.com?subject=Hi!" style="display:inline-flex;align-items:center;gap:14px;font-size: var(--t-lead);line-height:1.24;font-weight:600;letter-spacing:-0.01em;color:var(--on-dark)" style-hover="color:var(--on-dark);opacity:0.65">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:0 0 auto"><path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z"></path><path d="M3 7l9 6l9 -6"></path></svg>
@@ -1551,6 +1562,7 @@ class Component extends DCLogic {
   }
   componentDidMount() {
     this.loadUnlocked();
+    try { this.wireInk(); } catch (err) {}
     try { this.seoInit(); this.seoSync(this.keyFromHash()); } catch (err) {}
     this._baseTitle = this.casePage ? 'Dirk Gooren' : (document.title || 'Dirk Gooren · UX design lead');
     if (!document.title) document.title = this._baseTitle;
@@ -2856,8 +2868,11 @@ class Component extends DCLogic {
     }
   };
   applyTheme = (theme) => {
-    document.documentElement.setAttribute('data-theme', theme);
+    const root = document.documentElement;
+    root.setAttribute('data-theme-switching', '');
+    root.setAttribute('data-theme', theme);
     try { localStorage.setItem('dg-theme', theme); } catch (e) {}
+    requestAnimationFrame(() => requestAnimationFrame(() => root.removeAttribute('data-theme-switching')));
   };
   // Mobile browsers sometimes keep the blended header layer from the old theme.
   // Force the blend layer to re-composite after a theme change.
@@ -2869,9 +2884,11 @@ class Component extends DCLogic {
       const blend = n.style.mixBlendMode;
       n.style.mixBlendMode = 'normal';
       n.style.willChange = 'opacity';
+      n.style.opacity = '0.999';
       void n.offsetHeight;
       requestAnimationFrame(() => {
         n.style.mixBlendMode = blend || '';
+        n.style.opacity = '';
         n.style.willChange = '';
       });
     });
@@ -2899,6 +2916,9 @@ class Component extends DCLogic {
     }, () => {
       this.repaintHeaders();
       requestAnimationFrame(this.repaintHeaders);
+      setTimeout(this.repaintHeaders, 140);
+      setTimeout(this.repaintHeaders, 380);
+      try { this.inkScan(); } catch (err) {}
     });
   };
   openMenu = () => { this.lockScroll(true); this.setState({ menuOpen: true }); };
@@ -3072,6 +3092,43 @@ class Component extends DCLogic {
     frame.style.height = Math.ceil(spec.h * scale) + 'px';
     frame.style.borderRadius = (spec.radius * scale) + 'px';
     frame.style.border = Math.max(2, spec.bezel * scale) + 'px solid #0C0D13';
+  }
+  // Near-black brand media: the header cannot invert against it legibly, so it
+  // switches to a solid light ink while such a band sits under it.
+  darkMedia = /\/advance\//;
+  inkFor = (src) => (src && this.darkMedia.test(src) ? 'light' : null);
+  inkScan = () => {
+    const root = this.el || document;
+    let hdrs = [], bands = [];
+    try {
+      hdrs = Array.from(root.querySelectorAll('[data-site-header], [data-case-pane] > header'));
+      bands = Array.from(root.querySelectorAll('[data-ink]'));
+    } catch (e) { return; }
+    hdrs.forEach(h => {
+      const r = h.getBoundingClientRect();
+      let ink = null;
+      for (const b of bands) {
+        const br = b.getBoundingClientRect();
+        if (br.bottom > r.top + 10 && br.top < r.bottom - 10) { ink = b.getAttribute('data-ink'); break; }
+      }
+      if (ink === 'light' || ink === 'dark') {
+        h.style.setProperty('--ink-solid', ink === 'light' ? '#F5F4F1' : '#202133');
+        h.setAttribute('data-ink-solid', '');
+      } else {
+        h.removeAttribute('data-ink-solid');
+        h.style.removeProperty('--ink-solid');
+      }
+    });
+  };
+  wireInk() {
+    if (this._inkWired) return;
+    this._inkWired = true;
+    let raf = 0;
+    const run = () => { raf = 0; this.inkScan(); };
+    this._onInk = () => { if (!raf) raf = requestAnimationFrame(run); };
+    window.addEventListener('scroll', this._onInk, { passive: true, capture: true });
+    window.addEventListener('resize', this._onInk, { passive: true });
+    this.inkScan();
   }
   burgerBar = (which) => {
     const open = this.state.menuOpen;
@@ -3675,6 +3732,7 @@ class Component extends DCLogic {
       coverAlt: this.altFor(c.src || c.cover, tr(c.title) + ' \u2014 case cover'), cardAlt: this.altFor(c.src, tr(c.title) + ' \u2014 ' + tr(c.blurb)), plainImg: !c.orbs, coverPlain: !!(c.src || c.cover) && !c.fan && !c.orbs,
       quote: c.quote ? tr(c.quote) : c.quote, cite: c.cite ? tr(c.cite) : c.cite,
       hasCardCover: !!(c.src && c.src.indexOf('assets/') === 0 && c.key !== 'design-systems' && c.key !== 'planetyes'),
+      coverInk: this.inkFor(c.src),
       cardCoverSrc: c.src && c.src.indexOf('assets/') === 0 ? c.src : '',
       sections: c.sections.map((sec, si) => Object.assign({}, sec, {
         isIntro: si === 0,
@@ -3858,6 +3916,8 @@ class Component extends DCLogic {
         servicesLead: tr('Research to understand, strategy to choose a direction, design to make it real, and workshops to get everyone moving.'),
         servicesIntro: tr("I bring structure to the ‘why’ and ‘how’ behind a client's question, and turn a long-term vision into something buildable now."),
         contactTitle: tr("I welcome complexity. I'll bring clarity.").replace('. ', '.\n'),
+        contactTitleLead: tr("I welcome complexity. I'll bring clarity.").replace('. ', '.\n').split('\n')[0],
+        contactTitleRest: tr("I welcome complexity. I'll bring clarity.").replace('. ', '.\n').split('\n').slice(1).join('\n'),
         gateTag: this.state.lang === 'nl' ? 'Beveiligd' : 'Protected',
         gateTitle: this.state.lang === 'nl' ? 'Je bent er bijna.' : 'Almost there.',
         gateBody: this.state.lang === 'nl' ? 'Deze case is voorlopig vertrouwelijk. Log in voor het hele verhaal.' : 'This case study is confidential for now. Log in to get the full story.',
