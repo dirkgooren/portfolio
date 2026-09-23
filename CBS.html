@@ -231,6 +231,12 @@
   [data-theme="dark"] [data-theme-icon="moon"] { opacity: 1; transform: rotate(0deg) scale(1); }
   [data-theme="dark"] a:hover > [data-theme-icons] [data-theme-icon="sun"] { opacity: 1; transform: rotate(0deg) scale(1); }
   [data-theme="dark"] a:hover > [data-theme-icons] [data-theme-icon="moon"] { opacity: 0; transform: rotate(-110deg) scale(0.55); }
+  /* Right after a click the icon for the chosen theme holds until the pointer
+     leaves, instead of the hover preview flipping straight back. */
+  a[data-theme-held] [data-theme-icons] [data-theme-icon="sun"] { opacity: 1 !important; transform: rotate(0deg) scale(1) !important; }
+  a[data-theme-held] [data-theme-icons] [data-theme-icon="moon"] { opacity: 0 !important; transform: rotate(-110deg) scale(0.55) !important; }
+  [data-theme="dark"] a[data-theme-held] [data-theme-icons] [data-theme-icon="moon"] { opacity: 1 !important; transform: rotate(0deg) scale(1) !important; }
+  [data-theme="dark"] a[data-theme-held] [data-theme-icons] [data-theme-icon="sun"] { opacity: 0 !important; transform: rotate(110deg) scale(0.55) !important; }
   @media (prefers-reduced-motion: reduce) { [data-theme-icon] { transition: opacity 120ms linear; } }
   [data-theme="dark"] { --nav-ink: #FFFFFF; --nav-hover: #3D3D4F; }
   /* Difference blending turns a mid-tone or brand-coloured ground into an
@@ -534,7 +540,7 @@
           <div data-orb="" style="position:absolute;width:40%;height:54%;top:20%;left:66%;border-radius:999px;filter:blur(44px);background:rgba(28,107,167,0.26);animation:dgOrbB 9s ease-in-out infinite;animation-delay:-4s"></div>
           <div data-orb="" style="position:absolute;width:32%;height:44%;top:-6%;left:78%;border-radius:999px;filter:blur(40px);background:rgba(62,160,230,0.28);animation:dgOrbC 6s ease-in-out infinite;animation-delay:-2s"></div>
           <div data-orb="" style="position:absolute;width:28%;height:38%;top:32%;left:60%;border-radius:999px;filter:blur(40px);background:rgba(202,0,93,0.12);animation:dgOrbD 15s ease-in-out infinite;animation-delay:-9s"></div>
-          <img loading="lazy" decoding="async" src="assets/img/sidekick/logo-bzk-fit.png" alt="Ministerie van Binnenlandse Zaken en Koninkrijksrelaties" style="position:absolute;top:0;left:50%;width:34%;height:auto;transform:translateX(-9.2%)">
+          <img loading="lazy" decoding="async" src="assets/img/sidekick/logo-bzk-fit.png" alt="Ministerie van Binnenlandse Zaken en Koninkrijksrelaties" style="position:absolute;top:0;left:50%;width:17%;height:auto;transform:translateX(-9.2%)">
         </div>
       </sc-if>
       <sc-if value="{{ openCaseData.fan }}" hint-placeholder-val="{{ false }}">
@@ -1064,7 +1070,7 @@ class Component extends DCLogic {
       "hlp": "DWL.dc.html",
       "planetyes": "Planet Yes.dc.html",
       "bmg": "ING BMG.dc.html",
-      "sidekick": "MVBZ.dc.html",
+      "sidekick": "MinVBZ.dc.html",
       "tweedekamer": "Tweede Kamer.dc.html",
       "design-systems": "Design systems.dc.html"
   };
@@ -2962,6 +2968,14 @@ class Component extends DCLogic {
   };
   toggleTheme = (e) => {
     if (e) e.preventDefault();
+    const btn = e && e.currentTarget;
+    if (btn && btn.setAttribute && btn.querySelector && btn.querySelector('[data-theme-icons]')) {
+      btn.setAttribute('data-theme-held', '');
+      if (!btn._heldWired) {
+        btn._heldWired = true;
+        btn.addEventListener('pointerleave', () => btn.removeAttribute('data-theme-held'));
+      }
+    }
     this.setState(s => {
       const next = s.theme === 'dark' ? 'light' : 'dark';
       this.applyTheme(next);
