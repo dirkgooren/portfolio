@@ -8,6 +8,7 @@
 <body>
 <x-dc>
 <helmet>
+<script src="./theme-boot.js"></script>
 <title>ADVANCE · Dirk Gooren</title>
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
@@ -755,8 +756,8 @@
       </nav>
       <div data-menu-lang="" style="margin-top:auto;display:flex;align-items:center;gap:28px;padding:clamp(24px,6vw,48px) clamp(24px,5vw,72px);font-size: var(--t-label);font-weight:600;letter-spacing:0.1em;text-transform:uppercase">
         <a href="#top" onClick="{{ toggleTheme }}" aria-label="Switch theme" style="display:inline-flex;align-items:center;color:var(--on-dark);cursor:pointer" style-hover="opacity:0.6">
-        <sc-if value="{{ isDark }}" hint-placeholder-val="{{ false }}"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.4" fill="currentColor" stroke="none"></circle><path d="M12 2v2.4M12 19.6V22M2 12h2.4M19.6 12H22M5.1 5.1l1.7 1.7M17.2 17.2l1.7 1.7M18.9 5.1l-1.7 1.7M6.8 17.2l-1.7 1.7"></path></svg></sc-if>
-        <sc-if value="{{ isLight }}" hint-placeholder-val="{{ true }}"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z" fill="currentColor"></path></svg></sc-if>
+        <sc-if value="{{ isLight }}" hint-placeholder-val="{{ true }}"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.4" fill="currentColor" stroke="none"></circle><path d="M12 2v2.4M12 19.6V22M2 12h2.4M19.6 12H22M5.1 5.1l1.7 1.7M17.2 17.2l1.7 1.7M18.9 5.1l-1.7 1.7M6.8 17.2l-1.7 1.7"></path></svg></sc-if>
+        <sc-if value="{{ isDark }}" hint-placeholder-val="{{ false }}"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z" fill="currentColor"></path></svg></sc-if>
       </a>
       <a href="#top" onClick="{{ setLang }}" aria-label="Switch language" style="display:inline-flex;align-items:center;gap:8px;color:var(--on-dark);cursor:pointer">
           <span style="{{ langEnStyleDark }}">EN</span>
@@ -1033,7 +1034,7 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;preview&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Responsive&quot;,&quot;Mobile&quot;,&quot;Tablet&quot;,&quot;Desktop&quot;,&quot;4K&quot;],&quot;default&quot;:&quot;Responsive&quot;,&quot;tsType&quot;:&quot;'Responsive' | 'Mobile' | 'Tablet' | 'Desktop' | '4K'&quot;,&quot;section&quot;:&quot;Preview&quot;},&quot;loggedIn&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Preview&quot;}}">
 class Component extends DCLogic {
-  state = { open: null, lang: 'en', menuOpen: false, theme: 'light', industry: 'All', caseTag: 'All', booting: true, gate: null, gateErr: false, gateBusy: false, unlocked: [] };
+  state = { open: null, lang: 'en', menuOpen: false, theme: (() => { try { return localStorage.getItem('dg-theme') || 'light'; } catch (e) { return 'light'; } })(), industry: 'All', caseTag: 'All', booting: true, gate: null, gateErr: false, gateBusy: false, unlocked: [] };
   gateHash = 'eb8ff7e25a397ec86514ea6a5aade07badf932f25b5588018add22c6eabef39a';
   lockedCases = {
     sidekick: this.gateHash,
@@ -1440,7 +1441,7 @@ class Component extends DCLogic {
   'assets/img/sidekick/card-hero.png': 'Finding AI solutions for your organisation',
   'assets/img/sidekick/proto-final.png': 'The tested prototype: find AI solutions, check quality, work together',
   'assets/img/sidekick/proto-steps.png': 'Three rounds: first sketch, Figma concept, working prototype',
-  'assets/img/sidekick/testing.png': 'User tests with eye tracking and recorded reactions',
+  'assets/img/sidekick/testing-anon.png': 'User tests with eye tracking and recorded reactions',
   'assets/img/sidekick/hero.png': 'The sAIdkick homepage prototype: find or share AI solutions across government',
   'assets/img/sidekick/homepage.png': 'The sAIdkick homepage prototype: find or share AI solutions across government',
   'assets/img/cbs/paper-transition.jpg': 'From paper price lists to digital registration',
@@ -1605,6 +1606,7 @@ class Component extends DCLogic {
   componentDidMount() {
     this.loadUnlocked();
     try { this.wireInk(); } catch (err) {}
+    this.readyCovers();
     try { this.seoInit(); this.seoSync(this.keyFromHash()); } catch (err) {}
     this._baseTitle = this.casePage ? 'Dirk Gooren' : (document.title || 'Dirk Gooren · UX design lead');
     if (!document.title) document.title = this._baseTitle;
@@ -1643,6 +1645,12 @@ class Component extends DCLogic {
     try { saved = localStorage.getItem('dg-theme') || 'light'; } catch (e) {}
     this.applyTheme(saved);
     if (saved !== 'light') this.setState({ theme: saved });
+    this._onThemeStore = (e) => {
+      if (e.key !== 'dg-theme' || !e.newValue || e.newValue === this.state.theme) return;
+      this.applyTheme(e.newValue);
+      this.setState({ theme: e.newValue }, () => { this.repaintHeaders(); try { this.inkScan(); } catch (err) {} });
+    };
+    window.addEventListener('storage', this._onThemeStore);
     this.initCountUp();
     this.startBoot();
     this.wireTips();
@@ -1811,6 +1819,7 @@ class Component extends DCLogic {
     if (this._onTipClick) document.removeEventListener('click', this._onTipClick);
     if (this._onTipKey) document.removeEventListener('keydown', this._onTipKey);
     if (this._onTipOut) document.removeEventListener('pointerout', this._onTipOut);
+    if (this._onThemeStore) window.removeEventListener('storage', this._onThemeStore);
     if (this._onTipMove) document.removeEventListener('pointermove', this._onTipMove);
     if (this._onTipMoveOut) document.removeEventListener('pointerout', this._onTipMoveOut);
     if (this._bootT) clearTimeout(this._bootT);
@@ -2245,7 +2254,7 @@ class Component extends DCLogic {
             'The prototype is built on the NL Design System, so what we tested is what developers could build. Discovery is organised by the task a civil servant has (summarising, drafting, classifying, answering) rather than by AI taxonomy, and the platform is publicly browsable: you only need to log in to download or make contact.',
             'Four steps carry the whole proposition on the homepage, in plain Dutch and without AI hype: find or share, check quality, implement, work together. Overselling is exactly what would cost a public platform its credibility.'
           ]},
-          { title: 'Learning what really works', slot: 'dg-sk-testing', image: 'assets/img/sidekick/testing.png', paras: [
+          { title: 'Learning what really works', slot: 'dg-sk-testing', image: 'assets/img/sidekick/testing-anon.png', paras: [
             'We tested each version with real users, using eye tracking and recorded reactions so the team could see where people looked, where they hesitated and where they gave up, instead of arguing about it.',
             'Those sessions repeatedly moved governance information forward in the interface, and they settled scope debates in an afternoon that would otherwise have run for weeks.'
           ]},
@@ -2380,7 +2389,7 @@ class Component extends DCLogic {
     'assets/img/sidekick/card-hero.png': 'sAIdkick homepage hero with the search field for AI solutions',
     'assets/img/sidekick/proto-final.png': 'sAIdkick prototype homepage: search AI solutions, marketplace, knowledge base and community',
     'assets/img/sidekick/proto-steps.png': 'Three prototype versions side by side, from first sketch to working prototype',
-    'assets/img/sidekick/testing.png': 'User test setup with screen recordings and eye tracking overlays on participants',
+    'assets/img/sidekick/testing-anon.png': 'User test setup with screen recordings and eye tracking overlays on participants',
     'assets/img/sidekick/hero.png': 'The sAIdkick homepage prototype: find or share AI solutions across government',
   'assets/img/sidekick/homepage.png': 'The sAIdkick homepage prototype: find or share AI solutions across government',
   'assets/img/cbs/paper-transition.jpg': 'Paper price-registration forms being replaced by a tablet',
@@ -2432,7 +2441,7 @@ class Component extends DCLogic {
   altFor = (p, fb) => (p && this.alts[p]) || fb || '';
   isChrome = (p) => /\/planetyes\/(workflow-|organizer-|login|report-)|\/sidekick\/proto-final|\/hlp\/dwl-/.test(p || '');
   frameRatio = (p) => { const rr = this.ratios[p] || 1.6; return rr >= 1.2 ? rr : 1.6; };
-  ratios = {"assets/img/advance/cover.png":1.3333,"assets/img/advance/home.png":0.4621,"assets/img/advance/wizard.png":0.4621,"assets/img/advance/step.png":0.4621,"assets/img/advance/onboarding.png":0.4621,"assets/img/advance/board.png":1.6,"assets/img/hlp/rolverdeling.png":1.6,"assets/img/home/tk-home.jpg":1.6,"assets/img/hlp/applicatielandschap.png":1.7778,"assets/img/home/radboud-home.jpg":1.6,"assets/img/home/kvs-home.jpg":1.3333,"assets/img/home/cbs-home.jpg":1.3333,"assets/img/home/hupo-home.jpg":0.75,"assets/img/radboud/cover.jpg":1.6,"assets/img/css/cover.jpg":1.6,"assets/img/cbs/cover.jpg":1.6,"assets/img/hupo/cover.jpg":1.6,"assets/img/hlp/dwl-login.png":1.6707,"assets/img/hlp/dwl-werkvoorraad.png":1.6707,"assets/img/hlp/dwl-jaaroverzicht.png":1.6707,"assets/img/hlp/dwl-vaststellingen.png":1.6707,"assets/img/hlp/dwl-vaststellingen-historie.png":1.6707,"assets/img/hlp/dwl-blokkades.png":1.6707,"assets/img/sidekick/kickoff.png":1.1553,"assets/img/sidekick/discovery.png":1.2605,"assets/img/sidekick/design-sprint.png":1.8386,"assets/img/sidekick/proto-final.png":1.2769,"assets/img/sidekick/proto-steps.png":2.3107,"assets/img/sidekick/testing.png":2.0882,"assets/img/planetyes/device-materiality-card.png":1.3335,"assets/img/planetyes/panels-card.jpg":1.3345,"assets/img/planetyes/device-materiality-cover.png":2,"assets/img/planetyes/lifecycle.png":1.777,"assets/img/planetyes/device-materiality.png":1.471,"assets/img/planetyes/device-results.png":1.471,"assets/img/planetyes/device-planning.png":1.501,"assets/img/planetyes/lifecycle-v2.jpg":1.5857,"assets/img/planetyes/workflow-planning.jpg":1.5397,"assets/img/planetyes/organizer-materiality.jpg":1.5397,"assets/img/planetyes/organizer-program.jpg":1.5397,"assets/img/planetyes/login.jpg":1.5397,"assets/img/planetyes/report-introduction.jpg":0.6407,"assets/img/planetyes/report-business.jpg":0.7865,"assets/img/sidekick/homepage.png":0.52,"assets/img/sidekick/hero.png":1.456,"assets/img/radboud/detail-1.png":1.3333,"assets/img/radboud/obs-1.jpg":1.7778,"assets/img/radboud/obs-2.jpg":0.75,"assets/img/radboud/obs-3.jpg":1.5009,"assets/img/radboud/brainstorm-1.jpg":1.3333,"assets/img/radboud/brainstorm-2.jpg":0.75,"assets/img/radboud/brainstorm-3.jpg":1.7778,"assets/img/radboud/concept.jpg":1.7778,"assets/img/radboud/card.jpg":2.3155,"assets/img/radboud/ui.jpg":2.0888,"assets/img/cbs/paper-transition.jpg":1.7544,"assets/img/cbs/activities.jpg":1.9656,"assets/img/cbs/gamification.jpg":1.6,"assets/img/cbs/ui.jpg":2.9685,"assets/img/cbs/user-testing.jpg":1.4733,"assets/img/css/context.jpg":1.6,"assets/img/css/brainstorm-1.jpg":1.3333,"assets/img/css/brainstorm-2.jpg":1.3333,"assets/img/css/multi-channel.jpg":2.439,"assets/img/css/ui.jpg":2.1025,"assets/img/css/images.jpg":4.7761,"assets/img/css/team.jpg":1.5109,"assets/img/hupo/research-1.jpg":1.3333,"assets/img/hupo/research-2.jpg":1.3333,"assets/img/hupo/research-3.jpg":1.3333,"assets/img/hupo/structure.jpg":1.6,"assets/img/hupo/system.jpg":1.9417,"assets/img/hupo/system-2.jpg":1.6,"assets/img/hupo/system-3.jpg":1.6,"assets/img/hupo/service-1.jpg":1.3333,"assets/img/hupo/service-2.jpg":0.8756,"assets/img/hlp/framework.png":1,"assets/img/hlp/principles.png":2.2195,"assets/img/hlp/portal.png":1.2048,"assets/img/hlp/werkprocessen.png":1.2222,"assets/img/hlp/cover-strategie.png":2,"assets/img/hlp/cover-portal.png":2};
+  ratios = {"assets/img/advance/cover.png":1.3333,"assets/img/advance/home.png":0.4621,"assets/img/advance/wizard.png":0.4621,"assets/img/advance/step.png":0.4621,"assets/img/advance/onboarding.png":0.4621,"assets/img/advance/board.png":1.6,"assets/img/hlp/rolverdeling.png":1.6,"assets/img/home/tk-home.jpg":1.6,"assets/img/hlp/applicatielandschap.png":1.7778,"assets/img/home/radboud-home.jpg":1.6,"assets/img/home/kvs-home.jpg":1.3333,"assets/img/home/cbs-home.jpg":1.3333,"assets/img/home/hupo-home.jpg":0.75,"assets/img/radboud/cover.jpg":1.6,"assets/img/css/cover.jpg":1.6,"assets/img/cbs/cover.jpg":1.6,"assets/img/hupo/cover.jpg":1.6,"assets/img/hlp/dwl-login.png":1.6707,"assets/img/hlp/dwl-werkvoorraad.png":1.6707,"assets/img/hlp/dwl-jaaroverzicht.png":1.6707,"assets/img/hlp/dwl-vaststellingen.png":1.6707,"assets/img/hlp/dwl-vaststellingen-historie.png":1.6707,"assets/img/hlp/dwl-blokkades.png":1.6707,"assets/img/sidekick/kickoff.png":1.1553,"assets/img/sidekick/discovery.png":1.2605,"assets/img/sidekick/design-sprint.png":1.8386,"assets/img/sidekick/proto-final.png":1.2769,"assets/img/sidekick/proto-steps.png":2.3107,"assets/img/sidekick/testing-anon.png":2.0882,"assets/img/planetyes/device-materiality-card.png":1.3335,"assets/img/planetyes/panels-card.jpg":1.3345,"assets/img/planetyes/device-materiality-cover.png":2,"assets/img/planetyes/lifecycle.png":1.777,"assets/img/planetyes/device-materiality.png":1.471,"assets/img/planetyes/device-results.png":1.471,"assets/img/planetyes/device-planning.png":1.501,"assets/img/planetyes/lifecycle-v2.jpg":1.5857,"assets/img/planetyes/workflow-planning.jpg":1.5397,"assets/img/planetyes/organizer-materiality.jpg":1.5397,"assets/img/planetyes/organizer-program.jpg":1.5397,"assets/img/planetyes/login.jpg":1.5397,"assets/img/planetyes/report-introduction.jpg":0.6407,"assets/img/planetyes/report-business.jpg":0.7865,"assets/img/sidekick/homepage.png":0.52,"assets/img/sidekick/hero.png":1.456,"assets/img/radboud/detail-1.png":1.3333,"assets/img/radboud/obs-1.jpg":1.7778,"assets/img/radboud/obs-2.jpg":0.75,"assets/img/radboud/obs-3.jpg":1.5009,"assets/img/radboud/brainstorm-1.jpg":1.3333,"assets/img/radboud/brainstorm-2.jpg":0.75,"assets/img/radboud/brainstorm-3.jpg":1.7778,"assets/img/radboud/concept.jpg":1.7778,"assets/img/radboud/card.jpg":2.3155,"assets/img/radboud/ui.jpg":2.0888,"assets/img/cbs/paper-transition.jpg":1.7544,"assets/img/cbs/activities.jpg":1.9656,"assets/img/cbs/gamification.jpg":1.6,"assets/img/cbs/ui.jpg":2.9685,"assets/img/cbs/user-testing.jpg":1.4733,"assets/img/css/context.jpg":1.6,"assets/img/css/brainstorm-1.jpg":1.3333,"assets/img/css/brainstorm-2.jpg":1.3333,"assets/img/css/multi-channel.jpg":2.439,"assets/img/css/ui.jpg":2.1025,"assets/img/css/images.jpg":4.7761,"assets/img/css/team.jpg":1.5109,"assets/img/hupo/research-1.jpg":1.3333,"assets/img/hupo/research-2.jpg":1.3333,"assets/img/hupo/research-3.jpg":1.3333,"assets/img/hupo/structure.jpg":1.6,"assets/img/hupo/system.jpg":1.9417,"assets/img/hupo/system-2.jpg":1.6,"assets/img/hupo/system-3.jpg":1.6,"assets/img/hupo/service-1.jpg":1.3333,"assets/img/hupo/service-2.jpg":0.8756,"assets/img/hlp/framework.png":1,"assets/img/hlp/principles.png":2.2195,"assets/img/hlp/portal.png":1.2048,"assets/img/hlp/werkprocessen.png":1.2222,"assets/img/hlp/cover-strategie.png":2,"assets/img/hlp/cover-portal.png":2};
   nl = {
     "An AI that turns an ambition into steps, and steps into something you can actually book.": "Een AI die een ambitie omzet in stappen, en stappen in iets dat je echt kunt boeken.",
     "A personal exploration of what AI can do inside an interface, built as an ambition tracker that plans your steps and finds the real world behind them.": "Een persoonlijke verkenning van wat AI in een interface kan doen, gebouwd als ambitie-app die je stappen plant en de echte wereld erachter vindt.",
@@ -3729,6 +3738,20 @@ class Component extends DCLogic {
       nav.style.display = many && track.scrollWidth - track.clientWidth > 2 ? 'flex' : 'none';
     });
   }
+  // The cover rise waits for its image. A cached image can finish loading before
+  // the load handler is attached, so check completeness directly as well, and
+  // never leave a failed image hidden.
+  readyCovers() {
+    const root = this.el || document;
+    root.querySelectorAll('[data-cover-img] > img:not([data-ready])').forEach(img => {
+      const done = () => img.setAttribute('data-ready', '');
+      if (img.complete) { done(); return; }
+      if (img._coverWired) return;
+      img._coverWired = true;
+      img.addEventListener('load', done, { once: true });
+      img.addEventListener('error', done, { once: true });
+    });
+  }
   syncOverlayGround() {
     const on = !!(this.state.menuOpen || this.state.gate);
     if (on) document.documentElement.setAttribute('data-overlay', 'ink');
@@ -3737,6 +3760,8 @@ class Component extends DCLogic {
   componentDidUpdate() {
     if (super.componentDidUpdate) super.componentDidUpdate();
     this.syncOverlayGround();
+    try { this.inkScan(); } catch (err) {}
+    this.readyCovers();
     this.setupReveal();
     this.runFlip();
     this.runFlipCases();
