@@ -65,10 +65,9 @@
     --chip: rgba(32,33,51,0.10); --imgbg: rgba(32,33,51,0.08);
     color: var(--fg);
   }
-  /* Footer in dark mode drops the warm accent: neutral dark on cream. */
-  [data-theme="dark"] #contact {
-    --on-dark: #ECE7DD; --on-dark-soft: rgba(236,231,221,0.88); --on-dark-mute: rgba(236,231,221,0.7);
-    background: #17171F !important;
+  /* Footer in dark mode: lighter navy ground, same site-pink ink as light mode. */
+  [data-theme="dark"] #contact, [data-theme="dark"] [data-footer] {
+    background: #202133 !important; box-shadow: 0 0 0 100vmax #202133 !important;
   }
   [data-theme="dark"] [data-dot="filled"] { background: rgba(255,236,143,0.2) !important; }
   [data-theme="dark"] [data-dot="open"] { border-color: rgba(255,236,143,0.28) !important; }
@@ -239,14 +238,14 @@
   /* The theme toggle keeps both icons stacked: hovering rolls the current one
      out and the one you would switch to in. */
   [data-theme-icon] { transition: transform 420ms cubic-bezier(.4,0,.2,1), opacity 240ms ease-out; }
-  [data-theme-icon="sun"] { opacity: 0; transform: rotate(-110deg) scale(0.55); }
-  [data-theme-icon="moon"] { opacity: 1; transform: rotate(0deg) scale(1); }
-  [data-theme-icons]:hover [data-theme-icon="sun"], a:hover > [data-theme-icons] [data-theme-icon="sun"] { opacity: 1; transform: rotate(0deg) scale(1); }
-  [data-theme-icons]:hover [data-theme-icon="moon"], a:hover > [data-theme-icons] [data-theme-icon="moon"] { opacity: 0; transform: rotate(110deg) scale(0.55); }
-  [data-theme="dark"] [data-theme-icon="moon"] { opacity: 0; transform: rotate(110deg) scale(0.55); }
-  [data-theme="dark"] [data-theme-icon="sun"] { opacity: 1; transform: rotate(0deg) scale(1); }
-  [data-theme="dark"] a:hover > [data-theme-icons] [data-theme-icon="moon"] { opacity: 1; transform: rotate(0deg) scale(1); }
-  [data-theme="dark"] a:hover > [data-theme-icons] [data-theme-icon="sun"] { opacity: 0; transform: rotate(-110deg) scale(0.55); }
+  [data-theme-icon="moon"] { opacity: 0; transform: rotate(-110deg) scale(0.55); }
+  [data-theme-icon="sun"] { opacity: 1; transform: rotate(0deg) scale(1); }
+  [data-theme-icons]:hover [data-theme-icon="moon"], a:hover > [data-theme-icons] [data-theme-icon="moon"] { opacity: 1; transform: rotate(0deg) scale(1); }
+  [data-theme-icons]:hover [data-theme-icon="sun"], a:hover > [data-theme-icons] [data-theme-icon="sun"] { opacity: 0; transform: rotate(110deg) scale(0.55); }
+  [data-theme="dark"] [data-theme-icon="sun"] { opacity: 0; transform: rotate(110deg) scale(0.55); }
+  [data-theme="dark"] [data-theme-icon="moon"] { opacity: 1; transform: rotate(0deg) scale(1); }
+  [data-theme="dark"] a:hover > [data-theme-icons] [data-theme-icon="sun"] { opacity: 1; transform: rotate(0deg) scale(1); }
+  [data-theme="dark"] a:hover > [data-theme-icons] [data-theme-icon="moon"] { opacity: 0; transform: rotate(-110deg) scale(0.55); }
   @media (prefers-reduced-motion: reduce) { [data-theme-icon] { transition: opacity 120ms linear; } }
   [data-theme="dark"] { --nav-ink: #FFFFFF; --nav-hover: #3D3D4F; }
   /* Difference blending turns a mid-tone or brand-coloured ground into an
@@ -696,18 +695,11 @@
                 </sc-for>
               </div>
               <div data-carousel-nav="" style="display:flex;align-items:center;justify-content:center;gap:8px;margin:clamp(12px,1.6vw,18px) var(--sec-x) 0">
-                <button type="button" aria-label="Previous image" data-dir="-1" onClick="{{ carScroll }}" style="display:inline-flex;align-items:center;justify-content:center;gap:8px;height:28px;padding:0 24px;border:none;border-radius:999px;background:var(--chip);color:var(--fg);font-size: var(--t-xs);font-weight:600;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;transition:background var(--t-fast) ease-out,color var(--t-fast) ease-out" data-car-btn="">
-                  <svg data-car-arrow="prev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"></path><path d="M11 6l-6 6"></path><path d="M11 18l-6 -6"></path></svg>
-                </button>
-                <div data-carousel-dots="" style="position:relative;display:flex;align-items:center;gap:10px;margin:0 14px">
-                  <div data-cdot-marker="" style="position:absolute;top:50%;left:0;width:12px;height:12px;margin-top:-6px;border-radius:50%;background:var(--fg);pointer-events:none;opacity:0;transform:translateX(0) scale(1);transition:transform 1100ms cubic-bezier(.34,1.42,.4,1),opacity 320ms ease-out"></div>
+                <div data-carousel-dots="" style="position:relative;display:flex;align-items:center;gap:10px">
                   <sc-for list="{{ sec.gallery }}" as="g" hint-placeholder-count="0">
-                    <button type="button" data-cdot="" data-idx="{{ $index }}" onClick="{{ carDot }}" aria-label="Go to image" style="position:relative;width:12px;height:12px;padding:0;border:2px solid currentColor;border-radius:50%;background:transparent;color:var(--fg);cursor:pointer;transition:color var(--t-fast) ease-out"></button>
+                    <button type="button" data-cdot="" data-idx="{{ $index }}" onClick="{{ carDot }}" aria-label="Go to image" style="position:relative;width:12px;height:12px;padding:0;border:2px solid currentColor;border-radius:999px;background:transparent;color:var(--fg);cursor:pointer;transition:width 420ms cubic-bezier(.22,1,.36,1),background-color 240ms ease-out,color var(--t-fast) ease-out"></button>
                   </sc-for>
                 </div>
-                <button type="button" aria-label="Next image" data-dir="1" onClick="{{ carScroll }}" style="display:inline-flex;align-items:center;justify-content:center;gap:8px;height:28px;padding:0 24px;border:none;border-radius:999px;background:var(--chip);color:var(--fg);font-size: var(--t-xs);font-weight:600;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;transition:background var(--t-fast) ease-out,color var(--t-fast) ease-out" data-car-btn="">
-                  <svg data-car-arrow="next" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="M13 6l6 6"></path><path d="M13 18l6 -6"></path></svg>
-                </button>
               </div>
             </div>
           </sc-if>
@@ -3736,36 +3728,13 @@ class Component extends DCLogic {
     let active = track._ci != null ? track._ci : this.carIndex(track);
     active = Math.max(0, Math.min(n - 1, active));
     track._ci = active;
-    const marker = wrap.querySelector('[data-cdot-marker]');
-    const target = dots[active];
-    if (marker && target) {
-      marker.style.opacity = '1';
-      const prev = marker._x;
-      marker._x = target.offsetLeft;
-      const dir = prev == null ? 0 : Math.sign(marker._x - prev);
-      const to = marker._x;
-      if (dir !== 0 && marker.animate) {
-        // Liquid stretch: the marker smears into a pill along the travel and
-        // rounds back up on arrival. Width, not scale, so the caps stay round.
-        const dist = Math.abs(to - prev);
-        const size = marker.offsetHeight || 12;
-        const wMax = Math.min(size * 4.6, size + dist * 0.9);
-        const wMid = size + (wMax - size) * 0.3;
-        const x = (base, w) => base + (dir > 0 ? 0 : -(w - size));
-        marker.style.transition = 'none';
-        marker.style.borderRadius = '999px';
-        try {
-          marker.animate([
-            { width: size + 'px', transform: 'translateX(' + prev + 'px)', offset: 0 },
-            { width: wMax + 'px', transform: 'translateX(' + x(prev + (to - prev) * 0.22, wMax) + 'px)', offset: 0.34, easing: 'cubic-bezier(.2,.8,.3,1)' },
-            { width: wMid + 'px', transform: 'translateX(' + x(prev + (to - prev) * 0.92, wMid) + 'px)', offset: 0.68 },
-            { width: (size * 0.9) + 'px', transform: 'translateX(' + (to + size * 0.05) + 'px)', offset: 0.86 },
-            { width: size + 'px', transform: 'translateX(' + to + 'px)', offset: 1 }
-          ], { duration: 1100, easing: 'cubic-bezier(.22,1,.36,1)', fill: 'none' });
-        } catch (e) {}
-      }
-      marker.style.transform = 'translateX(' + to + 'px)';
-    }
+    // The selected bullet grows into a filled pill three bullets wide.
+    dots.forEach((d, k) => {
+      const on = k === active;
+      d.style.width = on ? '36px' : '12px';
+      d.style.background = on ? 'var(--fg)' : 'transparent';
+      d.setAttribute('aria-current', on ? 'true' : 'false');
+    });
   }
   syncCarousels() {
     const root = this.el || document;
@@ -3974,7 +3943,20 @@ class Component extends DCLogic {
         const fig = e.currentTarget.closest('figure');
         const track = fig && fig.parentElement;
         if (!track) return;
-        this.tweenScroll(track, fig.offsetLeft - track.offsetLeft);
+        const to = fig.offsetLeft - track.offsetLeft;
+        // Point the pagination at the image being scrolled to (nearest stop,
+        // since the last few images can share the final scroll position).
+        const offs = this.carOffsets(track);
+        if (offs.length) {
+          const max = track.scrollWidth - track.clientWidth;
+          const t = Math.max(0, Math.min(max, to));
+          let best = 0, bd = Infinity;
+          offs.forEach((o, k) => { const d = Math.abs(o - t); if (d < bd) { bd = d; best = k; } });
+          track._ci = best;
+          const wrap = track.closest('[data-carousel-wrap]');
+          if (wrap) this.syncDots(wrap);
+        }
+        this.tweenScroll(track, to);
       },
       carDot: (e) => {
         const btn = e.currentTarget;
