@@ -127,6 +127,8 @@
     :root { --sec-x: 16px; }
     [data-page] > section { padding-left: 16px !important; padding-right: 16px !important; }
     [data-site-header], [data-case-pane] > header { padding-left: 16px !important; padding-right: 16px !important; }
+    [data-case-meta] { flex-direction: column; }
+    [data-case-meta] > div { flex: 0 0 auto !important; }
     [data-menu-nav], [data-menu-lang] { padding-left: 16px !important; padding-right: 16px !important; }
     [data-preloader] { padding-left: 16px !important; padding-right: 16px !important; }
   }
@@ -144,17 +146,19 @@
   @media (min-width: 620px) { [data-hero-sec] { min-height: 460px; } }
   @media (min-width: 1000px) { [data-hero-sec] { min-height: 520px; } }
   @media (min-width: 1440px) { [data-hero-sec] { min-height: 560px; } }
-  x-dc, #dc-root { display: block; max-width: 1920px; margin-inline: auto; overflow-x: clip; }
+  x-dc, #dc-root { display: block; overflow-x: clip; }
+  /* Content is capped at 1920px through the page padding (not a root max-width),
+     so the footer ground can bleed edge to edge while its content stays aligned. */
+  [data-page] { padding-inline: max(0px, calc((100% - 1920px) / 2)); }
+  [data-footer] { box-shadow: 0 0 0 100vmax var(--ink); clip-path: inset(0 -100vmax); }
   /* Case pages are position:fixed, so they escape the 1920px root cap — re-apply it. */
   [data-case-pane] { padding-inline: max(0px, calc((100% - 1920px) / 2)); }
-  [data-case-pane] > header, [data-site-header] { left: max(0px, calc((100% - 1920px) / 2)) !important; right: max(0px, calc((100% - 1920px) / 2)) !important; }
   /* Illustrations differ in aspect ratio, so the wrapper is fixed height and
      bottom-aligned: every service eyebrow then starts on the same line. */
   [data-illo-wrap] { height: clamp(128px, 13vw, 188px); display: flex; align-items: flex-end; }
   [data-illo-wrap][data-illo-plate] { height: clamp(150px, 16vw, 230px); align-items: flex-end; justify-content: flex-start; margin-bottom: 4px !important; }
   [data-illo-wrap] > img[data-illo], [data-illo-wrap] > svg[data-illo] { width: 100%; height: 100% !important; padding-top: 0 !important; object-fit: contain; object-position: left bottom; }
   img[data-illo-art] { width: 100%; height: 100%; object-fit: contain; object-position: left bottom; display: block; transition: transform 340ms cubic-bezier(.4,0,.3,1); }
-  [data-service-card]:hover img[data-illo-art] { transform: scale(1.04); }
   /* Single column below the grid breakpoint: no eyebrow row to align to, so the
      illustration keeps its natural height instead of overflowing the box. */
   @media (max-width: 619px) {
@@ -173,14 +177,25 @@
   [data-service-tag][data-tip]::after {
     content: attr(data-tip);
     position: absolute; left: 50%; transform: translate(-50%, 4px); bottom: calc(100% + 8px); z-index: 2147483000;
-    width: max-content; max-width: min(240px, calc(100vw - 40px)); padding: 8px 11px;
+    width: max-content; max-width: min(160px, calc(100vw - 40px)); padding: 8px 11px;
     border-radius: 8px; background: #17171F; color: #ECE7DD;
     font-size: var(--t-label); font-weight: 500; letter-spacing: 0; text-transform: none; line-height: 1.35;
     opacity: 0; pointer-events: none;
-    transition: opacity var(--t-fast) ease-out, transform var(--t-fast) var(--ease);
+    translate: 0 8px; scale: 0.86; transform-origin: 50% 100%;
+    transition: opacity var(--t-fast) ease-out, transform var(--t-fast) var(--ease), translate 320ms cubic-bezier(.34,1.56,.64,1), scale 320ms cubic-bezier(.34,1.56,.64,1);
   }
   [data-theme="dark"] [data-service-tag][data-tip]::after { background: #ECE7DD; color: #17171F; }
-  [data-service-tag][data-tip][data-tip-open]::after { opacity: 1; transform: translate(-50%, 0); }
+  /* Small pointer under the bubble, placed at the cursor (--tip-ax) when following. */
+  [data-service-tag][data-tip]::before {
+    content: ""; position: absolute; left: var(--tip-ax, 50%); bottom: calc(100% + 3px); z-index: 2147483001;
+    width: 12px; height: 6px; background: #17171F; clip-path: polygon(0 0, 100% 0, 50% 100%);
+    transform: translate(-50%, 4px); opacity: 0; pointer-events: none;
+    translate: 0 8px; scale: 0.86; transform-origin: 50% 100%;
+    transition: opacity var(--t-fast) ease-out, transform var(--t-fast) var(--ease), translate 320ms cubic-bezier(.34,1.56,.64,1), scale 320ms cubic-bezier(.34,1.56,.64,1);
+  }
+  [data-theme="dark"] [data-service-tag][data-tip]::before { background: #ECE7DD; }
+  [data-service-tag][data-tip][data-tip-open]::before { opacity: 1; transform: translate(-50%, 0); translate: 0 0; scale: 1; }
+  [data-service-tag][data-tip][data-tip-open]::after { opacity: 1; transform: translate(-50%, 0); translate: 0 0; scale: 1; }
   [data-service-tag][data-tip][data-tip-edge="end"]::after { left: auto; right: 0; transform: translate(0, 4px); }
   [data-service-tag][data-tip][data-tip-edge="end"][data-tip-open]::after { transform: translate(0, 0); }
   [data-service-tag][data-tip][data-tip-edge="start"]::after { left: 0; right: auto; transform: translate(0, 4px); }
@@ -352,6 +367,18 @@
   [data-case-meta] [data-reveal]:nth-of-type(2) { animation-delay: 225ms; }
   [data-case-meta] [data-reveal]:nth-of-type(3) { animation-delay: 280ms; }
   @media (prefers-reduced-motion: reduce) { [data-case-meta] [data-reveal] { opacity: 1; animation: none; } }
+  /* Case page entrance, all rising from below in three beats:
+     cover image, then the year/team/role group, then eyebrow + title + badges. */
+  [data-case-pane] [data-cover-img] { animation: dgCoverIn 800ms cubic-bezier(.22,1,.36,1) 80ms both; }
+  /* A photo cover waits for its image, so the rise is visible instead of an empty box sliding up. */
+  [data-case-pane] [data-cover-img]:has(> img:not([data-ready])) { animation-play-state: paused; }
+  /* Hold the whole entrance while the loading splash is up, so it plays in view. */
+  [data-booting] [data-case-pane] [data-cover-img], [data-booting] [data-case-pane] [data-case-meta] [data-reveal], [data-booting] [data-case-pane] [data-case-tags] { animation-play-state: paused !important; }
+  [data-case-pane] [data-case-meta] [data-reveal], [data-case-pane] [data-case-meta] [data-reveal]:nth-of-type(n) { animation: dgCoverIn 800ms cubic-bezier(.22,1,.36,1) 380ms both; }
+  [data-case-pane] [data-title-in] { animation: dgCoverIn 800ms cubic-bezier(.22,1,.36,1) 680ms both; }
+  [data-case-pane] [data-case-tags] { animation: dgCoverIn 800ms cubic-bezier(.22,1,.36,1) 680ms both; }
+  [data-case-pane] [data-case-tags] > * { opacity: 1; animation: none; }
+  @media (prefers-reduced-motion: reduce) { [data-case-pane] [data-cover-img], [data-case-pane] [data-case-meta] [data-reveal], [data-case-pane] [data-title-in], [data-case-pane] [data-case-tags] { animation: none; opacity: 1; } }
   [data-tag-row] { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
   [data-tag-row] > * { opacity: 0; transform: translateY(-10px) scale(.86); transform-origin: left center; transition: opacity 220ms ease-out, transform 620ms cubic-bezier(.34,1.7,.52,1); }
   [data-case-card]:hover [data-tag-row] > *, [data-case-card]:focus-visible [data-tag-row] > * { opacity: 1; transform: translateY(0) scale(1); }
@@ -426,7 +453,7 @@
 <div data-page="" data-booting="{{ bootAttr }}" style="min-height:100vh;background:var(--bg);color:var(--fg);font-family:'Archivo',system-ui,sans-serif;overflow-x:hidden">
 
   <sc-if value="{{ booting }}" hint-placeholder-val="{{ true }}">
-    <div data-preloader="" style="position:fixed;inset:0;z-index:400;display:flex;align-items:flex-start;justify-content:flex-start;padding:clamp(18px,2.4vw,32px) calc(clamp(24px,5vw,72px) + max(0px, calc((100vw - 1920px) / 2)));background:var(--bg);transition:background-color 520ms ease-out">
+    <div data-preloader="" style="position:fixed;inset:0;z-index:400;display:flex;align-items:flex-start;justify-content:flex-start;padding:clamp(18px,2.4vw,32px) clamp(24px,5vw,72px);background:var(--bg);transition:background-color 520ms ease-out">
       <svg data-preload-mark="" width="58" height="58" viewBox="0 0 73 73" fill="none" aria-hidden="true" style="color:var(--fg);flex:0 0 auto;width:clamp(44px,4.2vw,58px);height:clamp(44px,4.2vw,58px)">
         <circle cx="27.3108" cy="27.3108" r="8.81081" stroke="currentColor" stroke-width="4"></circle>
         <circle cx="45.6892" cy="45.6892" r="10.8108" fill="currentColor"></circle>
@@ -447,14 +474,14 @@
 
   <sc-if value="{{ gate }}" hint-placeholder-val="{{ false }}">
     <div data-overlay-panel="" style="position:fixed;inset:0;z-index:95;display:flex;align-items:center;justify-content:center;padding:clamp(20px,5vw,64px);background:var(--ink);color:var(--on-dark)">
-      <a href="#top" onClick="{{ goHome }}" data-mark-link="" aria-label="Dirk Gooren, home" style="position:absolute;top:clamp(18px,2.4vw,32px);left:calc(var(--sec-x) + max(0px, calc((100vw - 1920px) / 2)));display:inline-flex;align-items:center;font-size: var(--t-label);font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--on-dark);cursor:pointer">
+      <a href="#top" onClick="{{ goHome }}" data-mark-link="" aria-label="Dirk Gooren, home" style="position:absolute;top:clamp(18px,2.4vw,32px);left:calc(var(--sec-x));display:inline-flex;align-items:center;font-size: var(--t-label);font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--on-dark);cursor:pointer">
         <svg data-mark="" width="40" height="40" viewBox="0 0 73 73" fill="none" aria-hidden="true" style="flex:0 0 auto;width:clamp(44px,4.2vw,58px);height:clamp(44px,4.2vw,58px);overflow:visible">
           <circle data-c1="" cx="27.3108" cy="27.3108" r="8.81081" stroke="currentColor" stroke-width="4"></circle>
           <circle data-c2="" cx="45.6892" cy="45.6892" r="10.8108" fill="currentColor"></circle>
         </svg>
         <span data-mark-word=""><span style="display:inline-block">D</span><span style="display:inline-block">I</span><span style="display:inline-block">R</span><span style="display:inline-block">K</span><span style="display:inline-block">G</span><span style="display:inline-block">O</span><span style="display:inline-block">O</span><span style="display:inline-block">R</span><span style="display:inline-block">E</span><span style="display:inline-block">N</span></span>
       </a>
-      <a href="#work" onClick="{{ closeGate }}" data-close-case="" aria-label="Close" style="position: absolute; top: clamp(18px,2.4vw,32px); right: calc(var(--sec-x) + max(0px, calc((100vw - 1920px) / 2))); height: clamp(44px,4.2vw,58px); display: inline-flex; align-items: center; gap: 6px; font-size: var(--t-label); font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--on-dark); cursor: pointer; transition: opacity var(--t-fast) ease-out" style-hover="opacity:0.6"><span style="position:relative;display:block;width:30px;height:30px;flex:0 0 auto"><span data-x-bar="a" style="position:absolute;left:2px;display:block;width:26px;height:2px;background:currentColor;top:14px;"></span><span data-x-bar="b" style="position:absolute;left:2px;display:block;width:26px;height:2px;background:currentColor;top:14px;"></span></span><span>{{ t.close }}</span></a>
+      <a href="#work" onClick="{{ closeGate }}" data-close-case="" aria-label="Close" style="position: absolute; top: clamp(18px,2.4vw,32px); right: calc(var(--sec-x)); height: clamp(44px,4.2vw,58px); display: inline-flex; align-items: center; gap: 6px; font-size: var(--t-label); font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--on-dark); cursor: pointer; transition: opacity var(--t-fast) ease-out" style-hover="opacity:0.6"><span style="position:relative;display:block;width:30px;height:30px;flex:0 0 auto"><span data-x-bar="a" style="position:absolute;left:2px;display:block;width:26px;height:2px;background:currentColor;top:14px;"></span><span data-x-bar="b" style="position:absolute;left:2px;display:block;width:26px;height:2px;background:currentColor;top:14px;"></span></span><span>{{ t.close }}</span></a>
       <div data-gate-in="" style="width: 309px; max-width: 520px; height: 416px">
         <div aria-hidden="true" onDoubleClick="{{ bypassGate }}" title="" style="display:flex;justify-content:center;margin:0 0 clamp(16px,2vw,24px);color:#F2C4BB;user-select:none">
           <svg width="91" height="91" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10.5" width="16" height="10.5" rx="2"></rect><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"></path></svg>
@@ -508,7 +535,7 @@
 
       <div data-case-meta="" style="margin: 0 var(--sec-x) clamp(28px,4vw,56px); padding: clamp(26px,3.2vw,42px) 0 0; border-top: 1px solid var(--hair); border-style: none; padding-top: 0px">
         
-        <div style="display: flex; flex-wrap: wrap; gap: clamp(18px,2.4vw,40px); max-width: 850px">
+        <div data-case-meta="" style="display: flex; flex-wrap: wrap; gap: clamp(18px,2.4vw,40px); max-width: 850px">
           <div data-reveal="" data-reveal-delay="920" style="flex:0 0 auto">
             <p style="margin:0 0 8px;font-size: var(--t-xs);font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted)">{{ t.metaYear }}</p>
             <p style="margin: 0; font-size: var(--t-body); line-height: 1.5; font-weight: 400; text-wrap: pretty">{{ openCaseData.year }}</p>
@@ -527,7 +554,7 @@
 
       <sc-if value="{{ openCaseData.hasCardCover }}" hint-placeholder-val="{{ false }}">
         <div data-cover-img="" data-ink="{{ openCaseData.coverInk }}" style="margin: 0 var(--sec-x) clamp(28px,4vw,56px); overflow: hidden; background: var(--imgbg)">
-          <img loading="lazy" decoding="async" src="{{ openCaseData.cardCoverSrc }}" alt="{{ openCaseData.cardAlt }}" style="display:block;width:100%;height:auto">
+          <img loading="lazy" decoding="async" onLoad="{{ coverReady }}" src="{{ openCaseData.cardCoverSrc }}" alt="{{ openCaseData.cardAlt }}" style="display:block;width:100%;height:auto">
         </div>
       </sc-if>
       <sc-if value="{{ openCaseData.orbs }}" hint-placeholder-val="{{ false }}">
@@ -700,7 +727,7 @@
         <p style="margin:0 0 clamp(18px,2.5vw,30px);font-size: var(--t-label);font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:inherit">{{ t.nextProject }}</p>
         <span style="display:flex;align-items:center;gap:0.3em;flex-wrap:wrap;max-width:24ch;font-size: var(--t-h1);line-height:1.05;font-weight:600;letter-spacing:-0.03em;color:inherit"><span>{{ openCaseData.nextDeck }}</span><span data-next-arrow-wrap=""><svg data-next-arrow="" width="0.8em" height="0.8em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l14 0"></path><path d="M13 18l6 -6"></path><path d="M13 6l6 6"></path></svg></span></span>
       </a>
-      <section style="margin: 0; padding: var(--sec-y) var(--sec-x); background: var(--ink); color: var(--on-dark); width: 100%">
+      <section data-footer="" style="margin: 0; padding: var(--sec-y) var(--sec-x); background: var(--ink); color: var(--on-dark); width: 100%">
         <p data-reveal="" style="margin:0 0 clamp(20px,3vw,36px);font-size: var(--t-label);font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--on-dark)">{{ t.contact }}</p>
         <h2 data-reveal="" style="margin: 0 0 64px; max-width: 22ch; font-size: var(--t-h1); line-height: 1; font-weight: 700; letter-spacing: -0.015em; color: var(--on-dark); white-space: pre-line"><span style="font-family:'Archivo',system-ui,sans-serif;font-variation-settings:'wdth' 68;font-weight:200;font-style:italic;letter-spacing:0.018em">{{ t.contactTitleLead }}</span>
 {{ t.contactTitleRest }}</h2>
@@ -892,7 +919,7 @@
               <h3 style="margin: 0; max-width: none; font-size: clamp(18px,2vw,20px); line-height: 1.2; font-weight: 600; letter-spacing: -0.02em; text-wrap: pretty; font-family: archivo">{{ c.deck }}</h3>
               <div data-tag-row="">
                 <sc-for list="{{ c.tags }}" as="t" hint-placeholder-count="0">
-                  <span style="display:inline-flex;align-items:center;height:21px;padding:0 9px;border-radius:999px;background:var(--chip);font-size:9px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted2);max-width:100%">{{ t }}</span>
+                  <span style="display:inline-flex;align-items:center;height:24px;padding:0 10px;border-radius:999px;background:var(--chip);font-size:10px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted2);max-width:100%">{{ t }}</span>
                 </sc-for>
               </div>
               
@@ -996,15 +1023,16 @@
           </sc-if>
           <p style="margin:0;font-size: var(--t-label);font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--fg);opacity:0.5">{{ s.title }}</p>
           <h3 style="margin: 0; max-width: none; font-size: clamp(22px,2vw,20px); line-height: 1.2; font-weight: 600; letter-spacing: -0.02em; text-wrap: pretty; font-family: archivo">{{ s.head }}</h3>
+          <p style="margin: 0 0 14px; max-width: 46ch; font-size: var(--t-sm); line-height: 1.5; color: var(--muted2); text-wrap: pretty">{{ s.body }}</p>
           <div style="display: flex; flex-wrap: wrap; gap: 5px 6px; padding-top: 2px; justify-content: flex-start; align-items: flex-start">
             <sc-for list="{{ s.tags }}" as="t" hint-placeholder-count="0">
-              <span data-service-tag="" data-tip="{{ t.tip }}" style="display:inline-flex;align-items:center;height:19px;padding:0 8px;border-radius:999px;background:var(--chip);font-size:9px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted2);max-width:100%">{{ t.label }}</span>
+              <span data-service-tag="" data-tip="{{ t.tip }}" style="display:inline-flex;align-items:center;height:23px;padding:0 10px;border-radius:999px;background:var(--chip);font-size:10px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted2);max-width:100%">{{ t.label }}</span>
             </sc-for>
           </div>
         </div>
       </sc-for>
     </div>
-  </section><section id="contact" style="margin: 0; padding: var(--sec-y) var(--sec-x); background: var(--ink); color: var(--on-dark); width: 100%; height: 100%; margin-bottom: 0px; margin-right: 0px; margin-left: 0px">
+  </section><section id="contact" data-footer="" style="margin: 0; padding: var(--sec-y) var(--sec-x); background: var(--ink); color: var(--on-dark); width: 100%; height: 100%; margin-bottom: 0px; margin-right: 0px; margin-left: 0px">
     <p data-reveal="" style="margin:0 0 clamp(20px,3vw,36px);font-size: var(--t-label);font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--on-dark)">{{ t.contact }}</p>
     <h2 data-reveal="" style="margin: 0 0 64px; max-width: 22ch; font-size: var(--t-h1); line-height: 1; font-weight: 700; letter-spacing: -0.015em; color: var(--on-dark); white-space: pre-line"><span style="font-family:'Archivo',system-ui,sans-serif;font-variation-settings:'wdth' 68;font-weight:200;font-style:italic;letter-spacing:0.018em">{{ t.contactTitleLead }}</span>
 {{ t.contactTitleRest }}</h2>
@@ -1141,7 +1169,7 @@ class Component extends DCLogic {
   };
   industries = ['All', 'Healthcare', 'Government', 'Finance', 'Housing', 'Industry'];
   clientList = [
-    { key: 'ing.png', name: 'ING', industry: 'Finance' },
+    { key: 'ing-lion.png', name: 'ING', industry: 'Finance' },
     { key: 'radboudumc', name: 'Radboud umc', industry: 'Healthcare' },
     { key: 'zig', name: 'ZIG', industry: 'Housing' },
     { key: 'belastingdienst', name: 'Belastingdienst', industry: 'Government' },
@@ -2667,10 +2695,14 @@ class Component extends DCLogic {
     'Understanding people, business and technology to uncover true opportunity': 'Mensen, business en technologie doorgronden om echte kansen te vinden',
     'Turning real insights into a desirable, robust and future proof outsome': 'Echte inzichten omzetten in een gewenste, robuuste en toekomstbestendige uitkomst',
     'Designing products and services people actually want and can use': 'Producten en diensten ontwerpen die mensen willen en kunnen gebruiken',
-    'Move teams and organisations forward': 'Teams en organisaties in beweging brengen',
-    'Discover real opportunities behind the question': 'Echte kansen ontdekken achter de vraag',
-    'Turn insights into clear design direction': 'Inzichten omzetten in een heldere ontwerprichting',
-    'Create products and services people really want to use': 'Producten en diensten maken die mensen echt willen gebruiken',
+    'Moving teams and organisations forward': 'Teams en organisaties in beweging brengen',
+    'Studying how people behave and what they experience, so decisions rest on evidence instead of assumptions.': 'Onderzoek naar hoe mensen zich gedragen en wat ze ervaren, zodat beslissingen op bewijs rusten in plaats van aannames.',
+    'A design vision that connects user insight, brand and business goals into one clear direction.': 'Een ontwerpvisie die gebruikersinzicht, merk en bedrijfsdoelen verbindt tot één heldere richting.',
+    'That direction made into usable products and services, tested with the people who will use them.': 'Die richting vertaald naar bruikbare producten en diensten, getest met de mensen die ze gaan gebruiken.',
+    'Sessions and talks where design, technology and human behaviour meet, for teams, clients and conferences.': 'Sessies en talks waar design, technologie en menselijk gedrag samenkomen, voor teams, klanten en congressen.',
+    'Discovering real opportunities behind the question': 'Echte kansen ontdekken achter de vraag',
+    'Turning insights into clear design direction': 'Inzichten omzetten in een heldere ontwerprichting',
+    'Creating products and services people really want to use': 'Producten en diensten maken die mensen echt willen gebruiken',
     'To find the real treasures, I research how people behave and what they experience. Valuable insight is the key to lasting experiences and returning business.': 'Om de echte schatten te vinden onderzoek ik hoe mensen zich gedragen en wat ze ervaren. Waardevol inzicht is de sleutel tot blijvende ervaringen en terugkerende klanten.',
  'I identify new opportunities and formulate a fitting strategy based on real insight, shaping a design vision from insight, brand identity and business goals.': 'Ik herken nieuwe kansen en formuleer een passende strategie op basis van echt inzicht, een ontwerpvisie uit inzicht, merkidentiteit en bedrijfsdoelen.',
     'I translate that direction into products and services people can actually use, validated with the people who will use them.': 'Ik vertaal die richting naar producten en diensten die mensen echt kunnen gebruiken, gevalideerd met de mensen die ze gaan gebruiken.',
@@ -3143,9 +3175,11 @@ class Component extends DCLogic {
       const tag = e.target && e.target.closest && e.target.closest('[data-service-tag][data-tip]');
       if (!tag) return;
       const r = tag.getBoundingClientRect();
-      const half = Math.min(240, window.innerWidth - 40) / 2;
+      const half = Math.min(160, window.innerWidth - 40) / 2;
       const cx = Math.min(Math.max(e.clientX, 16 + half), window.innerWidth - 16 - half);
       tag.style.setProperty('--tip-x', (cx - r.left) + 'px');
+      const ax = Math.min(Math.max(e.clientX, cx - half + 14, 30), cx + half - 14, window.innerWidth - 30);
+      tag.style.setProperty('--tip-ax', (ax - r.left) + 'px');
       tag.setAttribute('data-tip-follow', '');
     };
     this._onTipMoveOut = (e) => {
@@ -3153,8 +3187,14 @@ class Component extends DCLogic {
       if (!tag) return;
       const to = e.relatedTarget;
       if (to && to.closest && to.closest('[data-service-tag]') === tag) return;
-      tag.removeAttribute('data-tip-follow');
-      tag.style.removeProperty('--tip-x');
+      // Keep the last cursor position while the tip fades out, then reset.
+      clearTimeout(tag._tipReset);
+      tag._tipReset = setTimeout(() => {
+        if (tag.hasAttribute('data-tip-open') || tag.matches(':hover')) return;
+        tag.removeAttribute('data-tip-follow');
+        tag.style.removeProperty('--tip-x');
+        tag.style.removeProperty('--tip-ax');
+      }, 400);
     };
     document.addEventListener('click', this._onTipClick);
     document.addEventListener('keydown', this._onTipKey);
@@ -3650,7 +3690,7 @@ class Component extends DCLogic {
     const vw = window.innerWidth;
     root.querySelectorAll('[data-service-tag][data-tip]').forEach(tag => {
       const r = tag.getBoundingClientRect();
-      const half = Math.min(240, vw - 40) / 2;
+      const half = Math.min(160, vw - 40) / 2;
       const c = r.left + r.width / 2;
       tag.removeAttribute('data-tip-edge');
       if (c + half > vw - 16) tag.dataset.tipEdge = 'end';
@@ -3965,6 +4005,7 @@ class Component extends DCLogic {
         if (wrapEl) this.syncDots(wrapEl);
         this.tweenScroll(track, offs[next]);
       },
+      coverReady: (e) => { const el = e.currentTarget; requestAnimationFrame(() => el.setAttribute('data-ready', '')); },
       reloadSite: (e) => {
         e.preventDefault();
         if (this.casePage) { window.location.href = this.homeHref(); return; }
@@ -4098,10 +4139,10 @@ class Component extends DCLogic {
         { value: '2M+', label: tr('People served') }
       ],
       services: [
-        { illo: 'dg-service-research', title: 'Research', head: 'Discover real opportunities behind the question', body: 'To find the real treasures, I research how people behave and what they experience. Valuable insight is the key to lasting experiences and returning business.', tags: ['Behavioural research', 'Context mapping', 'Competitor analysis', 'Observation', 'Usability testing', 'Journey mapping', 'Interviews', 'User research', 'Accessibility', 'Data analysis'] },
- { illo: 'dg-service-strategy', title: 'Strategy', head: 'Turn insights into clear design direction', body: 'I identify new opportunities and formulate a fitting strategy based on real insight, shaping a design vision from insight, brand identity and business goals.', tags: ['Value proposition', 'UX strategy', 'Product direction', 'Design vision', 'Roadmapping', 'Concept development', 'Business modelling'] },
-        { illo: 'dg-service-uxdesign', title: 'Design', head: 'Create products and services people really want to use', body: 'I translate that direction into products and services people can actually use, validated with the people who will use them.', tags: ['UX design', 'Interaction design', 'Service design', 'Prototyping', 'Design systems', 'UI design', 'Information architecture', 'Wireframing', 'AI interaction', 'Behavioural design'] },
- { illo: 'dg-service-workshops', title: 'Workshops, talks & coaching', head: 'Move teams and organisations forward', body: 'I speak and run sessions on where design, technology and human behaviour meet, for teams, clients and conferences.', tags: ['Knowledge sessions', 'Design critique', 'Co-design', 'Design leadership', 'Workshops', 'UX coaching', 'Team coaching', 'Agile UX', 'Guest lectures'] }
+        { illo: 'dg-service-research', title: 'Research', head: 'Discovering real opportunities behind the question', body: 'Studying how people behave and what they experience, so decisions rest on evidence instead of assumptions.', tags: ['Behavioural research', 'Context mapping', 'Competitor analysis', 'Observation', 'Usability testing', 'Journey mapping', 'Interviews', 'User research', 'Accessibility', 'Data analysis'] },
+ { illo: 'dg-service-strategy', title: 'Strategy', head: 'Turning insights into clear design direction', body: 'A design vision that connects user insight, brand and business goals into one clear direction.', tags: ['Value proposition', 'UX strategy', 'Product direction', 'Design vision', 'Roadmapping', 'Concept development', 'Business modelling'] },
+        { illo: 'dg-service-uxdesign', title: 'Design', head: 'Creating products and services people really want to use', body: 'That direction made into usable products and services, tested with the people who will use them.', tags: ['UX design', 'Interaction design', 'Service design', 'Prototyping', 'Design systems', 'UI design', 'Information architecture', 'Wireframing', 'AI interaction', 'Behavioural design'] },
+ { illo: 'dg-service-workshops', title: 'Workshops, talks & coaching', head: 'Moving teams and organisations forward', body: 'Sessions and talks where design, technology and human behaviour meet, for teams, clients and conferences.', tags: ['Knowledge sessions', 'Design critique', 'Co-design', 'Design leadership', 'Workshops', 'UX coaching', 'Team coaching', 'Agile UX', 'Guest lectures'] }
       ].map(s => ({ illo: s.illo, illoSrc: this.serviceArt[s.illo].src, illoAlt: tr(this.serviceArt[s.illo].alt), illoIsResearch: s.illo === 'dg-service-research', illoIsStrategy: s.illo === 'dg-service-strategy', illoIsUxdesign: s.illo === 'dg-service-uxdesign', illoIsWorkshops: s.illo === 'dg-service-workshops', title: tr(s.title), head: tr(s.head), body: tr(s.body), tags: s.tags.map(x => ({ label: tr(x), tip: tr(this.tipFor(x)) })) })),
       industries: this.industries.map(i => ({
         key: i,
