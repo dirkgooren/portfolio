@@ -697,7 +697,7 @@
               <div data-carousel-nav="" style="display:flex;align-items:center;justify-content:center;gap:8px;margin:clamp(12px,1.6vw,18px) var(--sec-x) 0">
                 <div data-carousel-dots="" style="position:relative;display:flex;align-items:center;gap:10px">
                   <sc-for list="{{ sec.gallery }}" as="g" hint-placeholder-count="0">
-                    <button type="button" data-cdot="" data-idx="{{ $index }}" onClick="{{ carDot }}" aria-label="Go to image" style="position:relative;width:12px;height:12px;padding:0;border:2px solid currentColor;border-radius:999px;background:transparent;color:var(--fg);cursor:pointer;transition:width 420ms cubic-bezier(.22,1,.36,1),background-color 240ms ease-out,color var(--t-fast) ease-out"></button>
+                    <button type="button" data-cdot="" data-idx="{{ $index }}" onClick="{{ carDot }}" aria-label="Go to image" style="position:relative;width:12px;height:12px;padding:0;border:2px solid currentColor;border-radius:999px;background:transparent;color:var(--fg);cursor:pointer;transition:width 720ms cubic-bezier(.34,2.1,.5,1),background-color 240ms ease-out,color var(--t-fast) ease-out"></button>
                   </sc-for>
                 </div>
               </div>
@@ -3731,6 +3731,10 @@ class Component extends DCLogic {
     // The selected bullet grows into a filled pill three bullets wide.
     dots.forEach((d, k) => {
       const on = k === active;
+      // Only the bullet becoming selected springs; the one letting go eases back.
+      d.style.transition = on
+        ? 'width 420ms cubic-bezier(.3,2.4,.45,.9),background-color 160ms ease-out,color var(--t-fast) ease-out'
+        : 'width 360ms cubic-bezier(.22,1,.36,1),background-color 240ms ease-out,color var(--t-fast) ease-out';
       d.style.width = on ? '36px' : '12px';
       d.style.background = on ? 'var(--fg)' : 'transparent';
       d.setAttribute('aria-current', on ? 'true' : 'false');
@@ -3812,7 +3816,11 @@ class Component extends DCLogic {
           if (track._dotRaf) return;
           track._dotRaf = requestAnimationFrame(() => {
             track._dotRaf = 0;
-            if (!track._tween) track._ci = this.carIndex(track);
+            if (!track._tween) {
+              const pin = track._pin;
+              if (pin && Math.abs(track.scrollLeft - pin.at) < 3) track._ci = pin.idx;
+              else { track._pin = null; track._ci = this.carIndex(track); }
+            }
             this.syncDots(w);
           });
         }, { passive: true });
@@ -3944,18 +3952,15 @@ class Component extends DCLogic {
         const track = fig && fig.parentElement;
         if (!track) return;
         const to = fig.offsetLeft - track.offsetLeft;
-        // Point the pagination at the image being scrolled to (nearest stop,
-        // since the last few images can share the final scroll position).
-        const offs = this.carOffsets(track);
-        if (offs.length) {
-          const max = track.scrollWidth - track.clientWidth;
-          const t = Math.max(0, Math.min(max, to));
-          let best = 0, bd = Infinity;
-          offs.forEach((o, k) => { const d = Math.abs(o - t); if (d < bd) { bd = d; best = k; } });
-          track._ci = best;
-          const wrap = track.closest('[data-carousel-wrap]');
-          if (wrap) this.syncDots(wrap);
-        }
+        // The clicked image owns the pagination, even when it sits near the end
+        // and the track cannot scroll all the way to it. The pin holds that
+        // choice until the user scrolls somewhere else.
+        const idx = Array.from(track.querySelectorAll('figure')).indexOf(fig);
+        const max = Math.max(0, track.scrollWidth - track.clientWidth);
+        track._ci = idx;
+        track._pin = { idx, at: Math.max(0, Math.min(max, to)) };
+        const wrap = track.closest('[data-carousel-wrap]');
+        if (wrap) this.syncDots(wrap);
         this.tweenScroll(track, to);
       },
       carDot: (e) => {
@@ -3967,6 +3972,7 @@ class Component extends DCLogic {
         const i = Number(btn.dataset.idx || 0);
         if (offs[i] == null) return;
         track._ci = i;
+        track._pin = { idx: i, at: Math.max(0, Math.min(Math.max(0, track.scrollWidth - track.clientWidth), offs[i])) };
         if (wrap) this.syncDots(wrap);
         this.tweenScroll(track, offs[i]);
       },
