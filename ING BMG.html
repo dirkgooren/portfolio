@@ -119,6 +119,7 @@
     [data-case-cols] > h2 { grid-column: 2; }
     [data-case-body] { grid-column: 2; }
     [data-case-cols][data-flip] > h2, [data-case-cols][data-flip] > [data-case-body] { grid-column: 2; }
+    [data-case-cols] > [data-evo-side] { grid-column: 1; grid-row: 1 / span 2; align-self: start; width: auto !important; margin: 0 clamp(32px,4vw,72px) 0 0 !important; }
   }
   @media (min-width: 620px) { [data-services-grid] { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; } }
   /* Tighter gutters on phones: more room for content than for margin. */
@@ -460,11 +461,11 @@
       </a>
       <a href="#work" onClick="{{ closeGate }}" data-close-case="" aria-label="Close" style="position: absolute; top: clamp(18px,2.4vw,32px); right: calc(var(--sec-x)); height: clamp(44px,4.2vw,58px); display: inline-flex; align-items: center; gap: 6px; font-size: var(--t-label); font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--on-dark); cursor: pointer; transition: opacity var(--t-fast) ease-out" style-hover="opacity:0.6"><span style="position:relative;display:block;width:30px;height:30px;flex:0 0 auto"><span data-x-bar="a" style="position:absolute;left:2px;display:block;width:26px;height:2px;background:currentColor;top:14px;"></span><span data-x-bar="b" style="position:absolute;left:2px;display:block;width:26px;height:2px;background:currentColor;top:14px;"></span></span><span>{{ t.close }}</span></a>
       <div data-gate-in="" style="width: 309px; max-width: 520px; height: 416px">
-        <div aria-hidden="true" onDoubleClick="{{ bypassGate }}" title="" style="display:flex;justify-content:center;margin:0 0 clamp(16px,2vw,24px);color:#F2C4BB;user-select:none">
+        <div aria-hidden="true" onClick="{{ bypassGate }}" title="" style="display:flex;justify-content:center;margin:0 0 clamp(16px,2vw,24px);color:#F2C4BB;user-select:none">
           <svg width="91" height="91" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10.5" width="16" height="10.5" rx="2"></rect><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"></path></svg>
         </div>
-        <h2 style="margin:0;font-size: var(--t-h2);line-height:1.12;font-weight:600;letter-spacing:-0.03em;text-wrap:pretty;color:var(--on-dark)">{{ t.gateTitle }}</h2>
-        <p style="margin:16px 0 0;max-width:42ch;font-size: var(--t-body);line-height:1.55;color:var(--on-dark);opacity:0.8;text-wrap:pretty">{{ t.gateBody }}</p>
+        <h2 style="margin:0;font-size: var(--t-h2);line-height:1.12;font-weight:600;letter-spacing:-0.03em;text-wrap:pretty;text-align:center;color:var(--on-dark)">{{ t.gateTitle }}</h2>
+        <p style="margin:16px 0 0;max-width:42ch;font-size: var(--t-body);line-height:1.55;color:var(--on-dark);opacity:0.8;text-wrap:pretty">{{ t.gateBodyPre }}<a href="mailto:dirkgooren@gmail.com?subject=Hi!" style="color:inherit;text-decoration:underline;text-underline-offset:3px;cursor:pointer" style-hover="opacity:0.7">{{ t.gateBodyLink }}</a>{{ t.gateBodyPost }}</p>
         
         <form onSubmit="{{ submitGate }}" style="display:flex;flex-direction:column;gap:14px;margin-top:clamp(24px,3vw,36px)">
           <label style="display:flex;flex-direction:column;gap:10px;font-size: var(--t-xs);font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--on-dark);opacity:0.7">
@@ -501,7 +502,7 @@
       </header>
 
       <section style="padding:clamp(96px,12vw,168px) var(--sec-x) clamp(32px,5vw,64px)">
-        <p data-title-in="" style="margin:0 0 clamp(16px,2.5vw,28px);font-size: var(--t-label);font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--fg)">{{ openCaseData.client }}</p>
+        <p data-title-in="" style="margin:0 0 clamp(14px,2vw,22px);font-size: var(--t-label);font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--fg)">{{ openCaseData.client }}</p>
         <h1 data-title-in="" style="margin:0;max-width:24ch;font-size: var(--t-display);line-height:1;font-weight:600;letter-spacing:-0.035em;text-wrap:pretty">{{ openCaseData.deck }}</h1>
         <div data-case-tags="" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:clamp(20px,2.6vw,32px)">
           <sc-for list="{{ openCaseData.tags }}" as="t" hint-placeholder-count="3">
@@ -552,7 +553,7 @@
         </div>
       </sc-if>
       <sc-if value="{{ openCaseData.evo }}" hint-placeholder-val="{{ false }}">
-        <div data-evo="" data-cover-img="" role="img" aria-label="Four stages of design systems: handcrafted, systemised, customised, generated" style="margin:0 var(--sec-x);aspect-ratio:16/8;display:grid;grid-template-columns:repeat(4,1fr);gap:0;background:#FFFFFF">
+        <div data-evo="" data-cover-img="" role="img" aria-label="Four stages of design systems: handcrafted, one brand, many brands, generative" style="margin:0 var(--sec-x);aspect-ratio:16/8;display:grid;grid-template-columns:repeat(4,1fr);gap:0;background:#FFFFFF">
           <div style="position:relative;display:flex;align-items:center;justify-content:center;background:#FFFFFF">
             <div style="position:relative;width:52%;height:34%">
               <div style="position:absolute;left:0;top:6%;width:52%;height:34%;border-radius:2px;background:#202133;transform:rotate(-4deg)"></div>
@@ -614,12 +615,26 @@
           </sc-if>
           <sc-if value="{{ sec.showTitle }}" hint-placeholder-val="{{ true }}">
             <div data-case-cols="" data-flip="{{ sec.flip }}">
-              <h2 style="margin: 0 0 clamp(20px,2.6vw,32px); font-size: var(--t-h2); line-height: 1.05; font-weight: 600; letter-spacing: -0.03em; text-wrap: balance; width: 100%">{{ sec.title }}</h2>
+              <h2 style="margin: 0 0 clamp(20px,2.6vw,32px); font-size: var(--t-h2); line-height: 1.05; font-weight: 600; letter-spacing: -0.03em; text-wrap: balance; width: 100%"><sc-if value="{{ sec.eyebrow }}" hint-placeholder-val="{{ false }}"><span style="display:block;margin:0 0 clamp(14px,2vw,22px);font-family:'Archivo',system-ui,sans-serif;font-size: var(--t-label);line-height:1;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted2)">{{ sec.eyebrow }}</span></sc-if>{{ sec.title }}</h2>
               <div data-case-body="">
                 <sc-for list="{{ sec.paras }}" as="p" hint-placeholder-count="0">
                   <p style="margin: 0 0 18px; font-size: var(--t-body); line-height: 1.6; color: var(--fg); text-wrap: pretty">{{ p }}</p>
                 </sc-for>
+                <sc-if value="{{ sec.hasProsCons }}" hint-placeholder-val="{{ false }}">
+                  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:24px clamp(24px,3vw,40px);margin:8px 0 26px"><div style="display:flex;flex-direction:column;gap:12px"><span style="font-size: var(--t-label);line-height:1;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted2)">Pros</span><ul style="display:flex;flex-direction:column;gap:0;margin:0;padding:0;list-style:none"><sc-for list="{{ sec.pros }}" as="it" hint-placeholder-count="0"><li style="padding:10px 0;border-top:1px solid var(--hair);font-size: var(--t-sm);line-height:1.45;color:var(--fg);text-wrap:pretty">{{ it }}</li></sc-for></ul></div><div style="display:flex;flex-direction:column;gap:12px"><span style="font-size: var(--t-label);line-height:1;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted2)">Cons</span><ul style="display:flex;flex-direction:column;gap:0;margin:0;padding:0;list-style:none"><sc-for list="{{ sec.cons }}" as="it" hint-placeholder-count="0"><li style="padding:10px 0;border-top:1px solid var(--hair);font-size: var(--t-sm);line-height:1.45;color:var(--fg);text-wrap:pretty">{{ it }}</li></sc-for></ul></div></div>
+                </sc-if>
+                <sc-if value="{{ sec.hasLinks }}" hint-placeholder-val="{{ false }}">
+                  <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:6px">
+                    <sc-for list="{{ sec.links }}" as="l" hint-placeholder-count="0">
+                      <a href="{{ l.href }}" onClick="{{ openCase }}" data-case="{{ l.key }}" style="display:inline-flex;align-items:center;gap:8px;height:32px;padding:0 14px 0 16px;border-radius:999px;background:var(--chip);font-size: var(--t-xs);font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--fg);cursor:pointer;transition:background var(--t-fast) ease-out,color var(--t-fast) ease-out" style-hover="background:var(--highlight);color:#202133"><span>{{ l.label }}</span><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 6h8M6.5 2.5 10 6l-3.5 3.5"></path></svg></a>
+                    </sc-for>
+                  </div>
+                </sc-if>
               </div>
+                <sc-if value="{{ sec.evo1 }}" hint-placeholder-val="{{ false }}"><div data-evo="" data-evo-side="" role="img" aria-label="{{ sec.title }}" style="position:relative;display:flex;align-items:center;justify-content:center;width:100%;aspect-ratio:16/9;margin:clamp(12px,2vw,24px) 0 0;background:#FFFFFF;overflow:hidden"><div style="position:relative;width:26%;aspect-ratio:0.76"><div style="position:absolute;left:0;top:6%;width:52%;height:34%;border-radius:2px;background:#202133;transform:rotate(-4deg)"></div><div style="position:absolute;left:44%;top:0;width:40%;height:52%;border-radius:2px;background:rgba(32,33,51,0.42);transform:rotate(3deg)"></div><div style="position:absolute;left:8%;top:54%;width:74%;height:26%;border-radius:2px;background:rgba(32,33,51,0.7);transform:rotate(2deg)"></div></div></div></sc-if>
+                <sc-if value="{{ sec.evo2 }}" hint-placeholder-val="{{ false }}"><div data-evo="" data-evo-side="" role="img" aria-label="{{ sec.title }}" style="position:relative;display:flex;align-items:center;justify-content:center;width:100%;aspect-ratio:16/9;margin:clamp(12px,2vw,24px) 0 0;background:#FFFFFF;overflow:hidden"><div style="position:relative;width:26%;aspect-ratio:1"><div style="position:absolute;left:0%;top:0%;width:30.667%;height:30.667%;background:#202133"></div><div style="position:absolute;left:34.667%;top:0%;width:30.667%;height:30.667%;background:#202133"></div><div style="position:absolute;left:69.333%;top:0%;width:30.667%;height:30.667%;background:#202133"></div><div style="position:absolute;left:0%;top:34.667%;width:30.667%;height:30.667%;background:#202133"></div><div style="position:absolute;left:34.667%;top:34.667%;width:30.667%;height:30.667%;background:#202133"></div><div style="position:absolute;left:69.333%;top:34.667%;width:30.667%;height:30.667%;background:#202133"></div><div style="position:absolute;left:0%;top:69.333%;width:30.667%;height:30.667%;background:#202133"></div><div style="position:absolute;left:34.667%;top:69.333%;width:30.667%;height:30.667%;background:#202133"></div><div style="position:absolute;left:69.333%;top:69.333%;width:30.667%;height:30.667%;background:#202133"></div></div></div></sc-if>
+                <sc-if value="{{ sec.evo3 }}" hint-placeholder-val="{{ false }}"><div data-evo="" data-evo-side="" role="img" aria-label="{{ sec.title }}" style="position:relative;display:flex;align-items:center;justify-content:center;width:100%;aspect-ratio:16/9;margin:clamp(12px,2vw,24px) 0 0;background:#FFFFFF;overflow:hidden"><div style="position:relative;width:26%;aspect-ratio:1"><div style="position:absolute;left:0%;top:0%;width:65.333%;height:30.667%;background:#F2C4BB;animation:dgEvoThemeA 10s cubic-bezier(.45,0,.55,1) 0s infinite"></div><div style="position:absolute;left:69.333%;top:0%;width:30.667%;height:30.667%;background:#202133"></div><div style="position:absolute;left:0%;top:34.667%;width:30.667%;height:30.667%;background:#202133"></div><div style="position:absolute;left:34.667%;top:34.667%;width:65.333%;height:30.667%;background:#202133;animation:dgEvoThemeB 10s cubic-bezier(.45,0,.55,1) 0s infinite"></div><div style="position:absolute;left:0%;top:69.333%;width:30.667%;height:30.667%;background:#F2C4BB;animation:dgEvoThemeC 10s cubic-bezier(.45,0,.55,1) 0s infinite"></div><div style="position:absolute;left:34.667%;top:69.333%;width:30.667%;height:30.667%;background:#202133"></div><div style="position:absolute;left:69.333%;top:69.333%;width:30.667%;height:30.667%;background:#202133;animation:dgEvoThemeD 10s cubic-bezier(.45,0,.55,1) 0s infinite"></div></div></div></sc-if>
+                <sc-if value="{{ sec.evo4 }}" hint-placeholder-val="{{ false }}"><div data-evo="" data-evo-side="" role="img" aria-label="{{ sec.title }}" style="position:relative;display:flex;align-items:center;justify-content:center;width:100%;aspect-ratio:16/9;margin:clamp(12px,2vw,24px) 0 0;background:#FFFFFF;overflow:hidden"><div style="position:relative;width:26%;aspect-ratio:1"><div style="position:absolute;left:0%;top:0%;width:65.333%;height:30.667%;background:#F2C4BB;animation:dgEvoAccent 11s cubic-bezier(.45,0,.55,1) 0s infinite,dgEvoCell1 11s cubic-bezier(.7,0,.2,1) 0s infinite both"></div><div style="position:absolute;left:69.333%;top:0%;width:30.667%;height:30.667%;background:#202133;animation:dgEvoCell2 11s cubic-bezier(.7,0,.2,1) 0s infinite both"></div><div style="position:absolute;left:0%;top:34.667%;width:30.667%;height:30.667%;background:#202133;animation:dgEvoCell3 11s cubic-bezier(.7,0,.2,1) 0s infinite both"></div><div style="position:absolute;left:34.667%;top:34.667%;width:65.333%;height:30.667%;background:#202133;animation:dgEvoCell4 11s cubic-bezier(.7,0,.2,1) 0s infinite both"></div><div style="position:absolute;left:0%;top:69.333%;width:30.667%;height:30.667%;background:#F2C4BB;animation:dgEvoAccent 11s cubic-bezier(.45,0,.55,1) 0s infinite,dgEvoCell5 11s cubic-bezier(.7,0,.2,1) 0s infinite both"></div><div style="position:absolute;left:34.667%;top:69.333%;width:30.667%;height:30.667%;background:#202133;animation:dgEvoCell6 11s cubic-bezier(.7,0,.2,1) 0s infinite both"></div><div style="position:absolute;left:69.333%;top:69.333%;width:30.667%;height:30.667%;background:#202133;animation:dgEvoCell7 11s cubic-bezier(.7,0,.2,1) 0s infinite both"></div></div></div></sc-if>
             </div>
           </sc-if>
           <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:clamp(8px,1.4vw,24px) clamp(28px,4vw,56px);margin-top:clamp(24px,3vw,44px)">
@@ -694,11 +709,11 @@
       </sc-if>
 
       <a href="{{ openCaseData.nextHref }}" onClick="{{ openCase }}" data-next-link="" data-case="{{ openCaseData.nextKey }}" data-light-surface="" style="display:block;margin:clamp(64px,10vw,140px) var(--sec-x) clamp(24px,5vw,72px);padding:clamp(48px,8vw,110px) clamp(24px,5vw,72px);background:var(--highlight);color:#202133;cursor:pointer;text-decoration:none;transition:color var(--t-fast) ease-out" style-hover="color:#5C5D70">
-        <p style="margin:0 0 clamp(18px,2.5vw,30px);font-size: var(--t-label);font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:inherit">{{ t.nextProject }}</p>
+        <p style="margin:0 0 clamp(14px,2vw,22px);font-size: var(--t-label);font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:inherit">{{ t.nextProject }}</p>
         <span style="display:flex;align-items:center;gap:0.3em;flex-wrap:wrap;max-width:24ch;font-size: var(--t-h1);line-height:1.05;font-weight:600;letter-spacing:-0.03em;color:inherit"><span>{{ openCaseData.nextDeck }}</span><span data-next-arrow-wrap=""><svg data-next-arrow="" width="0.8em" height="0.8em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l14 0"></path><path d="M13 18l6 -6"></path><path d="M13 6l6 6"></path></svg></span></span>
       </a>
       <section data-footer="" style="margin: 0; padding: var(--sec-y) var(--sec-x); background: var(--ink); color: var(--on-dark); width: 100%">
-        <p data-reveal="" style="margin:0 0 clamp(20px,3vw,36px);font-size: var(--t-label);font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--on-dark)">{{ t.contact }}</p>
+        <p data-reveal="" style="margin:0 0 clamp(14px,2vw,22px);font-size: var(--t-label);font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--on-dark)">{{ t.contact }}</p>
         <h2 data-reveal="" style="margin: 0 0 64px; max-width: 22ch; font-size: var(--t-h1); line-height: 1; font-weight: 700; letter-spacing: -0.015em; color: var(--on-dark); white-space: pre-line"><span style="font-family:'Archivo',system-ui,sans-serif;font-variation-settings:'wdth' 68;font-weight:200;font-style:italic;letter-spacing:0.018em">{{ t.contactTitleLead }}</span>
 {{ t.contactTitleRest }}</h2>
         <div style="display:flex;flex-wrap:wrap;align-items:center;gap:18px 40px">
@@ -823,7 +838,7 @@
                 </div>
               </sc-if>
               <sc-if value="{{ c.evo }}" hint-placeholder-val="{{ false }}">
-                <div data-evo="" aria-label="Four stages of design systems: handcrafted, systemised, customised, generated" role="img" style="position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:0;background:#FFFFFF;container-type:size">
+                <div data-evo="" aria-label="Four stages of design systems: handcrafted, one brand, many brands, generative" role="img" style="position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:0;background:#FFFFFF;container-type:size">
                   <div style="position:relative;display:flex;align-items:center;justify-content:center;background:#FFFFFF">
                     <div style="position:relative;width:46%;height:46%">
                       <div style="position:absolute;left:0;top:6%;width:52%;height:34%;border-radius:2px;background:#202133;transform:rotate(-4deg)"></div>
@@ -900,7 +915,7 @@
       </sc-for>
     </div>
   </section><section style="padding:clamp(56px,9vw,120px) clamp(24px,5vw,72px)">
-    <div style="display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:12px;margin:0 0 clamp(28px,4vw,52px)">
+    <div style="display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:12px;margin:0 0 clamp(14px,2vw,22px)">
       <p data-reveal="" style="margin:0;font-size: var(--t-label);font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--fg)">{{ t.trustedBy }}</p>
     </div>
     <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:clamp(28px,4vw,44px)">
@@ -1018,7 +1033,7 @@
       </sc-for>
     </div>
   </section><section id="contact" data-footer="" style="margin: 0; padding: var(--sec-y) var(--sec-x); background: var(--ink); color: var(--on-dark); width: 100%; height: 100%; margin-bottom: 0px; margin-right: 0px; margin-left: 0px">
-    <p data-reveal="" style="margin:0 0 clamp(20px,3vw,36px);font-size: var(--t-label);font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--on-dark)">{{ t.contact }}</p>
+    <p data-reveal="" style="margin:0 0 clamp(14px,2vw,22px);font-size: var(--t-label);font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--on-dark)">{{ t.contact }}</p>
     <h2 data-reveal="" style="margin: 0 0 64px; max-width: 22ch; font-size: var(--t-h1); line-height: 1; font-weight: 700; letter-spacing: -0.015em; color: var(--on-dark); white-space: pre-line"><span style="font-family:'Archivo',system-ui,sans-serif;font-variation-settings:'wdth' 68;font-weight:200;font-style:italic;letter-spacing:0.018em">{{ t.contactTitleLead }}</span>
 {{ t.contactTitleRest }}</h2>
     <div style="display:flex;flex-wrap:wrap;align-items:center;gap:18px 40px">
@@ -1114,8 +1129,9 @@ class Component extends DCLogic {
     const buf = await crypto.subtle.digest('SHA-256', data);
     return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
   };
-  // Quiet shortcut: double-clicking the lock glyph unlocks without typing.
-  bypassGate = () => {
+  // Quiet shortcut: triple-clicking the lock glyph unlocks without typing.
+  bypassGate = (e) => {
+    if (!e || e.detail < 3) return;
     const key = this.state.gate;
     if (!key) return;
     this.afterUnlock(key, Object.keys(this.lockedCases));
@@ -2304,29 +2320,32 @@ class Component extends DCLogic {
         key: 'design-systems', year: '2016–2026', num: '11', slot: 'dg-case-ds', src: 'evo', evo: true, placeholder: 'Design systems cover',
         title: 'The evolution of design systems', client: 'Design systems', tags: ['Design system', 'UX strategy', 'Interaction design', 'Service design'], meta: 'Four organisations \u00b7 Design systems \u00b7 Governance',
         role: 'Design system owner and lead designer', team: 'Product owners, front-end teams and, in the largest case, a central design system team I contributed to rather than controlled',
- outcome: 'Four systems built across four organisations, and a working position on what design systems have to become now that components can be generated.',
-        blurb: 'From handcrafted buttons to systems generated by AI, and what has to stay fixed for the next step to work.',
-        deck: 'From handcrafted buttons to design systems generated by AI.',
+ outcome: 'A working model of four stages of design system maturity, with systems built or led at the first three and a position on what the fourth demands.',
+        blurb: 'Four stages of design systems, from everything custom to systems that generate the interface, and what each stage asks of design.',
+        deck: 'Four stages of design systems, from all custom to generative.',
         coverSlot: 'dg-ds-cover',
         sections: [
           { title: 'The challenge', slot: '', image: '', paras: [
-            'Over time, designing interfaces has changed a lot. It started handcrafted: every button, icon and input drawn for the screen it appeared on, by whoever happened to be working on it. Consistency was a matter of memory and goodwill, and it never held for long.',
-            'I have built or led four design systems, at ZIG, the Belastingdienst, Planet Yes and CBS, across four very different organisations. This case is about the shift I watched happen through them, and where it goes next.'
+            'Every organisation I work with sits somewhere on the same curve. How it designs interfaces says less about talent than about the stage its design system has reached, and each stage brings its own problems.',
+            'I see four stages. Knowing which one you are in tells you what to fix next, and what not to build yet.'
           ]},
-          { title: 'The systematic turn', slot: '', image: '', paras: [
-            'Then came the systematic approach: standardised systems like Bootstrap, Material Design and Ionic. Elements stopped being drawings and became parts, with rules for how they behave and code teams could pull straight in.',
-            'That bought consistency and speed, and cost distinctiveness. Products built on the same standard start to look like each other, and a brand that lives inside one has to argue for every deviation.'
+          { eyebrow: 'Stage 1', title: 'Handcrafted and all custom', slot: '', image: '', evo1: true, pros: ['Full freedom to fit the brief', 'Fast to start, nothing to set up first', 'Room for distinctive work'], cons: ['Inconsistent across screens and teams', 'Every new screen starts close to zero', 'Knowledge lives in people, not in the product'], links: [{ label: 'Radboud umc', key: 'radboud' }], paras: [
+            'Everything is handcrafted for the project at hand. Every button, form and table is drawn by hand for the screen it appears on. There is no structure and no system, only the memory and goodwill of whoever happens to be working on it.',
+            'Often there is a style guide or pattern library: a brand guide, a Sketch or Figma file with the agreed parts. It helps, but it is a reference, not a system. Nothing ties it to code, so every team interprets it again and it drifts from what ships.',
+            'Radboud umc is an example. The work can be excellent screen by screen, but consistency does not hold, and every new screen starts close to zero.'
           ]},
-          { title: 'Customised systems: the white label turn', slot: '', image: '', paras: [
-            'The next step is the customised system: a design system treated as a white label product. Enough is made variable (colour, type, density, shape, tone) that the same foundation can carry a real brand, instead of the brand being decorated on top of somebody else\u2019s defaults.',
-            'The hard part is the budget for that flexibility. Every variable you open has to stay maintainable for design and for development, so the system has to say what may vary and what may not. Unbounded flexibility is a fork with extra steps.'
+          { eyebrow: 'Stage 2', title: 'A system for one brand', slot: '', image: '', evo2: true, pros: ['Consistency and speed within one brand', 'A shared language for design and development', 'Bought: running from day one'], cons: ['Every deviation has to be argued', 'Needs an owner and ongoing upkeep', 'Bought: carries somebody else’s defaults'], links: [{ label: 'Planet Yes', key: 'planetyes' }, { label: 'Belastingdienst', key: 'hlp' }], paras: [
+            'There is a design system specific to one brand, client or project. It sets standards and may include design patterns. It can be bought and adapted, or built from scratch.',
+            'Planet Yes bought one and adapted it to its brand, which made it a speed instrument for a small team. The Belastingdienst built its own, which made it a shared language across many teams and a system I contributed to rather than controlled.'
           ]},
-          { title: 'AI generated systems', slot: '', image: '', paras: [
-            'Today we are at the front of the next step: design systems created, built and maintained by AI. At the same time AI can generate a new component on the spot, so the interface adapts to personal and contextual circumstances instead of being assembled once and shipped to everyone.',
-            'That is highly effective and much less predictable. From a design system point of view, output that was authored is now generated, and the question moves from what did we build to what will it produce.'
+          { eyebrow: 'Stage 3', title: 'One system, many brands', slot: '', image: '', evo3: true, pros: ['One foundation serves many brands', 'Improvements reach every client at once', 'Clients get their own brand, not a skin'], cons: ['Flexibility carries a maintenance cost', 'Hard choices about what may vary', 'Custom components can fork the system'], links: [{ label: 'ZIG Klantverwachtingssysteem', key: 'css' }, { label: 'ZIG Huurdersportaal', key: 'hupo' }], paras: [
+            'A single design system serves multiple brands. It adapts the basic tokens (colour, type, shape, density) and also carries custom components where a brand needs them.',
+            'This is the stage for SaaS products that live inside the brand of each client. The hard part is the budget for flexibility: every variable you open has to stay maintainable for design and development, so the system has to say what may vary and what may not.'
           ]},
-          { title: 'What keeps generated design in check', slot: '', image: '', paras: [
-            'If components are generated, the system stops being a library and becomes the input: clear guidelines, explicit boundaries and design principles the generator has to work within. Without them the surprises arrive in production.'
+          { eyebrow: 'Stage 4', title: 'A system that generates', slot: '', image: '', evo4: true, pros: ['Interfaces adapt to user and context', 'Patterns and pages produced on demand', 'Design effort moves to the rules'], cons: ['Less predictable output', 'Quality depends on principles and boundaries', 'Harder to review what actually ships'], links: [{ label: 'ADVANCE', key: 'advance' }], paras: [
+            'The design system generates the interface: basic tokens, components, and possibly patterns and whole pages. It adapts to the goal and need of the user and of the business, instead of being assembled once and shipped to everyone.',
+            'That is highly effective and much less predictable. Output that was authored is now generated, and the question moves from what did we build to what will it produce.',
+            'In stage 4 the system stops being a library and becomes the input: clear guidelines, explicit boundaries and design principles the generator has to work within. Without them the surprises arrive in production.'
           ], tiles: [
             { title: 'Principles as input', body: 'Write down what the design is protecting, in language a generator can be measured against, not just a designer.' },
             { title: 'Boundaries, not suggestions', body: 'State what may vary and what never does. A boundary the system cannot cross is worth more than a recommendation.' },
@@ -2335,8 +2354,8 @@ class Component extends DCLogic {
             { title: 'A route for the unexpected', body: 'Generation will produce things nobody planned. Give that a visible path back into the system, or it routes around it permanently.' }
           ]},
           { title: 'Why this matters now', slot: '', image: '', paras: [
-            'Each step in this evolution moved work upstream: from drawing elements, to defining parts, to deciding what may vary, to setting the rules a generator produces against. The craft did not disappear, it moved earlier.',
-            'That is the part I care about. A system is judged by what it produces when the designer is not in the room, and with AI in the loop that is most of the time.'
+            'Each stage moves design work upstream: from drawing screens, to defining parts, to deciding what may vary per brand, to setting the rules a generator produces against. The craft does not disappear, it moves earlier.',
+            'A system is judged by what it produces when the designer is not in the room. In stage 4, that is most of the time.'
           ]}
         ]
       },
@@ -3633,10 +3652,10 @@ class Component extends DCLogic {
     const max = Math.max(0, track.scrollWidth - track.clientWidth);
     if (max - cur < 2) return offs.length - 1;
     if (cur < 2) return 0;
-    void max;
-    let active = 0, best = Infinity;
-    offs.forEach((o, k) => { const d = Math.abs(o - cur); if (d < best) { best = d; active = k; } });
-    return active;
+    // Map scroll progress onto the bullets so every bullet is passed in order;
+    // the trailing figures can't reach their own offset, which made it skip.
+    const n = offs.length;
+    return Math.max(0, Math.min(n - 1, Math.round((cur / max) * (n - 1))));
   }
   syncDots(wrap) {
     const track = wrap.querySelector('[data-carousel]');
@@ -3849,12 +3868,18 @@ class Component extends DCLogic {
         showTitle: si !== 0,
         flip: si % 2 === 0 ? '' : null,
         title: tr(sec.title),
+        eyebrow: sec.eyebrow ? tr(sec.eyebrow) : '',
         paras: (sec.paras || []).map(tr),
         bg: sec.image ? 'url("' + sec.image + '")' : '',
         alt: this.altFor(sec.image, tr(sec.title)),
         ratio: r(sec.image),
         blend: sec.image === 'assets/img/cbs/ui.jpg' ? 'multiply' : 'normal',
         tiles: (sec.tiles || []).map(t => ({ title: tr(t.title), body: tr(t.body) })),
+        links: (sec.links || []).map(l => ({ label: tr(l.label), key: l.key, href: this.caseHref(l.key) })),
+        hasLinks: (sec.links || []).length > 0,
+        pros: (sec.pros || []).map(tr),
+        cons: (sec.cons || []).map(tr),
+        hasProsCons: (sec.pros || []).length > 0 || (sec.cons || []).length > 0,
         hasGallery: !!sec.image || (sec.gallery || []).length > 0,
         hasSolo: ((sec.image ? 1 : 0) + (sec.gallery || []).length) === 1,
         hasCarousel: ((sec.image ? 1 : 0) + (sec.gallery || []).length) > 1,
@@ -3889,7 +3914,10 @@ class Component extends DCLogic {
         const fig = e.currentTarget.closest('figure');
         const track = fig && fig.parentElement;
         if (!track) return;
-        const to = fig.offsetLeft - track.offsetLeft;
+        const figIdx = Array.from(track.querySelectorAll('figure')).indexOf(fig);
+        const offs0 = this.carOffsets(track);
+        // Same target as its bullet, so the first image returns to the start.
+        const to = figIdx === 0 ? 0 : (offs0[figIdx] != null ? offs0[figIdx] : fig.offsetLeft - track.offsetLeft);
         // The clicked image owns the pagination, even when it sits near the end
         // and the track cannot scroll all the way to it. The pin holds that
         // choice until the user scrolls somewhere else.
@@ -4041,8 +4069,20 @@ class Component extends DCLogic {
         contactTitleLead: tr("I welcome complexity. I'll bring clarity.").replace('. ', '.\n').split('\n')[0],
         contactTitleRest: tr("I welcome complexity. I'll bring clarity.").replace('. ', '.\n').split('\n').slice(1).join('\n'),
         gateTag: this.state.lang === 'nl' ? 'Beveiligd' : 'Protected',
-        gateTitle: this.state.lang === 'nl' ? 'Je bent er bijna.' : 'Almost there.',
-        gateBody: this.state.lang === 'nl' ? 'Deze case is voorlopig vertrouwelijk. Log in voor het hele verhaal.' : 'This case study is confidential for now. Log in to get the full story.',
+        gateTitle: this.state.lang === 'nl' ? 'Je bent er bijna.' : 'You are almost there',
+        gateBodyPre: this.state.lang === 'nl' ? 'Deze case is voorlopig vertrouwelijk. Neem gerust ' : 'This case study is confidential for now. Feel free to ',
+        gateBodyLink: this.state.lang === 'nl' ? 'contact' : 'contact me',
+        gateBodyPost: this.state.lang === 'nl' ? ' op voor het hele verhaal.' : ' for the full story.',
+        gateContactHref: this.homeHref('#contact'),
+        gateContact: (e) => {
+          if (e && e.preventDefault) e.preventDefault();
+          if (this.casePage || this.gatePage) { window.location.href = this.homeHref('#contact'); return; }
+          this.lockScroll(false, true);
+          this.setState({ gate: null, gateErr: false, gateBusy: false }, () => {
+            const el = document.getElementById('contact');
+            if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY, behavior: 'smooth' });
+          });
+        },
         gateLabel: this.state.lang === 'nl' ? 'Wachtwoord' : 'Password',
         gateSubmit: this.state.lang === 'nl' ? 'Bekijk case' : 'View case',
         gateChecking: this.state.lang === 'nl' ? 'Controleren…' : 'Checking…',
