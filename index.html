@@ -116,11 +116,19 @@
   @media (min-width: 640px) and (max-width: 999px) { [data-case-grid] { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; } }
   @media (min-width: 1000px) { [data-case-grid] { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; } }
   @media (min-width: 1000px) {
-    [data-case-cols] { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); column-gap: 0; align-items: start; }
-    [data-case-cols] > h2 { grid-column: 2; }
-    [data-case-body] { grid-column: 2; }
-    [data-case-cols][data-flip] > h2, [data-case-cols][data-flip] > [data-case-body] { grid-column: 2; }
-    [data-case-cols] > [data-evo-side] { grid-column: 1; grid-row: 1 / span 2; align-self: start; width: auto !important; margin: 0 clamp(32px,4vw,72px) 0 0 !important; }
+    [data-case-cols] { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); column-gap: 0; align-items: start; }
+    [data-case-cols] > h2 { grid-column: 1; }
+    [data-case-body] { grid-column: 1; }
+    [data-case-cols][data-flip] > h2, [data-case-cols][data-flip] > [data-case-body] { grid-column: 1; }
+    [data-case-cols]:has(> [data-evo-side]) > * { grid-column: 1 / -1 !important; justify-self: start; }
+    [data-case-cols]:has(> [data-evo-side]) > [data-case-body], [data-case-cols]:has(> [data-evo-side]) > h2 { max-width: 62ch; }
+  }
+  @media (min-width: 760px) {
+    :has(> section > [data-case-cols] > [data-evo-side]) { display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    :has(> section > [data-case-cols] > [data-evo-side]) > * { grid-column: 1 / -1; }
+    :has(> section > [data-case-cols] > [data-evo-side]) > section:has(> [data-case-cols] > [data-evo-side]) { grid-column: auto; }
+    section:has([data-evo-n="1"]), section:has([data-evo-n="3"]) { padding-right: calc(var(--sec-x) / 2) !important; }
+    section:has([data-evo-n="2"]), section:has([data-evo-n="4"]) { padding-left: calc(var(--sec-x) / 2) !important; }
   }
   @media (min-width: 620px) { [data-services-grid] { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; } }
   /* Tighter gutters on phones: more room for content than for margin. */
@@ -343,10 +351,10 @@
   @keyframes dgPyPink { 0%,6%{transform:translate(-54.73cqw,14.30cqw) rotate(0deg)}24%{transform:translate(34.08cqw,9.16cqw) rotate(19.03deg)}91%{transform:translate(34.08cqw,9.16cqw) rotate(19.03deg);animation-timing-function:cubic-bezier(.55,0,1,1)}100%{transform:translate(-54.73cqw,14.30cqw) rotate(0deg)} }
   @keyframes dgPyNavy { 0%,6%{transform:translate(-54.73cqw,5.77cqw) rotate(0deg)}24%{transform:translate(30.67cqw,-1.88cqw) rotate(16.58deg)}91%{transform:translate(30.67cqw,-1.88cqw) rotate(16.58deg);animation-timing-function:cubic-bezier(.55,0,1,1)}100%{transform:translate(-54.73cqw,5.77cqw) rotate(0deg)} }
   @keyframes dgPyPurple { 0%,6%{transform:translate(-83.94cqw,-1.18cqw) rotate(0deg)}24%{transform:translate(-6.14cqw,-15.23cqw) rotate(11.82deg)}91%{transform:translate(-6.14cqw,-15.23cqw) rotate(11.82deg);animation-timing-function:cubic-bezier(.55,0,1,1)}100%{transform:translate(-83.94cqw,-1.18cqw) rotate(0deg)} }
-  @keyframes dgEvoThemeA { 0%,30%{background:#F2C4BB}50%,80%{background:#202133}100%{background:#F2C4BB} }
-  @keyframes dgEvoThemeB { 0%,30%{background:#202133}50%,80%{background:#FFEC8F}100%{background:#202133} }
-  @keyframes dgEvoThemeC { 0%,30%{background:#F2C4BB}50%,80%{background:#202133}100%{background:#F2C4BB} }
-  @keyframes dgEvoThemeD { 0%,30%{background:#202133}50%,80%{background:#FFEC8F}100%{background:#202133} }
+  @keyframes dgEvoThemeA { 0%,30%{background:#F2C4BB}50%,80%{background:var(--evo-ink,#202133)}100%{background:#F2C4BB} }
+  @keyframes dgEvoThemeB { 0%,30%{background:var(--evo-ink,#202133)}50%,80%{background:#FFEC8F}100%{background:var(--evo-ink,#202133)} }
+  @keyframes dgEvoThemeC { 0%,30%{background:#F2C4BB}50%,80%{background:var(--evo-ink,#202133)}100%{background:#F2C4BB} }
+  @keyframes dgEvoThemeD { 0%,30%{background:var(--evo-ink,#202133)}50%,80%{background:#FFEC8F}100%{background:var(--evo-ink,#202133)} }
   @keyframes dgEvoAccent { 0%,30%{background:#F2C4BB}50%,80%{background:#FFEC8F}100%{background:#F2C4BB} }
   @keyframes dgEvoCell1 { 0%,8%{left:0%;top:0%;width:65.333%;height:30.667%}17%,28%{left:0%;top:0%;width:65.333%;height:48%}37%,48%{left:0%;top:0%;width:100%;height:30.667%}57%,68%{left:0%;top:0%;width:65.333%;height:100%}77%,88%{left:0%;top:0%;width:100%;height:48%}96%,100%{left:0%;top:0%;width:65.333%;height:30.667%} }
   @keyframes dgEvoCell2 { 0%,8%{left:69.333%;top:0%;width:30.667%;height:30.667%}17%,28%{left:69.333%;top:0%;width:30.667%;height:48%}37%,48%{left:100%;top:0%;width:0%;height:30.667%}57%,68%{left:69.333%;top:0%;width:30.667%;height:100%}77%,88%{left:100%;top:0%;width:0%;height:48%}96%,100%{left:69.333%;top:0%;width:30.667%;height:30.667%} }
@@ -490,7 +498,7 @@
       </a>
       <a href="#work" onClick="{{ closeGate }}" data-close-case="" aria-label="Close" style="position: absolute; top: clamp(18px,2.4vw,32px); right: calc(var(--sec-x)); height: clamp(44px,4.2vw,58px); display: inline-flex; align-items: center; gap: 6px; font-size: var(--t-label); font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--on-dark); cursor: pointer; transition: opacity var(--t-fast) ease-out" style-hover="opacity:0.6"><span style="position:relative;display:block;width:30px;height:30px;flex:0 0 auto"><span data-x-bar="a" style="position:absolute;left:2px;display:block;width:26px;height:2px;background:currentColor;top:14px;"></span><span data-x-bar="b" style="position:absolute;left:2px;display:block;width:26px;height:2px;background:currentColor;top:14px;"></span></span><span>{{ t.close }}</span></a>
       <div data-gate-in="" style="width: 309px; max-width: 520px; height: 416px">
-        <div aria-hidden="true" onClick="{{ bypassGate }}" title="" style="display:flex;justify-content:center;margin:0 0 clamp(16px,2vw,24px);color:#F2C4BB;user-select:none">
+        <div aria-hidden="true" onClick="{{ bypassGate }}" title="" style="touch-action:manipulation;display:flex;justify-content:center;margin:0 0 clamp(16px,2vw,24px);color:#F2C4BB;user-select:none">
           <svg width="91" height="91" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10.5" width="16" height="10.5" rx="2"></rect><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"></path></svg>
         </div>
         <h2 style="margin:0;font-size: var(--t-h2);line-height:1.12;font-weight:600;letter-spacing:-0.03em;text-wrap:pretty;text-align:center;color:var(--on-dark)">{{ t.gateTitle }}</h2>
@@ -581,7 +589,7 @@
           <div data-py-band="" style="position:absolute;left:0;top:0;width:83.12cqw;height:92.49cqw;background:#bf89ff;border-radius:3.97cqw;transform-origin:0 0;animation:dgPyPurple 8.2s cubic-bezier(.65,0,.35,1) 0s infinite both"></div><img data-py-logo="" loading="lazy" decoding="async" src="assets/logos/planetyes.svg" alt="" aria-hidden="true" style="position:absolute;left:6%;top:6%;width:20%;height:auto;opacity:0;transform:translate(0,140%);animation:dgPyLogo 8.2s cubic-bezier(.22,1,.36,1) 0s infinite both">
         </div>
       </sc-if>
-      <sc-if value="{{ openCaseData.evo }}" hint-placeholder-val="{{ false }}">
+      <sc-if value="{{ openCaseData.evoCover }}" hint-placeholder-val="{{ false }}">
         <div data-evo="" data-cover-img="" role="img" aria-label="Four stages of design systems: handcrafted, one brand, many brands, generative" style="margin:0 var(--sec-x);aspect-ratio:16/8;display:grid;grid-template-columns:repeat(4,1fr);gap:0;background:#FFFFFF">
           <div style="position:relative;display:flex;align-items:center;justify-content:center;background:#FFFFFF">
             <div style="position:relative;width:52%;height:34%">
@@ -644,14 +652,15 @@
           </sc-if>
           <sc-if value="{{ sec.showTitle }}" hint-placeholder-val="{{ true }}">
             <div data-case-cols="" data-flip="{{ sec.flip }}">
+                <sc-if value="{{ sec.evo1 }}" hint-placeholder-val="{{ false }}"><div data-evo="" data-evo-side="" data-evo-n="1" role="img" aria-label="{{ sec.title }}" style="position:relative;display:block;width:clamp(80px,9.33vw,133px);margin:0 0 clamp(20px,2.6vw,32px);--evo-ink:var(--fg)"><div style="position:relative;width:100%;aspect-ratio:0.76"><div style="position:absolute;left:0;top:6%;width:52%;height:34%;border-radius:2px;background:var(--evo-ink);transform:rotate(-4deg)"></div><div style="position:absolute;left:44%;top:0;width:40%;height:52%;border-radius:2px;background:color-mix(in srgb, var(--evo-ink) 42%, transparent);transform:rotate(3deg)"></div><div style="position:absolute;left:8%;top:54%;width:74%;height:26%;border-radius:2px;background:color-mix(in srgb, var(--evo-ink) 70%, transparent);transform:rotate(2deg)"></div></div></div></sc-if>
+                <sc-if value="{{ sec.evo2 }}" hint-placeholder-val="{{ false }}"><div data-evo="" data-evo-side="" data-evo-n="2" role="img" aria-label="{{ sec.title }}" style="position:relative;display:block;width:clamp(80px,9.33vw,133px);margin:0 0 clamp(20px,2.6vw,32px);--evo-ink:var(--fg)"><div style="position:relative;width:100%;aspect-ratio:1"><div style="position:absolute;left:0%;top:0%;width:30.667%;height:30.667%;background:var(--evo-ink)"></div><div style="position:absolute;left:34.667%;top:0%;width:30.667%;height:30.667%;background:var(--evo-ink)"></div><div style="position:absolute;left:69.333%;top:0%;width:30.667%;height:30.667%;background:var(--evo-ink)"></div><div style="position:absolute;left:0%;top:34.667%;width:30.667%;height:30.667%;background:var(--evo-ink)"></div><div style="position:absolute;left:34.667%;top:34.667%;width:30.667%;height:30.667%;background:var(--evo-ink)"></div><div style="position:absolute;left:69.333%;top:34.667%;width:30.667%;height:30.667%;background:var(--evo-ink)"></div><div style="position:absolute;left:0%;top:69.333%;width:30.667%;height:30.667%;background:var(--evo-ink)"></div><div style="position:absolute;left:34.667%;top:69.333%;width:30.667%;height:30.667%;background:var(--evo-ink)"></div><div style="position:absolute;left:69.333%;top:69.333%;width:30.667%;height:30.667%;background:var(--evo-ink)"></div></div></div></sc-if>
+                <sc-if value="{{ sec.evo3 }}" hint-placeholder-val="{{ false }}"><div data-evo="" data-evo-side="" data-evo-n="3" role="img" aria-label="{{ sec.title }}" style="position:relative;display:block;width:clamp(80px,9.33vw,133px);margin:0 0 clamp(20px,2.6vw,32px);--evo-ink:var(--fg)"><div style="position:relative;width:100%;aspect-ratio:1"><div style="position:absolute;left:0%;top:0%;width:65.333%;height:30.667%;background:#F2C4BB;animation:dgEvoThemeA 10s cubic-bezier(.45,0,.55,1) 0s infinite"></div><div style="position:absolute;left:69.333%;top:0%;width:30.667%;height:30.667%;background:var(--evo-ink)"></div><div style="position:absolute;left:0%;top:34.667%;width:30.667%;height:30.667%;background:var(--evo-ink)"></div><div style="position:absolute;left:34.667%;top:34.667%;width:65.333%;height:30.667%;background:var(--evo-ink);animation:dgEvoThemeB 10s cubic-bezier(.45,0,.55,1) 0s infinite"></div><div style="position:absolute;left:0%;top:69.333%;width:30.667%;height:30.667%;background:#F2C4BB;animation:dgEvoThemeC 10s cubic-bezier(.45,0,.55,1) 0s infinite"></div><div style="position:absolute;left:34.667%;top:69.333%;width:30.667%;height:30.667%;background:var(--evo-ink)"></div><div style="position:absolute;left:69.333%;top:69.333%;width:30.667%;height:30.667%;background:var(--evo-ink);animation:dgEvoThemeD 10s cubic-bezier(.45,0,.55,1) 0s infinite"></div></div></div></sc-if>
+                <sc-if value="{{ sec.evo4 }}" hint-placeholder-val="{{ false }}"><div data-evo="" data-evo-side="" data-evo-n="4" role="img" aria-label="{{ sec.title }}" style="position:relative;display:block;width:clamp(80px,9.33vw,133px);margin:0 0 clamp(20px,2.6vw,32px);--evo-ink:var(--fg)"><div style="position:relative;width:100%;aspect-ratio:1"><div style="position:absolute;left:0%;top:0%;width:65.333%;height:30.667%;background:#F2C4BB;animation:dgEvoAccent 11s cubic-bezier(.45,0,.55,1) 0s infinite,dgEvoCell1 11s cubic-bezier(.7,0,.2,1) 0s infinite both"></div><div style="position:absolute;left:69.333%;top:0%;width:30.667%;height:30.667%;background:var(--evo-ink);animation:dgEvoCell2 11s cubic-bezier(.7,0,.2,1) 0s infinite both"></div><div style="position:absolute;left:0%;top:34.667%;width:30.667%;height:30.667%;background:var(--evo-ink);animation:dgEvoCell3 11s cubic-bezier(.7,0,.2,1) 0s infinite both"></div><div style="position:absolute;left:34.667%;top:34.667%;width:65.333%;height:30.667%;background:var(--evo-ink);animation:dgEvoCell4 11s cubic-bezier(.7,0,.2,1) 0s infinite both"></div><div style="position:absolute;left:0%;top:69.333%;width:30.667%;height:30.667%;background:#F2C4BB;animation:dgEvoAccent 11s cubic-bezier(.45,0,.55,1) 0s infinite,dgEvoCell5 11s cubic-bezier(.7,0,.2,1) 0s infinite both"></div><div style="position:absolute;left:34.667%;top:69.333%;width:30.667%;height:30.667%;background:var(--evo-ink);animation:dgEvoCell6 11s cubic-bezier(.7,0,.2,1) 0s infinite both"></div><div style="position:absolute;left:69.333%;top:69.333%;width:30.667%;height:30.667%;background:var(--evo-ink);animation:dgEvoCell7 11s cubic-bezier(.7,0,.2,1) 0s infinite both"></div></div></div></sc-if>
               <h2 style="margin: 0 0 clamp(20px,2.6vw,32px); font-size: var(--t-h2); line-height: 1.05; font-weight: 600; letter-spacing: -0.03em; text-wrap: balance; width: 100%"><sc-if value="{{ sec.eyebrow }}" hint-placeholder-val="{{ false }}"><span style="display:block;margin:0 0 clamp(14px,2vw,22px);font-family:'Archivo',system-ui,sans-serif;font-size: var(--t-label);line-height:1;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted2)">{{ sec.eyebrow }}</span></sc-if>{{ sec.title }}</h2>
               <div data-case-body="">
                 <sc-for list="{{ sec.paras }}" as="p" hint-placeholder-count="0">
                   <p style="margin: 0 0 18px; font-size: var(--t-body); line-height: 1.6; color: var(--fg); text-wrap: pretty">{{ p }}</p>
                 </sc-for>
-                <sc-if value="{{ sec.hasProsCons }}" hint-placeholder-val="{{ false }}">
-                  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:24px clamp(24px,3vw,40px);margin:8px 0 26px"><div style="display:flex;flex-direction:column;gap:12px"><span style="font-size: var(--t-label);line-height:1;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted2)">Pros</span><ul style="display:flex;flex-direction:column;gap:0;margin:0;padding:0;list-style:none"><sc-for list="{{ sec.pros }}" as="it" hint-placeholder-count="0"><li style="padding:10px 0;border-top:1px solid var(--hair);font-size: var(--t-sm);line-height:1.45;color:var(--fg);text-wrap:pretty">{{ it }}</li></sc-for></ul></div><div style="display:flex;flex-direction:column;gap:12px"><span style="font-size: var(--t-label);line-height:1;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted2)">Cons</span><ul style="display:flex;flex-direction:column;gap:0;margin:0;padding:0;list-style:none"><sc-for list="{{ sec.cons }}" as="it" hint-placeholder-count="0"><li style="padding:10px 0;border-top:1px solid var(--hair);font-size: var(--t-sm);line-height:1.45;color:var(--fg);text-wrap:pretty">{{ it }}</li></sc-for></ul></div></div>
-                </sc-if>
                 <sc-if value="{{ sec.hasLinks }}" hint-placeholder-val="{{ false }}">
                   <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:6px">
                     <sc-for list="{{ sec.links }}" as="l" hint-placeholder-count="0">
@@ -660,10 +669,6 @@
                   </div>
                 </sc-if>
               </div>
-                <sc-if value="{{ sec.evo1 }}" hint-placeholder-val="{{ false }}"><div data-evo="" data-evo-side="" role="img" aria-label="{{ sec.title }}" style="position:relative;display:flex;align-items:center;justify-content:center;width:100%;aspect-ratio:16/9;margin:clamp(12px,2vw,24px) 0 0;background:#FFFFFF;overflow:hidden"><div style="position:relative;width:26%;aspect-ratio:0.76"><div style="position:absolute;left:0;top:6%;width:52%;height:34%;border-radius:2px;background:#202133;transform:rotate(-4deg)"></div><div style="position:absolute;left:44%;top:0;width:40%;height:52%;border-radius:2px;background:rgba(32,33,51,0.42);transform:rotate(3deg)"></div><div style="position:absolute;left:8%;top:54%;width:74%;height:26%;border-radius:2px;background:rgba(32,33,51,0.7);transform:rotate(2deg)"></div></div></div></sc-if>
-                <sc-if value="{{ sec.evo2 }}" hint-placeholder-val="{{ false }}"><div data-evo="" data-evo-side="" role="img" aria-label="{{ sec.title }}" style="position:relative;display:flex;align-items:center;justify-content:center;width:100%;aspect-ratio:16/9;margin:clamp(12px,2vw,24px) 0 0;background:#FFFFFF;overflow:hidden"><div style="position:relative;width:26%;aspect-ratio:1"><div style="position:absolute;left:0%;top:0%;width:30.667%;height:30.667%;background:#202133"></div><div style="position:absolute;left:34.667%;top:0%;width:30.667%;height:30.667%;background:#202133"></div><div style="position:absolute;left:69.333%;top:0%;width:30.667%;height:30.667%;background:#202133"></div><div style="position:absolute;left:0%;top:34.667%;width:30.667%;height:30.667%;background:#202133"></div><div style="position:absolute;left:34.667%;top:34.667%;width:30.667%;height:30.667%;background:#202133"></div><div style="position:absolute;left:69.333%;top:34.667%;width:30.667%;height:30.667%;background:#202133"></div><div style="position:absolute;left:0%;top:69.333%;width:30.667%;height:30.667%;background:#202133"></div><div style="position:absolute;left:34.667%;top:69.333%;width:30.667%;height:30.667%;background:#202133"></div><div style="position:absolute;left:69.333%;top:69.333%;width:30.667%;height:30.667%;background:#202133"></div></div></div></sc-if>
-                <sc-if value="{{ sec.evo3 }}" hint-placeholder-val="{{ false }}"><div data-evo="" data-evo-side="" role="img" aria-label="{{ sec.title }}" style="position:relative;display:flex;align-items:center;justify-content:center;width:100%;aspect-ratio:16/9;margin:clamp(12px,2vw,24px) 0 0;background:#FFFFFF;overflow:hidden"><div style="position:relative;width:26%;aspect-ratio:1"><div style="position:absolute;left:0%;top:0%;width:65.333%;height:30.667%;background:#F2C4BB;animation:dgEvoThemeA 10s cubic-bezier(.45,0,.55,1) 0s infinite"></div><div style="position:absolute;left:69.333%;top:0%;width:30.667%;height:30.667%;background:#202133"></div><div style="position:absolute;left:0%;top:34.667%;width:30.667%;height:30.667%;background:#202133"></div><div style="position:absolute;left:34.667%;top:34.667%;width:65.333%;height:30.667%;background:#202133;animation:dgEvoThemeB 10s cubic-bezier(.45,0,.55,1) 0s infinite"></div><div style="position:absolute;left:0%;top:69.333%;width:30.667%;height:30.667%;background:#F2C4BB;animation:dgEvoThemeC 10s cubic-bezier(.45,0,.55,1) 0s infinite"></div><div style="position:absolute;left:34.667%;top:69.333%;width:30.667%;height:30.667%;background:#202133"></div><div style="position:absolute;left:69.333%;top:69.333%;width:30.667%;height:30.667%;background:#202133;animation:dgEvoThemeD 10s cubic-bezier(.45,0,.55,1) 0s infinite"></div></div></div></sc-if>
-                <sc-if value="{{ sec.evo4 }}" hint-placeholder-val="{{ false }}"><div data-evo="" data-evo-side="" role="img" aria-label="{{ sec.title }}" style="position:relative;display:flex;align-items:center;justify-content:center;width:100%;aspect-ratio:16/9;margin:clamp(12px,2vw,24px) 0 0;background:#FFFFFF;overflow:hidden"><div style="position:relative;width:26%;aspect-ratio:1"><div style="position:absolute;left:0%;top:0%;width:65.333%;height:30.667%;background:#F2C4BB;animation:dgEvoAccent 11s cubic-bezier(.45,0,.55,1) 0s infinite,dgEvoCell1 11s cubic-bezier(.7,0,.2,1) 0s infinite both"></div><div style="position:absolute;left:69.333%;top:0%;width:30.667%;height:30.667%;background:#202133;animation:dgEvoCell2 11s cubic-bezier(.7,0,.2,1) 0s infinite both"></div><div style="position:absolute;left:0%;top:34.667%;width:30.667%;height:30.667%;background:#202133;animation:dgEvoCell3 11s cubic-bezier(.7,0,.2,1) 0s infinite both"></div><div style="position:absolute;left:34.667%;top:34.667%;width:65.333%;height:30.667%;background:#202133;animation:dgEvoCell4 11s cubic-bezier(.7,0,.2,1) 0s infinite both"></div><div style="position:absolute;left:0%;top:69.333%;width:30.667%;height:30.667%;background:#F2C4BB;animation:dgEvoAccent 11s cubic-bezier(.45,0,.55,1) 0s infinite,dgEvoCell5 11s cubic-bezier(.7,0,.2,1) 0s infinite both"></div><div style="position:absolute;left:34.667%;top:69.333%;width:30.667%;height:30.667%;background:#202133;animation:dgEvoCell6 11s cubic-bezier(.7,0,.2,1) 0s infinite both"></div><div style="position:absolute;left:69.333%;top:69.333%;width:30.667%;height:30.667%;background:#202133;animation:dgEvoCell7 11s cubic-bezier(.7,0,.2,1) 0s infinite both"></div></div></div></sc-if>
             </div>
           </sc-if>
           <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:clamp(8px,1.4vw,24px) clamp(28px,4vw,56px);margin-top:clamp(24px,3vw,44px)">
@@ -680,12 +685,12 @@
                 <div role="img" aria-label="{{ sec.solo.alt }}" data-skel-host="" style="position:relative;width:100%;aspect-ratio:{{ sec.solo.ratio }};background-color:var(--imgbg);background-image:{{ sec.solo.bg }};background-size:cover;background-position:center"></div>
               </sc-if>
               <sc-if value="{{ sec.solo.chrome }}" hint-placeholder-val="{{ false }}">
-                <div style="width:100%;border-radius:14px;overflow:hidden;background:var(--mock-bar)">
-                  <div style="display:flex;align-items:center;gap:7px;height:36px;padding:0 14px;background:var(--mock-bar);border-bottom:none">
-                    <span style="width:10px;height:10px;border-radius:50%;background:var(--mock-dot)"></span>
-                    <span style="width:10px;height:10px;border-radius:50%;background:var(--mock-dot)"></span>
-                    <span style="width:10px;height:10px;border-radius:50%;background:var(--mock-dot)"></span>
-                    <div style="flex:1;height:18px;margin-left:12px;border-radius:9px;background:var(--mock-pill)"></div>
+                <div style="width:100%;border-radius:clamp(6px,1vw,14px);overflow:hidden;background:var(--mock-bar)">
+                  <div style="display:flex;align-items:center;gap:clamp(3px,0.5vw,7px);height:clamp(16px,2.5vw,36px);padding:0 clamp(6px,1vw,14px);background:var(--mock-bar);border-bottom:none">
+                    <span style="width:clamp(5px,0.7vw,10px);height:clamp(5px,0.7vw,10px);border-radius:50%;background:var(--mock-dot)"></span>
+                    <span style="width:clamp(5px,0.7vw,10px);height:clamp(5px,0.7vw,10px);border-radius:50%;background:var(--mock-dot)"></span>
+                    <span style="width:clamp(5px,0.7vw,10px);height:clamp(5px,0.7vw,10px);border-radius:50%;background:var(--mock-dot)"></span>
+                    <div style="flex:1;height:clamp(8px,1.25vw,18px);margin-left:clamp(5px,0.8vw,12px);border-radius:999px;background:var(--mock-pill)"></div>
                   </div>
                   <div role="img" aria-label="{{ sec.solo.alt }}" data-skel-host="" style="position:relative;width:100%;aspect-ratio:{{ sec.solo.fratio }};background-color:var(--imgbg);background-image:{{ sec.solo.bg }};background-size:cover;background-position:top center"></div>
                 </div>
@@ -702,14 +707,14 @@
                       <div role="img" aria-label="{{ g.alt }}" onClick="{{ carFocus }}" data-skel-host="" style="position:relative;height:clamp(240px,38vw,520px);aspect-ratio:{{ g.ratio }};background-color:var(--imgbg);background-image:{{ g.bg }};background-size:contain;background-repeat:no-repeat;background-position:center;cursor:pointer"></div>
                     </sc-if>
                     <sc-if value="{{ g.chrome }}" hint-placeholder-val="{{ false }}">
-                      <div style="border-radius:14px;overflow:hidden;background:var(--mock-bar)">
-                        <div style="display:flex;align-items:center;gap:7px;height:36px;padding:0 14px;background:var(--mock-bar);border-bottom:none">
-                          <span style="width:10px;height:10px;border-radius:50%;background:var(--mock-dot)"></span>
-                          <span style="width:10px;height:10px;border-radius:50%;background:var(--mock-dot)"></span>
-                          <span style="width:10px;height:10px;border-radius:50%;background:var(--mock-dot)"></span>
-                          <div style="flex:1;height:18px;margin-left:12px;border-radius:9px;background:var(--mock-pill)"></div>
+                      <div style="border-radius:clamp(6px,1vw,14px);overflow:hidden;background:var(--mock-bar)">
+                        <div style="display:flex;align-items:center;gap:clamp(3px,0.5vw,7px);height:clamp(16px,2.5vw,36px);padding:0 clamp(6px,1vw,14px);background:var(--mock-bar);border-bottom:none">
+                          <span style="width:clamp(5px,0.7vw,10px);height:clamp(5px,0.7vw,10px);border-radius:50%;background:var(--mock-dot)"></span>
+                          <span style="width:clamp(5px,0.7vw,10px);height:clamp(5px,0.7vw,10px);border-radius:50%;background:var(--mock-dot)"></span>
+                          <span style="width:clamp(5px,0.7vw,10px);height:clamp(5px,0.7vw,10px);border-radius:50%;background:var(--mock-dot)"></span>
+                          <div style="flex:1;height:clamp(8px,1.25vw,18px);margin-left:clamp(5px,0.8vw,12px);border-radius:999px;background:var(--mock-pill)"></div>
                         </div>
-                        <div role="img" aria-label="{{ g.alt }}" onClick="{{ carFocus }}" data-skel-host="" style="position:relative;height:calc(clamp(240px,38vw,520px) - 36px);aspect-ratio:{{ g.fratio }};background-color:var(--imgbg);background-image:{{ g.bg }};background-size:cover;background-position:top center;cursor:pointer"></div>
+                        <div role="img" aria-label="{{ g.alt }}" onClick="{{ carFocus }}" data-skel-host="" style="position:relative;height:calc(clamp(240px,38vw,520px) - clamp(16px,2.5vw,36px));aspect-ratio:{{ g.fratio }};background-color:var(--imgbg);background-image:{{ g.bg }};background-size:cover;background-position:top center;cursor:pointer"></div>
                       </div>
                     </sc-if>
                     <figcaption style="width:0;min-width:100%;font-size: var(--t-sm);line-height:1.45;color:var(--muted);text-wrap:pretty">{{ g.cap }}</figcaption>
@@ -1067,7 +1072,7 @@
 </div>
 
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;preview&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Responsive&quot;,&quot;Mobile&quot;,&quot;Tablet&quot;,&quot;Desktop&quot;,&quot;4K&quot;],&quot;default&quot;:&quot;Responsive&quot;,&quot;tsType&quot;:&quot;'Responsive' | 'Mobile' | 'Tablet' | 'Desktop' | '4K'&quot;,&quot;section&quot;:&quot;Preview&quot;},&quot;loggedIn&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Preview&quot;}}">
+<script type="text/x-dc" data-dc-script data-props="{&quot;preview&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Responsive&quot;,&quot;Mobile&quot;,&quot;Tablet&quot;,&quot;Desktop&quot;,&quot;4K&quot;],&quot;default&quot;:&quot;Responsive&quot;,&quot;tsType&quot;:&quot;'Responsive' | 'Mobile' | 'Tablet' | 'Desktop' | '4K'&quot;,&quot;section&quot;:&quot;Preview&quot;},&quot;loggedIn&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Preview&quot;},&quot;resetSite&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Preview&quot;}}">
 class Component extends DCLogic {
   state = { heroWord: 0, heroPrev: -1, heroWord2: 0, heroPrev2: -1, open: null, lang: 'en', menuOpen: false, theme: (() => { try { return localStorage.getItem('dg-theme') || 'light'; } catch (e) { return 'light'; } })(), industry: 'All', caseTag: 'All', booting: true, gate: null, gateErr: false, gateBusy: false, unlocked: [] };
   gateHash = 'eb8ff7e25a397ec86514ea6a5aade07badf932f25b5588018add22c6eabef39a';
@@ -1145,7 +1150,12 @@ class Component extends DCLogic {
   };
   // Quiet shortcut: triple-clicking the lock glyph unlocks without typing.
   bypassGate = (e) => {
-    if (!e || e.detail < 3) return;
+    // Count taps ourselves: mobile browsers report every tap as detail 1.
+    const now = Date.now();
+    this._lockTaps = (now - (this._lockTapAt || 0) < 600) ? (this._lockTaps || 0) + 1 : 1;
+    this._lockTapAt = now;
+    if (this._lockTaps < 3) return;
+    this._lockTaps = 0;
     const key = this.state.gate;
     if (!key) return;
     this.afterUnlock(key, Object.keys(this.lockedCases));
@@ -1658,6 +1668,7 @@ class Component extends DCLogic {
     }
   }
   componentDidMount() {
+    this._resetSeen = !!this.props.resetSite;
     this.loadUnlocked();
     try { this.wireInk(); } catch (err) {}
     this.readyCovers();
@@ -2059,7 +2070,7 @@ class Component extends DCLogic {
         title: 'AmbuSuite', client: 'Radboud umc', tags: ['Research', 'Interaction design', 'Prototyping'], meta: 'Radboud umc',
  role: 'Project lead and UX designer', team: 'Navara design and development team, with Radboud umc clinicians and regional ambulance services', outcome: 'In daily use at Radboud umc and several other hospitals, the handover now starts before the ambulance arrives.',
  blurb: 'Saving lives through seamless communication in acute care, a system that informs emergency departments about incoming ambulances in real time.',
-        deck: 'Saving lives through seamless communication in acute care.',
+        deck: 'Saving lives through seamless communication in acute care',
         cover: 'assets/img/radboud/cover.jpg', coverSlot: 'dg-radboud-cover',
         quote: '“With AmbuSuite I know exactly when and which patient is arriving. It prevents waiting time and encourages strong collaboration between us and the regional ambulance organisations.”',
         cite: 'Emergency physician, Radboud umc',
@@ -2087,7 +2098,7 @@ class Component extends DCLogic {
         title: 'Klantverwachtingssysteem', client: 'ZIG', tags: ['Service design', 'Design system', 'Interaction design'], meta: 'ZIG · Service design · Design system',
  role: 'Experience designer, design lead', team: 'ZIG product and development teams, with service staff from several housing corporations', outcome: 'The design direction now guides all further development of ZIG’s customer service system, behind it, service for roughly half a million households.',
  blurb: 'Empowering housing corporations with one central, multichannel customer service system, and a design system to keep growing it.',
-        deck: 'Empowering housing corporations with one central, multichannel customer service system.',
+        deck: 'Empowering housing corporations with one central, multichannel customer service system',
         cover: 'assets/img/css/cover.jpg', coverSlot: 'dg-css-cover',
         sections: [
           { title: 'The challenge', slot: 'dg-css-context', image: 'assets/img/css/context.jpg', gallery: [{ slot: 'dg-css-bs1', src: 'assets/img/css/brainstorm-1.jpg' }, { slot: 'dg-css-bs2', src: 'assets/img/css/brainstorm-2.jpg' }], paras: [
@@ -2116,7 +2127,7 @@ class Component extends DCLogic {
         title: 'Prijsobservatie', client: 'Centraal Bureau voor de Statistiek', tags: ['Research', 'Product strategy', 'Behavioural design'], meta: 'CBS · Product strategy · Interaction design',
         role: 'Project lead and UX designer', team: 'Navara team with CBS data collectors, their team managers and statisticians', outcome: 'Still in use in 24 countries across Europe; managers report higher data quality and the separate digitisation step disappeared.',
  blurb: 'A professional data-collection application, gamified for Statistics Netherlands, now in use in 24 countries across Europe.',
-        deck: 'A professional data-collection application, gamified for Statistics Netherlands.',
+        deck: 'A professional data-collection application, gamified for Statistics Netherlands',
         cover: 'assets/img/cbs/cover.jpg', coverSlot: 'dg-cbs-cover',
         sections: [
           { title: 'The challenge', slot: 'dg-cbs-paper', image: 'assets/img/cbs/paper-transition.jpg', paras: [
@@ -2144,7 +2155,7 @@ class Component extends DCLogic {
         title: 'Huurdersportaal', client: 'ZIG', tags: ['UX strategy', 'Service design', 'Design system'], meta: 'ZIG · UX strategy · Service design',
         role: 'Lead designer', team: 'ZIG development teams and the product owners of several housing corporations', outcome: 'Launched in 2022; corporations serving half a million households run on it, and ZIG could scale to new customers and markets.',
  blurb: 'Personalising self-service for housing corporations and half a million households, from generic portal to digital home.',
-        deck: 'Personalising self-service for housing corporations and half a million households.',
+        deck: 'Personalising self-service for housing corporations and half a million households',
         cover: 'assets/img/hupo/cover.jpg', coverSlot: 'dg-hupo-cover',
         sections: [
           { title: 'The challenge', slot: 'dg-hupo-research', image: 'assets/img/hupo/research-1.jpg', gallery: [{ slot: 'dg-hupo-res2', src: 'assets/img/hupo/research-2.jpg' }, { slot: 'dg-hupo-res3', src: 'assets/img/hupo/research-3.jpg' }], paras: [
@@ -2171,7 +2182,7 @@ class Component extends DCLogic {
         title: 'Van applicatielandschap naar visie', client: 'Belastingdienst', tags: ['Research', 'UX strategy', 'Facilitation', 'Vision'], meta: 'Belastingdienst \u00b7 UX strategy \u00b7 Research',
         role: 'UX strategist and facilitator', team: 'Belastingdienst officials, product owners, architects and policy advisers', outcome: 'Twenty-two applications, four work processes and sixty-seven controllers reduced to one shared vision the programme now builds against.',
         blurb: 'Turning twenty-two applications and a decade of workarounds into one shared vision an organisation can build against.',
-        deck: 'Turning a fragmented application landscape into one shared vision.',
+        deck: 'Turning a fragmented application landscape into one shared vision',
         cover: 'assets/img/hlp/rolverdeling.png', coverSlot: 'dg-hlpstrat-cover',
         sections: [
           { title: 'The challenge', slot: '', image: 'assets/img/hlp/werkprocessen.png', paras: [
@@ -2197,7 +2208,7 @@ class Component extends DCLogic {
         title: 'De HLP-werkomgeving', client: 'Belastingdienst', tags: ['UX design', 'Interaction design', 'Design system', 'Prototyping'], meta: 'Belastingdienst \u00b7 Interaction design \u00b7 Design system',
         role: 'Lead UX and interaction designer', team: 'Several micro-frontend teams, product owners and the Design System Bold team', outcome: 'Five design principles now govern every increment that replaces a piece of the legacy landscape.',
         blurb: 'One work environment for tax officials, replacing a landscape of legacy applications with software that thinks along.',
-        deck: 'Replacing a landscape of legacy applications with software that thinks along.',
+        deck: 'Replacing a landscape of legacy applications with software that thinks along',
         cover: 'assets/img/hlp/dwl-login.png', coverSlot: 'dg-hlp-cover',
         sections: [
           { title: 'The challenge', slot: 'dg-hlp-landschap', image: 'assets/img/hlp/applicatielandschap.png', gallery: [{ slot: 'dg-hlp-werkvoorraad', src: 'assets/img/hlp/dwl-werkvoorraad.png' }, { slot: 'dg-hlp-jaaroverzicht', src: 'assets/img/hlp/dwl-jaaroverzicht.png' }], paras: [
@@ -2271,7 +2282,7 @@ class Component extends DCLogic {
         title: 'Transfers, without the second guess', client: 'ING / Bank Mendes Gans', tags: ['User research', 'UX design', 'Interaction design', 'Prototyping'], meta: 'Bank Mendes Gans \u00b7 UX design \u00b7 Research',
         role: 'Lead UX designer and researcher', team: 'BMG treasury operations, product owners and the platform development team', outcome: 'Routine transfers were completed noticeably faster in testing, private side-checks disappeared, and the pattern became the reference for other high-stakes flows.',
         blurb: 'Redesigning the transfer application treasurers use to move millions \u2014 where one mistyped field is a real problem.',
-        deck: 'Redesigning the transfer application treasurers move millions with.',
+        deck: 'Redesigning the transfer application treasurers move millions with',
         coverSlot: 'dg-bmg-cover',
         sections: [
           { title: 'The challenge', slot: 'dg-bmg-1', image: '', paras: [
@@ -2301,7 +2312,7 @@ class Component extends DCLogic {
         title: 'An AI marketplace for government', client: 'Ministry of the Interior and Kingdom Relations', tags: ['Service design', 'UX strategy', 'UX design', 'Workshops'], meta: 'sAIdkick · Service design · UX strategy',
         role: 'UX lead', team: 'Product owner, full-stack developers and a UX designer, inside a national government programme', outcome: 'A validated MVP: from first interviews to a tested, buildable prototype on the NL Design System, with design running ahead of development instead of reviewing after it.',
         blurb: 'A marketplace where Dutch public organisations can find, judge and safely reuse each other’s AI, instead of each buying their own.',
-        deck: 'A marketplace where government can find and safely reuse AI.',
+        deck: 'A marketplace where government can find and safely reuse AI',
         cover: 'assets/img/sidekick/proto-steps.png', coverSlot: 'dg-sidekick-cover',
         quote: '“What I like: you think along quickly and proactively. We have a clear picture, and you sharpen it rather than just taking it over.”',
         cite: 'Bram Marisael, product owner',
@@ -2337,7 +2348,7 @@ class Component extends DCLogic {
         title: 'Making the visual part of the record', client: 'Tweede Kamer', tags: ['User research', 'UX design', 'Accessibility', 'Design system'], meta: 'Tweede Kamer \u00b7 UX design \u00b7 Accessibility',
         role: 'UX designer and researcher', team: 'Tweede Kamer information services, editors and accessibility specialists', outcome: 'A documented set of visual patterns applied at the source, so parliamentary visuals are legible and accessible by construction.',
         blurb: 'Redesigning how images and infographics live inside parliamentary documents \u2014 readable, accessible and part of the argument.',
-        deck: 'Redesigning how images and infographics live in parliamentary documents.',
+        deck: 'Redesigning how images and infographics live in parliamentary documents',
         coverSlot: 'dg-tweedekamer-cover',
         sections: [
           { title: 'The challenge', slot: 'dg-tk-1', image: '', paras: [
@@ -2368,7 +2379,7 @@ class Component extends DCLogic {
         role: 'Design system owner and lead designer', team: 'Product owners, front-end teams and, in the largest case, a central design system team I contributed to rather than controlled',
  outcome: 'A working model of four stages of design system maturity, with systems built or led at the first three and a position on what the fourth demands.',
         blurb: 'Four stages of design systems, from everything custom to systems that generate the interface, and what each stage asks of design.',
-        deck: 'Four stages of design systems, from all custom to generative.',
+        deck: 'Four stages of design systems, from all custom to generative',
         coverSlot: 'dg-ds-cover',
         sections: [
           { title: 'The challenge', slot: '', image: '', paras: [
@@ -2385,23 +2396,17 @@ class Component extends DCLogic {
             'Planet Yes bought one and adapted it to its brand, which made it a speed instrument for a small team. The Belastingdienst built its own, which made it a shared language across many teams and a system I contributed to rather than controlled.'
           ]},
           { eyebrow: 'Stage 3', title: 'One system, many brands', slot: '', image: '', evo3: true, pros: ['One foundation serves many brands', 'Improvements reach every client at once', 'Clients get their own brand, not a skin'], cons: ['Flexibility carries a maintenance cost', 'Hard choices about what may vary', 'Custom components can fork the system'], links: [{ label: 'ZIG Klantverwachtingssysteem', key: 'css' }, { label: 'ZIG Huurdersportaal', key: 'hupo' }], paras: [
-            'A single design system serves multiple brands. It adapts the basic tokens (colour, type, shape, density) and also carries custom components where a brand needs them.',
+            'A single whitelabel design system serves multiple brands. It adapts the basic tokens (colour, type, shape, density) and also carries custom components where a brand needs them.',
             'This is the stage for SaaS products that live inside the brand of each client. The hard part is the budget for flexibility: every variable you open has to stay maintainable for design and development, so the system has to say what may vary and what may not.'
           ]},
           { eyebrow: 'Stage 4', title: 'A system that generates', slot: '', image: '', evo4: true, pros: ['Interfaces adapt to user and context', 'Patterns and pages produced on demand', 'Design effort moves to the rules'], cons: ['Less predictable output', 'Quality depends on principles and boundaries', 'Harder to review what actually ships'], links: [{ label: 'ADVANCE', key: 'advance' }], paras: [
-            'The design system generates the interface: basic tokens, components, and possibly patterns and whole pages. It adapts to the goal and need of the user and of the business, instead of being assembled once and shipped to everyone.',
-            'That is highly effective and much less predictable. Output that was authored is now generated, and the question moves from what did we build to what will it produce.',
-            'In stage 4 the system stops being a library and becomes the input: clear guidelines, explicit boundaries and design principles the generator has to work within. Without them the surprises arrive in production.'
-          ], tiles: [
-            { title: 'Principles as input', body: 'Write down what the design is protecting, in language a generator can be measured against, not just a designer.' },
-            { title: 'Boundaries, not suggestions', body: 'State what may vary and what never does. A boundary the system cannot cross is worth more than a recommendation.' },
-            { title: 'The brand promise as the test', body: 'Every generated component has to hold the promise the brand makes. That is the check, not whether it looks plausible.' },
-            { title: 'Maintainable by two crafts', body: 'Design and development both have to keep it running. Anything only one side understands decays as soon as attention moves.' },
-            { title: 'A route for the unexpected', body: 'Generation will produce things nobody planned. Give that a visible path back into the system, or it routes around it permanently.' }
+            'In the fourth stage the design system no longer only supplies parts. It generates the interface itself: tokens, components, patterns and sometimes whole pages, shaped to the goal of the user and the need of the business at that moment.',
+            'That makes it highly effective and much less predictable. The question shifts from what we built to what the system will produce, and so the system changes role. It stops being a library and becomes the input: principles, boundaries and a brand promise that every generated result is measured against.'
           ]},
-          { title: 'Why this matters now', slot: '', image: '', paras: [
-            'Each stage moves design work upstream: from drawing screens, to defining parts, to deciding what may vary per brand, to setting the rules a generator produces against. The craft does not disappear, it moves earlier.',
-            'A system is judged by what it produces when the designer is not in the room. In stage 4, that is most of the time.'
+          { centered: true, title: '', slot: '', image: '', paras: [
+            'What I learned across these stages is that every step moves design work upstream. First you draw screens, then you define the parts, then you decide what may vary per brand. The craft does not disappear, it moves earlier.',
+            'I expect the next step to ask for a different kind of design work: writing down what the design protects in language a generator can be tested against, drawing boundaries it cannot cross, and keeping it understandable for design and development alike. Generation will also produce things nobody planned, so the system needs a visible route to take those back in.',
+            'A design system has always been judged by what it produces when the designer is not in the room. In stage 4, that is most of the time.'
           ]}
         ]
       },
@@ -3892,6 +3897,17 @@ class Component extends DCLogic {
     else document.documentElement.removeAttribute('data-overlay');
   }
   componentDidUpdate() {
+    if (this._resetSeen === undefined) this._resetSeen = !!this.props.resetSite;
+    if (!!this.props.resetSite !== this._resetSeen) {
+      this._resetSeen = !!this.props.resetSite;
+      // Reset tweak: forget theme and unlocked cases, then start over on the home page.
+      ['dg-theme', 'dg-case-unlocked'].forEach(k => {
+        try { localStorage.removeItem(k); } catch (e) {}
+        try { sessionStorage.removeItem(k); } catch (e) {}
+      });
+      window.location.href = this.homeHref();
+      return;
+    }
     if (super.componentDidUpdate) super.componentDidUpdate();
     this.syncOverlayGround();
     try { this.inkScan(); } catch (err) {}
@@ -3965,8 +3981,8 @@ class Component extends DCLogic {
       coverInk: this.inkFor(c.src),
       cardCoverSrc: c.src && c.src.indexOf('assets/') === 0 ? c.src : '',
       sections: c.sections.map((sec, si) => Object.assign({}, sec, {
-        isIntro: si === 0,
-        showTitle: si !== 0,
+        isIntro: si === 0 || !!sec.centered,
+        showTitle: si !== 0 && !sec.centered,
         flip: si % 2 === 0 ? '' : null,
         title: tr(sec.title),
         eyebrow: sec.eyebrow ? tr(sec.eyebrow) : '',
