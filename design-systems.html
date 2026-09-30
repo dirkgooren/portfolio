@@ -9,7 +9,7 @@
 <x-dc>
 <helmet>
 <script src="./theme-boot.js"></script>
-<title>Radboud umc · Dirk Gooren</title>
+<title>Design systems · Dirk Gooren</title>
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
 <link rel="icon" href="favicon-192.png" sizes="192x192" type="image/png">
@@ -141,6 +141,10 @@
     [data-preloader] { padding-left: 16px !important; padding-right: 16px !important; }
   }
   @media (min-width: 1100px) { [data-services-grid] { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; } }
+  /* Hero: fixed pixel heights per breakpoint (was 60svh) */
+  [data-hero-sec] { min-height: 420px; max-height: 500px; }
+  @media (min-width: 620px) { [data-hero-sec] { min-height: 460px; } }
+  @media (min-width: 1000px) { [data-hero-sec] { min-height: 500px; } }
   x-dc, #dc-root { display: block; overflow-x: clip; }
   /* Content is capped at 1920px through the page padding (not a root max-width),
      so the footer ground can bleed edge to edge while its content stays aligned. */
@@ -800,7 +804,7 @@
 
   
 
-  <section id="top" style="padding: var(--sec-y-lg) var(--sec-x) 0; min-height: 60svh; display: flex; flex-direction: column; justify-content: flex-end">
+  <section id="top" data-hero-sec="" style="padding: var(--sec-y-lg) var(--sec-x) 0; display: flex; flex-direction: column; justify-content: flex-end">
 <h1 style="margin:0;font-size:clamp(38px,8.4vw,132px);line-height:0.95;font-weight:600;letter-spacing:-0.035em;text-wrap:balance;position:relative;z-index:0;isolation:isolate">
       <span data-hero-in="" style="display: block; font-size: clamp(58px,7.6vw,91px);white-space:pre-line">{{ t.heroPre }}{{ t.heroMark }}{{ t.heroPost1 }}{{ t.heroSqueeze }}{{ t.heroPost3 }}</span>
       
@@ -1072,13 +1076,13 @@ class Component extends DCLogic {
   gateSalt = 'dg-sidekick\u00b72026';
   // Every case study also exists as its own page. casePage is set (and only
   // set) in those generated files; on the home page it stays null.
-  casePage = "radboud";
+  casePage = "design-systems";
   gatePage = false;
   LOGIN_PAGE = 'Login.dc.html';
   // The project keeps .dc.html filenames; the export/ build strips the .dc so
   // deployed URLs stay clean. DEPLOYED is stamped true only in those copies.
   DEPLOYED = true;
-  pageName = (f) => (this.DEPLOYED ? String(f).replace(/\.dc\.html$/i, '.html') : f);
+  pageName = (f) => (this.DEPLOYED ? ('/' + String(f).replace(/\.dc\.html$/i, '').trim().replace(/\s+/g, '-').toLowerCase()) : f);
   HOME_PAGE = this.DEPLOYED ? '/' : 'Home.dc.html';
   casePages = {
       "advance": "ADVANCE.dc.html",

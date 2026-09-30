@@ -1078,7 +1078,7 @@ class Component extends DCLogic {
   // The project keeps .dc.html filenames; the export/ build strips the .dc so
   // deployed URLs stay clean. DEPLOYED is stamped true only in those copies.
   DEPLOYED = true;
-  pageName = (f) => (this.DEPLOYED ? String(f).replace(/\.dc\.html$/i, '.html') : f);
+  pageName = (f) => (this.DEPLOYED ? ('/' + String(f).replace(/\.dc\.html$/i, '').trim().replace(/\s+/g, '-').toLowerCase()) : f);
   HOME_PAGE = this.DEPLOYED ? '/' : 'Home.dc.html';
   casePages = {
       "advance": "ADVANCE.dc.html",

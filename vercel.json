@@ -1,0 +1,181 @@
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/MinVBZ",
+      "destination": "/minvbz",
+      "permanent": true
+    },
+    {
+      "source": "/MinVBZ.html",
+      "destination": "/minvbz",
+      "permanent": true
+    },
+    {
+      "source": "/ING BMG.html",
+      "destination": "/ing-bmg",
+      "permanent": true
+    },
+    {
+      "source": "/ING%20BMG",
+      "destination": "/ing-bmg",
+      "permanent": true
+    },
+    {
+      "source": "/ING%20BMG.html",
+      "destination": "/ing-bmg",
+      "permanent": true
+    },
+    {
+      "source": "/CBS",
+      "destination": "/cbs",
+      "permanent": true
+    },
+    {
+      "source": "/CBS.html",
+      "destination": "/cbs",
+      "permanent": true
+    },
+    {
+      "source": "/ZIG HUPO.html",
+      "destination": "/zig-hupo",
+      "permanent": true
+    },
+    {
+      "source": "/ZIG%20HUPO",
+      "destination": "/zig-hupo",
+      "permanent": true
+    },
+    {
+      "source": "/ZIG%20HUPO.html",
+      "destination": "/zig-hupo",
+      "permanent": true
+    },
+    {
+      "source": "/DWL",
+      "destination": "/dwl",
+      "permanent": true
+    },
+    {
+      "source": "/DWL.html",
+      "destination": "/dwl",
+      "permanent": true
+    },
+    {
+      "source": "/Login",
+      "destination": "/login",
+      "permanent": true
+    },
+    {
+      "source": "/Login.html",
+      "destination": "/login",
+      "permanent": true
+    },
+    {
+      "source": "/HLP 2030.html",
+      "destination": "/hlp-2030",
+      "permanent": true
+    },
+    {
+      "source": "/HLP%202030",
+      "destination": "/hlp-2030",
+      "permanent": true
+    },
+    {
+      "source": "/HLP%202030.html",
+      "destination": "/hlp-2030",
+      "permanent": true
+    },
+    {
+      "source": "/Radboud umc.html",
+      "destination": "/radboud-umc",
+      "permanent": true
+    },
+    {
+      "source": "/Radboud%20umc",
+      "destination": "/radboud-umc",
+      "permanent": true
+    },
+    {
+      "source": "/Radboud%20umc.html",
+      "destination": "/radboud-umc",
+      "permanent": true
+    },
+    {
+      "source": "/Design systems.html",
+      "destination": "/design-systems",
+      "permanent": true
+    },
+    {
+      "source": "/Design%20systems",
+      "destination": "/design-systems",
+      "permanent": true
+    },
+    {
+      "source": "/Design%20systems.html",
+      "destination": "/design-systems",
+      "permanent": true
+    },
+    {
+      "source": "/Planet Yes.html",
+      "destination": "/planet-yes",
+      "permanent": true
+    },
+    {
+      "source": "/Planet%20Yes",
+      "destination": "/planet-yes",
+      "permanent": true
+    },
+    {
+      "source": "/Planet%20Yes.html",
+      "destination": "/planet-yes",
+      "permanent": true
+    },
+    {
+      "source": "/Tweede Kamer.html",
+      "destination": "/tweede-kamer",
+      "permanent": true
+    },
+    {
+      "source": "/Tweede%20Kamer",
+      "destination": "/tweede-kamer",
+      "permanent": true
+    },
+    {
+      "source": "/Tweede%20Kamer.html",
+      "destination": "/tweede-kamer",
+      "permanent": true
+    },
+    {
+      "source": "/ADVANCE",
+      "destination": "/advance",
+      "permanent": true
+    },
+    {
+      "source": "/ADVANCE.html",
+      "destination": "/advance",
+      "permanent": true
+    },
+    {
+      "source": "/ZIG KVS.html",
+      "destination": "/zig-kvs",
+      "permanent": true
+    },
+    {
+      "source": "/ZIG%20KVS",
+      "destination": "/zig-kvs",
+      "permanent": true
+    },
+    {
+      "source": "/ZIG%20KVS.html",
+      "destination": "/zig-kvs",
+      "permanent": true
+    },
+    {
+      "source": "/index.html",
+      "destination": "/",
+      "permanent": true
+    }
+  ]
+}
