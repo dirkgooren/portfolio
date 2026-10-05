@@ -10,9 +10,9 @@
 <helmet>
 <script src="./theme-boot.js"></script>
 <title>Radboud umc · Dirk Gooren</title>
-<link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
 <link rel="icon" href="favicon-192.png" sizes="192x192" type="image/png">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="description" content="Dirk Gooren is a UX design lead specialising in enterprise UX: business-critical tools for people at work. Case studies from healthcare, national government, housing and finance, including Radboud umc, the Belastingdienst, the Tweede Kamer and ING.">
 <meta name="author" content="Dirk Gooren">
@@ -92,6 +92,7 @@
   * { box-sizing: border-box; }
   a { color: inherit; text-decoration: none; }
   [data-close-case]:hover svg { transform: rotate(90deg); }
+  [data-industry-chip][data-active="0"] { background: rgba(32,33,51,0.07) !important; color: var(--fg) !important; }
   [data-industry-chip][data-active="0"]:hover { background: rgba(32,33,51,0.14) !important; color: var(--fg) !important; }
   @keyframes dgPanelDown { from { transform: translateY(-100%); } to { transform: none; } }
   [data-overlay-panel] { animation: dgPanelDown 520ms cubic-bezier(.22,1,.36,1) both; }
@@ -113,7 +114,17 @@
     [data-logo="bzk.png"] { height: 24px !important; }
   }
   @media (min-width: 640px) and (max-width: 999px) { [data-case-grid] { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; } }
-  @media (min-width: 1000px) { [data-case-grid] { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; } }
+  /* Desktop and 4K: a 6-column grid, one row at a time (no stacking). Row 1:
+     case 1 spans 4 columns, case 2 spans 2. Row 2 mirrors it: case 3 spans 2,
+     case 4 spans 4. Row 3: cases 5 and 6 span 3 each. Every later case spans 2 (three per row). All images keep 4:3. */
+  @media (min-width: 1000px) {
+    [data-case-grid] { grid-template-columns: repeat(6, minmax(0, 1fr)) !important; align-items: start; }
+    [data-case-grid] > [data-case-card] { grid-column: span 2; }
+    [data-case-grid] > [data-case-card]:nth-child(1) { grid-column: span 4; }
+    [data-case-grid] > [data-case-card]:nth-child(4) { grid-column: span 4; }
+    [data-case-grid] > [data-case-card]:nth-child(5), [data-case-grid] > [data-case-card]:nth-child(6) { grid-column: span 3; }
+    [data-case-grid] > [data-case-card]:nth-child(1):last-child, [data-case-grid] > [data-case-card]:nth-child(3):last-child, [data-case-grid] > [data-case-card]:nth-child(5):last-child { grid-column: 1 / -1; }
+  }
   @media (min-width: 1000px) {
     [data-case-cols] { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); column-gap: 0; align-items: start; }
     [data-case-cols] > h2 { grid-column: 1; }
@@ -436,7 +447,8 @@
 </style>
 </helmet>
 
-<div data-page="" data-booting="{{ bootAttr }}" style="min-height:100vh;background:var(--bg);color:var(--fg);font-family:'Archivo',system-ui,sans-serif;overflow-x:hidden">
+<div data-page="" data-booting="{{ bootAttr }}" style="position:relative;isolation:isolate;min-height:100vh;background:var(--bg);color:var(--fg);font-family:'Archivo',system-ui,sans-serif;overflow-x:hidden">
+<div data-hero-bg="" aria-hidden="true" style="position:absolute;top:0;left:0;right:0;background:#F2C4BB;z-index:-1;pointer-events:none"></div>
 
   <sc-if value="{{ booting }}" hint-placeholder-val="{{ true }}">
     <div data-preloader="" style="position:fixed;inset:0;z-index:400;display:flex;align-items:flex-start;justify-content:flex-start;padding:clamp(18px,2.4vw,32px) clamp(24px,5vw,72px);background:var(--bg);transition:background-color 520ms ease-out">
@@ -719,7 +731,7 @@
         <span style="display:flex;align-items:center;gap:0.3em;flex-wrap:wrap;max-width:24ch;font-size: var(--t-h1);line-height:1.05;font-weight:600;letter-spacing:-0.03em;color:inherit"><span>{{ openCaseData.nextDeck }}</span><span data-next-arrow-wrap=""><svg data-next-arrow="" width="0.8em" height="0.8em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l14 0"></path><path d="M13 18l6 -6"></path><path d="M13 6l6 6"></path></svg></span></span>
       </a>
       <section data-footer="" style="margin: 0; padding: var(--sec-y) var(--sec-x); background: var(--ink); color: var(--on-dark); width: 100%">
-        <p data-reveal="" style="margin:0 0 clamp(14px,2vw,22px);font-size: var(--t-label);font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--on-dark)">{{ t.contact }}</p>
+        <p data-reveal="" style="margin:0 0 clamp(14px,2vw,22px);width:fit-content;font-size: var(--t-label);font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--on-dark)">{{ t.contact }}</p>
         <h2 data-reveal="" style="margin: 0 0 64px; max-width: 22ch; font-size: var(--t-h1); line-height: 1; font-weight: 700; letter-spacing: -0.015em; color: var(--on-dark); white-space: pre-line"><span style="font-family:'Archivo',system-ui,sans-serif;font-variation-settings:'wdth' 68;font-weight:200;font-style:italic;letter-spacing:0.018em">{{ t.contactTitleLead }}</span>
 {{ t.contactTitleRest }}</h2>
         <div style="display:flex;flex-wrap:wrap;align-items:center;gap:18px 40px">
@@ -810,7 +822,7 @@
     
 
     <div>
-        <p data-card-eyebrow="" style="margin:0 0 clamp(14px,2vw,22px);font-size: var(--t-label);font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--fg)">{{ t.featured }}</p>
+        <p data-card-eyebrow="" style="margin:0 0 clamp(14px,2vw,22px);width:fit-content;font-size: var(--t-label);font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--fg)">{{ t.featured }}</p>
         <div data-card-eyebrow="" style="display:flex;flex-wrap:wrap;gap:8px">
           <sc-for list="{{ caseTags }}" as="ct" hint-placeholder-count="5">
             <button type="button" onClick="{{ pickCaseTag }}" data-case-tag="{{ ct.key }}" data-industry-chip="" data-active="{{ ct.active }}" style="{{ ct.style }}">{{ ct.label }}</button>
@@ -908,9 +920,9 @@
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10.5" width="16" height="10.5" rx="2"></rect><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"></path></svg>
                   </span>
                 </sc-if>
-                <span style="opacity:0.5">{{ c.client }}</span>
+                <span>{{ c.client }}</span>
               </p>
-              <h3 style="margin: 0; max-width: none; font-size: clamp(18px,2vw,20px); line-height: 1.2; font-weight: 600; letter-spacing: -0.02em; text-wrap: pretty; font-family: archivo">{{ c.deck }}</h3>
+              <h3 style="margin: 0; max-width: none; font-size: clamp(20px,1.9vw,24px); line-height: 1.2; font-weight: 600; letter-spacing: -0.02em; text-wrap: pretty; font-family: archivo">{{ c.deck }}</h3>
               <div data-tag-row="">
                 <sc-for list="{{ c.tags }}" as="t" hint-placeholder-count="0">
                   <span style="display:inline-flex;align-items:center;height:21px;padding:0 9px;border-radius:999px;background:var(--chip);font-size:9px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted2);max-width:100%">{{ t }}</span>
@@ -925,7 +937,7 @@
     </div>
   </section><section style="padding:clamp(56px,9vw,120px) clamp(24px,5vw,72px)">
     <div style="display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:12px;margin:0 0 clamp(14px,2vw,22px)">
-      <p data-reveal="" style="margin:0;font-size: var(--t-label);font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--fg)">{{ t.trustedBy }}</p>
+      <p data-reveal="" style="margin:0;width:fit-content;font-size: var(--t-label);font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--fg)">{{ t.trustedBy }}</p>
     </div>
     <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:clamp(28px,4vw,44px)">
       <sc-for list="{{ industries }}" as="ind" hint-placeholder-count="6">
@@ -940,7 +952,7 @@
   </section><section id="about" style="padding: var(--sec-y-lg) var(--sec-x) 0; position: static; background-color: var(--highlight); display: block">
     <div style="display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,320px),1fr)); gap: clamp(32px,5vw,88px); align-items: start; width: 100%">
       <div style="width: 100%; height: 100%; padding-bottom: var(--sec-y-lg)">
-        <p data-reveal="" style="margin:0 0 clamp(14px,2vw,22px);font-size: var(--t-label);font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--fg)">{{ t.about }}</p>
+        <p data-reveal="" style="margin:0 0 clamp(14px,2vw,22px);width:fit-content;font-size: var(--t-label);font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--fg)">{{ t.about }}</p>
         <h2 data-reveal="" style="margin: 0 0 clamp(20px,3vw,36px); max-width: 22ch; font-size: var(--t-h1); line-height: 1; font-weight: 700; letter-spacing: -0.015em; text-wrap: balance; white-space: pre-line">{{ t.aboutTitle }}</h2>
         <p data-reveal="" style="margin: 0 0 clamp(34px,4.4vw,56px); font-size: var(--t-body); line-height: 1.6; color: var(--fg); text-wrap: pretty; font-weight: 700">{{ t.aboutP1 }}</p>
         <div data-stat-grid="" style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(20px,2.4vw,32px);margin:0 0 clamp(40px,5.4vw,68px);max-width:44rem">
@@ -1002,7 +1014,7 @@
 
   <section id="services" style="padding: var(--sec-y-lg) var(--sec-x)">
     <div style="margin-bottom:clamp(16px,2vw,28px)">
-      <p data-reveal="" style="margin:0 0 clamp(14px,2vw,22px);font-size: var(--t-label);font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--fg)">{{ t.services }}</p>
+      <p data-reveal="" style="margin:0 0 clamp(14px,2vw,22px);width:fit-content;font-size: var(--t-label);font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--fg)">{{ t.services }}</p>
       <h2 data-reveal="" style="margin: 0; max-width: 22ch; font-size: var(--t-h1); line-height: 1; font-weight: 700; letter-spacing: -0.015em; white-space: pre-line">{{ t.servicesTitle }}</h2>
     </div>
     <div data-services-grid="" style="position:relative;display:grid;grid-template-columns:1fr;gap:clamp(20px,2.4vw,40px)">
@@ -1042,7 +1054,7 @@
       </sc-for>
     </div>
   </section><section id="contact" data-footer="" style="margin: 0; padding: var(--sec-y) var(--sec-x); background: var(--ink); color: var(--on-dark); width: 100%; height: 100%; margin-bottom: 0px; margin-right: 0px; margin-left: 0px">
-    <p data-reveal="" style="margin:0 0 clamp(14px,2vw,22px);font-size: var(--t-label);font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--on-dark)">{{ t.contact }}</p>
+    <p data-reveal="" style="margin:0 0 clamp(14px,2vw,22px);width:fit-content;font-size: var(--t-label);font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--on-dark)">{{ t.contact }}</p>
     <h2 data-reveal="" style="margin: 0 0 64px; max-width: 22ch; font-size: var(--t-h1); line-height: 1; font-weight: 700; letter-spacing: -0.015em; color: var(--on-dark); white-space: pre-line"><span style="font-family:'Archivo',system-ui,sans-serif;font-variation-settings:'wdth' 68;font-weight:200;font-style:italic;letter-spacing:0.018em">{{ t.contactTitleLead }}</span>
 {{ t.contactTitleRest }}</h2>
     <div style="display:flex;flex-wrap:wrap;align-items:center;gap:18px 40px">
@@ -1208,7 +1220,7 @@ class Component extends DCLogic {
     { key: 'manntech.png', name: 'Manntech', industry: 'Industry' },
     { key: 'bmg.png', name: 'Bank Mendes Gans', industry: 'Finance' }
   ];
-  caseCats = ['Research', 'Strategy', 'AI design', 'Service design', 'UX design', 'Personal'];
+  caseCats = ['Research', 'Strategy', 'AI design', 'Service design', 'UX design', 'Lab'];
   personalCases = ['design-systems', 'advance', 'intelligence'];
   aiCases = ['hlp', 'sidekick', 'design-systems', 'advance', 'intelligence'];
   catMap = {
@@ -1226,7 +1238,7 @@ class Component extends DCLogic {
       if (cat && out.indexOf(cat) < 0) out.push(cat);
     });
     if (this.aiCases.indexOf(c.key) > -1) out.push('AI design');
-    if (this.personalCases.indexOf(c.key) > -1) out.push('Personal');
+    if (this.personalCases.indexOf(c.key) > -1) out.push('Lab');
     return out;
   }
   pickCaseTag = (e) => {
@@ -1644,7 +1656,20 @@ class Component extends DCLogic {
       read();
     }
   }
+  syncHeroBg = () => {
+    const page = document.querySelector('[data-page]'); if (!page) return;
+    let bg = page.querySelector(':scope > [data-hero-bg]');
+    if (!bg) return;
+    const card = document.querySelector('[data-case-grid] > [data-case-card]:first-child [data-card-img]');
+    const hero = document.querySelector('[data-hero-sec]');
+    if (!card || !hero || !card.offsetParent) { bg.style.height = '0px'; return; }
+    const r = card.getBoundingClientRect(), pr = page.getBoundingClientRect();
+    bg.style.height = Math.round(r.top - pr.top + r.height / 6) + 'px';
+  };
   componentDidMount() {
+    this._heroBgRO = new ResizeObserver(() => this.syncHeroBg());
+    requestAnimationFrame(() => { const pg = document.querySelector('[data-page]'); if (pg) this._heroBgRO.observe(pg); this.syncHeroBg(); });
+    window.addEventListener('resize', this.syncHeroBg);
     this._resetSeen = !!this.props.resetSite;
     this.loadUnlocked();
     try { this.wireInk(); } catch (err) {}
@@ -2681,7 +2706,7 @@ class Component extends DCLogic {
     'Close': 'Sluiten', 'Next project': 'Volgend project', 'All my work': 'Al mijn werk',
     'Enterprise UX specialist': 'Enterprise UX-specialist',
     "Hi, I'm Dirk Gooren. I help organisation move forward by aligning UX to business.": 'Hoi, ik ben Dirk Gooren. Ik help organisaties vooruit door UX en business af te stemmen.',
-    'FEATURED WORK': 'GESELECTEERD WERK', 'Personal': 'Persoonlijk', 'Created together with': 'Samen gemaakt met',
+    'FEATURED WORK': 'GESELECTEERD WERK', 'Lab': 'Lab', 'Created together with': 'Samen gemaakt met',
     "Now you are here.\nLet me introduce myself.": 'Nu je hier bent.\nEven mezelf voorstellen.',
     "I'm Dirk Gooren, a design strategist and experience designer. I make digital products and services that grow out of insight, are anchored in strategy and designed with meaning.": 'Ik ben Dirk Gooren, design strateeg en experience designer. Ik maak digitale producten en diensten die voortkomen uit inzicht, geworteld zijn in strategie en met betekenis zijn ontworpen.',
     'What I do': 'Wat ik doe',
@@ -3812,6 +3837,7 @@ class Component extends DCLogic {
     else document.documentElement.removeAttribute('data-overlay');
   }
   componentDidUpdate() {
+    requestAnimationFrame(this.syncHeroBg);
     if (this._resetSeen === undefined) this._resetSeen = !!this.props.resetSite;
     if (!!this.props.resetSite !== this._resetSeen) {
       this._resetSeen = !!this.props.resetSite;
