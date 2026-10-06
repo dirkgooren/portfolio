@@ -40,7 +40,7 @@
     --t-h3: clamp(22px,2vw,28px); --t-h2: clamp(28px,3.4vw,44px); --t-quote: clamp(24px,3.4vw,46px);
     --t-h1: clamp(32px,5vw,64px); --t-display: clamp(40px,5.6vw,84px);
     --ink: #202133; --ink-soft: #4A4B5E; --accent: rgb(1,104,155); --highlight: #FFEC8F;
-    --on-dark: #F2C4BB; --on-dark-soft: rgba(242,196,187,0.88); --on-dark-mute: rgba(242,196,187,0.8);
+    --on-dark: #F7B5B0; --on-dark-soft: rgba(247,181,176,0.88); --on-dark-mute: rgba(247,181,176,0.8);
     --cream: #ECE7DD;
     --t-fast: 200ms; --t-mid: 380ms; --t-slow: 620ms; --ease: cubic-bezier(.22,1,.36,1);
     --sec-y: clamp(56px,9vw,128px); --sec-y-lg: clamp(72px,12vw,168px); --sec-x: clamp(24px,5vw,72px);
@@ -335,11 +335,11 @@
   @keyframes dgPyPink { 0%,3.3%{transform:translate(-54.73cqw,14.30cqw) rotate(0deg)}13.3%,100%{transform:translate(34.08cqw,9.16cqw) rotate(19.03deg)} }
   @keyframes dgPyNavy { 0%,3.3%{transform:translate(-54.73cqw,5.77cqw) rotate(0deg)}13.3%,100%{transform:translate(30.67cqw,-1.88cqw) rotate(16.58deg)} }
   @keyframes dgPyPurple { 0%,3.3%{transform:translate(-83.94cqw,-1.18cqw) rotate(0deg)}13.3%,100%{transform:translate(-6.14cqw,-15.23cqw) rotate(11.82deg)} }
-  @keyframes dgEvoThemeA { 0%,30%{background:#F2C4BB}50%,80%{background:var(--evo-ink,#202133)}100%{background:#F2C4BB} }
+  @keyframes dgEvoThemeA { 0%,30%{background:#F7B5B0}50%,80%{background:var(--evo-ink,#202133)}100%{background:#F7B5B0} }
   @keyframes dgEvoThemeB { 0%,30%{background:var(--evo-ink,#202133)}50%,80%{background:#FFEC8F}100%{background:var(--evo-ink,#202133)} }
-  @keyframes dgEvoThemeC { 0%,30%{background:#F2C4BB}50%,80%{background:var(--evo-ink,#202133)}100%{background:#F2C4BB} }
+  @keyframes dgEvoThemeC { 0%,30%{background:#F7B5B0}50%,80%{background:var(--evo-ink,#202133)}100%{background:#F7B5B0} }
   @keyframes dgEvoThemeD { 0%,30%{background:var(--evo-ink,#202133)}50%,80%{background:#FFEC8F}100%{background:var(--evo-ink,#202133)} }
-  @keyframes dgEvoAccent { 0%,30%{background:#F2C4BB}50%,80%{background:#FFEC8F}100%{background:#F2C4BB} }
+  @keyframes dgEvoAccent { 0%,30%{background:#F7B5B0}50%,80%{background:#FFEC8F}100%{background:#F7B5B0} }
   @keyframes dgEvoCell1 { 0%,8%{left:0%;top:0%;width:65.333%;height:30.667%}17%,28%{left:0%;top:0%;width:65.333%;height:48%}37%,48%{left:0%;top:0%;width:100%;height:30.667%}57%,68%{left:0%;top:0%;width:65.333%;height:100%}77%,88%{left:0%;top:0%;width:100%;height:48%}96%,100%{left:0%;top:0%;width:65.333%;height:30.667%} }
   @keyframes dgEvoCell2 { 0%,8%{left:69.333%;top:0%;width:30.667%;height:30.667%}17%,28%{left:69.333%;top:0%;width:30.667%;height:48%}37%,48%{left:100%;top:0%;width:0%;height:30.667%}57%,68%{left:69.333%;top:0%;width:30.667%;height:100%}77%,88%{left:100%;top:0%;width:0%;height:48%}96%,100%{left:69.333%;top:0%;width:30.667%;height:30.667%} }
   @keyframes dgEvoCell3 { 0%,8%{left:0%;top:34.667%;width:30.667%;height:30.667%}17%,28%{left:0%;top:52%;width:30.667%;height:48%}37%,48%{left:0%;top:34.667%;width:48%;height:30.667%}57%,68%{left:0%;top:100%;width:30.667%;height:0%}77%,88%{left:0%;top:52%;width:48%;height:48%}96%,100%{left:0%;top:34.667%;width:30.667%;height:30.667%} }
@@ -429,7 +429,7 @@
   [data-mark-link]:hover [data-mark-word],
   [data-mark-link]:focus-visible [data-mark-word] {
     max-width: 14em;
-    margin-left: 12px;
+    margin-left: 6px;
   }
   [data-mark-link]:hover [data-mark-word] span,
   [data-mark-link]:focus-visible [data-mark-word] span {
@@ -450,7 +450,7 @@
 </helmet>
 
 <div data-page="" data-booting="{{ bootAttr }}" style="position:relative;isolation:isolate;min-height:100vh;background:var(--bg);color:var(--fg);font-family:'Archivo',system-ui,sans-serif;overflow-x:hidden">
-<div data-hero-bg="" aria-hidden="true" style="position:absolute;top:0;left:0;right:0;background:#F2C4BB;z-index:-1;pointer-events:none"></div>
+<div data-hero-bg="" aria-hidden="true" style="position:absolute;top:0;left:0;right:0;background:#F7B5B0;z-index:-1;pointer-events:none"></div>
 
   <sc-if value="{{ booting }}" hint-placeholder-val="{{ true }}">
     <div data-preloader="" style="position:fixed;inset:0;z-index:400;display:flex;align-items:flex-start;justify-content:flex-start;padding:clamp(18px,2.4vw,32px) clamp(24px,5vw,72px);background:var(--bg);transition:background-color 520ms ease-out">
@@ -483,7 +483,7 @@
       </a>
       <a href="#work" onClick="{{ closeGate }}" data-close-case="" aria-label="Close" style="position: absolute; top: clamp(18px,2.4vw,32px); right: calc(var(--sec-x)); height: clamp(44px,4.2vw,58px); display: inline-flex; align-items: center; gap: 6px; font-size: var(--t-label); font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--on-dark); cursor: pointer; transition: opacity var(--t-fast) ease-out" style-hover="opacity:0.6"><span style="position:relative;display:block;width:30px;height:30px;flex:0 0 auto"><span data-x-bar="a" style="position:absolute;left:2px;display:block;width:26px;height:2px;background:currentColor;top:14px;"></span><span data-x-bar="b" style="position:absolute;left:2px;display:block;width:26px;height:2px;background:currentColor;top:14px;"></span></span><span>{{ t.close }}</span></a>
       <div data-gate-in="" style="width: 309px; max-width: 520px; height: 416px">
-        <div aria-hidden="true" onClick="{{ bypassGate }}" title="" style="touch-action:manipulation;display:flex;justify-content:center;margin:0 0 clamp(16px,2vw,24px);color:#F2C4BB;user-select:none">
+        <div aria-hidden="true" onClick="{{ bypassGate }}" title="" style="touch-action:manipulation;display:flex;justify-content:center;margin:0 0 clamp(16px,2vw,24px);color:#F7B5B0;user-select:none">
           <svg width="91" height="91" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10.5" width="16" height="10.5" rx="2"></rect><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"></path></svg>
         </div>
         <h2 style="margin:0;font-size: var(--t-h2);line-height:1.12;font-weight:600;letter-spacing:-0.03em;text-wrap:pretty;text-align:center;color:var(--on-dark)">{{ t.gateTitle }}</h2>
@@ -599,22 +599,22 @@
           </div>
           <div style="position:relative;display:flex;align-items:center;justify-content:center;background:#FFFFFF">
             <div style="position:relative;width:52%;aspect-ratio:1">
-              <div style="position:absolute;left:0%;top:0%;width:65.333%;height:30.667%;background:#F2C4BB;animation:dgEvoThemeA 10s cubic-bezier(.45,0,.55,1) 0s infinite"></div>
+              <div style="position:absolute;left:0%;top:0%;width:65.333%;height:30.667%;background:#F7B5B0;animation:dgEvoThemeA 10s cubic-bezier(.45,0,.55,1) 0s infinite"></div>
               <div style="position:absolute;left:69.333%;top:0%;width:30.667%;height:30.667%;background:#202133"></div>
               <div style="position:absolute;left:0%;top:34.667%;width:30.667%;height:30.667%;background:#202133"></div>
               <div style="position:absolute;left:34.667%;top:34.667%;width:65.333%;height:30.667%;background:#202133;animation:dgEvoThemeB 10s cubic-bezier(.45,0,.55,1) 0s infinite"></div>
-              <div style="position:absolute;left:0%;top:69.333%;width:30.667%;height:30.667%;background:#F2C4BB;animation:dgEvoThemeC 10s cubic-bezier(.45,0,.55,1) 0s infinite"></div>
+              <div style="position:absolute;left:0%;top:69.333%;width:30.667%;height:30.667%;background:#F7B5B0;animation:dgEvoThemeC 10s cubic-bezier(.45,0,.55,1) 0s infinite"></div>
               <div style="position:absolute;left:34.667%;top:69.333%;width:30.667%;height:30.667%;background:#202133"></div>
               <div style="position:absolute;left:69.333%;top:69.333%;width:30.667%;height:30.667%;background:#202133;animation:dgEvoThemeD 10s cubic-bezier(.45,0,.55,1) 0s infinite"></div>
             </div>
           </div>
           <div style="position:relative;display:flex;align-items:center;justify-content:center;background:#FFFFFF;overflow:hidden">
             <div style="position:relative;width:52%;aspect-ratio:1">
-              <div style="position:absolute;left:0%;top:0%;width:65.333%;height:30.667%;background:#F2C4BB;animation:dgEvoAccent 11s cubic-bezier(.45,0,.55,1) 0s infinite,dgEvoCell1 11s cubic-bezier(.7,0,.2,1) 0s infinite both"></div>
+              <div style="position:absolute;left:0%;top:0%;width:65.333%;height:30.667%;background:#F7B5B0;animation:dgEvoAccent 11s cubic-bezier(.45,0,.55,1) 0s infinite,dgEvoCell1 11s cubic-bezier(.7,0,.2,1) 0s infinite both"></div>
               <div style="position:absolute;left:69.333%;top:0%;width:30.667%;height:30.667%;background:#202133;animation:dgEvoCell2 11s cubic-bezier(.7,0,.2,1) 0s infinite both"></div>
               <div style="position:absolute;left:0%;top:34.667%;width:30.667%;height:30.667%;background:#202133;animation:dgEvoCell3 11s cubic-bezier(.7,0,.2,1) 0s infinite both"></div>
               <div style="position:absolute;left:34.667%;top:34.667%;width:65.333%;height:30.667%;background:#202133;animation:dgEvoCell4 11s cubic-bezier(.7,0,.2,1) 0s infinite both"></div>
-              <div style="position:absolute;left:0%;top:69.333%;width:30.667%;height:30.667%;background:#F2C4BB;animation:dgEvoAccent 11s cubic-bezier(.45,0,.55,1) 0s infinite,dgEvoCell5 11s cubic-bezier(.7,0,.2,1) 0s infinite both"></div>
+              <div style="position:absolute;left:0%;top:69.333%;width:30.667%;height:30.667%;background:#F7B5B0;animation:dgEvoAccent 11s cubic-bezier(.45,0,.55,1) 0s infinite,dgEvoCell5 11s cubic-bezier(.7,0,.2,1) 0s infinite both"></div>
               <div style="position:absolute;left:34.667%;top:69.333%;width:30.667%;height:30.667%;background:#202133;animation:dgEvoCell6 11s cubic-bezier(.7,0,.2,1) 0s infinite both"></div>
               <div style="position:absolute;left:69.333%;top:69.333%;width:30.667%;height:30.667%;background:#202133;animation:dgEvoCell7 11s cubic-bezier(.7,0,.2,1) 0s infinite both"></div>
             </div>
@@ -640,8 +640,8 @@
             <div data-case-cols="" data-flip="{{ sec.flip }}">
                 <sc-if value="{{ sec.evo1 }}" hint-placeholder-val="{{ false }}"><div data-evo="" data-evo-side="" data-evo-n="1" role="img" aria-label="{{ sec.title }}" style="position:relative;display:block;width:clamp(80px,9.33vw,133px);margin:0 0 clamp(20px,2.6vw,32px);--evo-ink:var(--fg)"><div style="position:relative;width:100%;aspect-ratio:0.76"><div style="position:absolute;left:0;top:6%;width:52%;height:34%;border-radius:2px;background:var(--evo-ink);transform:rotate(-4deg)"></div><div style="position:absolute;left:44%;top:0;width:40%;height:52%;border-radius:2px;background:color-mix(in srgb, var(--evo-ink) 42%, transparent);transform:rotate(3deg)"></div><div style="position:absolute;left:8%;top:54%;width:74%;height:26%;border-radius:2px;background:color-mix(in srgb, var(--evo-ink) 70%, transparent);transform:rotate(2deg)"></div></div></div></sc-if>
                 <sc-if value="{{ sec.evo2 }}" hint-placeholder-val="{{ false }}"><div data-evo="" data-evo-side="" data-evo-n="2" role="img" aria-label="{{ sec.title }}" style="position:relative;display:block;width:clamp(80px,9.33vw,133px);margin:0 0 clamp(20px,2.6vw,32px);--evo-ink:var(--fg)"><div style="position:relative;width:100%;aspect-ratio:1"><div style="position:absolute;left:0%;top:0%;width:30.667%;height:30.667%;background:var(--evo-ink)"></div><div style="position:absolute;left:34.667%;top:0%;width:30.667%;height:30.667%;background:var(--evo-ink)"></div><div style="position:absolute;left:69.333%;top:0%;width:30.667%;height:30.667%;background:var(--evo-ink)"></div><div style="position:absolute;left:0%;top:34.667%;width:30.667%;height:30.667%;background:var(--evo-ink)"></div><div style="position:absolute;left:34.667%;top:34.667%;width:30.667%;height:30.667%;background:var(--evo-ink)"></div><div style="position:absolute;left:69.333%;top:34.667%;width:30.667%;height:30.667%;background:var(--evo-ink)"></div><div style="position:absolute;left:0%;top:69.333%;width:30.667%;height:30.667%;background:var(--evo-ink)"></div><div style="position:absolute;left:34.667%;top:69.333%;width:30.667%;height:30.667%;background:var(--evo-ink)"></div><div style="position:absolute;left:69.333%;top:69.333%;width:30.667%;height:30.667%;background:var(--evo-ink)"></div></div></div></sc-if>
-                <sc-if value="{{ sec.evo3 }}" hint-placeholder-val="{{ false }}"><div data-evo="" data-evo-side="" data-evo-n="3" role="img" aria-label="{{ sec.title }}" style="position:relative;display:block;width:clamp(80px,9.33vw,133px);margin:0 0 clamp(20px,2.6vw,32px);--evo-ink:var(--fg)"><div style="position:relative;width:100%;aspect-ratio:1"><div style="position:absolute;left:0%;top:0%;width:65.333%;height:30.667%;background:#F2C4BB;animation:dgEvoThemeA 10s cubic-bezier(.45,0,.55,1) 0s infinite"></div><div style="position:absolute;left:69.333%;top:0%;width:30.667%;height:30.667%;background:var(--evo-ink)"></div><div style="position:absolute;left:0%;top:34.667%;width:30.667%;height:30.667%;background:var(--evo-ink)"></div><div style="position:absolute;left:34.667%;top:34.667%;width:65.333%;height:30.667%;background:var(--evo-ink);animation:dgEvoThemeB 10s cubic-bezier(.45,0,.55,1) 0s infinite"></div><div style="position:absolute;left:0%;top:69.333%;width:30.667%;height:30.667%;background:#F2C4BB;animation:dgEvoThemeC 10s cubic-bezier(.45,0,.55,1) 0s infinite"></div><div style="position:absolute;left:34.667%;top:69.333%;width:30.667%;height:30.667%;background:var(--evo-ink)"></div><div style="position:absolute;left:69.333%;top:69.333%;width:30.667%;height:30.667%;background:var(--evo-ink);animation:dgEvoThemeD 10s cubic-bezier(.45,0,.55,1) 0s infinite"></div></div></div></sc-if>
-                <sc-if value="{{ sec.evo4 }}" hint-placeholder-val="{{ false }}"><div data-evo="" data-evo-side="" data-evo-n="4" role="img" aria-label="{{ sec.title }}" style="position:relative;display:block;width:clamp(80px,9.33vw,133px);margin:0 0 clamp(20px,2.6vw,32px);--evo-ink:var(--fg)"><div style="position:relative;width:100%;aspect-ratio:1"><div style="position:absolute;left:0%;top:0%;width:65.333%;height:30.667%;background:#F2C4BB;animation:dgEvoAccent 11s cubic-bezier(.45,0,.55,1) 0s infinite,dgEvoCell1 11s cubic-bezier(.7,0,.2,1) 0s infinite both"></div><div style="position:absolute;left:69.333%;top:0%;width:30.667%;height:30.667%;background:var(--evo-ink);animation:dgEvoCell2 11s cubic-bezier(.7,0,.2,1) 0s infinite both"></div><div style="position:absolute;left:0%;top:34.667%;width:30.667%;height:30.667%;background:var(--evo-ink);animation:dgEvoCell3 11s cubic-bezier(.7,0,.2,1) 0s infinite both"></div><div style="position:absolute;left:34.667%;top:34.667%;width:65.333%;height:30.667%;background:var(--evo-ink);animation:dgEvoCell4 11s cubic-bezier(.7,0,.2,1) 0s infinite both"></div><div style="position:absolute;left:0%;top:69.333%;width:30.667%;height:30.667%;background:#F2C4BB;animation:dgEvoAccent 11s cubic-bezier(.45,0,.55,1) 0s infinite,dgEvoCell5 11s cubic-bezier(.7,0,.2,1) 0s infinite both"></div><div style="position:absolute;left:34.667%;top:69.333%;width:30.667%;height:30.667%;background:var(--evo-ink);animation:dgEvoCell6 11s cubic-bezier(.7,0,.2,1) 0s infinite both"></div><div style="position:absolute;left:69.333%;top:69.333%;width:30.667%;height:30.667%;background:var(--evo-ink);animation:dgEvoCell7 11s cubic-bezier(.7,0,.2,1) 0s infinite both"></div></div></div></sc-if>
+                <sc-if value="{{ sec.evo3 }}" hint-placeholder-val="{{ false }}"><div data-evo="" data-evo-side="" data-evo-n="3" role="img" aria-label="{{ sec.title }}" style="position:relative;display:block;width:clamp(80px,9.33vw,133px);margin:0 0 clamp(20px,2.6vw,32px);--evo-ink:var(--fg)"><div style="position:relative;width:100%;aspect-ratio:1"><div style="position:absolute;left:0%;top:0%;width:65.333%;height:30.667%;background:#F7B5B0;animation:dgEvoThemeA 10s cubic-bezier(.45,0,.55,1) 0s infinite"></div><div style="position:absolute;left:69.333%;top:0%;width:30.667%;height:30.667%;background:var(--evo-ink)"></div><div style="position:absolute;left:0%;top:34.667%;width:30.667%;height:30.667%;background:var(--evo-ink)"></div><div style="position:absolute;left:34.667%;top:34.667%;width:65.333%;height:30.667%;background:var(--evo-ink);animation:dgEvoThemeB 10s cubic-bezier(.45,0,.55,1) 0s infinite"></div><div style="position:absolute;left:0%;top:69.333%;width:30.667%;height:30.667%;background:#F7B5B0;animation:dgEvoThemeC 10s cubic-bezier(.45,0,.55,1) 0s infinite"></div><div style="position:absolute;left:34.667%;top:69.333%;width:30.667%;height:30.667%;background:var(--evo-ink)"></div><div style="position:absolute;left:69.333%;top:69.333%;width:30.667%;height:30.667%;background:var(--evo-ink);animation:dgEvoThemeD 10s cubic-bezier(.45,0,.55,1) 0s infinite"></div></div></div></sc-if>
+                <sc-if value="{{ sec.evo4 }}" hint-placeholder-val="{{ false }}"><div data-evo="" data-evo-side="" data-evo-n="4" role="img" aria-label="{{ sec.title }}" style="position:relative;display:block;width:clamp(80px,9.33vw,133px);margin:0 0 clamp(20px,2.6vw,32px);--evo-ink:var(--fg)"><div style="position:relative;width:100%;aspect-ratio:1"><div style="position:absolute;left:0%;top:0%;width:65.333%;height:30.667%;background:#F7B5B0;animation:dgEvoAccent 11s cubic-bezier(.45,0,.55,1) 0s infinite,dgEvoCell1 11s cubic-bezier(.7,0,.2,1) 0s infinite both"></div><div style="position:absolute;left:69.333%;top:0%;width:30.667%;height:30.667%;background:var(--evo-ink);animation:dgEvoCell2 11s cubic-bezier(.7,0,.2,1) 0s infinite both"></div><div style="position:absolute;left:0%;top:34.667%;width:30.667%;height:30.667%;background:var(--evo-ink);animation:dgEvoCell3 11s cubic-bezier(.7,0,.2,1) 0s infinite both"></div><div style="position:absolute;left:34.667%;top:34.667%;width:65.333%;height:30.667%;background:var(--evo-ink);animation:dgEvoCell4 11s cubic-bezier(.7,0,.2,1) 0s infinite both"></div><div style="position:absolute;left:0%;top:69.333%;width:30.667%;height:30.667%;background:#F7B5B0;animation:dgEvoAccent 11s cubic-bezier(.45,0,.55,1) 0s infinite,dgEvoCell5 11s cubic-bezier(.7,0,.2,1) 0s infinite both"></div><div style="position:absolute;left:34.667%;top:69.333%;width:30.667%;height:30.667%;background:var(--evo-ink);animation:dgEvoCell6 11s cubic-bezier(.7,0,.2,1) 0s infinite both"></div><div style="position:absolute;left:69.333%;top:69.333%;width:30.667%;height:30.667%;background:var(--evo-ink);animation:dgEvoCell7 11s cubic-bezier(.7,0,.2,1) 0s infinite both"></div></div></div></sc-if>
               <h2 style="margin: 0 0 clamp(20px,2.6vw,32px); font-size: var(--t-h2); line-height: 1.05; font-weight: 600; letter-spacing: -0.03em; text-wrap: balance; width: 100%"><sc-if value="{{ sec.eyebrow }}" hint-placeholder-val="{{ false }}"><span style="display:block;margin:0 0 clamp(14px,2vw,22px);font-family:'Archivo',system-ui,sans-serif;font-size: var(--t-label);line-height:1;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted2)">{{ sec.eyebrow }}</span></sc-if>{{ sec.title }}</h2>
               <div data-case-body="">
                 <sc-for list="{{ sec.paras }}" as="p" hint-placeholder-count="0">
@@ -728,7 +728,7 @@
         </section>
       </sc-if>
 
-      <a href="{{ openCaseData.nextHref }}" onClick="{{ openCase }}" data-next-link="" data-case="{{ openCaseData.nextKey }}" data-light-surface="" style="display:block;margin:clamp(64px,10vw,140px) var(--sec-x) clamp(24px,5vw,72px);padding:clamp(48px,8vw,110px) clamp(24px,5vw,72px);background:var(--highlight);color:#202133;cursor:pointer;text-decoration:none;transition:color var(--t-fast) ease-out" style-hover="color:#5C5D70">
+      <a href="{{ openCaseData.nextHref }}" onClick="{{ openCase }}" data-next-link="" data-case="{{ openCaseData.nextKey }}" data-light-surface="" style="display:block;margin:clamp(64px,10vw,140px) var(--sec-x) clamp(24px,5vw,72px);padding:clamp(48px,8vw,110px) clamp(24px,5vw,72px);background:var(--highlight);color:#202133;cursor:pointer;text-decoration:none;transition:color var(--t-fast) ease-out">
         <p style="margin:0 0 clamp(14px,2vw,22px);font-size: var(--t-label);font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:inherit">{{ t.nextProject }}</p>
         <span style="display:flex;align-items:center;gap:0.3em;flex-wrap:wrap;max-width:24ch;font-size: var(--t-h1);line-height:1.05;font-weight:600;letter-spacing:-0.03em;color:inherit"><span>{{ openCaseData.nextDeck }}</span><span data-next-arrow-wrap=""><svg data-next-arrow="" width="0.8em" height="0.8em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l14 0"></path><path d="M13 18l6 -6"></path><path d="M13 6l6 6"></path></svg></span></span>
       </a>
@@ -790,10 +790,10 @@
   <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
     <div data-overlay-panel="" style="position:fixed;inset:0;z-index:50;display:flex;flex-direction:column;background:var(--ink);color:var(--on-dark)">
       <nav data-menu-nav="" style="display:flex;flex-direction:column;gap:clamp(10px,2.4vw,20px);padding:clamp(104px,22vw,168px) clamp(24px,5vw,72px) 0;font-size:clamp(34px,10vw,56px);line-height:1.02;font-weight:600;letter-spacing:-0.03em">
-        <a href="#work" onClick="{{ navMenu }}" style="color:var(--on-dark)" style-hover="color:rgba(242,196,187,0.62)">{{ t.work }}</a>
-        <a href="#about" onClick="{{ navMenu }}" style="color:var(--on-dark)" style-hover="color:rgba(242,196,187,0.62)">{{ t.about }}</a>
-        <a href="#services" onClick="{{ navMenu }}" style="color:var(--on-dark)" style-hover="color:rgba(242,196,187,0.62)">{{ t.services }}</a>
-        <a href="#contact" onClick="{{ navMenu }}" style="color:var(--on-dark)" style-hover="color:rgba(242,196,187,0.62)">{{ t.contact }}</a>
+        <a href="#work" onClick="{{ navMenu }}" style="color:var(--on-dark)" style-hover="color:rgba(247,181,176,0.62)">{{ t.work }}</a>
+        <a href="#about" onClick="{{ navMenu }}" style="color:var(--on-dark)" style-hover="color:rgba(247,181,176,0.62)">{{ t.about }}</a>
+        <a href="#services" onClick="{{ navMenu }}" style="color:var(--on-dark)" style-hover="color:rgba(247,181,176,0.62)">{{ t.services }}</a>
+        <a href="#contact" onClick="{{ navMenu }}" style="color:var(--on-dark)" style-hover="color:rgba(247,181,176,0.62)">{{ t.contact }}</a>
       </nav>
       <div data-menu-lang="" style="margin-top:auto;display:flex;align-items:center;gap:28px;padding:clamp(24px,6vw,48px) clamp(24px,5vw,72px);font-size: var(--t-label);font-weight:600;letter-spacing:0.1em;text-transform:uppercase">
         <a href="#top" onClick="{{ toggleTheme }}" aria-label="Switch theme" style="display:inline-flex;align-items:center;color:var(--on-dark);cursor:pointer" style-hover="opacity:0.6">
@@ -884,22 +884,22 @@
                   </div>
                   <div style="position:relative;display:flex;align-items:center;justify-content:center;background:#FFFFFF">
                     <div style="position:relative;width:46%;aspect-ratio:1">
-                      <div style="position:absolute;left:0%;top:0%;width:65.333%;height:30.667%;background:#F2C4BB;animation:dgEvoThemeA 10s cubic-bezier(.45,0,.55,1) 0s infinite"></div>
+                      <div style="position:absolute;left:0%;top:0%;width:65.333%;height:30.667%;background:#F7B5B0;animation:dgEvoThemeA 10s cubic-bezier(.45,0,.55,1) 0s infinite"></div>
                       <div style="position:absolute;left:69.333%;top:0%;width:30.667%;height:30.667%;background:#202133"></div>
                       <div style="position:absolute;left:0%;top:34.667%;width:30.667%;height:30.667%;background:#202133"></div>
                       <div style="position:absolute;left:34.667%;top:34.667%;width:65.333%;height:30.667%;background:#202133;animation:dgEvoThemeB 10s cubic-bezier(.45,0,.55,1) 0s infinite"></div>
-                      <div style="position:absolute;left:0%;top:69.333%;width:30.667%;height:30.667%;background:#F2C4BB;animation:dgEvoThemeC 10s cubic-bezier(.45,0,.55,1) 0s infinite"></div>
+                      <div style="position:absolute;left:0%;top:69.333%;width:30.667%;height:30.667%;background:#F7B5B0;animation:dgEvoThemeC 10s cubic-bezier(.45,0,.55,1) 0s infinite"></div>
                       <div style="position:absolute;left:34.667%;top:69.333%;width:30.667%;height:30.667%;background:#202133"></div>
                       <div style="position:absolute;left:69.333%;top:69.333%;width:30.667%;height:30.667%;background:#202133;animation:dgEvoThemeD 10s cubic-bezier(.45,0,.55,1) 0s infinite"></div>
                     </div>
                   </div>
                   <div style="position:relative;display:flex;align-items:center;justify-content:center;background:#FFFFFF;overflow:hidden">
                     <div style="position:relative;width:46%;aspect-ratio:1">
-                      <div style="position:absolute;left:0%;top:0%;width:65.333%;height:30.667%;background:#F2C4BB;animation:dgEvoAccent 11s cubic-bezier(.45,0,.55,1) 0s infinite,dgEvoCell1 11s cubic-bezier(.7,0,.2,1) 0s infinite both"></div>
+                      <div style="position:absolute;left:0%;top:0%;width:65.333%;height:30.667%;background:#F7B5B0;animation:dgEvoAccent 11s cubic-bezier(.45,0,.55,1) 0s infinite,dgEvoCell1 11s cubic-bezier(.7,0,.2,1) 0s infinite both"></div>
                       <div style="position:absolute;left:69.333%;top:0%;width:30.667%;height:30.667%;background:#202133;animation:dgEvoCell2 11s cubic-bezier(.7,0,.2,1) 0s infinite both"></div>
                       <div style="position:absolute;left:0%;top:34.667%;width:30.667%;height:30.667%;background:#202133;animation:dgEvoCell3 11s cubic-bezier(.7,0,.2,1) 0s infinite both"></div>
                       <div style="position:absolute;left:34.667%;top:34.667%;width:65.333%;height:30.667%;background:#202133;animation:dgEvoCell4 11s cubic-bezier(.7,0,.2,1) 0s infinite both"></div>
-                      <div style="position:absolute;left:0%;top:69.333%;width:30.667%;height:30.667%;background:#F2C4BB;animation:dgEvoAccent 11s cubic-bezier(.45,0,.55,1) 0s infinite,dgEvoCell5 11s cubic-bezier(.7,0,.2,1) 0s infinite both"></div>
+                      <div style="position:absolute;left:0%;top:69.333%;width:30.667%;height:30.667%;background:#F7B5B0;animation:dgEvoAccent 11s cubic-bezier(.45,0,.55,1) 0s infinite,dgEvoCell5 11s cubic-bezier(.7,0,.2,1) 0s infinite both"></div>
                       <div style="position:absolute;left:34.667%;top:69.333%;width:30.667%;height:30.667%;background:#202133;animation:dgEvoCell6 11s cubic-bezier(.7,0,.2,1) 0s infinite both"></div>
                       <div style="position:absolute;left:69.333%;top:69.333%;width:30.667%;height:30.667%;background:#202133;animation:dgEvoCell7 11s cubic-bezier(.7,0,.2,1) 0s infinite both"></div>
                     </div>
@@ -4051,7 +4051,7 @@ class Component extends DCLogic {
       navMenu: this.navMenu,
       toggleMenu: this.toggleMenu,
       burgerLabel: this.state.menuOpen ? tr('Close') : tr('Menu'),
-      burgerColor: this.state.menuOpen ? '#F2C4BB' : 'var(--nav-ink)',
+      burgerColor: this.state.menuOpen ? '#F7B5B0' : 'var(--nav-ink)',
       headerBlend: this.state.menuOpen ? 'normal' : 'difference',
       booting: this.state.booting,
       bootAttr: this.state.booting ? '' : null,

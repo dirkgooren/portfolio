@@ -40,7 +40,7 @@
     --t-h3: clamp(22px,2vw,28px); --t-h2: clamp(28px,3.4vw,44px); --t-quote: clamp(24px,3.4vw,46px);
     --t-h1: clamp(32px,5vw,64px); --t-display: clamp(40px,5.6vw,84px);
     --ink: #202133; --ink-soft: #4A4B5E; --accent: rgb(1,104,155); --highlight: #FFEC8F;
-    --on-dark: #F2C4BB; --on-dark-soft: rgba(242,196,187,0.88); --on-dark-mute: rgba(242,196,187,0.8);
+    --on-dark: #F7B5B0; --on-dark-soft: rgba(247,181,176,0.88); --on-dark-mute: rgba(247,181,176,0.8);
     --cream: #ECE7DD;
     --t-fast: 200ms; --t-mid: 380ms; --t-slow: 620ms; --ease: cubic-bezier(.22,1,.36,1);
     --sec-y: clamp(56px,9vw,128px); --sec-y-lg: clamp(72px,12vw,168px); --sec-x: clamp(24px,5vw,72px);
@@ -118,11 +118,12 @@
      case 4 spans 4. Row 3: cases 5 and 6 span 3 each. Every later case spans 2 (three per row). All images keep 4:3. */
   [data-manifesto-grid] { position: relative; isolation: isolate; }
   [data-manifesto-grid] > div:not([data-blob-layer]) { position: relative; z-index: 2; transition: transform 420ms cubic-bezier(.22,1,.36,1); }
+  [data-manifesto-grid] > div:not([data-blob-layer]):not([data-lit-copy]) { min-height: var(--mf-lock, clamp(260px,24vw,340px)) !important; }
   [data-manifesto-grid] > div:not([data-blob-layer]) > * { position: relative; z-index: 2; transition: color 160ms ease-out, max-height 320ms cubic-bezier(.4,0,.2,1), margin-top 320ms cubic-bezier(.4,0,.2,1), transform 320ms cubic-bezier(.4,0,.2,1), opacity 140ms ease-out, min-height 320ms cubic-bezier(.4,0,.2,1); }
   [data-manifesto-grid] > div[data-lit="1"] > * { transition: color 220ms ease-out, max-height 900ms cubic-bezier(.2,.7,.2,1), margin-top 900ms cubic-bezier(.2,.7,.2,1), transform 900ms cubic-bezier(.2,.7,.2,1), opacity 900ms ease-out 200ms, min-height 900ms cubic-bezier(.2,.7,.2,1); }
   [data-lit-copy] { box-sizing: border-box !important; width: 100% !important; position: absolute !important; inset: 0 !important; margin: 0 !important; z-index: 3 !important; min-height: 0 !important; height: auto !important; background: transparent !important; pointer-events: none; opacity: 1 !important; transform: none !important; transition: none !important; clip-path: inset(50%); }
   [data-lit-copy] > * { position: relative; color: #F5F4F1 !important; transition: max-height 320ms cubic-bezier(.4,0,.2,1), margin-top 320ms cubic-bezier(.4,0,.2,1), transform 320ms cubic-bezier(.4,0,.2,1), opacity 140ms ease-out, min-height 320ms cubic-bezier(.4,0,.2,1); }
-  [data-lit-copy] > span:first-child { color: #F2C4BB !important; transform-origin: left bottom; margin-top: auto !important; margin-bottom: 0 !important; }
+  [data-lit-copy] > span:first-child { color: #F7B5B0 !important; transform-origin: left bottom; margin-top: auto !important; margin-bottom: 0 !important; }
   [data-lit-copy] > p { color: rgba(245,244,241,0.78) !important; }
   [data-lit="1"] [data-lit-copy] > * { transition: max-height 900ms cubic-bezier(.2,.7,.2,1), margin-top 900ms cubic-bezier(.2,.7,.2,1), transform 900ms cubic-bezier(.2,.7,.2,1), opacity 900ms ease-out 200ms, min-height 900ms cubic-bezier(.2,.7,.2,1); }
   @media all {
@@ -136,7 +137,7 @@
   [data-manifesto-grid] > div:not([data-blob-layer]) > span:first-child { transform-origin: left bottom; margin-top: auto !important; margin-bottom: 0 !important; }
   @media all {
     [data-manifesto-grid] > div:not([data-blob-layer]) > p { opacity: 0; transform: translateY(28px); height: auto !important; max-height: 0; margin-top: -12px !important; overflow: hidden; }
-    [data-manifesto-grid] > div[data-lit="1"] > span:first-child { color: #F2C4BB !important; }
+    [data-manifesto-grid] > div[data-lit="1"] > span:first-child { color: #F7B5B0 !important; }
     [data-manifesto-grid] > div[data-lit="1"] > h3 { color: #F5F4F1 !important; }
     [data-manifesto-grid] > div[data-lit="1"] > p { color: rgba(245,244,241,0.78) !important; opacity: 1; transform: translateY(0); max-height: 12em; margin-top: 0 !important; }
   }
@@ -145,7 +146,7 @@
   [data-theme="dark"] [data-blob-layer] { background: #262630 !important; }
   [data-theme="dark"] [data-blob-lobe] { background: #3D3D4F; }
   @media (prefers-reduced-motion: no-preference) { [data-theme="dark"] [data-manifesto-grid] > div:not([data-blob-layer]) { background-color: transparent !important; } }
-  [data-theme="dark"] [data-manifesto-grid] > div[data-lit="1"] > span:first-child { color: #FCA5A5 !important; }
+  [data-theme="dark"] [data-manifesto-grid] > div[data-lit="1"] > span:first-child { color: #F7B5B0 !important; }
   @media (prefers-reduced-motion: reduce) { [data-blob-layer] { display: none !important; } [data-manifesto-grid] > div > p { opacity: 1 !important; max-height: none !important; margin-top: 0 !important; transform: none !important; } }
   @keyframes dgBlobDrift { 0% { translate: 0 0; } 22% { translate: 5px -6px; } 47% { translate: -6px 3px; } 73% { translate: 3px 7px; } 100% { translate: -4px -3px; } }
   @keyframes dgBlob { 0% { border-radius: 42% 58% 63% 37% / 41% 44% 56% 59%; rotate: 0deg; scale: 1 1; } 12% { border-radius: 55% 45% 52% 48% / 60% 52% 48% 40%; rotate: 14deg; scale: 1.05 0.97; } 26% { border-radius: 68% 32% 40% 60% / 57% 41% 59% 43%; rotate: 33deg; scale: 0.96 1.05; } 41% { border-radius: 46% 54% 66% 34% / 35% 61% 39% 65%; rotate: 49deg; scale: 1.04 1.02; } 57% { border-radius: 34% 66% 55% 45% / 62% 36% 64% 38%; rotate: 72deg; scale: 0.98 0.95; } 71% { border-radius: 60% 40% 33% 67% / 48% 66% 34% 52%; rotate: 88deg; scale: 1.06 1; } 86% { border-radius: 39% 61% 58% 42% / 66% 45% 55% 34%; rotate: 111deg; scale: 0.97 1.04; } 100% { border-radius: 52% 48% 37% 63% / 45% 55% 45% 55%; rotate: 130deg; scale: 1.02 0.98; } }
@@ -263,8 +264,8 @@
   [data-service-tag][data-tip][data-tip-follow][data-tip-open]::after { transform: translate(-50%, 0); }
   [data-service-tag][data-linked="1"] { background: var(--highlight) !important; color: #202133 !important; }
   [data-theme="dark"] [data-service-tag][data-linked="1"] { background: var(--highlight) !important; color: #17171F !important; }
-  [data-service-tag]:hover { background: #F2C4BB !important; color: #202133 !important; transform: scale(1.08); }
-  [data-theme="dark"] [data-service-tag]:hover { background: #F2C4BB !important; color: #17171F !important; }
+  [data-service-tag]:hover { background: var(--highlight) !important; color: #202133 !important; transform: scale(1.08); }
+  [data-theme="dark"] [data-service-tag]:hover { background: var(--highlight) !important; color: #17171F !important; }
 @keyframes dgMarkA { from { transform: rotate(-1.6deg) scaleX(0) } to { transform: rotate(-1.6deg) scaleX(1) } }
   @keyframes dgMarkB { from { transform: rotate(1.4deg) scaleX(0) } to { transform: rotate(1.4deg) scaleX(1) } }
   [data-mark-a] { transform-origin: 0% 60%; animation: dgMarkA 760ms cubic-bezier(.2,.9,.2,1) 620ms both; }
@@ -402,11 +403,11 @@
   @keyframes dgPyPink { 0%,3.3%{transform:translate(-54.73cqw,14.30cqw) rotate(0deg)}13.3%,100%{transform:translate(34.08cqw,9.16cqw) rotate(19.03deg)} }
   @keyframes dgPyNavy { 0%,3.3%{transform:translate(-54.73cqw,5.77cqw) rotate(0deg)}13.3%,100%{transform:translate(30.67cqw,-1.88cqw) rotate(16.58deg)} }
   @keyframes dgPyPurple { 0%,3.3%{transform:translate(-83.94cqw,-1.18cqw) rotate(0deg)}13.3%,100%{transform:translate(-6.14cqw,-15.23cqw) rotate(11.82deg)} }
-  @keyframes dgEvoThemeA { 0%,30%{background:#F2C4BB}50%,80%{background:var(--evo-ink,#202133)}100%{background:#F2C4BB} }
+  @keyframes dgEvoThemeA { 0%,30%{background:#F7B5B0}50%,80%{background:var(--evo-ink,#202133)}100%{background:#F7B5B0} }
   @keyframes dgEvoThemeB { 0%,30%{background:var(--evo-ink,#202133)}50%,80%{background:#FFEC8F}100%{background:var(--evo-ink,#202133)} }
-  @keyframes dgEvoThemeC { 0%,30%{background:#F2C4BB}50%,80%{background:var(--evo-ink,#202133)}100%{background:#F2C4BB} }
+  @keyframes dgEvoThemeC { 0%,30%{background:#F7B5B0}50%,80%{background:var(--evo-ink,#202133)}100%{background:#F7B5B0} }
   @keyframes dgEvoThemeD { 0%,30%{background:var(--evo-ink,#202133)}50%,80%{background:#FFEC8F}100%{background:var(--evo-ink,#202133)} }
-  @keyframes dgEvoAccent { 0%,30%{background:#F2C4BB}50%,80%{background:#FFEC8F}100%{background:#F2C4BB} }
+  @keyframes dgEvoAccent { 0%,30%{background:#F7B5B0}50%,80%{background:#FFEC8F}100%{background:#F7B5B0} }
   @keyframes dgEvoCell1 { 0%,8%{left:0%;top:0%;width:65.333%;height:30.667%}17%,28%{left:0%;top:0%;width:65.333%;height:48%}37%,48%{left:0%;top:0%;width:100%;height:30.667%}57%,68%{left:0%;top:0%;width:65.333%;height:100%}77%,88%{left:0%;top:0%;width:100%;height:48%}96%,100%{left:0%;top:0%;width:65.333%;height:30.667%} }
   @keyframes dgEvoCell2 { 0%,8%{left:69.333%;top:0%;width:30.667%;height:30.667%}17%,28%{left:69.333%;top:0%;width:30.667%;height:48%}37%,48%{left:100%;top:0%;width:0%;height:30.667%}57%,68%{left:69.333%;top:0%;width:30.667%;height:100%}77%,88%{left:100%;top:0%;width:0%;height:48%}96%,100%{left:69.333%;top:0%;width:30.667%;height:30.667%} }
   @keyframes dgEvoCell3 { 0%,8%{left:0%;top:34.667%;width:30.667%;height:30.667%}17%,28%{left:0%;top:52%;width:30.667%;height:48%}37%,48%{left:0%;top:34.667%;width:48%;height:30.667%}57%,68%{left:0%;top:100%;width:30.667%;height:0%}77%,88%{left:0%;top:52%;width:48%;height:48%}96%,100%{left:0%;top:34.667%;width:30.667%;height:30.667%} }
@@ -496,7 +497,7 @@
   [data-mark-link]:hover [data-mark-word],
   [data-mark-link]:focus-visible [data-mark-word] {
     max-width: 14em;
-    margin-left: 12px;
+    margin-left: 6px;
   }
   [data-mark-link]:hover [data-mark-word] span,
   [data-mark-link]:focus-visible [data-mark-word] span {
@@ -550,7 +551,7 @@
       </a>
       <a href="#work" onClick="{{ closeGate }}" data-close-case="" aria-label="Close" style="position: absolute; top: clamp(18px,2.4vw,32px); right: calc(var(--sec-x)); height: clamp(44px,4.2vw,58px); display: inline-flex; align-items: center; gap: 6px; font-size: var(--t-label); font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--on-dark); cursor: pointer; transition: opacity var(--t-fast) ease-out" style-hover="opacity:0.6"><span style="position:relative;display:block;width:30px;height:30px;flex:0 0 auto"><span data-x-bar="a" style="position:absolute;left:2px;display:block;width:26px;height:2px;background:currentColor;top:14px;"></span><span data-x-bar="b" style="position:absolute;left:2px;display:block;width:26px;height:2px;background:currentColor;top:14px;"></span></span><span>{{ t.close }}</span></a>
       <div data-gate-in="" style="width: 309px; max-width: 520px; height: 416px">
-        <div aria-hidden="true" onClick="{{ bypassGate }}" title="" style="touch-action:manipulation;display:flex;justify-content:center;margin:0 0 clamp(16px,2vw,24px);color:#F2C4BB;user-select:none">
+        <div aria-hidden="true" onClick="{{ bypassGate }}" title="" style="touch-action:manipulation;display:flex;justify-content:center;margin:0 0 clamp(16px,2vw,24px);color:#F7B5B0;user-select:none">
           <svg width="91" height="91" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10.5" width="16" height="10.5" rx="2"></rect><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"></path></svg>
         </div>
         <h2 style="margin:0;font-size: var(--t-h2);line-height:1.12;font-weight:600;letter-spacing:-0.03em;text-wrap:pretty;text-align:center;color:var(--on-dark)">{{ t.gateTitle }}</h2>
@@ -666,22 +667,22 @@
           </div>
           <div style="position:relative;display:flex;align-items:center;justify-content:center;background:#FFFFFF">
             <div style="position:relative;width:52%;aspect-ratio:1">
-              <div style="position:absolute;left:0%;top:0%;width:65.333%;height:30.667%;background:#F2C4BB;animation:dgEvoThemeA 10s cubic-bezier(.45,0,.55,1) 0s infinite"></div>
+              <div style="position:absolute;left:0%;top:0%;width:65.333%;height:30.667%;background:#F7B5B0;animation:dgEvoThemeA 10s cubic-bezier(.45,0,.55,1) 0s infinite"></div>
               <div style="position:absolute;left:69.333%;top:0%;width:30.667%;height:30.667%;background:#202133"></div>
               <div style="position:absolute;left:0%;top:34.667%;width:30.667%;height:30.667%;background:#202133"></div>
               <div style="position:absolute;left:34.667%;top:34.667%;width:65.333%;height:30.667%;background:#202133;animation:dgEvoThemeB 10s cubic-bezier(.45,0,.55,1) 0s infinite"></div>
-              <div style="position:absolute;left:0%;top:69.333%;width:30.667%;height:30.667%;background:#F2C4BB;animation:dgEvoThemeC 10s cubic-bezier(.45,0,.55,1) 0s infinite"></div>
+              <div style="position:absolute;left:0%;top:69.333%;width:30.667%;height:30.667%;background:#F7B5B0;animation:dgEvoThemeC 10s cubic-bezier(.45,0,.55,1) 0s infinite"></div>
               <div style="position:absolute;left:34.667%;top:69.333%;width:30.667%;height:30.667%;background:#202133"></div>
               <div style="position:absolute;left:69.333%;top:69.333%;width:30.667%;height:30.667%;background:#202133;animation:dgEvoThemeD 10s cubic-bezier(.45,0,.55,1) 0s infinite"></div>
             </div>
           </div>
           <div style="position:relative;display:flex;align-items:center;justify-content:center;background:#FFFFFF;overflow:hidden">
             <div style="position:relative;width:52%;aspect-ratio:1">
-              <div style="position:absolute;left:0%;top:0%;width:65.333%;height:30.667%;background:#F2C4BB;animation:dgEvoAccent 11s cubic-bezier(.45,0,.55,1) 0s infinite,dgEvoCell1 11s cubic-bezier(.7,0,.2,1) 0s infinite both"></div>
+              <div style="position:absolute;left:0%;top:0%;width:65.333%;height:30.667%;background:#F7B5B0;animation:dgEvoAccent 11s cubic-bezier(.45,0,.55,1) 0s infinite,dgEvoCell1 11s cubic-bezier(.7,0,.2,1) 0s infinite both"></div>
               <div style="position:absolute;left:69.333%;top:0%;width:30.667%;height:30.667%;background:#202133;animation:dgEvoCell2 11s cubic-bezier(.7,0,.2,1) 0s infinite both"></div>
               <div style="position:absolute;left:0%;top:34.667%;width:30.667%;height:30.667%;background:#202133;animation:dgEvoCell3 11s cubic-bezier(.7,0,.2,1) 0s infinite both"></div>
               <div style="position:absolute;left:34.667%;top:34.667%;width:65.333%;height:30.667%;background:#202133;animation:dgEvoCell4 11s cubic-bezier(.7,0,.2,1) 0s infinite both"></div>
-              <div style="position:absolute;left:0%;top:69.333%;width:30.667%;height:30.667%;background:#F2C4BB;animation:dgEvoAccent 11s cubic-bezier(.45,0,.55,1) 0s infinite,dgEvoCell5 11s cubic-bezier(.7,0,.2,1) 0s infinite both"></div>
+              <div style="position:absolute;left:0%;top:69.333%;width:30.667%;height:30.667%;background:#F7B5B0;animation:dgEvoAccent 11s cubic-bezier(.45,0,.55,1) 0s infinite,dgEvoCell5 11s cubic-bezier(.7,0,.2,1) 0s infinite both"></div>
               <div style="position:absolute;left:34.667%;top:69.333%;width:30.667%;height:30.667%;background:#202133;animation:dgEvoCell6 11s cubic-bezier(.7,0,.2,1) 0s infinite both"></div>
               <div style="position:absolute;left:69.333%;top:69.333%;width:30.667%;height:30.667%;background:#202133;animation:dgEvoCell7 11s cubic-bezier(.7,0,.2,1) 0s infinite both"></div>
             </div>
@@ -707,8 +708,8 @@
             <div data-case-cols="" data-flip="{{ sec.flip }}">
                 <sc-if value="{{ sec.evo1 }}" hint-placeholder-val="{{ false }}"><div data-evo="" data-evo-side="" data-evo-n="1" role="img" aria-label="{{ sec.title }}" style="position:relative;display:block;width:clamp(80px,9.33vw,133px);margin:0 0 clamp(20px,2.6vw,32px);--evo-ink:var(--fg)"><div style="position:relative;width:100%;aspect-ratio:0.76"><div style="position:absolute;left:0;top:6%;width:52%;height:34%;border-radius:2px;background:var(--evo-ink);transform:rotate(-4deg)"></div><div style="position:absolute;left:44%;top:0;width:40%;height:52%;border-radius:2px;background:color-mix(in srgb, var(--evo-ink) 42%, transparent);transform:rotate(3deg)"></div><div style="position:absolute;left:8%;top:54%;width:74%;height:26%;border-radius:2px;background:color-mix(in srgb, var(--evo-ink) 70%, transparent);transform:rotate(2deg)"></div></div></div></sc-if>
                 <sc-if value="{{ sec.evo2 }}" hint-placeholder-val="{{ false }}"><div data-evo="" data-evo-side="" data-evo-n="2" role="img" aria-label="{{ sec.title }}" style="position:relative;display:block;width:clamp(80px,9.33vw,133px);margin:0 0 clamp(20px,2.6vw,32px);--evo-ink:var(--fg)"><div style="position:relative;width:100%;aspect-ratio:1"><div style="position:absolute;left:0%;top:0%;width:30.667%;height:30.667%;background:var(--evo-ink)"></div><div style="position:absolute;left:34.667%;top:0%;width:30.667%;height:30.667%;background:var(--evo-ink)"></div><div style="position:absolute;left:69.333%;top:0%;width:30.667%;height:30.667%;background:var(--evo-ink)"></div><div style="position:absolute;left:0%;top:34.667%;width:30.667%;height:30.667%;background:var(--evo-ink)"></div><div style="position:absolute;left:34.667%;top:34.667%;width:30.667%;height:30.667%;background:var(--evo-ink)"></div><div style="position:absolute;left:69.333%;top:34.667%;width:30.667%;height:30.667%;background:var(--evo-ink)"></div><div style="position:absolute;left:0%;top:69.333%;width:30.667%;height:30.667%;background:var(--evo-ink)"></div><div style="position:absolute;left:34.667%;top:69.333%;width:30.667%;height:30.667%;background:var(--evo-ink)"></div><div style="position:absolute;left:69.333%;top:69.333%;width:30.667%;height:30.667%;background:var(--evo-ink)"></div></div></div></sc-if>
-                <sc-if value="{{ sec.evo3 }}" hint-placeholder-val="{{ false }}"><div data-evo="" data-evo-side="" data-evo-n="3" role="img" aria-label="{{ sec.title }}" style="position:relative;display:block;width:clamp(80px,9.33vw,133px);margin:0 0 clamp(20px,2.6vw,32px);--evo-ink:var(--fg)"><div style="position:relative;width:100%;aspect-ratio:1"><div style="position:absolute;left:0%;top:0%;width:65.333%;height:30.667%;background:#F2C4BB;animation:dgEvoThemeA 10s cubic-bezier(.45,0,.55,1) 0s infinite"></div><div style="position:absolute;left:69.333%;top:0%;width:30.667%;height:30.667%;background:var(--evo-ink)"></div><div style="position:absolute;left:0%;top:34.667%;width:30.667%;height:30.667%;background:var(--evo-ink)"></div><div style="position:absolute;left:34.667%;top:34.667%;width:65.333%;height:30.667%;background:var(--evo-ink);animation:dgEvoThemeB 10s cubic-bezier(.45,0,.55,1) 0s infinite"></div><div style="position:absolute;left:0%;top:69.333%;width:30.667%;height:30.667%;background:#F2C4BB;animation:dgEvoThemeC 10s cubic-bezier(.45,0,.55,1) 0s infinite"></div><div style="position:absolute;left:34.667%;top:69.333%;width:30.667%;height:30.667%;background:var(--evo-ink)"></div><div style="position:absolute;left:69.333%;top:69.333%;width:30.667%;height:30.667%;background:var(--evo-ink);animation:dgEvoThemeD 10s cubic-bezier(.45,0,.55,1) 0s infinite"></div></div></div></sc-if>
-                <sc-if value="{{ sec.evo4 }}" hint-placeholder-val="{{ false }}"><div data-evo="" data-evo-side="" data-evo-n="4" role="img" aria-label="{{ sec.title }}" style="position:relative;display:block;width:clamp(80px,9.33vw,133px);margin:0 0 clamp(20px,2.6vw,32px);--evo-ink:var(--fg)"><div style="position:relative;width:100%;aspect-ratio:1"><div style="position:absolute;left:0%;top:0%;width:65.333%;height:30.667%;background:#F2C4BB;animation:dgEvoAccent 11s cubic-bezier(.45,0,.55,1) 0s infinite,dgEvoCell1 11s cubic-bezier(.7,0,.2,1) 0s infinite both"></div><div style="position:absolute;left:69.333%;top:0%;width:30.667%;height:30.667%;background:var(--evo-ink);animation:dgEvoCell2 11s cubic-bezier(.7,0,.2,1) 0s infinite both"></div><div style="position:absolute;left:0%;top:34.667%;width:30.667%;height:30.667%;background:var(--evo-ink);animation:dgEvoCell3 11s cubic-bezier(.7,0,.2,1) 0s infinite both"></div><div style="position:absolute;left:34.667%;top:34.667%;width:65.333%;height:30.667%;background:var(--evo-ink);animation:dgEvoCell4 11s cubic-bezier(.7,0,.2,1) 0s infinite both"></div><div style="position:absolute;left:0%;top:69.333%;width:30.667%;height:30.667%;background:#F2C4BB;animation:dgEvoAccent 11s cubic-bezier(.45,0,.55,1) 0s infinite,dgEvoCell5 11s cubic-bezier(.7,0,.2,1) 0s infinite both"></div><div style="position:absolute;left:34.667%;top:69.333%;width:30.667%;height:30.667%;background:var(--evo-ink);animation:dgEvoCell6 11s cubic-bezier(.7,0,.2,1) 0s infinite both"></div><div style="position:absolute;left:69.333%;top:69.333%;width:30.667%;height:30.667%;background:var(--evo-ink);animation:dgEvoCell7 11s cubic-bezier(.7,0,.2,1) 0s infinite both"></div></div></div></sc-if>
+                <sc-if value="{{ sec.evo3 }}" hint-placeholder-val="{{ false }}"><div data-evo="" data-evo-side="" data-evo-n="3" role="img" aria-label="{{ sec.title }}" style="position:relative;display:block;width:clamp(80px,9.33vw,133px);margin:0 0 clamp(20px,2.6vw,32px);--evo-ink:var(--fg)"><div style="position:relative;width:100%;aspect-ratio:1"><div style="position:absolute;left:0%;top:0%;width:65.333%;height:30.667%;background:#F7B5B0;animation:dgEvoThemeA 10s cubic-bezier(.45,0,.55,1) 0s infinite"></div><div style="position:absolute;left:69.333%;top:0%;width:30.667%;height:30.667%;background:var(--evo-ink)"></div><div style="position:absolute;left:0%;top:34.667%;width:30.667%;height:30.667%;background:var(--evo-ink)"></div><div style="position:absolute;left:34.667%;top:34.667%;width:65.333%;height:30.667%;background:var(--evo-ink);animation:dgEvoThemeB 10s cubic-bezier(.45,0,.55,1) 0s infinite"></div><div style="position:absolute;left:0%;top:69.333%;width:30.667%;height:30.667%;background:#F7B5B0;animation:dgEvoThemeC 10s cubic-bezier(.45,0,.55,1) 0s infinite"></div><div style="position:absolute;left:34.667%;top:69.333%;width:30.667%;height:30.667%;background:var(--evo-ink)"></div><div style="position:absolute;left:69.333%;top:69.333%;width:30.667%;height:30.667%;background:var(--evo-ink);animation:dgEvoThemeD 10s cubic-bezier(.45,0,.55,1) 0s infinite"></div></div></div></sc-if>
+                <sc-if value="{{ sec.evo4 }}" hint-placeholder-val="{{ false }}"><div data-evo="" data-evo-side="" data-evo-n="4" role="img" aria-label="{{ sec.title }}" style="position:relative;display:block;width:clamp(80px,9.33vw,133px);margin:0 0 clamp(20px,2.6vw,32px);--evo-ink:var(--fg)"><div style="position:relative;width:100%;aspect-ratio:1"><div style="position:absolute;left:0%;top:0%;width:65.333%;height:30.667%;background:#F7B5B0;animation:dgEvoAccent 11s cubic-bezier(.45,0,.55,1) 0s infinite,dgEvoCell1 11s cubic-bezier(.7,0,.2,1) 0s infinite both"></div><div style="position:absolute;left:69.333%;top:0%;width:30.667%;height:30.667%;background:var(--evo-ink);animation:dgEvoCell2 11s cubic-bezier(.7,0,.2,1) 0s infinite both"></div><div style="position:absolute;left:0%;top:34.667%;width:30.667%;height:30.667%;background:var(--evo-ink);animation:dgEvoCell3 11s cubic-bezier(.7,0,.2,1) 0s infinite both"></div><div style="position:absolute;left:34.667%;top:34.667%;width:65.333%;height:30.667%;background:var(--evo-ink);animation:dgEvoCell4 11s cubic-bezier(.7,0,.2,1) 0s infinite both"></div><div style="position:absolute;left:0%;top:69.333%;width:30.667%;height:30.667%;background:#F7B5B0;animation:dgEvoAccent 11s cubic-bezier(.45,0,.55,1) 0s infinite,dgEvoCell5 11s cubic-bezier(.7,0,.2,1) 0s infinite both"></div><div style="position:absolute;left:34.667%;top:69.333%;width:30.667%;height:30.667%;background:var(--evo-ink);animation:dgEvoCell6 11s cubic-bezier(.7,0,.2,1) 0s infinite both"></div><div style="position:absolute;left:69.333%;top:69.333%;width:30.667%;height:30.667%;background:var(--evo-ink);animation:dgEvoCell7 11s cubic-bezier(.7,0,.2,1) 0s infinite both"></div></div></div></sc-if>
               <h2 style="margin: 0 0 clamp(20px,2.6vw,32px); font-size: var(--t-h2); line-height: 1.05; font-weight: 600; letter-spacing: -0.03em; text-wrap: balance; width: 100%"><sc-if value="{{ sec.eyebrow }}" hint-placeholder-val="{{ false }}"><span style="display:block;margin:0 0 clamp(14px,2vw,22px);font-family:'Archivo',system-ui,sans-serif;font-size: var(--t-label);line-height:1;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted2)">{{ sec.eyebrow }}</span></sc-if>{{ sec.title }}</h2>
               <div data-case-body="">
                 <sc-for list="{{ sec.paras }}" as="p" hint-placeholder-count="0">
@@ -795,7 +796,7 @@
         </section>
       </sc-if>
 
-      <a href="{{ openCaseData.nextHref }}" onClick="{{ openCase }}" data-next-link="" data-case="{{ openCaseData.nextKey }}" data-light-surface="" style="display:block;margin:clamp(64px,10vw,140px) var(--sec-x) clamp(24px,5vw,72px);padding:clamp(48px,8vw,110px) clamp(24px,5vw,72px);background:var(--highlight);color:#202133;cursor:pointer;text-decoration:none;transition:color var(--t-fast) ease-out" style-hover="color:#5C5D70">
+      <a href="{{ openCaseData.nextHref }}" onClick="{{ openCase }}" data-next-link="" data-case="{{ openCaseData.nextKey }}" data-light-surface="" style="display:block;margin:clamp(64px,10vw,140px) var(--sec-x) clamp(24px,5vw,72px);padding:clamp(48px,8vw,110px) clamp(24px,5vw,72px);background:var(--highlight);color:#202133;cursor:pointer;text-decoration:none;transition:color var(--t-fast) ease-out">
         <p style="margin:0 0 clamp(14px,2vw,22px);font-size: var(--t-label);font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:inherit">{{ t.nextProject }}</p>
         <span style="display:flex;align-items:center;gap:0.3em;flex-wrap:wrap;max-width:24ch;font-size: var(--t-h1);line-height:1.05;font-weight:600;letter-spacing:-0.03em;color:inherit"><span>{{ openCaseData.nextDeck }}</span><span data-next-arrow-wrap=""><svg data-next-arrow="" width="0.8em" height="0.8em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l14 0"></path><path d="M13 18l6 -6"></path><path d="M13 6l6 6"></path></svg></span></span>
       </a>
@@ -857,10 +858,10 @@
   <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
     <div data-overlay-panel="" style="position:fixed;inset:0;z-index:50;display:flex;flex-direction:column;background:var(--ink);color:var(--on-dark)">
       <nav data-menu-nav="" style="display:flex;flex-direction:column;gap:clamp(10px,2.4vw,20px);padding:clamp(104px,22vw,168px) clamp(24px,5vw,72px) 0;font-size:clamp(34px,10vw,56px);line-height:1.02;font-weight:600;letter-spacing:-0.03em">
-        <a href="#work" onClick="{{ navMenu }}" style="color:var(--on-dark)" style-hover="color:rgba(242,196,187,0.62)">{{ t.work }}</a>
-        <a href="#about" onClick="{{ navMenu }}" style="color:var(--on-dark)" style-hover="color:rgba(242,196,187,0.62)">{{ t.about }}</a>
-        <a href="#services" onClick="{{ navMenu }}" style="color:var(--on-dark)" style-hover="color:rgba(242,196,187,0.62)">{{ t.services }}</a>
-        <a href="#contact" onClick="{{ navMenu }}" style="color:var(--on-dark)" style-hover="color:rgba(242,196,187,0.62)">{{ t.contact }}</a>
+        <a href="#work" onClick="{{ navMenu }}" style="color:var(--on-dark)" style-hover="color:rgba(247,181,176,0.62)">{{ t.work }}</a>
+        <a href="#about" onClick="{{ navMenu }}" style="color:var(--on-dark)" style-hover="color:rgba(247,181,176,0.62)">{{ t.about }}</a>
+        <a href="#services" onClick="{{ navMenu }}" style="color:var(--on-dark)" style-hover="color:rgba(247,181,176,0.62)">{{ t.services }}</a>
+        <a href="#contact" onClick="{{ navMenu }}" style="color:var(--on-dark)" style-hover="color:rgba(247,181,176,0.62)">{{ t.contact }}</a>
       </nav>
       <div data-menu-lang="" style="margin-top:auto;display:flex;align-items:center;gap:28px;padding:clamp(24px,6vw,48px) clamp(24px,5vw,72px);font-size: var(--t-label);font-weight:600;letter-spacing:0.1em;text-transform:uppercase">
         <a href="#top" onClick="{{ toggleTheme }}" aria-label="Switch theme" style="display:inline-flex;align-items:center;color:var(--on-dark);cursor:pointer" style-hover="opacity:0.6">
@@ -897,7 +898,7 @@
             <button type="button" onClick="{{ pickCaseTag }}" data-case-tag="{{ ct.key }}" data-industry-chip="" data-active="{{ ct.active }}" style="{{ ct.style }}">{{ ct.label }}</button>
           </sc-for>
         </div>
-      </div><sc-if value="{{ reorderOn }}" hint-placeholder-val="{{ false }}"><div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:clamp(24px,3vw,40px);padding:14px 18px;border-radius:16px;background:#202133;color:#F5F4F1;font-size: var(--t-sm);line-height:1.4"><strong style="font-weight:700">Reorder mode</strong><span style="opacity:0.8;flex:1 1 280px">Drag cards to reorder. Order: {{ caseOrderText }}</span><button type="button" onClick="{{ resetCaseOrder }}" style="height:32px;padding:0 14px;border:0;border-radius:999px;background:#F2C4BB;color:#202133;font:inherit;font-weight:600;cursor:pointer">Reset</button></div></sc-if><div data-case-grid="" data-reorder="{{ reorderAttr }}" style="display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,420px),1fr)); gap: clamp(56px,7vw,72px) clamp(28px,4vw,44px); margin-top: clamp(32px,5vw,72px)">
+      </div><sc-if value="{{ reorderOn }}" hint-placeholder-val="{{ false }}"><div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:clamp(24px,3vw,40px);padding:14px 18px;border-radius:16px;background:#202133;color:#F5F4F1;font-size: var(--t-sm);line-height:1.4"><strong style="font-weight:700">Reorder mode</strong><span style="opacity:0.8;flex:1 1 280px">Drag cards to reorder. Order: {{ caseOrderText }}</span><button type="button" onClick="{{ resetCaseOrder }}" style="height:32px;padding:0 14px;border:0;border-radius:999px;background:#F7B5B0;color:#202133;font:inherit;font-weight:600;cursor:pointer">Reset</button></div></sc-if><div data-case-grid="" data-reorder="{{ reorderAttr }}" style="display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,420px),1fr)); gap: clamp(56px,7vw,72px) clamp(28px,4vw,44px); margin-top: clamp(32px,5vw,72px)">
       <sc-for list="{{ cases }}" as="c" hint-placeholder-count="5">
         <a href="{{ c.href }}" onClick="{{ openCase }}" data-case="{{ c.key }}" data-case-card="" data-reveal="" style="display:block;cursor:pointer">
           <sc-if value="{{ c.src }}" hint-placeholder-val="{{ true }}">
@@ -951,22 +952,22 @@
                   </div>
                   <div style="position:relative;display:flex;align-items:center;justify-content:center;background:#FFFFFF">
                     <div style="position:relative;width:46%;aspect-ratio:1">
-                      <div style="position:absolute;left:0%;top:0%;width:65.333%;height:30.667%;background:#F2C4BB;animation:dgEvoThemeA 10s cubic-bezier(.45,0,.55,1) 0s infinite"></div>
+                      <div style="position:absolute;left:0%;top:0%;width:65.333%;height:30.667%;background:#F7B5B0;animation:dgEvoThemeA 10s cubic-bezier(.45,0,.55,1) 0s infinite"></div>
                       <div style="position:absolute;left:69.333%;top:0%;width:30.667%;height:30.667%;background:#202133"></div>
                       <div style="position:absolute;left:0%;top:34.667%;width:30.667%;height:30.667%;background:#202133"></div>
                       <div style="position:absolute;left:34.667%;top:34.667%;width:65.333%;height:30.667%;background:#202133;animation:dgEvoThemeB 10s cubic-bezier(.45,0,.55,1) 0s infinite"></div>
-                      <div style="position:absolute;left:0%;top:69.333%;width:30.667%;height:30.667%;background:#F2C4BB;animation:dgEvoThemeC 10s cubic-bezier(.45,0,.55,1) 0s infinite"></div>
+                      <div style="position:absolute;left:0%;top:69.333%;width:30.667%;height:30.667%;background:#F7B5B0;animation:dgEvoThemeC 10s cubic-bezier(.45,0,.55,1) 0s infinite"></div>
                       <div style="position:absolute;left:34.667%;top:69.333%;width:30.667%;height:30.667%;background:#202133"></div>
                       <div style="position:absolute;left:69.333%;top:69.333%;width:30.667%;height:30.667%;background:#202133;animation:dgEvoThemeD 10s cubic-bezier(.45,0,.55,1) 0s infinite"></div>
                     </div>
                   </div>
                   <div style="position:relative;display:flex;align-items:center;justify-content:center;background:#FFFFFF;overflow:hidden">
                     <div style="position:relative;width:46%;aspect-ratio:1">
-                      <div style="position:absolute;left:0%;top:0%;width:65.333%;height:30.667%;background:#F2C4BB;animation:dgEvoAccent 11s cubic-bezier(.45,0,.55,1) 0s infinite,dgEvoCell1 11s cubic-bezier(.7,0,.2,1) 0s infinite both"></div>
+                      <div style="position:absolute;left:0%;top:0%;width:65.333%;height:30.667%;background:#F7B5B0;animation:dgEvoAccent 11s cubic-bezier(.45,0,.55,1) 0s infinite,dgEvoCell1 11s cubic-bezier(.7,0,.2,1) 0s infinite both"></div>
                       <div style="position:absolute;left:69.333%;top:0%;width:30.667%;height:30.667%;background:#202133;animation:dgEvoCell2 11s cubic-bezier(.7,0,.2,1) 0s infinite both"></div>
                       <div style="position:absolute;left:0%;top:34.667%;width:30.667%;height:30.667%;background:#202133;animation:dgEvoCell3 11s cubic-bezier(.7,0,.2,1) 0s infinite both"></div>
                       <div style="position:absolute;left:34.667%;top:34.667%;width:65.333%;height:30.667%;background:#202133;animation:dgEvoCell4 11s cubic-bezier(.7,0,.2,1) 0s infinite both"></div>
-                      <div style="position:absolute;left:0%;top:69.333%;width:30.667%;height:30.667%;background:#F2C4BB;animation:dgEvoAccent 11s cubic-bezier(.45,0,.55,1) 0s infinite,dgEvoCell5 11s cubic-bezier(.7,0,.2,1) 0s infinite both"></div>
+                      <div style="position:absolute;left:0%;top:69.333%;width:30.667%;height:30.667%;background:#F7B5B0;animation:dgEvoAccent 11s cubic-bezier(.45,0,.55,1) 0s infinite,dgEvoCell5 11s cubic-bezier(.7,0,.2,1) 0s infinite both"></div>
                       <div style="position:absolute;left:34.667%;top:69.333%;width:30.667%;height:30.667%;background:#202133;animation:dgEvoCell6 11s cubic-bezier(.7,0,.2,1) 0s infinite both"></div>
                       <div style="position:absolute;left:69.333%;top:69.333%;width:30.667%;height:30.667%;background:#202133;animation:dgEvoCell7 11s cubic-bezier(.7,0,.2,1) 0s infinite both"></div>
                     </div>
@@ -1024,11 +1025,13 @@
         <p data-reveal="" style="margin:0 0 clamp(14px,2vw,22px);width:fit-content;font-size: var(--t-label);font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--fg)">{{ t.about }}</p>
         <h2 data-reveal="" style="margin: 0 0 clamp(20px,3vw,36px); max-width: 22ch; font-size: var(--t-h1); line-height: 1; font-weight: 700; letter-spacing: -0.015em; text-wrap: balance; white-space: pre-line"><span style="font-family:'Archivo',system-ui,sans-serif;font-variation-settings:'wdth' 68;font-weight:200;font-style:italic;letter-spacing:0.018em">{{ t.aboutTitleLead }}</span>
 {{ t.aboutTitleRest }}</h2>
-        <p data-reveal="" style="margin: 0 0 clamp(34px,4.4vw,56px); font-size: var(--t-body); line-height: 1.6; color: var(--fg); text-wrap: pretty; font-weight: 700">{{ t.aboutP1 }}</p>
+        <div style="display:flex;flex-direction:column;gap:1em;margin: 0 0 clamp(34px,4.4vw,56px); max-width: 40rem">
+          <sc-for list="{{ t.aboutParas }}" as="ap" hint-placeholder-count="3"><p data-reveal="" style="margin:0; font-size: var(--t-lead); line-height: 1.5; color: var(--fg); text-wrap: pretty; font-weight: 700">{{ ap.text }}</p></sc-for>
+        </div>
         <div data-stat-grid="" style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(28px,3.4vw,48px) clamp(20px,2.4vw,32px);margin:0 0 clamp(40px,5.4vw,68px);max-width:44rem">
           <sc-for list="{{ stats }}" as="s" hint-placeholder-count="3">
             <div data-reveal="">
-              <div data-countup="" data-countfrom="{{ s.from }}" style="font-size: clamp(44px,5.6vw,80px);font-weight:600;letter-spacing:-0.03em;line-height:1">{{ s.value }}</div>
+              <div data-countup="" data-countfrom="{{ s.from }}" style="font-size: clamp(34px,4vw,56px);font-weight:600;letter-spacing:-0.03em;line-height:1">{{ s.value }}</div>
               <div style="margin-top: 6px; font-size: var(--t-label); font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #202133; opacity: 0.5">{{ s.label }}</div>
             </div>
           </sc-for>
@@ -1089,52 +1092,52 @@
     
     <div data-manifesto-grid="" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,250px),1fr));gap:clamp(12px,1.4vw,20px)"><div data-blob-layer="" aria-hidden="true" style="position:absolute;inset:0;z-index:1;pointer-events:none;clip-path:inset(50%)"><div data-blob-lobe="" style="border-radius:50%"></div><div data-blob-lobe="" style="border-radius:50%"></div></div>
         <div data-reveal="" style="display: flex; flex-direction: column; gap: 12px; min-height: clamp(260px,24vw,340px); padding: clamp(22px,2.4vw,32px); border-radius: 50px; opacity: 1; background-color: #FFFFFF">
-          <span aria-hidden="true" style="display: block; margin-bottom: auto; padding-bottom: 0px; font-family: 'Archivo','Archivo Narrow',system-ui,sans-serif; font-variation-settings: 'wdth' 68; font-size: clamp(72px,7vw,112px); line-height: 0.85; font-weight: 800; letter-spacing: -0.02em; color: #FCA5A5">1</span>
+          <span aria-hidden="true" style="display: block; margin-bottom: auto; padding-bottom: 0px; font-family: 'Archivo','Archivo Narrow',system-ui,sans-serif; font-variation-settings: 'wdth' 68; font-size: clamp(72px,7vw,112px); line-height: 0.85; font-weight: 800; letter-spacing: -0.02em; color: #F7B5B0">1</span>
           <h3 style="margin:0;font-size: var(--t-h3);line-height:1.08;font-weight:700;letter-spacing:-0.02em;color:var(--fg);text-wrap:balance">UX is<br>business</h3>
           <p style="margin: 0; width: 100%; max-width: none; font-size: var(--t-sm); line-height: 1.5; color: var(--muted2); text-wrap: wrap; height: 100%">Features are expected. Experience sets you apart and is what people pay for.</p>
         </div>
         <div data-reveal="" style="display: flex; flex-direction: column; gap: 12px; min-height: clamp(260px,24vw,340px); padding: clamp(22px,2.4vw,32px); border-radius: 50px; opacity: 1; background-color: #FFFFFF">
-          <span aria-hidden="true" style="display: block; margin-bottom: auto; padding-bottom: 0px; font-family: 'Archivo','Archivo Narrow',system-ui,sans-serif; font-variation-settings: 'wdth' 68; font-size: clamp(72px,7vw,112px); line-height: 0.85; font-weight: 800; letter-spacing: -0.02em; color: #FCA5A5">2</span>
+          <span aria-hidden="true" style="display: block; margin-bottom: auto; padding-bottom: 0px; font-family: 'Archivo','Archivo Narrow',system-ui,sans-serif; font-variation-settings: 'wdth' 68; font-size: clamp(72px,7vw,112px); line-height: 0.85; font-weight: 800; letter-spacing: -0.02em; color: #F7B5B0">2</span>
           <h3 style="margin:0;font-size: var(--t-h3);line-height:1.08;font-weight:700;letter-spacing:-0.02em;color:var(--fg);text-wrap:balance">I work for your customers</h3>
           <p style="margin: 0; width: 100%; max-width: none; font-size: var(--t-sm); line-height: 1.5; color: var(--muted2); text-wrap: wrap; height: 100%">Even when that means disagreeing with you.</p>
         </div>
         <div data-reveal="" style="display: flex; flex-direction: column; gap: 12px; min-height: clamp(260px,24vw,340px); padding: clamp(22px,2.4vw,32px); border-radius: 50px; opacity: 1; background-color: #FFFFFF">
-          <span aria-hidden="true" style="display: block; margin-bottom: auto; padding-bottom: 0px; font-family: 'Archivo','Archivo Narrow',system-ui,sans-serif; font-variation-settings: 'wdth' 68; font-size: clamp(72px,7vw,112px); line-height: 0.85; font-weight: 800; letter-spacing: -0.02em; color: #FCA5A5">3</span>
+          <span aria-hidden="true" style="display: block; margin-bottom: auto; padding-bottom: 0px; font-family: 'Archivo','Archivo Narrow',system-ui,sans-serif; font-variation-settings: 'wdth' 68; font-size: clamp(72px,7vw,112px); line-height: 0.85; font-weight: 800; letter-spacing: -0.02em; color: #F7B5B0">3</span>
           <h3 style="margin:0;font-size: var(--t-h3);line-height:1.08;font-weight:700;letter-spacing:-0.02em;color:var(--fg);text-wrap:balance">Tools change,<br>people don’t</h3>
-          <p style="margin: 0; width: 100%; max-width: none; font-size: var(--t-sm); line-height: 1.5; color: var(--muted2); text-wrap: wrap; height: 100%">New technology is only progress when it fits how people actually work.</p>
+          <p style="margin: 0; width: 100%; max-width: none; font-size: var(--t-sm); line-height: 1.5; color: var(--muted2); text-wrap: wrap; height: 100%">How people work is a far more stable starting point than technology that keeps changing.</p>
         </div>
         <div data-reveal="" style="display: flex; flex-direction: column; gap: 12px; min-height: clamp(260px,24vw,340px); padding: clamp(22px,2.4vw,32px); border-radius: 50px; opacity: 1; background-color: #FFFFFF">
-          <span aria-hidden="true" style="display: block; margin-bottom: auto; padding-bottom: 0px; font-family: 'Archivo','Archivo Narrow',system-ui,sans-serif; font-variation-settings: 'wdth' 68; font-size: clamp(72px,7vw,112px); line-height: 0.85; font-weight: 800; letter-spacing: -0.02em; color: #FCA5A5">4</span>
+          <span aria-hidden="true" style="display: block; margin-bottom: auto; padding-bottom: 0px; font-family: 'Archivo','Archivo Narrow',system-ui,sans-serif; font-variation-settings: 'wdth' 68; font-size: clamp(72px,7vw,112px); line-height: 0.85; font-weight: 800; letter-spacing: -0.02em; color: #F7B5B0">4</span>
           <h3 style="margin:0;font-size: var(--t-h3);line-height:1.08;font-weight:700;letter-spacing:-0.02em;color:var(--fg);text-wrap:balance">The solution is not the problem</h3>
           <p style="margin: 0; width: 100%; max-width: none; font-size: var(--t-sm); line-height: 1.5; color: var(--muted2); text-wrap: wrap; height: 100%">Before anything gets designed, we question the problem.</p>
         </div>
         <div data-reveal="" style="display: flex; flex-direction: column; gap: 12px; min-height: clamp(260px,24vw,340px); padding: clamp(22px,2.4vw,32px); border-radius: 50px; opacity: 1; background-color: #FFFFFF">
-          <span aria-hidden="true" style="display: block; margin-bottom: auto; padding-bottom: 0px; font-family: 'Archivo','Archivo Narrow',system-ui,sans-serif; font-variation-settings: 'wdth' 68; font-size: clamp(72px,7vw,112px); line-height: 0.85; font-weight: 800; letter-spacing: -0.02em; color: #FCA5A5">5</span>
+          <span aria-hidden="true" style="display: block; margin-bottom: auto; padding-bottom: 0px; font-family: 'Archivo','Archivo Narrow',system-ui,sans-serif; font-variation-settings: 'wdth' 68; font-size: clamp(72px,7vw,112px); line-height: 0.85; font-weight: 800; letter-spacing: -0.02em; color: #F7B5B0">5</span>
           <h3 style="margin:0;font-size: var(--t-h3);line-height:1.08;font-weight:700;letter-spacing:-0.02em;color:var(--fg);text-wrap:balance">Opinions lose to observation</h3>
           <p style="margin: 0; width: 100%; max-width: none; font-size: var(--t-sm); line-height: 1.5; color: var(--muted2); text-wrap: wrap; height: 100%">I spend time inside the real work before a single screen exists.</p>
         </div>
         <div data-reveal="" style="display: flex; flex-direction: column; gap: 12px; min-height: clamp(260px,24vw,340px); padding: clamp(22px,2.4vw,32px); border-radius: 50px; opacity: 1; background-color: #FFFFFF">
-          <span aria-hidden="true" style="display: block; margin-bottom: auto; padding-bottom: 0px; font-family: 'Archivo','Archivo Narrow',system-ui,sans-serif; font-variation-settings: 'wdth' 68; font-size: clamp(72px,7vw,112px); line-height: 0.85; font-weight: 800; letter-spacing: -0.02em; color: #FCA5A5">6</span>
+          <span aria-hidden="true" style="display: block; margin-bottom: auto; padding-bottom: 0px; font-family: 'Archivo','Archivo Narrow',system-ui,sans-serif; font-variation-settings: 'wdth' 68; font-size: clamp(72px,7vw,112px); line-height: 0.85; font-weight: 800; letter-spacing: -0.02em; color: #F7B5B0">6</span>
           <h3 style="margin:0;font-size: var(--t-h3);line-height:1.08;font-weight:700;letter-spacing:-0.02em;color:var(--fg);text-wrap:balance">Dare to<br>take a stance</h3>
           <p style="margin: 0; width: 100%; max-width: none; font-size: var(--t-sm); line-height: 1.5; color: var(--muted2); text-wrap: wrap; height: 100%">A clear vision, built on insight and gut feeling, moves a team further than a list of options.</p>
         </div>
         <div data-reveal="" style="display: flex; flex-direction: column; gap: 12px; min-height: clamp(260px,24vw,340px); padding: clamp(22px,2.4vw,32px); border-radius: 50px; opacity: 1; background-color: #FFFFFF">
-          <span aria-hidden="true" style="display: block; margin-bottom: auto; padding-bottom: 0px; font-family: 'Archivo','Archivo Narrow',system-ui,sans-serif; font-variation-settings: 'wdth' 68; font-size: clamp(72px,7vw,112px); line-height: 0.85; font-weight: 800; letter-spacing: -0.02em; color: #FCA5A5">7</span>
+          <span aria-hidden="true" style="display: block; margin-bottom: auto; padding-bottom: 0px; font-family: 'Archivo','Archivo Narrow',system-ui,sans-serif; font-variation-settings: 'wdth' 68; font-size: clamp(72px,7vw,112px); line-height: 0.85; font-weight: 800; letter-spacing: -0.02em; color: #F7B5B0">7</span>
           <h3 style="margin:0;font-size: var(--t-h3);line-height:1.08;font-weight:700;letter-spacing:-0.02em;color:var(--fg);text-wrap:balance">Prototypes win the argument</h3>
           <p style="margin: 0; width: 100%; max-width: none; font-size: var(--t-sm); line-height: 1.5; color: var(--muted2); text-wrap: wrap; height: 100%">Align all stakeholders through tangible experience, not words.</p>
         </div>
         <div data-reveal="" style="display: flex; flex-direction: column; gap: 12px; min-height: clamp(260px,24vw,340px); padding: clamp(22px,2.4vw,32px); border-radius: 50px; opacity: 1; background-color: #FFFFFF">
-          <span aria-hidden="true" style="display: block; margin-bottom: auto; padding-bottom: 0px; font-family: 'Archivo','Archivo Narrow',system-ui,sans-serif; font-variation-settings: 'wdth' 68; font-size: clamp(72px,7vw,112px); line-height: 0.85; font-weight: 800; letter-spacing: -0.02em; color: #FCA5A5">8</span>
+          <span aria-hidden="true" style="display: block; margin-bottom: auto; padding-bottom: 0px; font-family: 'Archivo','Archivo Narrow',system-ui,sans-serif; font-variation-settings: 'wdth' 68; font-size: clamp(72px,7vw,112px); line-height: 0.85; font-weight: 800; letter-spacing: -0.02em; color: #F7B5B0">8</span>
           <h3 style="margin:0;font-size: var(--t-h3);line-height:1.08;font-weight:700;letter-spacing:-0.02em;color:var(--fg);text-wrap:balance">Comfort kills<br>good work</h3>
           <p style="margin: 0; width: 100%; max-width: none; font-size: var(--t-sm); line-height: 1.5; color: var(--muted2); text-wrap: wrap; height: 100%">Don’t ask UX to break even. Ask it to grow the business.</p>
         </div>
         <div data-reveal="" style="display: flex; flex-direction: column; gap: 12px; min-height: clamp(260px,24vw,340px); padding: clamp(22px,2.4vw,32px); border-radius: 50px; opacity: 1; background-color: #FFFFFF">
-          <span aria-hidden="true" style="display: block; margin-bottom: auto; padding-bottom: 0px; font-family: 'Archivo','Archivo Narrow',system-ui,sans-serif; font-variation-settings: 'wdth' 68; font-size: clamp(72px,7vw,112px); line-height: 0.85; font-weight: 800; letter-spacing: -0.02em; color: #FCA5A5">9</span>
+          <span aria-hidden="true" style="display: block; margin-bottom: auto; padding-bottom: 0px; font-family: 'Archivo','Archivo Narrow',system-ui,sans-serif; font-variation-settings: 'wdth' 68; font-size: clamp(72px,7vw,112px); line-height: 0.85; font-weight: 800; letter-spacing: -0.02em; color: #F7B5B0">9</span>
           <h3 style="margin:0;font-size: var(--t-h3);line-height:1.08;font-weight:700;letter-spacing:-0.02em;color:var(--fg);text-wrap:balance">Impact<br>over output</h3>
           <p style="margin: 0; width: 100%; max-width: none; font-size: var(--t-sm); line-height: 1.5; color: var(--muted2); text-wrap: wrap; height: 100%">I judge a release by what it does for people, not by whether it launched.</p>
         </div>
         <div data-reveal="" style="display: flex; flex-direction: column; gap: 12px; min-height: clamp(260px,24vw,340px); padding: clamp(22px,2.4vw,32px); border-radius: 50px; opacity: 1; background-color: #FFFFFF">
-          <span aria-hidden="true" style="display: block; margin-bottom: auto; padding-bottom: 0px; font-family: 'Archivo','Archivo Narrow',system-ui,sans-serif; font-variation-settings: 'wdth' 68; font-size: clamp(72px,7vw,112px); line-height: 0.85; font-weight: 800; letter-spacing: -0.02em; color: #FCA5A5">10</span>
+          <span aria-hidden="true" style="display: block; margin-bottom: auto; padding-bottom: 0px; font-family: 'Archivo','Archivo Narrow',system-ui,sans-serif; font-variation-settings: 'wdth' 68; font-size: clamp(72px,7vw,112px); line-height: 0.85; font-weight: 800; letter-spacing: -0.02em; color: #F7B5B0">10</span>
           <h3 style="margin:0;font-size: var(--t-h3);line-height:1.08;font-weight:700;letter-spacing:-0.02em;color:var(--fg);text-wrap:balance">Built<br>to outlive</h3>
           <p style="margin: 0; width: 100%; max-width: none; font-size: var(--t-sm); line-height: 1.5; color: var(--muted2); text-wrap: wrap; height: 100%">Principles and patterns that keep working when I’m gone.</p>
         </div>
@@ -1145,52 +1148,52 @@
     <h2 data-reveal="" style="margin: 0 0 clamp(36px,5vw,64px); max-width: 22ch; font-size: var(--t-h1); line-height: 1; font-weight: 700; letter-spacing: -0.015em; text-wrap: balance"><span style="display:block;font-family:'Archivo',system-ui,sans-serif;font-variation-settings:'wdth' 68;font-weight:200;font-style:italic;letter-spacing:0.018em">Voordat we beginnen,</span>dit moet je weten.</h2>
     <div data-manifesto-grid="" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,250px),1fr));gap:clamp(12px,1.4vw,20px)"><div data-blob-layer="" aria-hidden="true" style="position:absolute;inset:0;z-index:1;pointer-events:none;clip-path:inset(50%)"><div data-blob-lobe="" style="border-radius:50%"></div><div data-blob-lobe="" style="border-radius:50%"></div></div>
         <div data-reveal="" style="display: flex; flex-direction: column; gap: 12px; min-height: clamp(260px,24vw,340px); padding: clamp(22px,2.4vw,32px); border-radius: 50px; opacity: 1; background-color: #FFFFFF">
-          <span aria-hidden="true" style="display: block; margin-bottom: auto; padding-bottom: 0px; font-family: 'Archivo','Archivo Narrow',system-ui,sans-serif; font-variation-settings: 'wdth' 68; font-size: clamp(72px,7vw,112px); line-height: 0.85; font-weight: 800; letter-spacing: -0.02em; color: #FCA5A5">1</span>
+          <span aria-hidden="true" style="display: block; margin-bottom: auto; padding-bottom: 0px; font-family: 'Archivo','Archivo Narrow',system-ui,sans-serif; font-variation-settings: 'wdth' 68; font-size: clamp(72px,7vw,112px); line-height: 0.85; font-weight: 800; letter-spacing: -0.02em; color: #F7B5B0">1</span>
           <h3 style="margin:0;font-size: var(--t-h3);line-height:1.08;font-weight:700;letter-spacing:-0.02em;color:var(--fg);text-wrap:balance">UX is<br>business</h3>
           <p style="margin: 0; width: 100%; max-width: none; font-size: var(--t-sm); line-height: 1.5; color: var(--muted2); text-wrap: wrap; height: 100%">Features worden verwacht. De ervaring onderscheidt je en daar betalen mensen voor.</p>
         </div>
         <div data-reveal="" style="display: flex; flex-direction: column; gap: 12px; min-height: clamp(260px,24vw,340px); padding: clamp(22px,2.4vw,32px); border-radius: 50px; opacity: 1; background-color: #FFFFFF">
-          <span aria-hidden="true" style="display: block; margin-bottom: auto; padding-bottom: 0px; font-family: 'Archivo','Archivo Narrow',system-ui,sans-serif; font-variation-settings: 'wdth' 68; font-size: clamp(72px,7vw,112px); line-height: 0.85; font-weight: 800; letter-spacing: -0.02em; color: #FCA5A5">2</span>
+          <span aria-hidden="true" style="display: block; margin-bottom: auto; padding-bottom: 0px; font-family: 'Archivo','Archivo Narrow',system-ui,sans-serif; font-variation-settings: 'wdth' 68; font-size: clamp(72px,7vw,112px); line-height: 0.85; font-weight: 800; letter-spacing: -0.02em; color: #F7B5B0">2</span>
           <h3 style="margin:0;font-size: var(--t-h3);line-height:1.08;font-weight:700;letter-spacing:-0.02em;color:var(--fg);text-wrap:balance">Ik werk voor je gebruikers</h3>
           <p style="margin: 0; width: 100%; max-width: none; font-size: var(--t-sm); line-height: 1.5; color: var(--muted2); text-wrap: wrap; height: 100%">Soms betekent dat dat ik het niet met je eens ben.</p>
         </div>
         <div data-reveal="" style="display: flex; flex-direction: column; gap: 12px; min-height: clamp(260px,24vw,340px); padding: clamp(22px,2.4vw,32px); border-radius: 50px; opacity: 1; background-color: #FFFFFF">
-          <span aria-hidden="true" style="display: block; margin-bottom: auto; padding-bottom: 0px; font-family: 'Archivo','Archivo Narrow',system-ui,sans-serif; font-variation-settings: 'wdth' 68; font-size: clamp(72px,7vw,112px); line-height: 0.85; font-weight: 800; letter-spacing: -0.02em; color: #FCA5A5">3</span>
+          <span aria-hidden="true" style="display: block; margin-bottom: auto; padding-bottom: 0px; font-family: 'Archivo','Archivo Narrow',system-ui,sans-serif; font-variation-settings: 'wdth' 68; font-size: clamp(72px,7vw,112px); line-height: 0.85; font-weight: 800; letter-spacing: -0.02em; color: #F7B5B0">3</span>
           <h3 style="margin:0;font-size: var(--t-h3);line-height:1.08;font-weight:700;letter-spacing:-0.02em;color:var(--fg);text-wrap:balance">Tools veranderen,<br>mensen niet</h3>
-          <p style="margin: 0; width: 100%; max-width: none; font-size: var(--t-sm); line-height: 1.5; color: var(--muted2); text-wrap: wrap; height: 100%">Nieuwe technologie is pas vooruitgang als die past bij hoe mensen echt werken.</p>
+          <p style="margin: 0; width: 100%; max-width: none; font-size: var(--t-sm); line-height: 1.5; color: var(--muted2); text-wrap: wrap; height: 100%">Hoe mensen werken is een veel stabieler vertrekpunt dan technologie die steeds verandert.</p>
         </div>
         <div data-reveal="" style="display: flex; flex-direction: column; gap: 12px; min-height: clamp(260px,24vw,340px); padding: clamp(22px,2.4vw,32px); border-radius: 50px; opacity: 1; background-color: #FFFFFF">
-          <span aria-hidden="true" style="display: block; margin-bottom: auto; padding-bottom: 0px; font-family: 'Archivo','Archivo Narrow',system-ui,sans-serif; font-variation-settings: 'wdth' 68; font-size: clamp(72px,7vw,112px); line-height: 0.85; font-weight: 800; letter-spacing: -0.02em; color: #FCA5A5">4</span>
+          <span aria-hidden="true" style="display: block; margin-bottom: auto; padding-bottom: 0px; font-family: 'Archivo','Archivo Narrow',system-ui,sans-serif; font-variation-settings: 'wdth' 68; font-size: clamp(72px,7vw,112px); line-height: 0.85; font-weight: 800; letter-spacing: -0.02em; color: #F7B5B0">4</span>
           <h3 style="margin:0;font-size: var(--t-h3);line-height:1.08;font-weight:700;letter-spacing:-0.02em;color:var(--fg);text-wrap:balance">De oplossing is niet het probleem</h3>
           <p style="margin: 0; width: 100%; max-width: none; font-size: var(--t-sm); line-height: 1.5; color: var(--muted2); text-wrap: wrap; height: 100%">Voordat er iets ontworpen wordt, stellen we het probleem ter discussie.</p>
         </div>
         <div data-reveal="" style="display: flex; flex-direction: column; gap: 12px; min-height: clamp(260px,24vw,340px); padding: clamp(22px,2.4vw,32px); border-radius: 50px; opacity: 1; background-color: #FFFFFF">
-          <span aria-hidden="true" style="display: block; margin-bottom: auto; padding-bottom: 0px; font-family: 'Archivo','Archivo Narrow',system-ui,sans-serif; font-variation-settings: 'wdth' 68; font-size: clamp(72px,7vw,112px); line-height: 0.85; font-weight: 800; letter-spacing: -0.02em; color: #FCA5A5">5</span>
+          <span aria-hidden="true" style="display: block; margin-bottom: auto; padding-bottom: 0px; font-family: 'Archivo','Archivo Narrow',system-ui,sans-serif; font-variation-settings: 'wdth' 68; font-size: clamp(72px,7vw,112px); line-height: 0.85; font-weight: 800; letter-spacing: -0.02em; color: #F7B5B0">5</span>
           <h3 style="margin:0;font-size: var(--t-h3);line-height:1.08;font-weight:700;letter-spacing:-0.02em;color:var(--fg);text-wrap:balance">Observatie verslaat mening</h3>
           <p style="margin: 0; width: 100%; max-width: none; font-size: var(--t-sm); line-height: 1.5; color: var(--muted2); text-wrap: wrap; height: 100%">Ik zit eerst in het echte werk voordat er één scherm bestaat.</p>
         </div>
         <div data-reveal="" style="display: flex; flex-direction: column; gap: 12px; min-height: clamp(260px,24vw,340px); padding: clamp(22px,2.4vw,32px); border-radius: 50px; opacity: 1; background-color: #FFFFFF">
-          <span aria-hidden="true" style="display: block; margin-bottom: auto; padding-bottom: 0px; font-family: 'Archivo','Archivo Narrow',system-ui,sans-serif; font-variation-settings: 'wdth' 68; font-size: clamp(72px,7vw,112px); line-height: 0.85; font-weight: 800; letter-spacing: -0.02em; color: #FCA5A5">6</span>
+          <span aria-hidden="true" style="display: block; margin-bottom: auto; padding-bottom: 0px; font-family: 'Archivo','Archivo Narrow',system-ui,sans-serif; font-variation-settings: 'wdth' 68; font-size: clamp(72px,7vw,112px); line-height: 0.85; font-weight: 800; letter-spacing: -0.02em; color: #F7B5B0">6</span>
           <h3 style="margin:0;font-size: var(--t-h3);line-height:1.08;font-weight:700;letter-spacing:-0.02em;color:var(--fg);text-wrap:balance">Durf<br>stelling te nemen</h3>
           <p style="margin: 0; width: 100%; max-width: none; font-size: var(--t-sm); line-height: 1.5; color: var(--muted2); text-wrap: wrap; height: 100%">Een heldere visie, gebouwd op inzicht en gevoel, brengt een team verder dan een lijst opties.</p>
         </div>
         <div data-reveal="" style="display: flex; flex-direction: column; gap: 12px; min-height: clamp(260px,24vw,340px); padding: clamp(22px,2.4vw,32px); border-radius: 50px; opacity: 1; background-color: #FFFFFF">
-          <span aria-hidden="true" style="display: block; margin-bottom: auto; padding-bottom: 0px; font-family: 'Archivo','Archivo Narrow',system-ui,sans-serif; font-variation-settings: 'wdth' 68; font-size: clamp(72px,7vw,112px); line-height: 0.85; font-weight: 800; letter-spacing: -0.02em; color: #FCA5A5">7</span>
+          <span aria-hidden="true" style="display: block; margin-bottom: auto; padding-bottom: 0px; font-family: 'Archivo','Archivo Narrow',system-ui,sans-serif; font-variation-settings: 'wdth' 68; font-size: clamp(72px,7vw,112px); line-height: 0.85; font-weight: 800; letter-spacing: -0.02em; color: #F7B5B0">7</span>
           <h3 style="margin:0;font-size: var(--t-h3);line-height:1.08;font-weight:700;letter-spacing:-0.02em;color:var(--fg);text-wrap:balance">Prototypes winnen de discussie</h3>
           <p style="margin: 0; width: 100%; max-width: none; font-size: var(--t-sm); line-height: 1.5; color: var(--muted2); text-wrap: wrap; height: 100%">Breng alle stakeholders op één lijn met tastbare ervaringen, niet met woorden.</p>
         </div>
         <div data-reveal="" style="display: flex; flex-direction: column; gap: 12px; min-height: clamp(260px,24vw,340px); padding: clamp(22px,2.4vw,32px); border-radius: 50px; opacity: 1; background-color: #FFFFFF">
-          <span aria-hidden="true" style="display: block; margin-bottom: auto; padding-bottom: 0px; font-family: 'Archivo','Archivo Narrow',system-ui,sans-serif; font-variation-settings: 'wdth' 68; font-size: clamp(72px,7vw,112px); line-height: 0.85; font-weight: 800; letter-spacing: -0.02em; color: #FCA5A5">8</span>
+          <span aria-hidden="true" style="display: block; margin-bottom: auto; padding-bottom: 0px; font-family: 'Archivo','Archivo Narrow',system-ui,sans-serif; font-variation-settings: 'wdth' 68; font-size: clamp(72px,7vw,112px); line-height: 0.85; font-weight: 800; letter-spacing: -0.02em; color: #F7B5B0">8</span>
           <h3 style="margin:0;font-size: var(--t-h3);line-height:1.08;font-weight:700;letter-spacing:-0.02em;color:var(--fg);text-wrap:balance">Comfort doodt<br>goed werk</h3>
           <p style="margin: 0; width: 100%; max-width: none; font-size: var(--t-sm); line-height: 1.5; color: var(--muted2); text-wrap: wrap; height: 100%">Vraag UX niet om quitte te spelen. Vraag het om de business te laten groeien.</p>
         </div>
         <div data-reveal="" style="display: flex; flex-direction: column; gap: 12px; min-height: clamp(260px,24vw,340px); padding: clamp(22px,2.4vw,32px); border-radius: 50px; opacity: 1; background-color: #FFFFFF">
-          <span aria-hidden="true" style="display: block; margin-bottom: auto; padding-bottom: 0px; font-family: 'Archivo','Archivo Narrow',system-ui,sans-serif; font-variation-settings: 'wdth' 68; font-size: clamp(72px,7vw,112px); line-height: 0.85; font-weight: 800; letter-spacing: -0.02em; color: #FCA5A5">9</span>
+          <span aria-hidden="true" style="display: block; margin-bottom: auto; padding-bottom: 0px; font-family: 'Archivo','Archivo Narrow',system-ui,sans-serif; font-variation-settings: 'wdth' 68; font-size: clamp(72px,7vw,112px); line-height: 0.85; font-weight: 800; letter-spacing: -0.02em; color: #F7B5B0">9</span>
           <h3 style="margin:0;font-size: var(--t-h3);line-height:1.08;font-weight:700;letter-spacing:-0.02em;color:var(--fg);text-wrap:balance">Impact<br>boven output</h3>
           <p style="margin: 0; width: 100%; max-width: none; font-size: var(--t-sm); line-height: 1.5; color: var(--muted2); text-wrap: wrap; height: 100%">Ik beoordeel een release op wat die voor mensen doet, niet op of die live ging.</p>
         </div>
         <div data-reveal="" style="display: flex; flex-direction: column; gap: 12px; min-height: clamp(260px,24vw,340px); padding: clamp(22px,2.4vw,32px); border-radius: 50px; opacity: 1; background-color: #FFFFFF">
-          <span aria-hidden="true" style="display: block; margin-bottom: auto; padding-bottom: 0px; font-family: 'Archivo','Archivo Narrow',system-ui,sans-serif; font-variation-settings: 'wdth' 68; font-size: clamp(72px,7vw,112px); line-height: 0.85; font-weight: 800; letter-spacing: -0.02em; color: #FCA5A5">10</span>
+          <span aria-hidden="true" style="display: block; margin-bottom: auto; padding-bottom: 0px; font-family: 'Archivo','Archivo Narrow',system-ui,sans-serif; font-variation-settings: 'wdth' 68; font-size: clamp(72px,7vw,112px); line-height: 0.85; font-weight: 800; letter-spacing: -0.02em; color: #F7B5B0">10</span>
           <h3 style="margin:0;font-size: var(--t-h3);line-height:1.08;font-weight:700;letter-spacing:-0.02em;color:var(--fg);text-wrap:balance">Gemaakt om<br>te blijven</h3>
           <p style="margin: 0; width: 100%; max-width: none; font-size: var(--t-sm); line-height: 1.5; color: var(--muted2); text-wrap: wrap; height: 100%">Principes en patronen die blijven werken als ik weg ben.</p>
         </div>
@@ -1365,10 +1368,10 @@ class Component extends DCLogic {
     { key: 'bmg.png', name: 'Bank Mendes Gans', industry: 'Finance' }
   ];
   serviceArt = {
-    'dg-service-research': { src: 'assets/illustrations/services/v2/research-d.png', alt: 'Illustration of a person shining a torch on documents, charts, a persona and an idea bulb' },
-    'dg-service-strategy': { src: 'assets/illustrations/services/v2/strategy.png', alt: 'Illustration of a person with a telescope facing a mountain with a marked route to a flag' },
-    'dg-service-uxdesign': { src: 'assets/illustrations/services/v2/design.png', alt: 'Illustration of a person arranging wireframes and interface cards on a wall' },
-    'dg-service-workshops': { src: 'assets/illustrations/services/v2/workshops.png', alt: 'Illustration of someone presenting a sticky-note board to a seated group' }
+    'dg-service-research': { src: 'assets/illustrations/services/v2/research-d-p.png', alt: 'Illustration of a person shining a torch on documents, charts, a persona and an idea bulb' },
+    'dg-service-strategy': { src: 'assets/illustrations/services/v2/strategy-p.png', alt: 'Illustration of a person with a telescope facing a mountain with a marked route to a flag' },
+    'dg-service-uxdesign': { src: 'assets/illustrations/services/v2/design-p.png', alt: 'Illustration of a person arranging wireframes and interface cards on a wall' },
+    'dg-service-workshops': { src: 'assets/illustrations/services/v2/workshops-p.png', alt: 'Illustration of someone presenting a sticky-note board to a seated group' }
   };
   caseCats = ['Research', 'Strategy', 'AI design', 'Service design', 'UX design', 'Lab'];
   personalCases = ['design-systems', 'advance', 'intelligence'];
@@ -1855,9 +1858,41 @@ class Component extends DCLogic {
     const r = card.getBoundingClientRect(), pr = page.getBoundingClientRect();
     bg.style.height = Math.round(r.top - pr.top + r.height / 6) + 'px';
   };
+  // Manifesto cards: lock every card to the tallest fully-revealed card, so the
+  // hover reveal never changes the row height.
+  syncManifestoHeight = () => {
+    document.querySelectorAll('[data-manifesto-grid]').forEach(g => {
+      const cards = Array.from(g.children).filter(c => !c.hasAttribute('data-blob-layer') && !c.hasAttribute('data-lit-copy'));
+      if (!cards.length) return;
+      g.style.removeProperty('--mf-lock');
+      let max = 0;
+      cards.forEach(c => {
+        const cs = getComputedStyle(c);
+        const kids = Array.from(c.children).filter(k => !k.hasAttribute('data-lit-copy') && getComputedStyle(k).position !== 'absolute');
+        if (!kids.length) return;
+        const gap = parseFloat(cs.rowGap) || 0;
+        let h = parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom) + gap * (kids.length - 1);
+        kids.forEach(k => {
+          const ks = getComputedStyle(k);
+          if (k.tagName === 'P') h += k.scrollHeight;
+          else h += k.offsetHeight + (parseFloat(ks.marginBottom) || 0) + (k.tagName === 'SPAN' ? 0 : Math.max(0, parseFloat(ks.marginTop) || 0));
+        });
+        const floor = c.offsetHeight; // the clamp() min-height floor (lock removed)
+        max = Math.max(max, h, floor);
+      });
+      if (max > 0) g.style.setProperty('--mf-lock', Math.ceil(max) + 'px');
+    });
+  };
   componentDidMount() {
     this._heroBgRO = new ResizeObserver(() => this.syncHeroBg());
     requestAnimationFrame(() => { const pg = document.querySelector('[data-page]'); if (pg) this._heroBgRO.observe(pg); this.syncHeroBg(); });
+    this._mfTimers = [400, 1200, 2500].map(t => setTimeout(() => this.syncManifestoHeight(), t));
+    this._mfGridRO = new ResizeObserver(() => { cancelAnimationFrame(this._mfRaf2); this._mfRaf2 = requestAnimationFrame(this.syncManifestoHeight); });
+    this._mfGridMo = setInterval(() => { const gs = document.querySelectorAll('[data-manifesto-grid]'); if (gs.length) { gs.forEach(g => this._mfGridRO.observe(g.parentElement || g)); clearInterval(this._mfGridMo); this.syncManifestoHeight(); } }, 300);
+    this._mfRO = new ResizeObserver(() => { cancelAnimationFrame(this._mfRaf); this._mfRaf = requestAnimationFrame(this.syncManifestoHeight); });
+    this._mfLastW = 0;
+    requestAnimationFrame(() => { this.syncManifestoHeight(); this._mfRO.observe(document.documentElement); });
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => this.syncManifestoHeight());
     window.addEventListener('resize', this.syncHeroBg);
     this._resetSeen = !!this.props.resetSite;
     this.loadUnlocked();
@@ -2073,6 +2108,9 @@ class Component extends DCLogic {
     if (!this._revPending.size && this._timer) { clearInterval(this._timer); this._timer = null; }
   }
   componentWillUnmount() {
+    if (this._mfRO) { this._mfRO.disconnect(); this._mfRO = null; }
+    if (this._mfGridRO) { this._mfGridRO.disconnect(); this._mfGridRO = null; }
+    clearInterval(this._mfGridMo); (this._mfTimers || []).forEach(clearTimeout);
     if (this._titleMo) { this._titleMo.disconnect(); this._titleMo = null; }
     if (this._headMo) { this._headMo.disconnect(); this._headMo = null; }
     if (this._onHash) window.removeEventListener('hashchange', this._onHash);
@@ -3060,6 +3098,7 @@ class Component extends DCLogic {
     "Documentation aimed at developers": "Documentatie gericht op ontwikkelaars",
     "An exception route": "Een route voor uitzonderingen",
     'Work': 'Werk', 'About': 'Over mij', 'Services': 'Diensten', 'Contact': 'Contact',
+    "I'm Dirk Gooren. I lead design where the hard part isn't the interface, but getting a large group to agree on what the work should become, and holding that direction while it gets built.¶": "Ik ben Dirk Gooren. Ik leid design waar het moeilijke niet de interface is, maar een grote groep laten instemmen met wat het werk moet worden, en die richting vasthouden tijdens het bouwen.", "I specialise in enterprise UX: business-critical tools for people at work, where a bad decision costs the organisation real time and money.¶": "Ik ben gespecialiseerd in enterprise UX: bedrijfskritische tools voor mensen op hun werk, waar een verkeerd besluit de organisatie echt tijd en geld kost.", "My background is Industrial Design (MSc), and since 2010 I've worked in healthcare, government, housing and finance.¶": "Ik ben master Industrial Design en werk sinds 2010 in de zorg, bij de overheid, in de woningsector en de financiële wereld.",
     'Close': 'Sluiten', 'Next project': 'Volgend project', 'All my work': 'Al mijn werk',
     'Enterprise UX specialist': 'Enterprise UX-specialist',
     "Hi, I'm Dirk Gooren. I help organisation move forward by aligning UX to business.": 'Hoi, ik ben Dirk Gooren. Ik help organisaties vooruit door UX en business af te stemmen.',
@@ -4468,7 +4507,7 @@ class Component extends DCLogic {
       navMenu: this.navMenu,
       toggleMenu: this.toggleMenu,
       burgerLabel: this.state.menuOpen ? tr('Close') : tr('Menu'),
-      burgerColor: this.state.menuOpen ? '#F2C4BB' : 'var(--nav-ink)',
+      burgerColor: this.state.menuOpen ? '#F7B5B0' : 'var(--nav-ink)',
       headerBlend: this.state.menuOpen ? 'normal' : 'difference',
       booting: this.state.booting,
       bootAttr: this.state.booting ? '' : null,
@@ -4553,6 +4592,7 @@ class Component extends DCLogic {
         aboutTitleLead: tr("Now you are here.\nLet me introduce myself.").split('\n')[0],
         aboutTitleRest: tr("Now you are here.\nLet me introduce myself.").split('\n').slice(1).join('\n'),
  aboutP1: tr("I'm Dirk Gooren. I lead design where the hard part isn't the interface, but getting a large group to agree on what the work should become, and holding that direction while it gets built. I specialise in enterprise UX: business-critical tools for people at work, where a bad decision costs the organisation real time and money. My background is Industrial Design (MSc), and since 2010 I've worked in healthcare, government, housing and finance."),
+        aboutParas: ["I'm Dirk Gooren. I lead design where the hard part isn't the interface, but getting a large group to agree on what the work should become, and holding that direction while it gets built.¶", "I specialise in enterprise UX: business-critical tools for people at work, where a bad decision costs the organisation real time and money.¶", "My background is Industrial Design (MSc), and since 2010 I've worked in healthcare, government, housing and finance.¶"].map(k => ({ text: tr(k).replace(/¶$/, '') })),
  aboutP2: tr("The way I work is straightforward: I spend time inside the real work before a screen exists, get the trade-offs decided before anything is designed, and let prototypes settle what opinions can't. What I leave behind (principles, patterns, documentation) has to keep working without me. And I treat UX strategy as business strategy: I judge a release by whether it moved the organisation, not by whether it shipped."),
         servicesTitle: tr('I believe people are at their best when they create together.'),
         servicesTitleLead: tr('I believe people are at their best when they create together.').split(' ').slice(0, 2).join(' '),
