@@ -59,7 +59,7 @@
      leaves the blended header compositing against a colour that is already gone,
      which is what stranded the mark and the burger in the previous theme. */
   [data-theme-switching] body, [data-theme-switching] body * { transition: none !important; }
-  [data-theme="dark"] #about, [data-theme="dark"] [data-light-surface] {
+  [data-theme="dark"] #about, [data-theme="dark"] #services, [data-theme="dark"] [data-light-surface] {
     --fg: #202133; --muted: rgba(32,33,51,0.45); --muted2: rgba(32,33,51,0.62); --muted3: rgba(32,33,51,0.4); --hair: rgba(32,33,51,0.14);
     --chip: rgba(32,33,51,0.10); --imgbg: rgba(32,33,51,0.08);
     color: var(--fg);
@@ -116,6 +116,41 @@
   /* Desktop and 4K: a 6-column grid, one row at a time (no stacking). Row 1:
      case 1 spans 4 columns, case 2 spans 2. Row 2 mirrors it: case 3 spans 2,
      case 4 spans 4. Row 3: cases 5 and 6 span 3 each. Every later case spans 2 (three per row). All images keep 4:3. */
+  [data-manifesto-grid] { position: relative; isolation: isolate; }
+  [data-manifesto-grid] > div:not([data-blob-layer]) { position: relative; z-index: 2; transition: transform 420ms cubic-bezier(.22,1,.36,1); }
+  [data-manifesto-grid] > div:not([data-blob-layer]) > * { position: relative; z-index: 2; transition: color 160ms ease-out, max-height 320ms cubic-bezier(.4,0,.2,1), margin-top 320ms cubic-bezier(.4,0,.2,1), transform 320ms cubic-bezier(.4,0,.2,1), opacity 140ms ease-out, min-height 320ms cubic-bezier(.4,0,.2,1); }
+  [data-manifesto-grid] > div[data-lit="1"] > * { transition: color 220ms ease-out, max-height 900ms cubic-bezier(.2,.7,.2,1), margin-top 900ms cubic-bezier(.2,.7,.2,1), transform 900ms cubic-bezier(.2,.7,.2,1), opacity 900ms ease-out 200ms, min-height 900ms cubic-bezier(.2,.7,.2,1); }
+  [data-lit-copy] { box-sizing: border-box !important; width: 100% !important; position: absolute !important; inset: 0 !important; margin: 0 !important; z-index: 3 !important; min-height: 0 !important; height: auto !important; background: transparent !important; pointer-events: none; opacity: 1 !important; transform: none !important; transition: none !important; clip-path: inset(50%); }
+  [data-lit-copy] > * { position: relative; color: #F5F4F1 !important; transition: max-height 320ms cubic-bezier(.4,0,.2,1), margin-top 320ms cubic-bezier(.4,0,.2,1), transform 320ms cubic-bezier(.4,0,.2,1), opacity 140ms ease-out, min-height 320ms cubic-bezier(.4,0,.2,1); }
+  [data-lit-copy] > span:first-child { color: #F2C4BB !important; transform-origin: left bottom; margin-top: auto !important; margin-bottom: 0 !important; }
+  [data-lit-copy] > p { color: rgba(245,244,241,0.78) !important; }
+  [data-lit="1"] [data-lit-copy] > * { transition: max-height 900ms cubic-bezier(.2,.7,.2,1), margin-top 900ms cubic-bezier(.2,.7,.2,1), transform 900ms cubic-bezier(.2,.7,.2,1), opacity 900ms ease-out 200ms, min-height 900ms cubic-bezier(.2,.7,.2,1); }
+  @media all {
+    [data-lit-copy] > p { opacity: 0; transform: translateY(28px); height: auto !important; max-height: 0; margin-top: -12px !important; overflow: hidden; }
+    [data-lit="1"] [data-lit-copy] > p { opacity: 1; transform: translateY(0); max-height: 12em; margin-top: 0 !important; }
+  }
+  [data-manifesto-grid] > div[data-lit="1"] h3 { min-height: 0 !important; }
+  [data-manifesto-grid] h3 { min-height: var(--mf-h3, calc(2em * 1.08)); display: flex; flex-direction: column; justify-content: flex-start; }
+  [data-blob-lobe]:not(:first-child) { display: none !important; }
+  [data-blob-lobe] { position: absolute; left: 0; top: 0; background: #202133; transform: scale(0); will-change: transform, border-radius, left, top; }
+  [data-manifesto-grid] > div:not([data-blob-layer]) > span:first-child { transform-origin: left bottom; margin-top: auto !important; margin-bottom: 0 !important; }
+  @media all {
+    [data-manifesto-grid] > div:not([data-blob-layer]) > p { opacity: 0; transform: translateY(28px); height: auto !important; max-height: 0; margin-top: -12px !important; overflow: hidden; }
+    [data-manifesto-grid] > div[data-lit="1"] > span:first-child { color: #F2C4BB !important; }
+    [data-manifesto-grid] > div[data-lit="1"] > h3 { color: #F5F4F1 !important; }
+    [data-manifesto-grid] > div[data-lit="1"] > p { color: rgba(245,244,241,0.78) !important; opacity: 1; transform: translateY(0); max-height: 12em; margin-top: 0 !important; }
+  }
+  @media (prefers-reduced-motion: no-preference) { [data-manifesto-grid] > div:not([data-blob-layer]) { background-color: transparent !important; } [data-blob-layer] { background: #FFFFFF; } }
+  [data-theme="dark"] [data-manifesto-grid] > div:not([data-blob-layer]) { background-color: #262630 !important; }
+  [data-theme="dark"] [data-blob-layer] { background: #262630 !important; }
+  [data-theme="dark"] [data-blob-lobe] { background: #3D3D4F; }
+  @media (prefers-reduced-motion: no-preference) { [data-theme="dark"] [data-manifesto-grid] > div:not([data-blob-layer]) { background-color: transparent !important; } }
+  [data-theme="dark"] [data-manifesto-grid] > div[data-lit="1"] > span:first-child { color: #FCA5A5 !important; }
+  @media (prefers-reduced-motion: reduce) { [data-blob-layer] { display: none !important; } [data-manifesto-grid] > div > p { opacity: 1 !important; max-height: none !important; margin-top: 0 !important; transform: none !important; } }
+  @keyframes dgBlobDrift { 0% { translate: 0 0; } 22% { translate: 5px -6px; } 47% { translate: -6px 3px; } 73% { translate: 3px 7px; } 100% { translate: -4px -3px; } }
+  @keyframes dgBlob { 0% { border-radius: 42% 58% 63% 37% / 41% 44% 56% 59%; rotate: 0deg; scale: 1 1; } 12% { border-radius: 55% 45% 52% 48% / 60% 52% 48% 40%; rotate: 14deg; scale: 1.05 0.97; } 26% { border-radius: 68% 32% 40% 60% / 57% 41% 59% 43%; rotate: 33deg; scale: 0.96 1.05; } 41% { border-radius: 46% 54% 66% 34% / 35% 61% 39% 65%; rotate: 49deg; scale: 1.04 1.02; } 57% { border-radius: 34% 66% 55% 45% / 62% 36% 64% 38%; rotate: 72deg; scale: 0.98 0.95; } 71% { border-radius: 60% 40% 33% 67% / 48% 66% 34% 52%; rotate: 88deg; scale: 1.06 1; } 86% { border-radius: 39% 61% 58% 42% / 66% 45% 55% 34%; rotate: 111deg; scale: 0.97 1.04; } 100% { border-radius: 52% 48% 37% 63% / 45% 55% 45% 55%; rotate: 130deg; scale: 1.02 0.98; } }
+  [data-case-grid][data-reorder="1"] [data-case-card] { cursor: grab !important; outline: 2px dashed rgba(32,33,51,0.35); outline-offset: 6px; }
+  [data-case-grid][data-reorder="1"] [data-case-card] * { pointer-events: none; }
   @media (min-width: 1000px) {
     [data-case-grid] { grid-template-columns: repeat(6, minmax(0, 1fr)) !important; align-items: start; }
     [data-case-grid] > [data-case-card] { grid-column: span 2; }
@@ -161,6 +196,8 @@
   [data-hero-rotate] { color: var(--fg); font-family: 'Archivo', system-ui, sans-serif; font-variation-settings: 'wdth' 68; font-weight: 200; font-style: italic; letter-spacing: 0.018em; }
   /* Hero: fixed pixel heights per breakpoint (was 60svh) */
   [data-hero-sec] { min-height: 420px; }
+  /* Keep the hero title to its two authored lines whenever the viewport allows. */
+  @media (min-width: 640px) { [data-hero-in] { white-space: pre !important; } }
   @media (min-width: 620px) { [data-hero-sec] { min-height: 460px; } }
   @media (min-width: 1000px) { [data-hero-sec] { min-height: 520px; } }
   @media (min-width: 1440px) { [data-hero-sec] { min-height: 560px; } }
@@ -204,6 +241,8 @@
   }
   [data-theme="dark"] [data-service-tag][data-tip]::after { background: #ECE7DD; color: #17171F; }
   /* Small pointer under the bubble, placed at the cursor (--tip-ax) when following. */
+  [data-theme="dark"] #services [data-service-tag][data-tip]::after { background: #202133; color: #FFFFFF; }
+  [data-theme="dark"] #services [data-service-tag][data-tip]::before { background: #202133; }
   [data-service-tag][data-tip]::before {
     content: ""; position: absolute; left: var(--tip-ax, 50%); bottom: calc(100% + 3px); z-index: 2147483001;
     width: 12px; height: 6px; background: #17171F; clip-path: polygon(0 0, 100% 0, 50% 100%);
@@ -314,6 +353,9 @@
   [data-next-link]:hover [data-next-arrow-wrap] { animation: dgNextNudge 2.8s cubic-bezier(.37,0,.63,1) infinite; }
   [data-next-arrow] { transition: transform var(--t-slow) var(--ease); will-change: transform; }
   [data-next-link]:hover [data-next-arrow] { transform: translateX(0.32em); }
+  @media (min-width: 1100px) { [data-manifesto-grid] { grid-template-columns: repeat(5, minmax(0,1fr)) !important; } }
+  @media (max-width: 1099px) { [data-manifesto-grid] { grid-template-columns: repeat(3, minmax(0,1fr)) !important; } }
+  @media (max-width: 640px) { [data-manifesto-grid] { grid-template-columns: repeat(2, minmax(0,1fr)) !important; gap: 10px !important; } [data-manifesto-grid] > div:not([data-blob-layer]), [data-lit-copy] { padding: 18px !important; min-height: 220px !important; } [data-manifesto-grid] h3 { font-size: 19px !important; } [data-manifesto-grid] > div > span:first-child, [data-lit-copy] > span:first-child { font-size: 64px !important; } }
   @media (max-width: 820px) { [data-stat-grid] { grid-template-columns: repeat(2, minmax(0,1fr)) !important; } }
   @keyframes dgNextNudge { 0% { transform: translateX(0) } 50% { transform: translateX(0.16em) } 100% { transform: translateX(0) } }
   @keyframes dgMenuIn { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: none; } }
@@ -855,7 +897,7 @@
             <button type="button" onClick="{{ pickCaseTag }}" data-case-tag="{{ ct.key }}" data-industry-chip="" data-active="{{ ct.active }}" style="{{ ct.style }}">{{ ct.label }}</button>
           </sc-for>
         </div>
-      </div><div data-case-grid="" style="display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,420px),1fr)); gap: clamp(56px,7vw,72px) clamp(28px,4vw,44px); margin-top: clamp(32px,5vw,72px)">
+      </div><sc-if value="{{ reorderOn }}" hint-placeholder-val="{{ false }}"><div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:clamp(24px,3vw,40px);padding:14px 18px;border-radius:16px;background:#202133;color:#F5F4F1;font-size: var(--t-sm);line-height:1.4"><strong style="font-weight:700">Reorder mode</strong><span style="opacity:0.8;flex:1 1 280px">Drag cards to reorder. Order: {{ caseOrderText }}</span><button type="button" onClick="{{ resetCaseOrder }}" style="height:32px;padding:0 14px;border:0;border-radius:999px;background:#F2C4BB;color:#202133;font:inherit;font-weight:600;cursor:pointer">Reset</button></div></sc-if><div data-case-grid="" data-reorder="{{ reorderAttr }}" style="display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,420px),1fr)); gap: clamp(56px,7vw,72px) clamp(28px,4vw,44px); margin-top: clamp(32px,5vw,72px)">
       <sc-for list="{{ cases }}" as="c" hint-placeholder-count="5">
         <a href="{{ c.href }}" onClick="{{ openCase }}" data-case="{{ c.key }}" data-case-card="" data-reveal="" style="display:block;cursor:pointer">
           <sc-if value="{{ c.src }}" hint-placeholder-val="{{ true }}">
@@ -983,39 +1025,13 @@
         <h2 data-reveal="" style="margin: 0 0 clamp(20px,3vw,36px); max-width: 22ch; font-size: var(--t-h1); line-height: 1; font-weight: 700; letter-spacing: -0.015em; text-wrap: balance; white-space: pre-line"><span style="font-family:'Archivo',system-ui,sans-serif;font-variation-settings:'wdth' 68;font-weight:200;font-style:italic;letter-spacing:0.018em">{{ t.aboutTitleLead }}</span>
 {{ t.aboutTitleRest }}</h2>
         <p data-reveal="" style="margin: 0 0 clamp(34px,4.4vw,56px); font-size: var(--t-body); line-height: 1.6; color: var(--fg); text-wrap: pretty; font-weight: 700">{{ t.aboutP1 }}</p>
-        <div data-stat-grid="" style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(20px,2.4vw,32px);margin:0 0 clamp(40px,5.4vw,68px);max-width:44rem">
+        <div data-stat-grid="" style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(28px,3.4vw,48px) clamp(20px,2.4vw,32px);margin:0 0 clamp(40px,5.4vw,68px);max-width:44rem">
           <sc-for list="{{ stats }}" as="s" hint-placeholder-count="3">
             <div data-reveal="">
-              <div data-countup="" data-countfrom="{{ s.from }}" style="font-size: var(--t-h2);font-weight:600;letter-spacing:-0.03em;line-height:1">{{ s.value }}</div>
+              <div data-countup="" data-countfrom="{{ s.from }}" style="font-size: clamp(44px,5.6vw,80px);font-weight:600;letter-spacing:-0.03em;line-height:1">{{ s.value }}</div>
               <div style="margin-top: 6px; font-size: var(--t-label); font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #202133; opacity: 0.5">{{ s.label }}</div>
             </div>
           </sc-for>
-        </div>
-        <div data-reveal="" style="margin: 0 0 clamp(24px,3vw,32px); width: 100%">
-          <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(14px,1.8vw,22px) clamp(20px,2.6vw,36px)">
-            <sc-for list="{{ howShort }}" as="h" hint-placeholder-count="4">
-              <div style="display:grid;grid-template-columns:minmax(0,1fr);gap:4px">
-                <div style="display:flex;flex-direction:column;gap:4px">
-                  <span aria-hidden="true" style="display:flex;align-items:center;height:38px;margin-bottom:4px;color:#202133">
-                    <sc-if value="{{ h.iconBusiness }}" hint-placeholder-val="{{ false }}">
-                      <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18"></path><path d="M6 20v-6"></path><path d="M11 20V9"></path><path d="M16 20v-9"></path><path d="M21 20V5"></path></svg>
-                    </sc-if>
-                    <sc-if value="{{ h.iconObserve }}" hint-placeholder-val="{{ false }}">
-                      <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.8-6 10-6 10 6 10 6-3.8 6-10 6-10-6-10-6z"></path><circle cx="12" cy="12" r="2.8"></circle></svg>
-                    </sc-if>
-                    <sc-if value="{{ h.iconProto }}" hint-placeholder-val="{{ false }}">
-                      <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="14" rx="2"></rect><path d="M3 9h18"></path><path d="M9 9v9"></path></svg>
-                    </sc-if>
-                    <sc-if value="{{ h.iconLasts }}" hint-placeholder-val="{{ false }}">
-                      <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7v5.4l3.6 2.2"></path></svg>
-                    </sc-if>
-                  </span>
-                  <p style="margin: 0; font-size: 20px; line-height: 1.3; font-weight: 800; letter-spacing: -0.01em; text-wrap: pretty">{{ h.title }}</p>
-                  <p style="margin:0;font-size: var(--t-sm);line-height:1.55;color:#202133;opacity:0.78;text-wrap:pretty">{{ h.body }}</p>
-                </div>
-              </div>
-            </sc-for>
-          </div>
         </div>
       </div>
       <div data-gaze="" style="position:relative;align-self:end;width:100%;max-width:520px;justify-self:center;aspect-ratio:941 / 1672">
@@ -1040,7 +1056,7 @@
 
   
 
-  <section id="services" style="padding: var(--sec-y-lg) var(--sec-x)">
+  <section id="services" style="padding: var(--sec-y-lg) var(--sec-x); background-color: #FFFFFF">
     <div style="margin-bottom:clamp(16px,2vw,28px)">
       <p data-reveal="" style="margin:0 0 clamp(14px,2vw,22px);width:fit-content;font-size: var(--t-label);font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--fg)">{{ t.services }}</p>
       <h2 data-reveal="" style="margin: 0; max-width: 22ch; font-size: var(--t-h1); line-height: 1; font-weight: 700; letter-spacing: -0.015em; white-space: pre-line"><span style="font-family:'Archivo',system-ui,sans-serif;font-variation-settings:'wdth' 68;font-weight:200;font-style:italic;letter-spacing:0.018em">{{ t.servicesTitleLead }}</span> {{ t.servicesTitleRest }}</h2>
@@ -1065,6 +1081,121 @@
         </div>
       </sc-for>
     </div>
+  </section>
+
+  <section id="manifesto" style="padding: var(--sec-y-lg) var(--sec-x) 0; padding-bottom: 163px">
+    <sc-if value="{{ langEn }}" hint-placeholder-val="{{ true }}">
+    <p data-reveal="" style="margin:0 0 clamp(14px,2vw,22px);width:fit-content;font-size: var(--t-label);font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--fg)">Manifesto</p><h2 data-reveal="" style="margin: 0 0 clamp(36px,5vw,64px); max-width: 22ch; font-size: var(--t-h1); line-height: 1; font-weight: 700; letter-spacing: -0.015em; text-wrap: balance"><span data-om-id="ff01d0e4:531" style="display: block; font-family: Archivo, system-ui, sans-serif; font-variation-settings: &quot;wdth&quot; 68; font-weight: 200; font-style: italic; letter-spacing: 0.018em;">Before we start,</span>you should know this.</h2>
+    
+    <div data-manifesto-grid="" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,250px),1fr));gap:clamp(12px,1.4vw,20px)"><div data-blob-layer="" aria-hidden="true" style="position:absolute;inset:0;z-index:1;pointer-events:none;clip-path:inset(50%)"><div data-blob-lobe="" style="border-radius:50%"></div><div data-blob-lobe="" style="border-radius:50%"></div></div>
+        <div data-reveal="" style="display: flex; flex-direction: column; gap: 12px; min-height: clamp(260px,24vw,340px); padding: clamp(22px,2.4vw,32px); border-radius: 50px; opacity: 1; background-color: #FFFFFF">
+          <span aria-hidden="true" style="display: block; margin-bottom: auto; padding-bottom: 0px; font-family: 'Archivo','Archivo Narrow',system-ui,sans-serif; font-variation-settings: 'wdth' 68; font-size: clamp(72px,7vw,112px); line-height: 0.85; font-weight: 800; letter-spacing: -0.02em; color: #FCA5A5">1</span>
+          <h3 style="margin:0;font-size: var(--t-h3);line-height:1.08;font-weight:700;letter-spacing:-0.02em;color:var(--fg);text-wrap:balance">UX is<br>business</h3>
+          <p style="margin: 0; width: 100%; max-width: none; font-size: var(--t-sm); line-height: 1.5; color: var(--muted2); text-wrap: wrap; height: 100%">Features are expected. Experience sets you apart and is what people pay for.</p>
+        </div>
+        <div data-reveal="" style="display: flex; flex-direction: column; gap: 12px; min-height: clamp(260px,24vw,340px); padding: clamp(22px,2.4vw,32px); border-radius: 50px; opacity: 1; background-color: #FFFFFF">
+          <span aria-hidden="true" style="display: block; margin-bottom: auto; padding-bottom: 0px; font-family: 'Archivo','Archivo Narrow',system-ui,sans-serif; font-variation-settings: 'wdth' 68; font-size: clamp(72px,7vw,112px); line-height: 0.85; font-weight: 800; letter-spacing: -0.02em; color: #FCA5A5">2</span>
+          <h3 style="margin:0;font-size: var(--t-h3);line-height:1.08;font-weight:700;letter-spacing:-0.02em;color:var(--fg);text-wrap:balance">I work for your customers</h3>
+          <p style="margin: 0; width: 100%; max-width: none; font-size: var(--t-sm); line-height: 1.5; color: var(--muted2); text-wrap: wrap; height: 100%">Even when that means disagreeing with you.</p>
+        </div>
+        <div data-reveal="" style="display: flex; flex-direction: column; gap: 12px; min-height: clamp(260px,24vw,340px); padding: clamp(22px,2.4vw,32px); border-radius: 50px; opacity: 1; background-color: #FFFFFF">
+          <span aria-hidden="true" style="display: block; margin-bottom: auto; padding-bottom: 0px; font-family: 'Archivo','Archivo Narrow',system-ui,sans-serif; font-variation-settings: 'wdth' 68; font-size: clamp(72px,7vw,112px); line-height: 0.85; font-weight: 800; letter-spacing: -0.02em; color: #FCA5A5">3</span>
+          <h3 style="margin:0;font-size: var(--t-h3);line-height:1.08;font-weight:700;letter-spacing:-0.02em;color:var(--fg);text-wrap:balance">Tools change,<br>people don’t</h3>
+          <p style="margin: 0; width: 100%; max-width: none; font-size: var(--t-sm); line-height: 1.5; color: var(--muted2); text-wrap: wrap; height: 100%">New technology is only progress when it fits how people actually work.</p>
+        </div>
+        <div data-reveal="" style="display: flex; flex-direction: column; gap: 12px; min-height: clamp(260px,24vw,340px); padding: clamp(22px,2.4vw,32px); border-radius: 50px; opacity: 1; background-color: #FFFFFF">
+          <span aria-hidden="true" style="display: block; margin-bottom: auto; padding-bottom: 0px; font-family: 'Archivo','Archivo Narrow',system-ui,sans-serif; font-variation-settings: 'wdth' 68; font-size: clamp(72px,7vw,112px); line-height: 0.85; font-weight: 800; letter-spacing: -0.02em; color: #FCA5A5">4</span>
+          <h3 style="margin:0;font-size: var(--t-h3);line-height:1.08;font-weight:700;letter-spacing:-0.02em;color:var(--fg);text-wrap:balance">The solution is not the problem</h3>
+          <p style="margin: 0; width: 100%; max-width: none; font-size: var(--t-sm); line-height: 1.5; color: var(--muted2); text-wrap: wrap; height: 100%">Before anything gets designed, we question the problem.</p>
+        </div>
+        <div data-reveal="" style="display: flex; flex-direction: column; gap: 12px; min-height: clamp(260px,24vw,340px); padding: clamp(22px,2.4vw,32px); border-radius: 50px; opacity: 1; background-color: #FFFFFF">
+          <span aria-hidden="true" style="display: block; margin-bottom: auto; padding-bottom: 0px; font-family: 'Archivo','Archivo Narrow',system-ui,sans-serif; font-variation-settings: 'wdth' 68; font-size: clamp(72px,7vw,112px); line-height: 0.85; font-weight: 800; letter-spacing: -0.02em; color: #FCA5A5">5</span>
+          <h3 style="margin:0;font-size: var(--t-h3);line-height:1.08;font-weight:700;letter-spacing:-0.02em;color:var(--fg);text-wrap:balance">Opinions lose to observation</h3>
+          <p style="margin: 0; width: 100%; max-width: none; font-size: var(--t-sm); line-height: 1.5; color: var(--muted2); text-wrap: wrap; height: 100%">I spend time inside the real work before a single screen exists.</p>
+        </div>
+        <div data-reveal="" style="display: flex; flex-direction: column; gap: 12px; min-height: clamp(260px,24vw,340px); padding: clamp(22px,2.4vw,32px); border-radius: 50px; opacity: 1; background-color: #FFFFFF">
+          <span aria-hidden="true" style="display: block; margin-bottom: auto; padding-bottom: 0px; font-family: 'Archivo','Archivo Narrow',system-ui,sans-serif; font-variation-settings: 'wdth' 68; font-size: clamp(72px,7vw,112px); line-height: 0.85; font-weight: 800; letter-spacing: -0.02em; color: #FCA5A5">6</span>
+          <h3 style="margin:0;font-size: var(--t-h3);line-height:1.08;font-weight:700;letter-spacing:-0.02em;color:var(--fg);text-wrap:balance">Dare to<br>take a stance</h3>
+          <p style="margin: 0; width: 100%; max-width: none; font-size: var(--t-sm); line-height: 1.5; color: var(--muted2); text-wrap: wrap; height: 100%">A clear vision, built on insight and gut feeling, moves a team further than a list of options.</p>
+        </div>
+        <div data-reveal="" style="display: flex; flex-direction: column; gap: 12px; min-height: clamp(260px,24vw,340px); padding: clamp(22px,2.4vw,32px); border-radius: 50px; opacity: 1; background-color: #FFFFFF">
+          <span aria-hidden="true" style="display: block; margin-bottom: auto; padding-bottom: 0px; font-family: 'Archivo','Archivo Narrow',system-ui,sans-serif; font-variation-settings: 'wdth' 68; font-size: clamp(72px,7vw,112px); line-height: 0.85; font-weight: 800; letter-spacing: -0.02em; color: #FCA5A5">7</span>
+          <h3 style="margin:0;font-size: var(--t-h3);line-height:1.08;font-weight:700;letter-spacing:-0.02em;color:var(--fg);text-wrap:balance">Prototypes win the argument</h3>
+          <p style="margin: 0; width: 100%; max-width: none; font-size: var(--t-sm); line-height: 1.5; color: var(--muted2); text-wrap: wrap; height: 100%">Align all stakeholders through tangible experience, not words.</p>
+        </div>
+        <div data-reveal="" style="display: flex; flex-direction: column; gap: 12px; min-height: clamp(260px,24vw,340px); padding: clamp(22px,2.4vw,32px); border-radius: 50px; opacity: 1; background-color: #FFFFFF">
+          <span aria-hidden="true" style="display: block; margin-bottom: auto; padding-bottom: 0px; font-family: 'Archivo','Archivo Narrow',system-ui,sans-serif; font-variation-settings: 'wdth' 68; font-size: clamp(72px,7vw,112px); line-height: 0.85; font-weight: 800; letter-spacing: -0.02em; color: #FCA5A5">8</span>
+          <h3 style="margin:0;font-size: var(--t-h3);line-height:1.08;font-weight:700;letter-spacing:-0.02em;color:var(--fg);text-wrap:balance">Comfort kills<br>good work</h3>
+          <p style="margin: 0; width: 100%; max-width: none; font-size: var(--t-sm); line-height: 1.5; color: var(--muted2); text-wrap: wrap; height: 100%">Don’t ask UX to break even. Ask it to grow the business.</p>
+        </div>
+        <div data-reveal="" style="display: flex; flex-direction: column; gap: 12px; min-height: clamp(260px,24vw,340px); padding: clamp(22px,2.4vw,32px); border-radius: 50px; opacity: 1; background-color: #FFFFFF">
+          <span aria-hidden="true" style="display: block; margin-bottom: auto; padding-bottom: 0px; font-family: 'Archivo','Archivo Narrow',system-ui,sans-serif; font-variation-settings: 'wdth' 68; font-size: clamp(72px,7vw,112px); line-height: 0.85; font-weight: 800; letter-spacing: -0.02em; color: #FCA5A5">9</span>
+          <h3 style="margin:0;font-size: var(--t-h3);line-height:1.08;font-weight:700;letter-spacing:-0.02em;color:var(--fg);text-wrap:balance">Impact<br>over output</h3>
+          <p style="margin: 0; width: 100%; max-width: none; font-size: var(--t-sm); line-height: 1.5; color: var(--muted2); text-wrap: wrap; height: 100%">I judge a release by what it does for people, not by whether it launched.</p>
+        </div>
+        <div data-reveal="" style="display: flex; flex-direction: column; gap: 12px; min-height: clamp(260px,24vw,340px); padding: clamp(22px,2.4vw,32px); border-radius: 50px; opacity: 1; background-color: #FFFFFF">
+          <span aria-hidden="true" style="display: block; margin-bottom: auto; padding-bottom: 0px; font-family: 'Archivo','Archivo Narrow',system-ui,sans-serif; font-variation-settings: 'wdth' 68; font-size: clamp(72px,7vw,112px); line-height: 0.85; font-weight: 800; letter-spacing: -0.02em; color: #FCA5A5">10</span>
+          <h3 style="margin:0;font-size: var(--t-h3);line-height:1.08;font-weight:700;letter-spacing:-0.02em;color:var(--fg);text-wrap:balance">Built<br>to outlive</h3>
+          <p style="margin: 0; width: 100%; max-width: none; font-size: var(--t-sm); line-height: 1.5; color: var(--muted2); text-wrap: wrap; height: 100%">Principles and patterns that keep working when I’m gone.</p>
+        </div>
+    </div>
+    </sc-if>
+    <sc-if value="{{ langNl }}" hint-placeholder-val="{{ false }}">
+    <p data-reveal="" style="margin:0 0 clamp(14px,2vw,22px);width:fit-content;font-size: var(--t-label);font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--fg)">Manifest</p>
+    <h2 data-reveal="" style="margin: 0 0 clamp(36px,5vw,64px); max-width: 22ch; font-size: var(--t-h1); line-height: 1; font-weight: 700; letter-spacing: -0.015em; text-wrap: balance"><span style="display:block;font-family:'Archivo',system-ui,sans-serif;font-variation-settings:'wdth' 68;font-weight:200;font-style:italic;letter-spacing:0.018em">Voordat we beginnen,</span>dit moet je weten.</h2>
+    <div data-manifesto-grid="" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,250px),1fr));gap:clamp(12px,1.4vw,20px)"><div data-blob-layer="" aria-hidden="true" style="position:absolute;inset:0;z-index:1;pointer-events:none;clip-path:inset(50%)"><div data-blob-lobe="" style="border-radius:50%"></div><div data-blob-lobe="" style="border-radius:50%"></div></div>
+        <div data-reveal="" style="display: flex; flex-direction: column; gap: 12px; min-height: clamp(260px,24vw,340px); padding: clamp(22px,2.4vw,32px); border-radius: 50px; opacity: 1; background-color: #FFFFFF">
+          <span aria-hidden="true" style="display: block; margin-bottom: auto; padding-bottom: 0px; font-family: 'Archivo','Archivo Narrow',system-ui,sans-serif; font-variation-settings: 'wdth' 68; font-size: clamp(72px,7vw,112px); line-height: 0.85; font-weight: 800; letter-spacing: -0.02em; color: #FCA5A5">1</span>
+          <h3 style="margin:0;font-size: var(--t-h3);line-height:1.08;font-weight:700;letter-spacing:-0.02em;color:var(--fg);text-wrap:balance">UX is<br>business</h3>
+          <p style="margin: 0; width: 100%; max-width: none; font-size: var(--t-sm); line-height: 1.5; color: var(--muted2); text-wrap: wrap; height: 100%">Features worden verwacht. De ervaring onderscheidt je en daar betalen mensen voor.</p>
+        </div>
+        <div data-reveal="" style="display: flex; flex-direction: column; gap: 12px; min-height: clamp(260px,24vw,340px); padding: clamp(22px,2.4vw,32px); border-radius: 50px; opacity: 1; background-color: #FFFFFF">
+          <span aria-hidden="true" style="display: block; margin-bottom: auto; padding-bottom: 0px; font-family: 'Archivo','Archivo Narrow',system-ui,sans-serif; font-variation-settings: 'wdth' 68; font-size: clamp(72px,7vw,112px); line-height: 0.85; font-weight: 800; letter-spacing: -0.02em; color: #FCA5A5">2</span>
+          <h3 style="margin:0;font-size: var(--t-h3);line-height:1.08;font-weight:700;letter-spacing:-0.02em;color:var(--fg);text-wrap:balance">Ik werk voor je gebruikers</h3>
+          <p style="margin: 0; width: 100%; max-width: none; font-size: var(--t-sm); line-height: 1.5; color: var(--muted2); text-wrap: wrap; height: 100%">Soms betekent dat dat ik het niet met je eens ben.</p>
+        </div>
+        <div data-reveal="" style="display: flex; flex-direction: column; gap: 12px; min-height: clamp(260px,24vw,340px); padding: clamp(22px,2.4vw,32px); border-radius: 50px; opacity: 1; background-color: #FFFFFF">
+          <span aria-hidden="true" style="display: block; margin-bottom: auto; padding-bottom: 0px; font-family: 'Archivo','Archivo Narrow',system-ui,sans-serif; font-variation-settings: 'wdth' 68; font-size: clamp(72px,7vw,112px); line-height: 0.85; font-weight: 800; letter-spacing: -0.02em; color: #FCA5A5">3</span>
+          <h3 style="margin:0;font-size: var(--t-h3);line-height:1.08;font-weight:700;letter-spacing:-0.02em;color:var(--fg);text-wrap:balance">Tools veranderen,<br>mensen niet</h3>
+          <p style="margin: 0; width: 100%; max-width: none; font-size: var(--t-sm); line-height: 1.5; color: var(--muted2); text-wrap: wrap; height: 100%">Nieuwe technologie is pas vooruitgang als die past bij hoe mensen echt werken.</p>
+        </div>
+        <div data-reveal="" style="display: flex; flex-direction: column; gap: 12px; min-height: clamp(260px,24vw,340px); padding: clamp(22px,2.4vw,32px); border-radius: 50px; opacity: 1; background-color: #FFFFFF">
+          <span aria-hidden="true" style="display: block; margin-bottom: auto; padding-bottom: 0px; font-family: 'Archivo','Archivo Narrow',system-ui,sans-serif; font-variation-settings: 'wdth' 68; font-size: clamp(72px,7vw,112px); line-height: 0.85; font-weight: 800; letter-spacing: -0.02em; color: #FCA5A5">4</span>
+          <h3 style="margin:0;font-size: var(--t-h3);line-height:1.08;font-weight:700;letter-spacing:-0.02em;color:var(--fg);text-wrap:balance">De oplossing is niet het probleem</h3>
+          <p style="margin: 0; width: 100%; max-width: none; font-size: var(--t-sm); line-height: 1.5; color: var(--muted2); text-wrap: wrap; height: 100%">Voordat er iets ontworpen wordt, stellen we het probleem ter discussie.</p>
+        </div>
+        <div data-reveal="" style="display: flex; flex-direction: column; gap: 12px; min-height: clamp(260px,24vw,340px); padding: clamp(22px,2.4vw,32px); border-radius: 50px; opacity: 1; background-color: #FFFFFF">
+          <span aria-hidden="true" style="display: block; margin-bottom: auto; padding-bottom: 0px; font-family: 'Archivo','Archivo Narrow',system-ui,sans-serif; font-variation-settings: 'wdth' 68; font-size: clamp(72px,7vw,112px); line-height: 0.85; font-weight: 800; letter-spacing: -0.02em; color: #FCA5A5">5</span>
+          <h3 style="margin:0;font-size: var(--t-h3);line-height:1.08;font-weight:700;letter-spacing:-0.02em;color:var(--fg);text-wrap:balance">Observatie verslaat mening</h3>
+          <p style="margin: 0; width: 100%; max-width: none; font-size: var(--t-sm); line-height: 1.5; color: var(--muted2); text-wrap: wrap; height: 100%">Ik zit eerst in het echte werk voordat er één scherm bestaat.</p>
+        </div>
+        <div data-reveal="" style="display: flex; flex-direction: column; gap: 12px; min-height: clamp(260px,24vw,340px); padding: clamp(22px,2.4vw,32px); border-radius: 50px; opacity: 1; background-color: #FFFFFF">
+          <span aria-hidden="true" style="display: block; margin-bottom: auto; padding-bottom: 0px; font-family: 'Archivo','Archivo Narrow',system-ui,sans-serif; font-variation-settings: 'wdth' 68; font-size: clamp(72px,7vw,112px); line-height: 0.85; font-weight: 800; letter-spacing: -0.02em; color: #FCA5A5">6</span>
+          <h3 style="margin:0;font-size: var(--t-h3);line-height:1.08;font-weight:700;letter-spacing:-0.02em;color:var(--fg);text-wrap:balance">Durf<br>stelling te nemen</h3>
+          <p style="margin: 0; width: 100%; max-width: none; font-size: var(--t-sm); line-height: 1.5; color: var(--muted2); text-wrap: wrap; height: 100%">Een heldere visie, gebouwd op inzicht en gevoel, brengt een team verder dan een lijst opties.</p>
+        </div>
+        <div data-reveal="" style="display: flex; flex-direction: column; gap: 12px; min-height: clamp(260px,24vw,340px); padding: clamp(22px,2.4vw,32px); border-radius: 50px; opacity: 1; background-color: #FFFFFF">
+          <span aria-hidden="true" style="display: block; margin-bottom: auto; padding-bottom: 0px; font-family: 'Archivo','Archivo Narrow',system-ui,sans-serif; font-variation-settings: 'wdth' 68; font-size: clamp(72px,7vw,112px); line-height: 0.85; font-weight: 800; letter-spacing: -0.02em; color: #FCA5A5">7</span>
+          <h3 style="margin:0;font-size: var(--t-h3);line-height:1.08;font-weight:700;letter-spacing:-0.02em;color:var(--fg);text-wrap:balance">Prototypes winnen de discussie</h3>
+          <p style="margin: 0; width: 100%; max-width: none; font-size: var(--t-sm); line-height: 1.5; color: var(--muted2); text-wrap: wrap; height: 100%">Breng alle stakeholders op één lijn met tastbare ervaringen, niet met woorden.</p>
+        </div>
+        <div data-reveal="" style="display: flex; flex-direction: column; gap: 12px; min-height: clamp(260px,24vw,340px); padding: clamp(22px,2.4vw,32px); border-radius: 50px; opacity: 1; background-color: #FFFFFF">
+          <span aria-hidden="true" style="display: block; margin-bottom: auto; padding-bottom: 0px; font-family: 'Archivo','Archivo Narrow',system-ui,sans-serif; font-variation-settings: 'wdth' 68; font-size: clamp(72px,7vw,112px); line-height: 0.85; font-weight: 800; letter-spacing: -0.02em; color: #FCA5A5">8</span>
+          <h3 style="margin:0;font-size: var(--t-h3);line-height:1.08;font-weight:700;letter-spacing:-0.02em;color:var(--fg);text-wrap:balance">Comfort doodt<br>goed werk</h3>
+          <p style="margin: 0; width: 100%; max-width: none; font-size: var(--t-sm); line-height: 1.5; color: var(--muted2); text-wrap: wrap; height: 100%">Vraag UX niet om quitte te spelen. Vraag het om de business te laten groeien.</p>
+        </div>
+        <div data-reveal="" style="display: flex; flex-direction: column; gap: 12px; min-height: clamp(260px,24vw,340px); padding: clamp(22px,2.4vw,32px); border-radius: 50px; opacity: 1; background-color: #FFFFFF">
+          <span aria-hidden="true" style="display: block; margin-bottom: auto; padding-bottom: 0px; font-family: 'Archivo','Archivo Narrow',system-ui,sans-serif; font-variation-settings: 'wdth' 68; font-size: clamp(72px,7vw,112px); line-height: 0.85; font-weight: 800; letter-spacing: -0.02em; color: #FCA5A5">9</span>
+          <h3 style="margin:0;font-size: var(--t-h3);line-height:1.08;font-weight:700;letter-spacing:-0.02em;color:var(--fg);text-wrap:balance">Impact<br>boven output</h3>
+          <p style="margin: 0; width: 100%; max-width: none; font-size: var(--t-sm); line-height: 1.5; color: var(--muted2); text-wrap: wrap; height: 100%">Ik beoordeel een release op wat die voor mensen doet, niet op of die live ging.</p>
+        </div>
+        <div data-reveal="" style="display: flex; flex-direction: column; gap: 12px; min-height: clamp(260px,24vw,340px); padding: clamp(22px,2.4vw,32px); border-radius: 50px; opacity: 1; background-color: #FFFFFF">
+          <span aria-hidden="true" style="display: block; margin-bottom: auto; padding-bottom: 0px; font-family: 'Archivo','Archivo Narrow',system-ui,sans-serif; font-variation-settings: 'wdth' 68; font-size: clamp(72px,7vw,112px); line-height: 0.85; font-weight: 800; letter-spacing: -0.02em; color: #FCA5A5">10</span>
+          <h3 style="margin:0;font-size: var(--t-h3);line-height:1.08;font-weight:700;letter-spacing:-0.02em;color:var(--fg);text-wrap:balance">Gemaakt om<br>te blijven</h3>
+          <p style="margin: 0; width: 100%; max-width: none; font-size: var(--t-sm); line-height: 1.5; color: var(--muted2); text-wrap: wrap; height: 100%">Principes en patronen die blijven werken als ik weg ben.</p>
+        </div>
+    </div>
+    </sc-if>
   </section><section id="contact" data-footer="" style="margin: 0; padding: var(--sec-y) var(--sec-x); background: var(--ink); color: var(--on-dark); width: 100%; height: 100%; margin-bottom: 0px; margin-right: 0px; margin-left: 0px">
     <p data-reveal="" style="margin:0 0 clamp(14px,2vw,22px);width:fit-content;font-size: var(--t-label);font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--on-dark)">{{ t.contact }}</p>
     <h2 data-reveal="" style="margin: 0 0 64px; max-width: 22ch; font-size: var(--t-h1); line-height: 1; font-weight: 700; letter-spacing: -0.015em; color: var(--on-dark); white-space: pre-line"><span style="font-family:'Archivo',system-ui,sans-serif;font-variation-settings:'wdth' 68;font-weight:200;font-style:italic;letter-spacing:0.018em">{{ t.contactTitleLead }}</span>
@@ -1086,7 +1217,7 @@
 </div>
 
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;preview&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Responsive&quot;,&quot;Mobile&quot;,&quot;Tablet&quot;,&quot;Desktop&quot;,&quot;4K&quot;],&quot;default&quot;:&quot;Responsive&quot;,&quot;tsType&quot;:&quot;'Responsive' | 'Mobile' | 'Tablet' | 'Desktop' | '4K'&quot;,&quot;section&quot;:&quot;Preview&quot;},&quot;loggedIn&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Preview&quot;},&quot;resetSite&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Preview&quot;}}">
+<script type="text/x-dc" data-dc-script data-props="{&quot;preview&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Responsive&quot;,&quot;Mobile&quot;,&quot;Tablet&quot;,&quot;Desktop&quot;,&quot;4K&quot;],&quot;default&quot;:&quot;Responsive&quot;,&quot;tsType&quot;:&quot;'Responsive' | 'Mobile' | 'Tablet' | 'Desktop' | '4K'&quot;,&quot;section&quot;:&quot;Preview&quot;},&quot;loggedIn&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Preview&quot;},&quot;resetSite&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Preview&quot;},&quot;reorderCases&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Edit&quot;}}">
 class Component extends DCLogic {
   state = { heroWord: 0, heroPrev: -1, heroWord2: 0, heroPrev2: -1, open: null, lang: 'en', menuOpen: false, theme: (() => { try { return localStorage.getItem('dg-theme') || 'light'; } catch (e) { return 'light'; } })(), industry: 'All', caseTag: 'All', booting: true, gate: null, gateErr: false, gateBusy: false, unlocked: [] };
   gateHash = 'eb8ff7e25a397ec86514ea6a5aade07badf932f25b5588018add22c6eabef39a';
@@ -2103,7 +2234,161 @@ class Component extends DCLogic {
     document.title = c ? ((c.client || c.title) + ' · ' + base) : base;
     try { this.seoSync(key); } catch (err) {}
   };
+  bindFlood() {
+    if (this._floodBound || typeof document === 'undefined') return;
+    this._floodBound = true;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    // One navy blob behind the grey surface; the white cards are holes in it
+    // (the layer is clipped to the union of card shapes). Between cards it is
+    // a wobbling blob following the cursor; over a card it morphs into that
+    // card's exact rounded shape, so it fills the hole and nothing else.
+    const st = new WeakMap();
+    let px = -1e5, py = -1e5, raf = 0;
+    const L = (a, b, t) => a + (b - a) * t;
+    const rr = (x, y, w, h, r) => { r = Math.min(r, w / 2, h / 2); return 'M' + (x + r) + ' ' + y + 'H' + (x + w - r) + 'A' + r + ' ' + r + ' 0 0 1 ' + (x + w) + ' ' + (y + r) + 'V' + (y + h - r) + 'A' + r + ' ' + r + ' 0 0 1 ' + (x + w - r) + ' ' + (y + h) + 'H' + (x + r) + 'A' + r + ' ' + r + ' 0 0 1 ' + x + ' ' + (y + h - r) + 'V' + (y + r) + 'A' + r + ' ' + r + ' 0 0 1 ' + (x + r) + ' ' + y + 'Z'; };
+    const radii = (w, h, cardR, m, t, ph) => {
+      const v = [];
+      for (let i = 0; i < 8; i++) {
+        const side = i < 4 ? w : h;
+        const blob = side * 0.5;
+        const card = Math.min(cardR, w / 2, h / 2);
+        v.push(Math.max(0, L(card, blob, m)).toFixed(1) + 'px');
+      }
+      return v.slice(0, 4).join(' ') + ' / ' + v.slice(4).join(' ');
+    };
+    const step = (now) => {
+      raf = 0;
+      const t = now || performance.now();
+      let busy = false;
+      document.querySelectorAll('[data-manifesto-grid]').forEach(grid => {
+        const layer = grid.querySelector(':scope > [data-blob-layer]');
+        if (!layer || !grid.offsetParent) return;
+        const g = grid.getBoundingClientRect();
+        const lx = px - g.left, ly = py - g.top;
+        const cards = Array.from(grid.children).filter(c => c !== layer);
+        cards.forEach(c => { if (!c.querySelector(':scope > [data-lit-copy]')) { const cp = document.createElement('div'); cp.setAttribute('data-lit-copy', ''); cp.setAttribute('aria-hidden', 'true'); cp.style.cssText = c.style.cssText; Array.from(c.children).forEach(ch => cp.appendChild(ch.cloneNode(true))); c.appendChild(cp); } });
+        let path = '', diag = 0, hov = null, cardR = 50;
+        const boxes = cards.map(c => {
+          const b = { el: c, x: c.offsetLeft, y: c.offsetTop, w: c.offsetWidth, h: c.offsetHeight };
+          cardR = parseFloat(getComputedStyle(c).borderTopLeftRadius) || cardR;
+          if (c.style.opacity !== '0') path += rr(b.x, b.y, b.w, b.h, cardR);
+          diag = Math.max(diag, Math.hypot(b.w, b.h));
+          if (lx >= b.x && lx <= b.x + b.w && ly >= b.y && ly <= b.y + b.h) hov = b;
+          return b;
+        });
+        layer.style.clipPath = path ? "path('" + path + "')" : 'inset(50%)';
+        const inside = lx >= -40 && lx <= g.width + 40 && ly >= -40 && ly <= g.height + 40;
+        const d = diag * 0.42;
+        let s = st.get(grid);
+        if (!s) { s = { x: lx, y: ly, w: d, h: d, m: 0, k: 0 }; st.set(grid, s); }
+        // Always a card-shaped rounded rectangle: full card size over a card,
+        // slightly smaller while travelling between cards.
+        const cw = (hov || boxes[0] || { w: d }).w, ch = (hov || boxes[0] || { h: d }).h;
+        let T;
+        if (hov) T = { x: hov.x + hov.w / 2, y: hov.y + hov.h / 2, w: hov.w, h: hov.h, m: 0, k: 1 };
+        else if (inside) T = { x: lx, y: ly, w: Math.min(cw, ch) * 0.8, h: Math.min(cw, ch) * 0.8, m: 1, k: 1 };
+        else T = { x: s.x, y: s.y, w: s.w, h: s.h, m: 1, k: 0 };
+        if (s.k < 0.02 && T.k > 0) { s.x = T.x; s.y = T.y; s.w = s.h = Math.min(cw, ch) * 0.8; s.m = 1; }
+        s.x = L(s.x, T.x, 0.085); s.y = L(s.y, T.y, 0.085);
+        s.w = L(s.w, T.w, 0.08); s.h = L(s.h, T.h, 0.08);
+        s.m = L(s.m, T.m, 0.07); s.k = L(s.k, T.k, T.k > s.k ? 0.07 : 0.06);
+        let blob = null;
+        Array.from(layer.children).slice(0, 1).forEach((l, i) => {
+          const f = i ? 1 - 0.18 * s.m : 1;
+          const w = s.w * s.k * f, h = s.h * s.k * f;
+          const ox = i ? Math.sin(t * 0.0005) * 0.14 * s.w * s.m : 0;
+          const oy = i ? Math.cos(t * 0.00063) * 0.12 * s.h * s.m : 0;
+          l.style.transform = 'none';
+          l.style.width = w.toFixed(1) + 'px';
+          l.style.height = h.toFixed(1) + 'px';
+          l.style.left = (s.x + ox - w / 2).toFixed(1) + 'px';
+          l.style.top = (s.y + oy - h / 2).toFixed(1) + 'px';
+          const rad = radii(w, h, cardR, s.m, t, i ? 2.3 : 0);
+          l.style.borderRadius = rad;
+          blob = { x: s.x + ox - w / 2, y: s.y + oy - h / 2, w, h, rad };
+        });
+        boxes.forEach(b => {
+          const cp = b.el.querySelector(':scope > [data-lit-copy]');
+          if (!cp) return;
+          if (!blob || blob.w < 1 || blob.h < 1) { cp.style.clipPath = 'inset(50%)'; return; }
+          const top = blob.y - b.y, left = blob.x - b.x;
+          const right = b.w - (left + blob.w), bottom = b.h - (top + blob.h);
+          if (right > b.w || left > b.w || top > b.h || bottom > b.h) { cp.style.clipPath = 'inset(50%)'; return; }
+          cp.style.clipPath = 'inset(' + top.toFixed(1) + 'px ' + right.toFixed(1) + 'px ' + bottom.toFixed(1) + 'px ' + left.toFixed(1) + 'px round ' + blob.rad + ')';
+        });
+        boxes.forEach(b => {
+          const lit = b === hov && s.m < 0.75 && s.k > 0.4;
+          if ((b.el.dataset.lit === '1') !== lit) b.el.dataset.lit = lit ? '1' : '0';
+        });
+        if (s.k > 0.003 || Math.abs(T.k - s.k) > 0.003) busy = true;
+      });
+      if (busy) raf = requestAnimationFrame(step);
+    };
+    const kick = () => { if (!raf) raf = requestAnimationFrame(step); };
+    // Mouse: follow the pointer. Touch: a tap on a card selects it (stays
+    // until another card or anywhere else is tapped).
+    document.addEventListener('pointermove', (e) => { if (e.pointerType === 'touch') return; px = e.clientX; py = e.clientY; kick(); }, { passive: true });
+    document.addEventListener('pointerup', (e) => {
+      if (e.pointerType === 'mouse') return;
+      const card = e.target && e.target.closest && e.target.closest('[data-manifesto-grid] > div:not([data-blob-layer])');
+      if (card) { const r = card.getBoundingClientRect(); px = r.left + r.width / 2; py = r.top + r.height / 2; this._tapCard = card; }
+      else { px = py = -1e5; this._tapCard = null; }
+      kick();
+    }, { passive: true });
+    document.documentElement.addEventListener('pointerleave', (e) => { if (e.pointerType === 'touch') return; px = py = -1e5; kick(); });
+    window.addEventListener('scroll', () => { if (this._tapCard) { const r = this._tapCard.getBoundingClientRect(); px = r.left + r.width / 2; py = r.top + r.height / 2; } kick(); }, { passive: true });
+    window.addEventListener('resize', kick);
+    document.addEventListener('transitionend', (e) => { if (e.target && e.target.closest && e.target.closest('[data-manifesto-grid]')) kick(); }, true);
+    if (window.ResizeObserver) { const ro = new ResizeObserver(kick); const watch = () => document.querySelectorAll('[data-manifesto-grid]').forEach(g => ro.observe(g)); watch(); setTimeout(watch, 800); }
+    kick(); setTimeout(kick, 400); setTimeout(kick, 1500);
+    this._blobKick = kick;
+  }
+  equalizeManifesto = () => {
+    document.querySelectorAll('[data-manifesto-grid]').forEach(grid => {
+      if (!grid.offsetParent) return;
+      const hs = Array.from(grid.querySelectorAll(':scope > div:not([data-blob-layer]) > h3'));
+      grid.style.setProperty('--mf-h3', '0px');
+      let max = 0;
+      hs.forEach(el => { max = Math.max(max, el.scrollHeight); });
+      if (max) grid.style.setProperty('--mf-h3', max + 'px');
+    });
+  };
+  bindEqualize() {
+    if (this._eqBound || typeof window === 'undefined') return;
+    this._eqBound = true;
+    const run = () => requestAnimationFrame(this.equalizeManifesto);
+    window.addEventListener('resize', run);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(run);
+    run(); setTimeout(run, 500); setTimeout(run, 1500);
+  }
+  // Manual case order (keys). Empty = automatic order (pins, then newest).
+  caseOrder = [];
+  draftOrder() { try { const v = JSON.parse(localStorage.getItem('dg-case-order') || 'null'); return Array.isArray(v) ? v : null; } catch (e) { return null; } }
+  resetCaseOrder = () => { try { localStorage.removeItem('dg-case-order'); } catch (e) {} this.forceUpdate(); };
+  bindReorder() {
+    if (this._reorderBound) return;
+    this._reorderBound = true;
+    const card = (e) => e.target && e.target.closest && e.target.closest('[data-case-grid] [data-case-card]');
+    document.addEventListener('dragstart', (e) => { if (!this.props.reorderCases) return; const c = card(e); if (!c) return; this._dragKey = c.dataset.case; e.dataTransfer.effectAllowed = 'move'; try { e.dataTransfer.setData('text/plain', this._dragKey); } catch (x) {} c.style.opacity = '0.4'; });
+    document.addEventListener('dragend', (e) => { const c = card(e); if (c) c.style.opacity = ''; this._dragKey = null; });
+    document.addEventListener('dragover', (e) => { if (this.props.reorderCases && this._dragKey && card(e)) { e.preventDefault(); e.dataTransfer.dropEffect = 'move'; } });
+    document.addEventListener('drop', (e) => {
+      if (!this.props.reorderCases || !this._dragKey) return;
+      const c = card(e); if (!c) return;
+      e.preventDefault();
+      const to = c.dataset.case, from = this._dragKey;
+      if (!to || to === from) return;
+      const r = c.getBoundingClientRect();
+      const after = (e.clientX - r.left) > r.width / 2;
+      const list = (this._fullOrder || []).filter(k => k !== from);
+      const ti = list.indexOf(to);
+      list.splice(after ? ti + 1 : ti, 0, from);
+      try { localStorage.setItem('dg-case-order', JSON.stringify(list)); } catch (x) {}
+      this.forceUpdate();
+    });
+  }
   openCase = (e) => {
+    if (this.props.reorderCases) { e.preventDefault(); return; }
     // Cards link to the case's own page: let the browser navigate.
     const href = e.currentTarget.getAttribute('href') || '';
     if (href && href.charAt(0) !== '#') return;
@@ -2701,25 +2986,25 @@ class Component extends DCLogic {
     "As one of the developers put it: UX lets them keep their focus on building, so the team ships one product they stand behind, with the end user at the centre instead of the technology.": "Zoals een van de developers het zei: UX zorgt dat hij focus kan houden op ontwikkelen, zodat het team één product levert waar ze achter staan, met de eindgebruiker centraal in plaats van de techniek.",
     "Year": "Jaar",
     "In short": "Kort samengevat",
-    "Great UX is great business": "Goede UX is goede business",
- "Bad tools are already on the payroll: every workaround, every retrained hire, every quiet error gets paid for. Design is where that stops.": "Slechte tools staan al op de loonlijst: elke workaround, elke omscholing, elke stille fout wordt betaald. Design is waar dat stopt.",
+    "UX is business": "UX is business",
+ "Good UX sets you apart, saves time on every task and gets tools actually used.": "Goede UX onderscheidt je, bespaart tijd bij elke taak en zorgt dat tools echt gebruikt worden.",
  "I'm Dirk Gooren. I lead design where the hard part isn't the interface, but getting a large group to agree on what the work should become, and holding that direction while it gets built. I specialise in enterprise UX: business-critical tools for people at work, where a bad decision costs the organisation real time and money. My background is Industrial Design (MSc), and since 2010 I've worked in healthcare, government, housing and finance.": "Ik ben Dirk Gooren. Ik leid design waar het moeilijke niet de interface is, maar een grote groep laten instemmen met wat het werk moet worden, en die richting vasthouden tijdens het bouwen. Ik ben gespecialiseerd in enterprise UX: bedrijfskritische tools voor mensen op hun werk, waar een verkeerd besluit de organisatie echt tijd en geld kost. Ik ben master Industrial Design en werk sinds 2010 in de zorg, bij de overheid, in de woningsector en de financiële wereld.",
  "I'm Dirk Gooren. I lead design where the hard part isn't the interface, but getting a large group to agree on what the work should become, and holding that direction while it gets built. I specialise in enterprise UX: business-critical tools for people at work, where a bad decision costs the organisation real time and money. My background is Industrial Design (MSc), and since 2010 I've worked in healthcare, government, housing and finance.": "Ik ben Dirk Gooren. Ik leid design waar het moeilijke niet de interface is, maar een grote groep laten instemmen met wat het werk moet worden, en die richting vasthouden tijdens het bouwen. Ik ben master Industrial Design en werk sinds 2010 in de zorg, bij de overheid, in de woningsector en de financiële wereld.",
  "The way I work is straightforward: I spend time inside the real work before a screen exists, get the trade-offs decided before anything is designed, and let prototypes settle what opinions can't. What I leave behind (principles, patterns, documentation) has to keep working without me. And I treat UX strategy as business strategy: I judge a release by whether it moved the organisation, not by whether it shipped.": "Mijn werkwijze is eenvoudig: ik zit eerst in het echte werk voordat er een scherm bestaat, laat de afwegingen beslissen voordat er iets ontworpen wordt, en laat prototypes beslechten wat meningen niet kunnen. Wat ik achterlaat (principes, patterns, documentatie) moet blijven werken zonder mij. En ik zie UX-strategie als bedrijfsstrategie: ik beoordeel een release op wat het de organisatie bracht, niet op of het live ging.",
  "I'm Dirk Gooren. I lead design where the hard part isn't the interface, but getting a large group to agree on what the work should become, and holding that direction while it gets built.": "Ik ben Dirk Gooren. Ik leid design waar het moeilijke niet de interface is, maar een grote groep laten instemmen met wat het werk moet worden, en die richting vasthouden tijdens het bouwen.",
     "The decisions I'm hired for are the uncomfortable ones: which process to redesign instead of which screen, and what to leave out. I judge a release by whether it moved the organisation, not by whether it shipped.": "De besluiten waarvoor ik word gevraagd zijn de ongemakkelijke: welk proces je herontwerpt in plaats van welk scherm, en wat je weglaat. Ik beoordeel een release op wat het de organisatie bracht, niet op of het live ging.",
     "I bring structure to the ‘why’ and ‘how’ behind a client's question, and turn a long-term vision into something buildable now.": "Ik breng structuur in het ‘waarom’ en ‘hoe’ achter de vraag van een opdrachtgever, en maak van een langetermijnvisie iets dat nu te bouwen is.",
-    "UX strategy is business strategy.": "UX-strategie is bedrijfsstrategie.",
+    "UX is business": "UX is business",
  "What users need and what the organisation needs are the same question. I answer it in the terms the business is judged on, cost, risk, capacity, growth.": "Wat gebruikers nodig hebben en wat de organisatie nodig heeft is dezelfde vraag. Ik beantwoord die in de taal waarop het bedrijf wordt afgerekend, kosten, risico, capaciteit, groei.",
     "Design has to pay for itself.": "Design moet zichzelf terugbetalen.",
  "I argue in the terms the organisation is judged on (cost, risk, capacity, adoption) so UX stops being a matter of taste.": "Ik onderbouw in de taal waarop de organisatie wordt afgerekend (kosten, risico, capaciteit, adoptie) zodat UX geen kwestie van smaak meer is.",
     "Opinions lose to observation": "Observatie verslaat mening",
- "I spend time inside the real work (a shift on an emergency ward, a day walking with data collectors) before a single screen exists.": "Ik zit eerst in het echte werk (een dienst op de spoedeisende hulp, een dag meelopen met prijsopnemers) voordat er één scherm bestaat.",
+ "I spend time inside the real work before a single screen exists.": "Ik zit eerst in het echte werk voordat er één scherm bestaat.",
     "Decisions before pixels": "Beslissingen voor pixels",
  "What the work should become, what we deliberately will not build, and the criteria a proposal is judged against (agreed up front.": "Wat het werk moet worden, wat we bewust niet bouwen en waarop een voorstel wordt beoordeeld) vooraf vastgelegd.",
     "The prototype wins the argument": "Het prototype wint de discussie",
     "Stakeholders align on what they can use. Every increment gets demoed on real cases, so scope stops being abstract.": "Stakeholders komen samen op iets dat ze kunnen gebruiken. Elke oplevering demo ik op echte casussen, zodat scope niet abstract blijft.",
-    "Built to outlive me": "Gebouwd om mij te overleven",
+    "Built to outlive": "Gemaakt om lang mee te gaan",
     "Principles, patterns and documentation aimed at the developers who maintain it. A year later is the real test.": "Principes, patterns en documentatie voor de ontwikkelaars die het onderhouden. Een jaar later is de echte toets.",
     "When it all started": "Wanneer het begon",
     "A shift in an emergency department, a day walking with data collectors. Observation settles arguments opinion cannot.": "Een dienst op de spoedeisende hulp, een dag meelopen met prijsopnemers. Observatie beslecht discussies die meningen niet beslechten.",
@@ -3965,6 +4250,7 @@ class Component extends DCLogic {
   }
   componentDidUpdate() {
     requestAnimationFrame(this.syncHeroBg);
+    requestAnimationFrame(this.equalizeManifesto);
     if (this._resetSeen === undefined) this._resetSeen = !!this.props.resetSite;
     if (!!this.props.resetSite !== this._resetSeen) {
       this._resetSeen = !!this.props.resetSite;
@@ -4087,12 +4373,18 @@ class Component extends DCLogic {
     const pin = { sidekick: 0, planetyes: 1, hlp: 2 };
     const rank = (c) => (pin[c.key] === undefined ? 3 : pin[c.key]);
     const gated = (c) => (this.lockedCases[c.key] ? 1 : 0);
-    const all = this.caseData().slice().sort((a, b) => rank(a) - rank(b) || gated(a) - gated(b) || yearOf(b) - yearOf(a));
+    let all = this.caseData().slice().sort((a, b) => rank(a) - rank(b) || gated(a) - gated(b) || yearOf(b) - yearOf(a));
+    const order = (this.props.reorderCases && this.draftOrder()) || this.caseOrder;
+    if (order && order.length) { const pos = k => { const i = order.indexOf(k); return i < 0 ? 999 : i; }; all = all.map((c, i) => [c, i]).sort((a, b) => pos(a[0].key) - pos(b[0].key) || a[1] - b[1]).map(x => x[0]); }
+    this._fullOrder = all.map(c => c.key);
+    if (this.props.reorderCases) this.bindReorder();
+    this.bindFlood();
+    this.bindEqualize();
     const idx = all.findIndex(c => c.key === this.state.open);
     const active = idx > -1 ? all[idx] : null;
     const next = active ? all[(idx + 1) % all.length] : null;
     const tr = this.tr;
-    return {
+    const __rv = {
       year: new Date().getFullYear(),
       openCase: this.openCase,
       closeCase: this.closeCase,
@@ -4203,10 +4495,9 @@ class Component extends DCLogic {
         }));
       })(),
       howShort: this.withIcons([
- { step: '01', title: tr('Great UX is great business'), body: tr('Bad tools are already on the payroll: every workaround, every retrained hire, every quiet error gets paid for. Design is where that stops.') },
- { step: '02', title: tr('Opinions lose to observation'), body: tr('I spend time inside the real work (a shift on an emergency ward, a day walking with data collectors) before a single screen exists.') },
- { step: '03', title: tr('Prototyping wins the argument'), body: tr('Stakeholders align on what they can use. Every increment gets demoed on real cases, so scope stops being abstract.') },
-        { step: '04', title: tr('Built to outlive me'), body: tr('Principles, patterns and documentation aimed at the developers who maintain it. A year later is the real test.') }
+ { step: '01', title: tr('UX is\nbusiness'), body: tr('Good UX sets you apart, saves time on every task and gets tools actually used.') },
+ { step: '02', title: tr('Opinions lose to observation'), body: tr('I spend time inside the real work before a single screen exists.') },
+ { step: '03', title: tr('Prototypes win the argument'), body: tr('Stakeholders align on what they can use. Every increment gets demoed on real cases, so scope stops being abstract.') },
       ]),
       howItems: [
  { step: '01', title: tr('I go where the work happens'), body: tr('Before anything is designed I sit with the people doing the job, a shift in an emergency department, a day walking along with data collectors, a treasurer moving millions. Observation settles arguments that opinion cannot.') },
@@ -4214,6 +4505,10 @@ class Component extends DCLogic {
         { step: '03', title: tr('Systems, so the work continues without me'), body: tr('Principles, patterns and documentation aimed at the developers who will maintain it. The test of a design lead is what still holds a year after they left.') }
       ],
       pickCaseTag: this.pickCaseTag,
+      reorderOn: !!this.props.reorderCases,
+      reorderAttr: this.props.reorderCases ? '1' : '0',
+      resetCaseOrder: this.resetCaseOrder,
+      caseOrderText: (this._fullOrder || []).join(', '),
       cases: all
         .filter(c => this.state.caseTag === 'All' || this.catsFor(c).indexOf(this.state.caseTag) > -1)
         .map(c => Object.assign({}, c, { deck: tr(c.deck), tags: this.catsFor(c).map(tr), plainImg: !c.orbs && !c.fan && !c.evo, locked: this.isLocked(c.key), href: this.caseHref(c.key), typeCard: c.src ? '' : c.typeCover })),
@@ -4244,13 +4539,16 @@ class Component extends DCLogic {
         heroPre: this.state.lang === 'nl' ? '' : 'Moving ',
         heroMark: '',
         heroPost: '',
-        heroPost1: this.state.lang === 'nl' ? '\nvooruit helpen\nmet ' : '\nforward through ',
+        heroPost1: this.state.lang === 'nl' ? '\nvooruit helpen met ' : '\nforward through ',
         heroSqueeze: 'UX',
         heroWordA: 'UX',
         heroPost2: this.state.lang === 'nl' ? ' en ' : ' to ',
         heroWordB: 'business',
         heroPost3: '',
         featured: tr('FEATURED WORK'), trustedBy: tr('Created together with'),
+        manifesto: this.state.lang === 'nl' ? 'Manifest' : 'Manifesto',
+        manifestoLead: this.state.lang === 'nl' ? 'Men zegt dat ik eigenwijs ben.' : 'People say I have opinions.',
+        manifestoRest: this.state.lang === 'nl' ? 'Dat vat ik op als een compliment.' : 'I take that as a compliment.',
         aboutTitle: tr("Now you are here.\nLet me introduce myself."),
         aboutTitleLead: tr("Now you are here.\nLet me introduce myself.").split('\n')[0],
         aboutTitleRest: tr("Now you are here.\nLet me introduce myself.").split('\n').slice(1).join('\n'),
@@ -4284,6 +4582,8 @@ class Component extends DCLogic {
         gateChecking: this.state.lang === 'nl' ? 'Controleren…' : 'Checking…',
         gateError: this.state.lang === 'nl' ? 'Dat wachtwoord klopt niet. Probeer het opnieuw.' : 'That password is not right. Try again.'
       },
+      langEn: this.state.lang !== 'nl',
+      langNl: this.state.lang === 'nl',
       stats: [
         { value: '1983', from: String(new Date().getFullYear()), label: tr('When it all started') },
         { value: (new Date().getFullYear() - 2010) + '+', label: tr('Years of experience') },
@@ -4312,6 +4612,7 @@ class Component extends DCLogic {
           bg: (u => u + ', ' + u + ', ' + u)('url("assets/logos/' + (c.key.indexOf('.') > -1 ? c.key : c.key + '.svg') + '")')
         }))
     };
+    return __rv;
   }
 }
 
