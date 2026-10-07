@@ -477,7 +477,7 @@
         </svg>
         <span data-mark-word=""><span style="display:inline-block">D</span><span style="display:inline-block">I</span><span style="display:inline-block">R</span><span style="display:inline-block">K</span><span style="display:inline-block">G</span><span style="display:inline-block">O</span><span style="display:inline-block">O</span><span style="display:inline-block">R</span><span style="display:inline-block">E</span><span style="display:inline-block">N</span></span>
       </a>
-      <a href="#work" onClick="{{ closeGate }}" data-close-case="" aria-label="Close" style="position: absolute; top: clamp(18px,2.4vw,32px); right: calc(var(--sec-x)); height: clamp(44px,4.2vw,58px); display: inline-flex; align-items: center; gap: 6px; font-size: var(--t-label); font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--on-dark); cursor: pointer; transition: opacity var(--t-fast) ease-out" style-hover="opacity:0.6"><span style="position:relative;display:block;width:30px;height:30px;flex:0 0 auto"><span data-x-bar="a" style="position:absolute;left:2px;display:block;width:26px;height:2px;background:currentColor;top:14px;"></span><span data-x-bar="b" style="position:absolute;left:2px;display:block;width:26px;height:2px;background:currentColor;top:14px;"></span></span><span>{{ t.close }}</span></a>
+      <a href="#work" onClick="{{ closeGate }}" data-close-case="" aria-label="{{ t.close }}" style="position: absolute; top: clamp(18px,2.4vw,32px); right: calc(var(--sec-x)); height: clamp(44px,4.2vw,58px); display: inline-flex; align-items: center; gap: 6px; font-size: var(--t-label); font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--on-dark); cursor: pointer; transition: opacity var(--t-fast) ease-out" style-hover="opacity:0.6"><span style="position:relative;display:block;width:30px;height:30px;flex:0 0 auto"><span data-x-bar="a" style="position:absolute;left:2px;display:block;width:26px;height:2px;background:currentColor;top:14px;"></span><span data-x-bar="b" style="position:absolute;left:2px;display:block;width:26px;height:2px;background:currentColor;top:14px;"></span></span><span>{{ t.close }}</span></a>
       <div data-gate-in="" style="width: 350px; max-width: 520px; height: 414px">
         <div aria-hidden="true" onClick="{{ bypassGate }}" title="" style="touch-action:manipulation;display:flex;justify-content:center;margin:0 0 clamp(16px,2vw,24px);color:#F7B5B0;user-select:none">
           <svg width="91" height="91" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10.5" width="16" height="10.5" rx="2"></rect><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"></path></svg>
@@ -515,7 +515,7 @@
           <span data-mark-word=""><span style="display:inline-block">D</span><span style="display:inline-block">I</span><span style="display:inline-block">R</span><span style="display:inline-block">K</span><span style="display:inline-block">G</span><span style="display:inline-block">O</span><span style="display:inline-block">O</span><span style="display:inline-block">R</span><span style="display:inline-block">E</span><span style="display:inline-block">N</span></span>
         </a>
         <nav style="display:flex;align-items:center;gap:clamp(16px,2.6vw,40px);font-size: var(--t-label);font-weight:600;letter-spacing:0.1em;text-transform:uppercase;pointer-events:auto;padding-right:clamp(11px,1.05vw,14.5px)">
-          <a href="#work" onClick="{{ closeCase }}" data-close-case="" style="display:inline-flex;align-items:center;gap:6px;color:#FFFFFF;cursor:pointer;transition:opacity var(--t-fast) ease-out" style-hover="opacity:0.6" aria-label="Close"><span style="position:relative;display:block;width:30px;height:30px;flex:0 0 auto"><span data-x-bar="a" style="position:absolute;left:2px;display:block;width:26px;height:2px;background:currentColor;top:14px;"></span><span data-x-bar="b" style="position:absolute;left:2px;display:block;width:26px;height:2px;background:currentColor;top:14px;"></span></span><span>{{ t.close }}</span></a>
+          <a href="#work" onClick="{{ closeCase }}" data-close-case="" style="display:inline-flex;align-items:center;gap:6px;color:#FFFFFF;cursor:pointer;transition:opacity var(--t-fast) ease-out" style-hover="opacity:0.6" aria-label="{{ t.close }}"><span style="position:relative;display:block;width:30px;height:30px;flex:0 0 auto"><span data-x-bar="a" style="position:absolute;left:2px;display:block;width:26px;height:2px;background:currentColor;top:14px;"></span><span data-x-bar="b" style="position:absolute;left:2px;display:block;width:26px;height:2px;background:currentColor;top:14px;"></span></span><span>{{ t.close }}</span></a>
         </nav>
       </header>
 
@@ -572,7 +572,7 @@
         </div>
       </sc-if>
       <sc-if value="{{ openCaseData.evoCover }}" hint-placeholder-val="{{ false }}">
-        <div data-evo="" data-cover-img="" role="img" aria-label="Four stages of design systems: handcrafted, one brand, many brands, generative" style="margin:0 var(--sec-x);aspect-ratio:16/8;display:grid;grid-template-columns:repeat(4,1fr);gap:0;background:#FFFFFF">
+        <div data-evo="" data-cover-img="" role="img" aria-label="{{ t.evoAria }}" style="margin:0 var(--sec-x);aspect-ratio:16/8;display:grid;grid-template-columns:repeat(4,1fr);gap:0;background:#FFFFFF">
           <div style="position:relative;display:flex;align-items:center;justify-content:center;background:#FFFFFF">
             <div style="position:relative;width:52%;height:34%">
               <div style="position:absolute;left:0;top:6%;width:52%;height:34%;border-radius:2px;background:#202133;transform:rotate(-4deg)"></div>
@@ -706,7 +706,7 @@
               <div data-carousel-nav="" style="display:flex;align-items:center;justify-content:center;gap:8px;margin:clamp(12px,1.6vw,18px) var(--sec-x) 0">
                 <div data-carousel-dots="" style="position:relative;display:flex;align-items:center;gap:10px">
                   <sc-for list="{{ sec.gallery }}" as="g" hint-placeholder-count="0">
-                    <button type="button" data-cdot="" data-idx="{{ $index }}" onClick="{{ carDot }}" aria-label="Go to image" style="position:relative;width:12px;height:12px;padding:0;border:2px solid currentColor;border-radius:999px;background:transparent;color:var(--fg);cursor:pointer;transition:width 720ms cubic-bezier(.34,2.1,.5,1),background-color 240ms ease-out,color var(--t-fast) ease-out"></button>
+                    <button type="button" data-cdot="" data-idx="{{ $index }}" onClick="{{ carDot }}" aria-label="{{ t.goToImage }}" style="position:relative;width:12px;height:12px;padding:0;border:2px solid currentColor;border-radius:999px;background:transparent;color:var(--fg);cursor:pointer;transition:width 720ms cubic-bezier(.34,2.1,.5,1),background-color 240ms ease-out,color var(--t-fast) ease-out"></button>
                   </sc-for>
                 </div>
               </div>
@@ -762,19 +762,19 @@
       <a href="#about" style="display:inline-flex;align-items:center;height:32px;padding:0 14px;border-radius:999px;background:transparent;transition:background var(--t-fast) ease-out;color:var(--nav-ink)" style-hover="color:var(--nav-ink);background:var(--nav-hover)">{{ t.about }}</a>
       <a href="#services" style="display:inline-flex;align-items:center;height:32px;padding:0 14px;border-radius:999px;background:transparent;transition:background var(--t-fast) ease-out;color:var(--nav-ink)" style-hover="color:var(--nav-ink);background:var(--nav-hover)">{{ t.services }}</a>
       <a href="#contact" style="display:inline-flex;align-items:center;height:32px;padding:0 14px;border-radius:999px;background:transparent;transition:background var(--t-fast) ease-out;color:var(--nav-ink)" style-hover="color:var(--nav-ink);background:var(--nav-hover)">{{ t.contact }}</a>
-      <a href="#top" onClick="{{ toggleTheme }}" aria-label="Switch theme" style="display:inline-flex;align-items:center;height:32px;padding:0 14px;border-radius:999px;background:transparent;transition:background var(--t-fast) ease-out;color:var(--nav-ink);cursor:pointer" style-hover="background:var(--nav-hover)">
+      <a href="#top" onClick="{{ toggleTheme }}" aria-label="{{ t.switchTheme }}" style="display:inline-flex;align-items:center;height:32px;padding:0 14px;border-radius:999px;background:transparent;transition:background var(--t-fast) ease-out;color:var(--nav-ink);cursor:pointer" style-hover="background:var(--nav-hover)">
         <span data-theme-icons="" style="position:relative;display:inline-block;width:17px;height:17px;flex:0 0 auto">
           <svg data-theme-icon="sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="position:absolute;inset:0"><circle cx="12" cy="12" r="4.4" fill="currentColor" stroke="none"></circle><path d="M12 2v2.4M12 19.6V22M2 12h2.4M19.6 12H22M5.1 5.1l1.7 1.7M17.2 17.2l1.7 1.7M18.9 5.1l-1.7 1.7M6.8 17.2l-1.7 1.7"></path></svg>
           <svg data-theme-icon="moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="position:absolute;inset:0"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z" fill="currentColor"></path></svg>
         </span>
       </a>
-      <a href="#top" onClick="{{ setLang }}" aria-label="Switch language" style="display:inline-flex;align-items:center;height:32px;padding:0 14px;border-radius:999px;background:transparent;transition:background var(--t-fast) ease-out;gap:6px;color:var(--nav-ink);cursor:pointer" style-hover="color:var(--nav-ink);background:var(--nav-hover)">
+      <a href="#top" onClick="{{ setLang }}" aria-label="{{ t.switchLang }}" style="display:inline-flex;align-items:center;height:32px;padding:0 14px;border-radius:999px;background:transparent;transition:background var(--t-fast) ease-out;gap:6px;color:var(--nav-ink);cursor:pointer" style-hover="color:var(--nav-ink);background:var(--nav-hover)">
         <span style="{{ langEnStyle }}">EN</span>
         <span style="opacity:0.35">/</span>
         <span style="{{ langNlStyle }}">NL</span>
       </a>
     </nav>
-    <button data-burger="" type="button" onClick="{{ toggleMenu }}" aria-label="Menu" style="display: none; align-items: center; gap: 6px; pointer-events: auto; flex: 0 0 auto; height: 44px; padding: 0 clamp(11px,1.05vw,14.5px) 0 0; border: 0; background: transparent; color: {{ burgerColor }}; font-family: inherit; font-size: var(--t-label); font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; text-align: left; padding-right: 0px">
+    <button data-burger="" type="button" onClick="{{ toggleMenu }}" aria-label="{{ t.menu }}" style="display: none; align-items: center; gap: 6px; pointer-events: auto; flex: 0 0 auto; height: 44px; padding: 0 clamp(11px,1.05vw,14.5px) 0 0; border: 0; background: transparent; color: {{ burgerColor }}; font-family: inherit; font-size: var(--t-label); font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; text-align: left; padding-right: 0px">
       <span style="position:relative;display:block;width:30px;height:30px;flex:0 0 auto">
         <span style="{{ burgerBarTop }}"></span>
         <span style="{{ burgerBarBottom }}"></span>
@@ -792,11 +792,11 @@
         <a href="#contact" onClick="{{ navMenu }}" style="color:var(--on-dark)" style-hover="color:rgba(247,181,176,0.62)">{{ t.contact }}</a>
       </nav>
       <div data-menu-lang="" style="margin-top:auto;display:flex;align-items:center;gap:28px;padding:clamp(24px,6vw,48px) clamp(24px,5vw,72px);font-size: var(--t-label);font-weight:600;letter-spacing:0.1em;text-transform:uppercase">
-        <a href="#top" onClick="{{ toggleTheme }}" aria-label="Switch theme" style="display:inline-flex;align-items:center;color:var(--on-dark);cursor:pointer" style-hover="opacity:0.6">
+        <a href="#top" onClick="{{ toggleTheme }}" aria-label="{{ t.switchTheme }}" style="display:inline-flex;align-items:center;color:var(--on-dark);cursor:pointer" style-hover="opacity:0.6">
         <sc-if value="{{ isLight }}" hint-placeholder-val="{{ true }}"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.4" fill="currentColor" stroke="none"></circle><path d="M12 2v2.4M12 19.6V22M2 12h2.4M19.6 12H22M5.1 5.1l1.7 1.7M17.2 17.2l1.7 1.7M18.9 5.1l-1.7 1.7M6.8 17.2l-1.7 1.7"></path></svg></sc-if>
         <sc-if value="{{ isDark }}" hint-placeholder-val="{{ false }}"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z" fill="currentColor"></path></svg></sc-if>
       </a>
-      <a href="#top" onClick="{{ setLang }}" aria-label="Switch language" style="display:inline-flex;align-items:center;gap:8px;color:var(--on-dark);cursor:pointer">
+      <a href="#top" onClick="{{ setLang }}" aria-label="{{ t.switchLang }}" style="display:inline-flex;align-items:center;gap:8px;color:var(--on-dark);cursor:pointer">
           <span style="{{ langEnStyleDark }}">EN</span>
           <span style="opacity:0.35">/</span>
           <span style="{{ langNlStyleDark }}">NL</span>
@@ -857,7 +857,7 @@
                 </div>
               </sc-if>
               <sc-if value="{{ c.evo }}" hint-placeholder-val="{{ false }}">
-                <div data-evo="" aria-label="Four stages of design systems: handcrafted, one brand, many brands, generative" role="img" style="position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:0;background:#FFFFFF;container-type:size">
+                <div data-evo="" aria-label="{{ t.evoAria }}" role="img" style="position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:0;background:#FFFFFF;container-type:size">
                   <div style="position:relative;display:flex;align-items:center;justify-content:center;background:#FFFFFF">
                     <div style="position:relative;width:46%;height:46%">
                       <div style="position:absolute;left:0;top:6%;width:52%;height:34%;border-radius:2px;background:#202133;transform:rotate(-4deg)"></div>
@@ -989,7 +989,7 @@
         </div>
       </div>
       <div data-gaze="" style="position:relative;align-self:end;width:100%;max-width:520px;justify-self:center;aspect-ratio:941 / 1672">
-        <img src="assets/img/gaze2/centre.png" alt="Portrait of Dirk Gooren with arms crossed, eyes following the cursor" width="941" height="1672" data-gaze-base="" style="position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:contain;object-position:bottom">
+        <img src="assets/img/gaze2/centre.png" alt="{{ t.altPortrait }}" width="941" height="1672" data-gaze-base="" style="position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:contain;object-position:bottom">
         <img src="assets/img/gaze2/right.png" alt="" aria-hidden="true" data-gaze-frame="right" style="position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:contain;object-position:bottom;opacity:0;pointer-events:none">
         <img src="assets/img/gaze2/right-up.png" alt="" aria-hidden="true" data-gaze-frame="right-up" style="position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:contain;object-position:bottom;opacity:0;pointer-events:none">
         <img src="assets/img/gaze2/up-right.png" alt="" aria-hidden="true" data-gaze-frame="up-right" style="position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:contain;object-position:bottom;opacity:0;pointer-events:none">
@@ -2173,14 +2173,14 @@ class Component extends DCLogic {
         sections: [
           { title: 'The challenge', slot: '', image: 'assets/img/hlp/werkprocessen.png', paras: [
             'Payroll tax (loonheffingen) at the Belastingdienst was handled across twenty-two applications, four work processes and sixty-seven controllers. Every team knew its own part; nobody owned the whole. Any proposal to improve one screen ran straight into the question of what the work should look like in the first place.',
-            'Before a single interface could be designed, the organisation needed a shared answer to that question \u2014 one that IT, policy and the officials themselves could all recognise as theirs.'
+            'Before a single interface could be designed, the organisation needed a shared answer to that question, one that IT, policy and the officials themselves could all recognise as theirs.'
           ]},
           { title: 'Mapping the work, not the software', slot: 'dg-hlpstrat-rollen', image: 'assets/img/hlp/rolverdeling.png', paras: [
             'I ran workshops and observation sessions with officials, product owners and developers to map the current way of working process by process, screen by screen. Counting the applications made the size of the problem concrete; watching one case travel through them made it undeniable.',
             'The same sessions surfaced what people actually valued in the work: judgement, contact with the inhoudingsplichtige, and knowing where a case stands. Those became the criteria the vision had to protect.'
           ]},
           { title: 'A framework to argue with', slot: '', image: 'assets/img/hlp/framework.png', paras: [
-            'The vision is anchored in one framework that positions the way of working along two axes \u2014 from correctief to preventief, and from competitief to co\u00f6peratief. Four quadrants, one shared vocabulary for the behaviour the new environment should encourage.',
+            'The vision is anchored in one framework that positions the way of working along two axes: from correctief to preventief, and from competitief to co\u00f6peratief. Four quadrants, one shared vocabulary for the behaviour the new environment should encourage.',
             'Its value was less as a diagram than as a decision tool: a proposal could be placed on it, and the discussion moved from taste to direction. It is what let a large organisation agree on where it was going before agreeing on what to build.'
           ]},
           { title: 'From vision to increments', slot: '', image: '', paras: [
@@ -2198,7 +2198,7 @@ class Component extends DCLogic {
         cover: 'assets/img/hlp/dwl-login.png', coverSlot: 'dg-hlp-cover',
         sections: [
           { title: 'The challenge', slot: 'dg-hlp-landschap', image: 'assets/img/hlp/applicatielandschap.png', gallery: [{ slot: 'dg-hlp-werkvoorraad', src: 'assets/img/hlp/dwl-werkvoorraad.png' }, { slot: 'dg-hlp-jaaroverzicht', src: 'assets/img/hlp/dwl-jaaroverzicht.png' }], paras: [
-            'Officials working on payroll tax had to move between a large number of separate applications to handle a single case. Information was scattered, actions were repeated, and the person on the other side of the case \u2014 the inhoudingsplichtige \u2014 was reduced to a number in a screen.',
+            'Officials working on payroll tax had to move between a large number of separate applications to handle a single case. Information was scattered, actions were repeated, and the person on the other side of the case (the inhoudingsplichtige) was reduced to a number in a screen.',
             'The design task was one portal: a single work environment built around the case and the person handling it, with the workstroom, the inhoudingsplichtige, the loonheffingen and the treatment itself in one place.'
           ]},
           { title: 'Five design principles', slot: '', image: 'assets/img/hlp/principles.png', paras: [
@@ -2211,7 +2211,7 @@ class Component extends DCLogic {
             { title: 'Modulaire opzet', body: 'Build on micro-frontends and Design System Bold so the environment can keep growing without fragmenting again.' }
           ]},
           { title: 'Designing the case as one flow', slot: 'dg-hlp-vaststellingen', image: 'assets/img/hlp/dwl-vaststellingen.png', gallery: [{ slot: 'dg-hlp-historie', src: 'assets/img/hlp/dwl-vaststellingen-historie.png' }, { slot: 'dg-hlp-blokkades', src: 'assets/img/hlp/dwl-blokkades.png' }], paras: [
-            'A case is designed as a single vertical flow \u2014 workstroom, inhoudingsplichtige, loonheffingen, behandeling \u2014 with the actions that decide its fate (teruggeven, parkeren, doorzetten, afkeuren, accepteren) fixed in one bar at the bottom.',
+            'A case is designed as a single vertical flow (workstroom, inhoudingsplichtige, loonheffingen, behandeling) with the actions that decide its fate (teruggeven, parkeren, doorzetten, afkeuren, accepteren) fixed in one bar at the bottom.',
             'That structure answers the four questions an official asks of every case: why, who, what, and what now. Everything else is progressive disclosure.'
           ]},
           { title: 'Prototypes settle arguments slides cannot', slot: '', image: '', paras: [
@@ -2267,17 +2267,17 @@ class Component extends DCLogic {
         key: 'bmg', year: '2025', num: '08', slot: 'dg-case-bmg', src: 'assets/img/bmg/collaboration.png', placeholder: 'Bank Mendes Gans cover',
         title: 'Transfers, without the second guess', client: 'ING / Bank Mendes Gans', tags: ['User research', 'UX design', 'Interaction design', 'Prototyping'], meta: 'Bank Mendes Gans \u00b7 UX design \u00b7 Research',
         role: 'Lead UX designer and researcher', team: 'BMG treasury operations, product owners and the platform development team', outcome: 'Routine transfers were completed noticeably faster in testing, private side-checks disappeared, and the pattern became the reference for other high-stakes flows.',
-        blurb: 'Redesigning the transfer application treasurers use to move millions \u2014 where one mistyped field is a real problem.',
+        blurb: 'Redesigning the transfer application treasurers use to move millions (where one mistyped field is a real problem.',
         deck: 'Redesigning the transfer application treasurers move millions with',
         coverSlot: 'dg-bmg-cover',
         sections: [
           { title: 'The challenge', slot: 'dg-bmg-1', image: '', paras: [
             'Corporate treasurers at Bank Mendes Gans move large amounts between accounts, entities and currencies every day. The application they did it in had grown feature by feature: fields in the order the system needed them rather than the order a treasurer thinks in, validation that only spoke up at the end, and no clear moment where you could see what you were about to do.',
-            'The result was a workflow people did carefully rather than confidently \u2014 double-checking in spreadsheets, calling colleagues, re-entering transfers they had already made. The redesign brief was not more features. It was certainty.'
+            'The result was a workflow people did carefully rather than confidently, double-checking in spreadsheets, calling colleagues, re-entering transfers they had already made. The redesign brief was not more features. It was certainty.'
           ]},
           { title: 'The risky transfers are the routine ones', slot: 'dg-bmg-2', image: '', paras: [
             'I ran observation sessions and interviews with treasurers, operations staff and the people who pick up the phone when something goes wrong. The pattern was consistent: the risky moments were not the complicated transfers, they were the routine ones done at speed.',
-            'Mapping their actual sequence \u2014 decide, look up, enter, verify, release \u2014 showed the application was organised around none of it. That map became the structure of the new design.'
+            'Mapping their actual sequence (decide, look up, enter, verify, release) showed the application was organised around none of it. That map became the structure of the new design.'
           ]},
           { title: 'One transfer, one flow', slot: 'dg-bmg-3', image: '', paras: [
             'The new transfer is a single vertical flow that follows the treasurer\u2019s own order: from and to, amount and currency, value date, reference, then a review step that states in plain language what will happen and what it will cost.',
@@ -2285,11 +2285,11 @@ class Component extends DCLogic {
           ]},
           { title: 'Designing for repetition', slot: 'dg-bmg-4', image: '', paras: [
             'Most transfers are variations on transfers already made. Templates, recent counterparties and a duplicate-with-changes action turn the common case into a few keystrokes, while keeping the full flow available for the exception.',
-            'Bulk and recurring transfers use the same review step as a single one \u2014 the same guarantee, regardless of how much is moving.'
+            'Bulk and recurring transfers use the same review step as a single one (the same guarantee, regardless of how much is moving.'
           ]},
           { title: 'Certainty, measured', slot: '', image: '', paras: [
             'In testing, treasurers completed routine transfers noticeably faster and stopped reaching for their own side-checks. The errors that remained were caught before release rather than after.',
-            'The pattern set here \u2014 think-order sequence, validation as you type, an explicit review \u2014 became the reference for the other high-stakes flows in the platform.'
+            'The pattern set here (think-order sequence, validation as you type, an explicit review) became the reference for the other high-stakes flows in the platform.'
           ]}
         ]
       },
@@ -2333,17 +2333,17 @@ class Component extends DCLogic {
         key: 'tweedekamer', year: '2026', num: '10', slot: 'dg-case-tweedekamer', src: 'assets/img/home/tk-home.jpg', placeholder: 'Tweede Kamer cover',
         title: 'Making the visual part of the record', client: 'Tweede Kamer', tags: ['User research', 'UX design', 'Accessibility', 'Design system'], meta: 'Tweede Kamer \u00b7 UX design \u00b7 Accessibility',
         role: 'UX designer and researcher', team: 'Tweede Kamer information services, editors and accessibility specialists', outcome: 'A documented set of visual patterns applied at the source, so parliamentary visuals are legible and accessible by construction.',
-        blurb: 'Redesigning how images and infographics live inside parliamentary documents \u2014 readable, accessible and part of the argument.',
+        blurb: 'Redesigning how images and infographics live inside parliamentary documents (readable, accessible and part of the argument.',
         deck: 'Redesigning how images and infographics live in parliamentary documents',
         coverSlot: 'dg-tweedekamer-cover',
         sections: [
           { title: 'The challenge', slot: 'dg-tk-1', image: '', paras: [
-            'Parliamentary documents are built for text. When an image or an infographic arrives \u2014 a chart in a ministerial letter, a map in a committee report \u2014 it tends to be handled as an attachment: dropped in at whatever size it came, sometimes as a flat scan, often without a description.',
+            'Parliamentary documents are built for text. When an image or an infographic arrives (a chart in a ministerial letter, a map in a committee report) it tends to be handled as an attachment: dropped in at whatever size it came, sometimes as a flat scan, often without a description.',
             'For a reader that means the visual carrying the argument is the least usable thing on the page. For a reader using a screen reader it means the argument is simply missing. The Tweede Kamer asked how images and infographics should be integrated properly.'
           ]},
           { title: 'How documents are actually read', slot: 'dg-tk-2', image: '', paras: [
             'I looked at how these documents get used: members and staff scanning for the one figure that matters, journalists pulling a chart out of context, citizens arriving from a search result on a phone.',
-            'Almost nobody reads front to back, which reframes the problem. A visual is not decoration inside a linear text \u2014 it is often the entry point, and it has to make sense on its own.'
+            'Almost nobody reads front to back, which reframes the problem. A visual is not decoration inside a linear text, it is often the entry point, and it has to make sense on its own.'
           ]},
           { title: 'Treating a visual as content', slot: 'dg-tk-3', image: '', paras: [
             'The design gives every image and infographic a proper place in the document: a defined position in the flow, a caption that states what it shows, a source, and a text alternative that carries the same finding rather than describing the picture.',
@@ -2351,10 +2351,10 @@ class Component extends DCLogic {
           ]},
           { title: 'Accessible by construction', slot: 'dg-tk-4', image: '', paras: [
             'Accessibility here is not an overlay. The caption, source and text alternative are required fields of the visual, so a document cannot be published with a chart whose finding exists only in pixels.',
-            'For data visuals the alternative is a short statement of what the data shows, with the underlying figures available as a table \u2014 which serves screen-reader users, print, and anyone who wants to check the numbers.'
+            'For data visuals the alternative is a short statement of what the data shows, with the underlying figures available as a table, which serves screen-reader users, print, and anyone who wants to check the numbers.'
           ]},
           { title: 'Fix the source, not the archive', slot: '', image: '', paras: [
-            'The result is a small set of documented visual patterns \u2014 inline figure, wide figure, portrait, data visual with table \u2014 with rules for sizing, captions and alternatives, so the ministries and services producing these documents apply them at the source.',
+            'The result is a small set of documented visual patterns (inline figure, wide figure, portrait, data visual with table) with rules for sizing, captions and alternatives, so the ministries and services producing these documents apply them at the source.',
             'That is the point of leverage: the fix is not editing thousands of published documents, it is making the correct treatment the easiest one to produce.'
           ]}
         ]
@@ -2507,7 +2507,7 @@ class Component extends DCLogic {
     'assets/img/planetyes/report-business.jpg': 'Published ESG report chapter on business and materiality',
     'assets/img/planetyes/login.jpg': 'Planet Yes log-in screen with layered brand shapes'
   };
-  altFor = (p, fb) => (p && this.alts[p]) || fb || '';
+  altFor = (p, fb) => this.tr((p && this.alts[p]) || fb || '');
   isChrome = (p) => /\/planetyes\/(workflow-|organizer-|login|report-)|\/sidekick\/proto-final|\/hlp\/dwl-/.test(p || '');
   frameRatio = (p) => { const rr = this.ratios[p] || 1.6; return rr >= 1.2 ? rr : 1.6; };
   ratios = {"assets/img/advance/cover.png":1.3333,"assets/img/advance/home.png":0.4621,"assets/img/advance/wizard.png":0.4621,"assets/img/advance/step.png":0.4621,"assets/img/advance/onboarding.png":0.4621,"assets/img/advance/board.png":1.6,"assets/img/hlp/rolverdeling.png":1.6,"assets/img/home/tk-home.jpg":1.6,"assets/img/hlp/applicatielandschap.png":1.7778,"assets/img/home/radboud-home.jpg":1.6,"assets/img/home/kvs-home.jpg":1.3333,"assets/img/home/cbs-home.jpg":1.3333,"assets/img/home/hupo-home.jpg":0.75,"assets/img/radboud/cover.jpg":1.6,"assets/img/css/cover.jpg":1.6,"assets/img/cbs/cover.jpg":1.6,"assets/img/hupo/cover.jpg":1.6,"assets/img/hlp/dwl-login.png":1.6707,"assets/img/hlp/dwl-werkvoorraad.png":1.6707,"assets/img/hlp/dwl-jaaroverzicht.png":1.6707,"assets/img/hlp/dwl-vaststellingen.png":1.6707,"assets/img/hlp/dwl-vaststellingen-historie.png":1.6707,"assets/img/hlp/dwl-blokkades.png":1.6707,"assets/img/sidekick/kickoff.png":1.1553,"assets/img/sidekick/discovery.png":1.2605,"assets/img/sidekick/design-sprint.png":1.8386,"assets/img/sidekick/proto-final.png":1.2769,"assets/img/sidekick/proto-steps.png":2.3107,"assets/img/sidekick/testing-anon.png":2.0882,"assets/img/planetyes/device-materiality-card.png":1.3335,"assets/img/planetyes/panels-card.jpg":1.3345,"assets/img/planetyes/device-materiality-cover.png":2,"assets/img/planetyes/lifecycle.png":1.777,"assets/img/planetyes/device-materiality.png":1.471,"assets/img/planetyes/device-results.png":1.471,"assets/img/planetyes/device-planning.png":1.501,"assets/img/planetyes/lifecycle-v2.jpg":1.5857,"assets/img/planetyes/workflow-planning.jpg":1.5397,"assets/img/planetyes/organizer-materiality.jpg":1.5397,"assets/img/planetyes/organizer-program.jpg":1.5397,"assets/img/planetyes/login.jpg":1.5397,"assets/img/planetyes/report-introduction.jpg":0.6407,"assets/img/planetyes/report-business.jpg":0.7865,"assets/img/sidekick/homepage.png":0.52,"assets/img/sidekick/hero.png":1.456,"assets/img/radboud/detail-1.png":1.3333,"assets/img/radboud/obs-1.jpg":1.7778,"assets/img/radboud/obs-2.jpg":0.75,"assets/img/radboud/obs-3.jpg":1.5009,"assets/img/radboud/brainstorm-1.jpg":1.3333,"assets/img/radboud/brainstorm-2.jpg":0.75,"assets/img/radboud/brainstorm-3.jpg":1.7778,"assets/img/radboud/concept.jpg":1.7778,"assets/img/radboud/card.jpg":2.3155,"assets/img/radboud/ui.jpg":2.0888,"assets/img/cbs/paper-transition.jpg":1.7544,"assets/img/cbs/activities.jpg":1.9656,"assets/img/cbs/gamification.jpg":1.6,"assets/img/cbs/ui.jpg":2.9685,"assets/img/cbs/user-testing.jpg":1.4733,"assets/img/css/context.jpg":1.6,"assets/img/css/brainstorm-1.jpg":1.3333,"assets/img/css/brainstorm-2.jpg":1.3333,"assets/img/css/multi-channel.jpg":2.439,"assets/img/css/ui.jpg":2.1025,"assets/img/css/images.jpg":4.7761,"assets/img/css/team.jpg":1.5109,"assets/img/hupo/research-1.jpg":1.3333,"assets/img/hupo/research-2.jpg":1.3333,"assets/img/hupo/research-3.jpg":1.3333,"assets/img/hupo/structure.jpg":1.6,"assets/img/hupo/system.jpg":1.9417,"assets/img/hupo/system-2.jpg":1.6,"assets/img/hupo/system-3.jpg":1.6,"assets/img/hupo/service-1.jpg":1.3333,"assets/img/hupo/service-2.jpg":0.8756,"assets/img/hlp/framework.png":1,"assets/img/hlp/principles.png":2.2195,"assets/img/hlp/portal.png":1.2048,"assets/img/hlp/werkprocessen.png":1.2222,"assets/img/hlp/cover-strategie.png":2,"assets/img/hlp/cover-portal.png":2};
@@ -2733,7 +2733,7 @@ class Component extends DCLogic {
     'Design': 'Ontwerp',
     'Shaping the whole experience, not just the screens.': 'De hele ervaring vormgeven, niet alleen de schermen.',
     'AI interaction': 'AI-interactie', 'Knowledge sessions': 'Kennissessies', 'Design critique': 'Ontwerpcritique', 'Co-design': 'Co-design',
-    'Workshops, talks & coaching': 'Workshops, talks & coaching',
+    'Workshops, talks & coaching': 'Workshops, lezingen & coaching',
     'Designing how people prompt, steer and trust an AI feature.': 'Ontwerpen hoe mensen een AI-functie aansturen, sturen en vertrouwen.',
     'Sharing what I know with a team, in the language of their work.': 'Delen wat ik weet met een team, in de taal van hun werk.',
     'Structured feedback that makes a design better, not smaller.': 'Gestructureerde feedback die een ontwerp beter maakt, niet kleiner.',
@@ -2957,11 +2957,205 @@ class Component extends DCLogic {
     "Government": "Overheid",
     "Finance": "Financieel",
     "Housing": "Wonen",
-    "Industry": "Industrie"
+    "Industry": "Industrie",
+    "Project lead and UX designer": "Projectleider en UX-designer",
+    "Navara design and development team, with Radboud umc clinicians and regional ambulance services": "Ontwerp- en ontwikkelteam van Navara, met clinici van het Radboud umc en regionale ambulancediensten",
+    "In daily use at Radboud umc and several other hospitals, the handover now starts before the ambulance arrives.": "Dagelijks in gebruik in het Radboud umc en diverse andere ziekenhuizen. De overdracht begint nu al voordat de ambulance aankomt.",
+    "Experience designer, design lead": "Experience designer en design lead",
+    "ZIG product and development teams, with service staff from several housing corporations": "Product- en ontwikkelteams van ZIG, met klantenservicemedewerkers van diverse woningcorporaties",
+    "The design direction now guides all further development of ZIG’s customer service system, behind it, service for roughly half a million households.": "De ontwerprichting stuurt nu alle verdere ontwikkeling van het klantenservicesysteem van ZIG, en daarmee de service aan zo’n half miljoen huishoudens.",
+    "Navara team with CBS data collectors, their team managers and statisticians": "Navara-team met prijswaarnemers van het CBS, hun teammanagers en statistici",
+    "Still in use in 24 countries across Europe; managers report higher data quality and the separate digitisation step disappeared.": "Nog altijd in gebruik in 24 Europese landen. Managers zien een hogere datakwaliteit en de aparte digitaliseringsstap is verdwenen.",
+    "Lead designer": "Lead designer",
+    "ZIG development teams and the product owners of several housing corporations": "Ontwikkelteams van ZIG en de product owners van diverse woningcorporaties",
+    "Launched in 2022; corporations serving half a million households run on it, and ZIG could scale to new customers and markets.": "Gelanceerd in 2022. Corporaties met samen een half miljoen huishoudens draaien erop, en ZIG kon opschalen naar nieuwe klanten en markten.",
+    "UX strategist and facilitator": "UX-strateeg en facilitator",
+    "Belastingdienst officials, product owners, architects and policy advisers": "Medewerkers van de Belastingdienst, product owners, architecten en beleidsadviseurs",
+    "Twenty-two applications, four work processes and sixty-seven controllers reduced to one shared vision the programme now builds against.": "Tweeëntwintig applicaties, vier werkprocessen en zevenenzestig controllers teruggebracht tot één gedeelde visie waar het programma nu op bouwt.",
+    "Lead UX and interaction designer": "Lead UX- en interactieontwerper",
+    "Several micro-frontend teams, product owners and the Design System Bold team": "Meerdere micro-frontendteams, product owners en het team van Design System Bold",
+    "Five design principles now govern every increment that replaces a piece of the legacy landscape.": "Vijf ontwerpprincipes sturen nu elke increment die een stuk van het verouderde landschap vervangt.",
+    "Product designer and design lead": "Productontwerper en design lead",
+    "Planet Yes founders and a small front-end team": "De oprichters van Planet Yes en een klein front-endteam",
+    "Lead UX designer and researcher": "Lead UX-designer en onderzoeker",
+    "BMG treasury operations, product owners and the platform development team": "Treasury operations van BMG, product owners en het ontwikkelteam van het platform",
+    "Routine transfers were completed noticeably faster in testing, private side-checks disappeared, and the pattern became the reference for other high-stakes flows.": "Routinematige overboekingen gingen in tests merkbaar sneller, controles buiten het systeem om verdwenen en het patroon werd de referentie voor andere kritieke flows.",
+    "Two audiences came out of it. Civil servants want to find something that solves today’s task and know they are allowed to use it. Their CIO, privacy officer and procurement colleagues want to know where the model runs, what it was trained on, who is accountable and what happens to the data. Designing for only the first gives you an app store nobody is permitted to shop in. Designing for only the second gives you a compliance register nobody visits.": "Daar kwamen twee doelgroepen uit. Ambtenaren willen iets vinden dat de taak van vandaag oplost, en weten dat ze het mogen gebruiken. Hun CIO, privacy officer en inkopers willen weten waar het model draait, waarop het getraind is, wie verantwoordelijk is en wat er met de data gebeurt. Ontwerp je alleen voor de eersten, dan krijg je een app store waar niemand mag winkelen. Ontwerp je alleen voor de tweeden, dan krijg je een complianceregister dat niemand bezoekt.",
+    "That is where the core move of the design was settled. Every listing carries its evidence in the listing itself: hosting location, model provenance, data handling, the owning organisation with a name, and who is already using it in production. It reads like a product page and holds up as a dossier. ‘Who else runs this’ turned out to be the strongest signal of all.": "Daar viel de kernbeslissing van het ontwerp. Elke vermelding draagt haar bewijs in zich: hostinglocatie, herkomst van het model, omgang met data, de eigenaar met een naam, en wie het al in productie gebruikt. Het leest als een productpagina en houdt stand als dossier. ‘Wie gebruikt dit nog meer’ bleek het sterkste signaal van allemaal.",
+    "UX designer and researcher": "UX-designer en onderzoeker",
+    "Tweede Kamer information services, editors and accessibility specialists": "Informatievoorziening van de Tweede Kamer, redacteuren en toegankelijkheidsspecialisten",
+    "A documented set of visual patterns applied at the source, so parliamentary visuals are legible and accessible by construction.": "Een gedocumenteerde set visuele patronen die aan de bron wordt toegepast, zodat parlementaire beelden vanzelf leesbaar en toegankelijk zijn.",
+    "The era of AI-empowered work": "Het tijdperk van AI-versterkt werk",
+    "Article": "Artikel",
+    "The evolution of design systems": "De evolutie van designsystemen",
+    "Design system owner and lead designer": "Eigenaar van het designsysteem en lead designer",
+    "Product owners, front-end teams and, in the largest case, a central design system team I contributed to rather than controlled": "Product owners, front-endteams en, in het grootste geval, een centraal designsysteemteam waar ik aan bijdroeg zonder het te sturen",
+    "A working model of four stages of design system maturity, with systems built or led at the first three and a position on what the fourth demands.": "Een werkend model van vier volwassenheidsfasen van designsystemen, met systemen gebouwd of geleid in de eerste drie, en een standpunt over wat de vierde vraagt.",
+    "Four stages of design systems, from everything custom to systems that generate the interface, and what each stage asks of design.": "Vier fasen van designsystemen, van alles op maat tot systemen die de interface genereren, en wat elke fase van design vraagt.",
+    "Towards AI-crafted design systems": "Op weg naar door AI gemaakte designsystemen",
+    "Every organisation I work with sits somewhere on the same curve. How it designs interfaces says less about talent than about the stage its design system has reached, and each stage brings its own problems.": "Elke organisatie waarmee ik werk, zit ergens op dezelfde curve. Hoe ze interfaces ontwerpt, zegt minder over talent dan over de fase die haar designsysteem heeft bereikt, en elke fase brengt eigen problemen mee.",
+    "I see four stages. Knowing which one you are in tells you what to fix next, and what not to build yet.": "Ik zie vier fasen. Weten in welke je zit, vertelt je wat je als volgende moet oplossen, en wat je nog niet moet bouwen.",
+    "Stage 1": "Fase 1",
+    "Handcrafted and all custom": "Handwerk en alles op maat",
+    "Full freedom to fit the brief": "Volledige vrijheid om bij de opdracht te passen",
+    "Fast to start, nothing to set up first": "Snel van start, niets om eerst in te richten",
+    "Room for distinctive work": "Ruimte voor onderscheidend werk",
+    "Inconsistent across screens and teams": "Inconsistent tussen schermen en teams",
+    "Every new screen starts close to zero": "Elk nieuw scherm begint bijna bij nul",
+    "Knowledge lives in people, not in the product": "Kennis zit in mensen, niet in het product",
+    "Everything is handcrafted for the project at hand. Every button, form and table is drawn by hand for the screen it appears on. There is no structure and no system, only the memory and goodwill of whoever happens to be working on it.": "Alles wordt met de hand gemaakt voor het project van dat moment. Elke knop, elk formulier en elke tabel wordt getekend voor het scherm waarop hij staat. Er is geen structuur en geen systeem, alleen het geheugen en de goede wil van wie er toevallig aan werkt.",
+    "Often there is a style guide or pattern library: a brand guide, a Sketch or Figma file with the agreed parts. It helps, but it is a reference, not a system. Nothing ties it to code, so every team interprets it again and it drifts from what ships.": "Vaak is er een stijlgids of patroonbibliotheek: een merkhandboek, een Sketch- of Figma-bestand met de afgesproken onderdelen. Dat helpt, maar het is een naslagwerk, geen systeem. Niets verbindt het met code, dus elk team interpreteert het opnieuw en het drijft af van wat er live gaat.",
+    "Radboud umc is an example. The work can be excellent screen by screen, but consistency does not hold, and every new screen starts close to zero.": "Het Radboud umc is een voorbeeld. Het werk kan per scherm uitstekend zijn, maar consistentie houdt geen stand, en elk nieuw scherm begint bijna bij nul.",
+    "Stage 2": "Fase 2",
+    "A system for one brand": "Een systeem voor één merk",
+    "Consistency and speed within one brand": "Consistentie en snelheid binnen één merk",
+    "A shared language for design and development": "Een gedeelde taal voor design en development",
+    "Bought: running from day one": "Gekocht: vanaf dag één in gebruik",
+    "Every deviation has to be argued": "Elke afwijking moet onderbouwd worden",
+    "Needs an owner and ongoing upkeep": "Vraagt een eigenaar en doorlopend onderhoud",
+    "Bought: carries somebody else’s defaults": "Gekocht: bevat de standaarden van een ander",
+    "There is a design system specific to one brand, client or project. It sets standards and may include design patterns. It can be bought and adapted, or built from scratch.": "Er is een designsysteem specifiek voor één merk, klant of project. Het legt standaarden vast en kan designpatronen bevatten. Het kan gekocht en aangepast worden, of vanaf nul gebouwd.",
+    "Planet Yes bought one and adapted it to its brand, which made it a speed instrument for a small team. The Belastingdienst built its own, which made it a shared language across many teams and a system I contributed to rather than controlled.": "Planet Yes kocht er een en paste het aan het eigen merk aan, waardoor het een snelheidsinstrument werd voor een klein team. De Belastingdienst bouwde een eigen systeem, dat een gedeelde taal werd voor veel teams, en een systeem waar ik aan bijdroeg zonder het te sturen.",
+    "Stage 3": "Fase 3",
+    "One system, many brands": "Eén systeem, veel merken",
+    "One foundation serves many brands": "Eén fundament bedient veel merken",
+    "Improvements reach every client at once": "Verbeteringen bereiken elke klant tegelijk",
+    "Clients get their own brand, not a skin": "Klanten krijgen hun eigen merk, geen skin",
+    "Flexibility carries a maintenance cost": "Flexibiliteit kost onderhoud",
+    "Hard choices about what may vary": "Lastige keuzes over wat mag variëren",
+    "Custom components can fork the system": "Maatwerkcomponenten kunnen het systeem splitsen",
+    "A single whitelabel design system serves multiple brands. It adapts the basic tokens (colour, type, shape, density) and also carries custom components where a brand needs them.": "Eén whitelabel designsysteem bedient meerdere merken. Het past de basistokens aan (kleur, typografie, vorm, dichtheid) en bevat ook maatwerkcomponenten waar een merk die nodig heeft.",
+    "This is the stage for SaaS products that live inside the brand of each client. The hard part is the budget for flexibility: every variable you open has to stay maintainable for design and development, so the system has to say what may vary and what may not.": "Dit is de fase voor SaaS-producten die binnen het merk van elke klant leven. Het lastige is het budget voor flexibiliteit: elke variabele die je openzet moet onderhoudbaar blijven voor design en development, dus het systeem moet zeggen wat mag variëren en wat niet.",
+    "Stage 4": "Fase 4",
+    "A system that generates": "Een systeem dat genereert",
+    "Interfaces adapt to user and context": "Interfaces passen zich aan gebruiker en context aan",
+    "Patterns and pages produced on demand": "Patronen en pagina’s op aanvraag gemaakt",
+    "Design effort moves to the rules": "Ontwerpwerk verschuift naar de regels",
+    "Less predictable output": "Minder voorspelbare uitkomst",
+    "Quality depends on principles and boundaries": "Kwaliteit hangt af van principes en grenzen",
+    "Harder to review what actually ships": "Moeilijker te controleren wat er echt live gaat",
+    "In the fourth stage the design system no longer only supplies parts. It generates the interface itself: tokens, components, patterns and sometimes whole pages, shaped to the goal of the user and the need of the business at that moment.": "In de vierde fase levert het designsysteem niet langer alleen onderdelen. Het genereert de interface zelf: tokens, componenten, patronen en soms hele pagina’s, afgestemd op het doel van de gebruiker en de behoefte van de business op dat moment.",
+    "That makes it highly effective and much less predictable. The question shifts from what we built to what the system will produce, and so the system changes role. It stops being a library and becomes the input: principles, boundaries and a brand promise that every generated result is measured against.": "Dat maakt het zeer effectief en veel minder voorspelbaar. De vraag verschuift van wat we bouwden naar wat het systeem gaat maken, en daarmee verandert de rol van het systeem. Het is geen bibliotheek meer maar de input: principes, grenzen en een merkbelofte waaraan elk gegenereerd resultaat wordt gemeten.",
+    "What I learned across these stages is that every step moves design work upstream. First you draw screens, then you define the parts, then you decide what may vary per brand. The craft does not disappear, it moves earlier.": "Wat ik over deze fasen heen leerde, is dat elke stap het ontwerpwerk naar voren verschuift. Eerst teken je schermen, dan definieer je de onderdelen, dan bepaal je wat per merk mag variëren. Het vakmanschap verdwijnt niet, het verschuift naar eerder in het proces.",
+    "I expect the next step to ask for a different kind of design work: writing down what the design protects in language a generator can be tested against, drawing boundaries it cannot cross, and keeping it understandable for design and development alike. Generation will also produce things nobody planned, so the system needs a visible route to take those back in.": "Ik verwacht dat de volgende stap om een ander soort ontwerpwerk vraagt: vastleggen wat het ontwerp beschermt, in taal waartegen een generator getest kan worden, grenzen trekken die hij niet kan overschrijden, en het begrijpelijk houden voor design en development. Generatie levert ook dingen op die niemand had gepland, dus het systeem heeft een zichtbare route nodig om die weer op te nemen.",
+    "A design system has always been judged by what it produces when the designer is not in the room. In stage 4, that is most of the time.": "Een designsysteem is altijd beoordeeld op wat het oplevert als de ontwerper niet in de kamer is. In fase 4 is dat het grootste deel van de tijd.",
+    "AI-driven ambition creation, planning and tracking": "AI-gedreven ambities formuleren, plannen en volgen",
+    "Prototypes win the argument": "Prototypes winnen de discussie",
+    "UX is\nbusiness": "UX is\nbusiness",
+    "ADVANCE cover: the coral on black wordmark with the ladder glyph, and the line Aim at what matters": "Omslag van ADVANCE: het koraalrode woordmerk op zwart met het laddersymbool en de regel Aim at what matters",
+    "ADVANCE home screen with two ambitions, each with a next step chip, and an empty add slot": "Startscherm van ADVANCE met twee ambities, elk met een label voor de volgende stap, en een leeg vak om toe te voegen",
+    "ADVANCE onboarding screen with the wordmark and the line Aim at what matters": "Onboardingscherm van ADVANCE met het woordmerk en de regel Aim at what matters",
+    "Create wizard step two: three AI suggestions for a sharper ambition and a keep my original option": "Stap twee van de wizard: drie AI-suggesties voor een scherpere ambitie en een optie om het origineel te houden",
+    "A step opened on events, listing meetups with source, date, a paid tag and an add to calendar action": "Een geopende stap over evenementen, met meetups met bron, datum, een betaald-label en een actie om toe te voegen aan de agenda",
+    "Desktop board with three ambition columns, checkboxes, struck through completed steps and an inline article": "Desktopbord met drie ambitiekolommen, vinkjes, doorgestreepte afgeronde stappen en een ingesloten artikel",
+    "Ambulance crew handing over a patient at a hospital emergency entrance": "Ambulanceteam draagt een patiënt over bij de ingang van de spoedeisende hulp",
+    "AmbuSuite overview screen showing incoming ambulances on a hospital display": "Overzichtsscherm van AmbuSuite met binnenkomende ambulances op een ziekenhuisdisplay",
+    "Observational research inside an emergency department during a shift": "Observatieonderzoek op een spoedeisende hulp tijdens een dienst",
+    "Nurse taking a phone call about an incoming ambulance": "Verpleegkundige neemt een telefoontje aan over een binnenkomende ambulance",
+    "Emergency department staff coordinating around a central desk": "Medewerkers van de spoedeisende hulp stemmen af rond een centrale balie",
+    "Brainstorm session mapping the ambulance-to-hospital handover process on a wall": "Brainstormsessie waarin de overdracht van ambulance naar ziekenhuis op een wand in kaart wordt gebracht",
+    "Sticky notes clustering bottlenecks in the current handover process": "Sticky notes die knelpunten in het huidige overdrachtsproces clusteren",
+    "Participants discussing a process map during a co-design session": "Deelnemers bespreken een proceskaart tijdens een co-designsessie",
+    "AmbuSuite concept screen listing incoming patients by urgency and arrival time": "Conceptscherm van AmbuSuite met binnenkomende patiënten op urgentie en aankomsttijd",
+    "Detail of an AmbuSuite patient card with condition and estimated arrival": "Detail van een patiëntkaart in AmbuSuite met toestand en verwachte aankomst",
+    "AmbuSuite patient detail screen with examination findings, vital signs and a body map of marked injuries": "Patiëntdetailscherm van AmbuSuite met onderzoeksbevindingen, vitale functies en een lichaamskaart met gemarkeerd letsel",
+    "AmbuSuite interface as used in daily practice on an emergency department screen": "De AmbuSuite-interface zoals die dagelijks op een scherm van de spoedeisende hulp wordt gebruikt",
+    "Housing corporation service employee helping a tenant by phone": "Klantenservicemedewerker van een woningcorporatie helpt een huurder telefonisch",
+    "Klantverwachtingssysteem dashboard for housing corporation service teams": "Dashboard van het Klantverwachtingssysteem voor klantenserviceteams van woningcorporaties",
+    "Service employees handling tenant contact at their workstations": "Klantenservicemedewerkers handelen huurderscontact af aan hun werkplek",
+    "Workshop mapping tenant contact moments across channels": "Workshop waarin contactmomenten met huurders over alle kanalen in kaart worden gebracht",
+    "Sticky-note wall from a session on customer service workflows": "Wand met sticky notes uit een sessie over klantenserviceprocessen",
+    "Interface combining phone, chat, email and web contact in one conversation view": "Interface die telefoon, chat, e-mail en webcontact samenbrengt in één gespreksweergave",
+    "Three Klantverwachtingssysteem screens: dashboard, chat and customer card": "Drie schermen van het Klantverwachtingssysteem: dashboard, chat en klantkaart",
+    "Design system examples showing components and imagery guidelines": "Voorbeelden uit het designsysteem met componenten en richtlijnen voor beeld",
+    "Team view showing who is working on which tenant task": "Teamweergave die laat zien wie aan welke huurderstaak werkt",
+    "CBS data collector recording product prices in a shop on a tablet": "Prijswaarnemer van het CBS legt productprijzen in een winkel vast op een tablet",
+    "Prijsobservatie application on a tablet used for price data collection": "De Prijsobservatie-applicatie op een tablet, gebruikt voor het verzamelen van prijsdata",
+    "Flip chart with kick-off notes beside a photo of the project team at lunch": "Flip-over met aantekeningen van de kick-off naast een foto van het projectteam tijdens de lunch",
+    "Three persona canvases and a detailed customer journey map for the primary persona": "Drie persona-canvassen en een gedetailleerde customer journey map voor de primaire persona",
+    "Design sprint walls with sticky notes, paper wireframes and a first screen design": "Wanden van de design sprint met sticky notes, papieren wireframes en een eerste schermontwerp",
+    "sAIdkick homepage hero with the search field for AI solutions": "Bovenkant van de sAIdkick-homepage met het zoekveld voor AI-oplossingen",
+    "sAIdkick prototype homepage: search AI solutions, marketplace, knowledge base and community": "Homepage van het sAIdkick-prototype: AI-oplossingen zoeken, marktplaats, kennisbank en community",
+    "Three prototype versions side by side, from first sketch to working prototype": "Drie prototypeversies naast elkaar, van eerste schets tot werkend prototype",
+    "User test setup with screen recordings and eye tracking overlays on participants": "Opstelling van een gebruikerstest met schermopnames en eyetracking over de deelnemers",
+    "The sAIdkick homepage prototype: find or share AI solutions across government": "Het prototype van de sAIdkick-homepage: AI-oplossingen binnen de overheid vinden of delen",
+    "Paper price-registration forms being replaced by a tablet": "Papieren prijsregistratieformulieren die worden vervangen door een tablet",
+    "User testing the price observation app with a data collector": "Gebruikerstest van de prijsobservatie-app met een prijswaarnemer",
+    "Progress and team activity screens that gamify data collection": "Schermen voor voortgang en teamactiviteit die dataverzameling gamificeren",
+    "Activity feed showing collection progress across teams": "Activiteitenfeed met de voortgang van de dataverzameling per team",
+    "Prijsobservatie tablet interface for entering product prices in store": "Tabletinterface van Prijsobservatie voor het invoeren van productprijzen in de winkel",
+    "Tenant using the housing corporation portal at home": "Huurder gebruikt thuis het portaal van de woningcorporatie",
+    "Huurdersportaal home screen personalised for a tenant": "Startscherm van het Huurdersportaal, gepersonaliseerd voor een huurder",
+    "Interview with a tenant about using the online portal": "Interview met een huurder over het gebruik van het online portaal",
+    "Research session with housing corporation employees": "Onderzoekssessie met medewerkers van woningcorporaties",
+    "Notes and findings from tenant research on the wall": "Aantekeningen en bevindingen uit huurdersonderzoek op de wand",
+    "Information structure diagram behind the tenant portal": "Diagram van de informatiestructuur achter het huurdersportaal",
+    "Design system cards and content blocks used across the tenant portal": "Kaarten en contentblokken uit het designsysteem die in het hele huurdersportaal worden gebruikt",
+    "Portal components shown in different configurations": "Portaalcomponenten in verschillende configuraties",
+    "Design system detail: typography, colour and component states": "Detail uit het designsysteem: typografie, kleur en componentstatussen",
+    "Tenant portal screens for repairs, rent and neighbourhood services": "Schermen van het huurdersportaal voor reparaties, huur en buurtdiensten",
+    "Personalised portal content about the tenant’s home and neighbourhood": "Gepersonaliseerde portaalcontent over de woning en buurt van de huurder",
+    "Framework positioning the payroll tax way of working along two axes": "Raamwerk dat de werkwijze bij loonheffingen langs twee assen positioneert",
+    "Map of twenty-two payroll tax applications across four work processes": "Kaart van tweeëntwintig loonheffingsapplicaties verdeeld over vier werkprocessen",
+    "Two-axis framework with four quadrants, from corrective to preventive and competitive to cooperative": "Raamwerk met twee assen en vier kwadranten, van correctief naar preventief en van competitief naar coöperatief",
+    "Concept screen of the payroll tax digital work environment": "Conceptscherm van de digitale werkomgeving voor loonheffingen",
+    "HLP work environment concept: workstream, employer, payroll tax and treatment in one portal": "Concept van de HLP-werkomgeving: werkstroom, inhoudingsplichtige, loonheffingen en behandeling in één portaal",
+    "Overview of the five design principles guiding the work environment": "Overzicht van de vijf ontwerpprincipes die de werkomgeving sturen",
+    "View from the gallery over the Tweede Kamer plenary hall, members seated at wooden desks with blue chairs": "Zicht vanaf de publieke tribune over de plenaire zaal van de Tweede Kamer, met Kamerleden aan houten bankjes op blauwe stoelen",
+    "Diagram of the roles around payroll tax: Belastingdienst, administrative employee or intermediary, entrepreneur and oversight partner, with arrows showing how work and knowledge move between them": "Diagram van de rollen rond loonheffingen: Belastingdienst, administratief medewerker of intermediair, ondernemer en toezichtpartner, met pijlen die laten zien hoe werk en kennis tussen hen bewegen",
+    "Screenshots of twenty-two separate legacy applications connected by winding lines showing how an official moves between them": "Screenshots van tweeëntwintig losse verouderde applicaties, verbonden door kronkelende lijnen die laten zien hoe een medewerker ertussen beweegt",
+    "Login screen of the Digitale Werkplek Loonheffingen with a photo of a business owner": "Inlogscherm van de Digitale Werkplek Loonheffingen met een foto van een ondernemer",
+    "Work list of payroll tax cases grouped by day, each with employer, period and message type": "Werklijst met loonheffingszaken per dag gegroepeerd, elk met inhoudingsplichtige, tijdvak en berichtsoort",
+    "Year overview table of payroll tax periods with counts per category and warnings": "Jaaroverzicht van loonheffingstijdvakken met aantallen per categorie en waarschuwingen",
+    "Assessment screen showing employer details, a case timeline and correction amounts": "Beoordelingsscherm met gegevens van de inhoudingsplichtige, een tijdlijn van de zaak en correctiebedragen",
+    "Assessments compared across four dates in adjacent columns": "Beoordelingen op vier data vergeleken in naast elkaar staande kolommen",
+    "Table of blocks on a period with reason, creation date and lifting date": "Tabel met blokkades op een tijdvak, met reden, aanmaakdatum en opheffingsdatum",
+    "The ESG lifecycle diagram: an organiser loop with a performer loop inside it": "Diagram van de ESG-levenscyclus: een organiser-lus met daarbinnen een performer-lus",
+    "Double materiality matrix plotting ESG topics by financial and impact relevance": "Dubbele materialiteitsmatrix die ESG-onderwerpen uitzet naar financiële relevantie en impact",
+    "Planet Yes brand panels layered in purple, navy, pink and lime": "Merkvlakken van Planet Yes gelaagd in paars, marineblauw, roze en limoen",
+    "ESG results table tracking ambition, objective and score per aspect": "Resultatentabel voor ESG met ambitie, doelstelling en score per aspect",
+    "ESG programme planning across the year, phase by phase": "Planning van het ESG-programma over het jaar, fase voor fase",
+    "Diagram of the ESG lifecycle: a workflow arrow into an organiser loop with a performer loop inside it, ending in the reporter": "Diagram van de ESG-levenscyclus: een workflowpijl naar een organiser-lus met daarbinnen een performer-lus, eindigend in de reporter",
+    "Tasks manager planning view: ESG phases as bars across the months of a year": "Planningsweergave van de takenmanager: ESG-fases als balken over de maanden van een jaar",
+    "ESG results table with objective and score per aspect for three years": "Resultatentabel voor ESG met doelstelling en score per aspect over drie jaar",
+    "Published ESG report: hero image, introduction, vision, mission and core values": "Gepubliceerd ESG-rapport: openingsbeeld, inleiding, visie, missie en kernwaarden",
+    "Published ESG report chapter on business and materiality": "Hoofdstuk van het gepubliceerde ESG-rapport over business en materialiteit",
+    "Planet Yes log-in screen with layered brand shapes": "Inlogscherm van Planet Yes met gelaagde merkvormen",
+    "Patient detail: examination findings and vitals shared from the ambulance": "Patiëntdetail: onderzoeksbevindingen en vitale functies, gedeeld vanuit de ambulance",
+    "Kick-off: the team’s own answers to what would make sAIdkick worth using": "Kick-off: de eigen antwoorden van het team op de vraag wat sAIdkick de moeite waard maakt",
+    "Personas and the customer journey, built with the product owner and developers": "Persona’s en de customer journey, samen gemaakt met de product owner en ontwikkelaars",
+    "The design sprint: from sketches on the wall to one agreed MVP": "De design sprint: van schetsen op de wand naar één afgesproken MVP",
+    "Finding AI solutions for your organisation": "AI-oplossingen vinden voor jouw organisatie",
+    "The tested prototype: find AI solutions, check quality, work together": "Het geteste prototype: AI-oplossingen vinden, kwaliteit controleren, samenwerken",
+    "Three rounds: first sketch, Figma concept, working prototype": "Drie rondes: eerste schets, Figma-concept, werkend prototype",
+    "User tests with eye tracking and recorded reactions": "Gebruikerstests met eyetracking en opgenomen reacties",
+    "The plenary hall of the Tweede Kamer during a debate": "De plenaire zaal van de Tweede Kamer tijdens een debat",
+    "Who does what once oversight moves from correction to prevention": "Wie wat doet zodra toezicht verschuift van correctie naar preventie",
+    "One case, twenty-two applications and the paths between them": "Eén zaak, tweeëntwintig applicaties en de paden daartussen",
+    "Signing in to the digital payroll tax workplace": "Inloggen op de digitale werkplek loonheffingen",
+    "The personal work list, grouped by day and message type": "De persoonlijke werklijst, gegroepeerd per dag en berichtsoort",
+    "A year of periods for one employer in a single overview": "Een jaar aan tijdvakken voor één inhoudingsplichtige in één overzicht",
+    "One case as a single vertical flow, with the deciding actions fixed at the bottom": "Eén zaak als één verticale flow, met de beslissende acties vast onderaan",
+    "Successive assessments side by side, so an official can see what changed": "Opeenvolgende beoordelingen naast elkaar, zodat een medewerker ziet wat er veranderde",
+    "Blocks on a period, added and lifted from one place": "Blokkades op een tijdvak, vanuit één plek toegevoegd en opgeheven",
+    "Illustration of a person shining a torch on documents, charts, a persona and an idea bulb": "Illustratie van een persoon die met een zaklamp schijnt op documenten, grafieken, een persona en een lampje",
+    "Illustration of a person with a telescope facing a mountain with a marked route to a flag": "Illustratie van een persoon met een telescoop voor een berg met een gemarkeerde route naar een vlag",
+    "Illustration of a person arranging wireframes and interface cards on a wall": "Illustratie van een persoon die wireframes en interfacekaarten op een wand ordent",
+    "Illustration of someone presenting a sticky-note board to a seated group": "Illustratie van iemand die een bord met sticky notes presenteert aan een zittende groep",
+    "Portrait of Dirk Gooren with arms crossed, eyes following the cursor": "Portret van Dirk Gooren met gekruiste armen, de ogen volgen de cursor",
+    "Dirk Gooren, home": "Dirk Gooren, home",
+    "Go to image": "Ga naar afbeelding",
+    "Switch language": "Wissel van taal",
+    "Switch theme": "Wissel van thema",
+    "Next word": "Volgend woord",
+    "Four stages of design systems: handcrafted, one brand, many brands, generative": "Vier fasen van designsystemen: handwerk, één merk, veel merken, generatief",
+    "case cover": "omslag"
   };
   tr = (s) => {
     if (this.state.lang !== 'nl' || typeof s !== 'string') return s;
-    return this.nl[s] || this.nl[s.replace(/\u00a0/g, ' ')] || s;
+    if (this.nl[s]) return this.nl[s];
+    if (!this._nlNorm) { this._nlNorm = {}; for (const k in this.nl) this._nlNorm[k.toLowerCase().replace(/[^a-z0-9]/g, '')] = this.nl[k]; }
+    return this.nl[s.replace(/\u00a0/g, ' ')] || this._nlNorm[s.toLowerCase().replace(/[^a-z0-9]/g, '')] || s;
   };
   langStyle = (l) => 'opacity:' + (this.state.lang === l ? '1' : '0.45');
   lockScroll = (on, skipRestore) => {
@@ -3909,12 +4103,12 @@ class Component extends DCLogic {
     const r = p => this.ratios[p] || 1.6;
     const tr = this.tr;
     return Object.assign({}, c, {
-      deck: tr(c.deck), blurb: tr(c.blurb), tags: this.catsFor(c).map(tr), typeCover: c.typeCover,
+      deck: tr(c.deck), blurb: tr(c.blurb), client: tr(c.client), tags: this.catsFor(c).map(tr), typeCover: c.typeCover,
       role: tr(c.role || ''), team: tr(c.team || ''), outcome: tr(c.outcome || ''),
       cover: c.src || c.cover,
       coverRatio: String(this.ratios[c.src || c.cover] || 2),
       coverWidth: (this.ratios[c.src || c.cover] || 2) >= 1.2 ? '100%' : 'calc(74svh * ' + (this.ratios[c.src || c.cover] || 2) + ')',
-      coverAlt: this.altFor(c.src || c.cover, tr(c.title) + ' \u2014 case cover'), cardAlt: this.altFor(c.src, tr(c.title) + ' \u2014 ' + tr(c.blurb)), plainImg: !c.orbs, coverPlain: !!(c.src || c.cover) && !c.fan && !c.orbs,
+      coverAlt: this.altFor(c.src || c.cover, tr(c.title) + ': ' + tr('case cover')), cardAlt: this.altFor(c.src, tr(c.title) + ': ' + tr(c.blurb)), plainImg: !c.orbs, coverPlain: !!(c.src || c.cover) && !c.fan && !c.orbs,
       quote: c.quote ? tr(c.quote) : c.quote, cite: c.cite ? tr(c.cite) : c.cite,
       hasCardCover: !!(c.src && c.src.indexOf('assets/') === 0 && c.key !== 'design-systems' && c.key !== 'planetyes'),
       coverInk: this.inkFor(c.src),
@@ -4081,7 +4275,7 @@ class Component extends DCLogic {
       pickCaseTag: this.pickCaseTag,
       cases: all
         .filter(c => this.state.caseTag === 'All' || this.catsFor(c).indexOf(this.state.caseTag) > -1)
-        .map(c => Object.assign({}, c, { deck: tr(c.deck), tags: this.catsFor(c).map(tr), plainImg: !c.orbs && !c.fan && !c.evo, locked: this.isLocked(c.key), href: this.caseHref(c.key), typeCard: c.src ? '' : c.typeCover })),
+        .map(c => Object.assign({}, c, { deck: tr(c.deck), client: tr(c.client), tags: this.catsFor(c).map(tr), plainImg: !c.orbs && !c.fan && !c.evo, locked: this.isLocked(c.key), href: this.caseHref(c.key), typeCard: c.src ? '' : c.typeCover })),
       gate: !!this.state.gate,
       gateErr: this.state.gateErr,
       gateBusy: this.state.gateBusy,
@@ -4099,7 +4293,7 @@ class Component extends DCLogic {
       closeGate: this.closeGate,
       t: {
         work: tr('Work'), about: tr('About'), services: tr('Services'), contact: tr('Contact'), email: tr('Email'),
-        menu: tr('Menu'), close: tr('Close'), nextProject: tr('Next project'),
+        menu: tr('Menu'), close: tr('Close'), altPortrait: tr('Portrait of Dirk Gooren with arms crossed, eyes following the cursor'), goToImage: tr('Go to image'), switchLang: tr('Switch language'), switchTheme: tr('Switch theme'), nextWord: tr('Next word'), evoAria: tr('Four stages of design systems: handcrafted, one brand, many brands, generative'), nextProject: tr('Next project'),
         metaRole: tr('Role'), metaTeam: tr('Team'), metaClient: tr('Client'), metaYear: tr('Year'),
         how: tr('How I work'),
         inShort: tr('In short'),
