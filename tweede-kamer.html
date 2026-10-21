@@ -442,6 +442,8 @@
   [data-mark-link]:hover [data-mark-word] span:nth-child(8), [data-mark-link]:focus-visible [data-mark-word] span:nth-child(8) { transition-delay: 318ms; }
   [data-mark-link]:hover [data-mark-word] span:nth-child(9), [data-mark-link]:focus-visible [data-mark-word] span:nth-child(9) { transition-delay: 354ms; }
   [data-mark-link]:hover [data-mark-word] span:nth-child(10), [data-mark-link]:focus-visible [data-mark-word] span:nth-child(10) { transition-delay: 390ms; }
+  html:has([data-case-pane]), html:has([data-case-pane]) body { overflow: hidden !important; }
+  [data-case-pane] { scrollbar-gutter: auto; }
 </style>
 </helmet>
 
@@ -1233,7 +1235,7 @@ class Component extends DCLogic {
     const out = [];
     (c.tags || []).forEach(t => {
       const cat = this.catMap[t];
-      if (cat && out.indexOf(cat) < 0) out.push(cat);
+      if (cat && out.indexOf(cat) < 0 && (c.hideCats || []).indexOf(cat) < 0) out.push(cat);
     });
     if (this.aiCases.indexOf(c.key) > -1) out.push('AI design');
     if (this.personalCases.indexOf(c.key) > -1) out.push('Lab');
@@ -2331,7 +2333,7 @@ class Component extends DCLogic {
       },
       {
         key: 'tweedekamer', year: '2026', num: '10', slot: 'dg-case-tweedekamer', src: 'assets/img/home/tk-home.jpg', placeholder: 'Tweede Kamer cover',
-        title: 'Making the visual part of the record', client: 'Tweede Kamer', tags: ['User research', 'UX design', 'Accessibility', 'Design system'], meta: 'Tweede Kamer \u00b7 UX design \u00b7 Accessibility',
+        title: 'Making the visual part of the record', client: 'Tweede Kamer', tags: ['User research', 'Accessibility', 'Design system'], hideCats: ['UX design'], meta: 'Tweede Kamer \u00b7 Accessibility',
         role: 'UX designer and researcher', team: 'Tweede Kamer information services, editors and accessibility specialists', outcome: 'A documented set of visual patterns applied at the source, so parliamentary visuals are legible and accessible by construction.',
         blurb: 'Redesigning how images and infographics live inside parliamentary documents (readable, accessible and part of the argument.',
         deck: 'Redesigning how images and infographics live in parliamentary documents',

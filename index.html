@@ -118,7 +118,7 @@
      case 4 spans 4. Row 3: cases 5 and 6 span 3 each. Every later case spans 2 (three per row). All images keep 4:3. */
   [data-manifesto-grid] { position: relative; isolation: isolate; }
   [data-manifesto-grid] > div:not([data-blob-layer]) { position: relative; z-index: 2; transition: transform 420ms cubic-bezier(.22,1,.36,1); }
-  [data-manifesto-grid] > div:not([data-blob-layer]):not([data-lit-copy]) { min-height: var(--mf-lock, clamp(260px,24vw,340px)) !important; }
+  [data-manifesto-grid] > div:not([data-blob-layer]):not([data-lit-copy]) { min-height: var(--mf-lock, 0px) !important; }
   [data-manifesto-grid] > div:not([data-blob-layer]) > * { position: relative; z-index: 2; transition: color 160ms ease-out, max-height 320ms cubic-bezier(.4,0,.2,1), margin-top 320ms cubic-bezier(.4,0,.2,1), transform 320ms cubic-bezier(.4,0,.2,1), opacity 140ms ease-out, min-height 320ms cubic-bezier(.4,0,.2,1); }
   [data-manifesto-grid] > div[data-lit="1"] > * { transition: color 220ms ease-out, max-height 900ms cubic-bezier(.2,.7,.2,1), margin-top 900ms cubic-bezier(.2,.7,.2,1), transform 900ms cubic-bezier(.2,.7,.2,1), opacity 900ms ease-out 200ms, min-height 900ms cubic-bezier(.2,.7,.2,1); }
   [data-lit-copy] { border: 0 !important; box-sizing: border-box !important; width: 100% !important; position: absolute !important; inset: 0 !important; margin: 0 !important; z-index: 3 !important; min-height: 0 !important; height: auto !important; background: transparent !important; pointer-events: none; opacity: 1 !important; transform: none !important; transition: none !important; clip-path: inset(50%); }
@@ -160,10 +160,9 @@
   @media (min-width: 1000px) {
     [data-case-grid] { grid-template-columns: repeat(6, minmax(0, 1fr)) !important; align-items: start; }
     [data-case-grid] > [data-case-card] { grid-column: span 2; }
-    [data-case-grid] > [data-case-card]:nth-child(1) { grid-column: span 4; }
-    [data-case-grid] > [data-case-card]:nth-child(4) { grid-column: span 4; }
+    [data-case-grid] > [data-case-card]:nth-child(-n+4) { grid-column: span 3; }
     [data-case-grid] > [data-case-card]:nth-child(5), [data-case-grid] > [data-case-card]:nth-child(6) { grid-column: span 3; }
-    [data-case-grid] > [data-case-card]:nth-child(1):last-child, [data-case-grid] > [data-case-card]:nth-child(3):last-child, [data-case-grid] > [data-case-card]:nth-child(5):last-child { grid-column: 1 / -1; }
+    [data-case-grid] > [data-case-card]:nth-child(1):last-child, [data-case-grid] > [data-case-card]:nth-child(3):last-child, [data-case-grid] > [data-case-card]:nth-child(5):last-child { grid-column: span 3; }
   }
   @media (min-width: 1000px) {
     [data-case-cols] { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); column-gap: 0; align-items: start; }
@@ -361,7 +360,7 @@
   [data-next-link]:hover [data-next-arrow] { transform: translateX(0.32em); }
   @media (min-width: 1100px) { [data-manifesto-grid] { grid-template-columns: repeat(5, minmax(0,1fr)) !important; } }
   @media (max-width: 1099px) { [data-manifesto-grid] { grid-template-columns: repeat(3, minmax(0,1fr)) !important; } }
-  @media (max-width: 640px) { [data-manifesto-grid] { grid-template-columns: repeat(2, minmax(0,1fr)) !important; gap: 10px !important; } [data-manifesto-grid] > div:not([data-blob-layer]), [data-lit-copy] { padding: 18px !important; min-height: 220px !important; } [data-manifesto-grid] h3 { font-size: 19px !important; } [data-manifesto-grid] > div > span:first-child, [data-lit-copy] > span:first-child { font-size: 64px !important; } }
+  @media (max-width: 640px) { [data-manifesto-grid] { grid-template-columns: repeat(2, minmax(0,1fr)) !important; gap: 10px !important; } [data-manifesto-grid] > div:not([data-blob-layer]), [data-lit-copy] { padding: 18px !important; min-height: 0 !important; } [data-manifesto-grid] h3 { font-size: 19px !important; } [data-manifesto-grid] > div > span:first-child, [data-lit-copy] > span:first-child { font-size: 64px !important; } }
   @media (max-width: 820px) { [data-stat-grid] { grid-template-columns: repeat(2, minmax(0,1fr)) !important; } }
   @keyframes dgNextNudge { 0% { transform: translateX(0) } 50% { transform: translateX(0.16em) } 100% { transform: translateX(0) } }
   @keyframes dgMenuIn { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: none; } }
@@ -519,6 +518,53 @@
   [data-mark-link]:hover [data-mark-word] span:nth-child(8), [data-mark-link]:focus-visible [data-mark-word] span:nth-child(8) { transition-delay: 318ms; }
   [data-mark-link]:hover [data-mark-word] span:nth-child(9), [data-mark-link]:focus-visible [data-mark-word] span:nth-child(9) { transition-delay: 354ms; }
   [data-mark-link]:hover [data-mark-word] span:nth-child(10), [data-mark-link]:focus-visible [data-mark-word] span:nth-child(10) { transition-delay: 390ms; }
+  html:has([data-case-pane]), html:has([data-case-pane]) body { overflow: hidden !important; }
+  [data-case-pane] { scrollbar-gutter: auto; }
+  [data-mf-icon] > * { transform-box: fill-box; transform-origin: center; }
+  [data-mf-anim="graph"] > :nth-child(2), [data-mf-anim="infinity"] > * { stroke-dasharray: 1 1.05; stroke-dashoffset: 0; }
+  [data-lit="1"] [data-mf-anim="graph"] > :nth-child(2) { animation: mfDraw 900ms cubic-bezier(.65,0,.35,1) both, mfZig 6000ms linear infinite; }
+  [data-lit="1"] [data-mf-anim="heart"] > * { animation: mfBeat 1100ms ease-in-out infinite; }
+  [data-lit="1"] [data-mf-anim="flame"] > :first-child { transform-origin: 50% 100%; animation: mfFireD 1900ms ease-in-out infinite, mfFireBob 1300ms ease-in-out infinite alternate; }
+  @supports not (d: path("M0 0")) { [data-lit="1"] [data-mf-anim="flame"] > :first-child { transform-origin: 50% 100%; animation: mfFire 1100ms cubic-bezier(.45,.05,.55,.95) infinite; } }
+  @keyframes mfFireBob { 0% { transform: scale(1, 1); } 100% { transform: scale(0.985, 1.025); } }
+  @keyframes mfFireD { 0%, 100% { d: path("M8.5 14.5A2.5 2.5 0 0 0 11 12c0 -1.38 -0.5 -2 -1 -3c-1.07 -2.14 -0.22 -4.05 2 -6c0.5 2.5 2 4.9 4 6.5c2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0 -1.14 0.43 -2.28 1 -3a2.5 2.5 0 0 0 2.5 2.5z"); } 17% { d: path("M8.5 14.5A2.5 2.5 0 0 0 11 12c0 -1.24 -0.7 -2.1 -1 -3c-1.14 -2.22 -0.76 -4.47 1.2 -6.7c0.95 2.7 2.5 5.25 4.8 7.2c2.3 1.8 3 3.3 3 5.5a7 7 0 1 1-14 0c0 -1.28 0.34 -2.55 0.8 -3.36a2.5 2.5 0 0 0 2.7 2.86z"); } 33% { d: path("M8.5 14.5A2.5 2.5 0 0 0 11 12c0 -1.39 -0.6 -1.9 -1 -3c-0.99 -1.97 -0.11 -3.67 2.1 -5.4c0.6 2.25 2 4.4 3.9 5.9c2.15 1.7 3 3.35 3 5.5a7 7 0 1 1-14 0c0 -1.03 0.5 -2.07 1.16 -2.72a2.5 2.5 0 0 0 2.34 2.22z"); } 50% { d: path("M8.5 14.5A2.5 2.5 0 0 0 11 12c0 -1.49 -0.35 -2.1 -1 -3c-1.04 -2.17 0.19 -4.38 2.8 -6.8c0.1 2.65 1.3 5.25 3.2 7.3c1.75 1.45 3 3.65 3 5.5a7 7 0 1 1-14 0c0 -1.32 0.4 -2.64 0.92 -3.48a2.5 2.5 0 0 0 2.58 2.98z"); } 67% { d: path("M8.5 14.5A2.5 2.5 0 0 0 11 12c0 -1.31 -0.55 -2 -1 -3c-1.08 -2.17 -0.56 -4.32 1.5 -6.4c0.8 2.6 2.35 5.05 4.5 6.9c2.2 1.75 3 3.4 3 5.5a7 7 0 1 1-14 0c0 -1.08 0.48 -2.16 1.12 -2.84a2.5 2.5 0 0 0 2.38 2.34z"); } 83% { d: path("M8.5 14.5A2.5 2.5 0 0 0 11 12c0 -1.44 -0.4 -2.05 -1 -3c-1.07 -2.14 0.04 -4.28 2.5 -6.5c0.25 2.6 1.5 5.15 3.5 7c1.85 1.5 3 3.6 3 5.5a7 7 0 1 1-14 0c0 -1.23 0.36 -2.46 0.84 -3.24a2.5 2.5 0 0 0 2.66 2.74z"); } }
+  [data-lit="1"] [data-mf-anim="flag"] > [data-fo] { animation: mfFlagIn 420ms ease-in, mfFlagO 1500ms linear 420ms infinite; }
+  @keyframes mfFlagIn { 0% { d: path("M4 4L6 4.56L8 5.13L10 5.69L12 6.25L14 6.81L16 7.38L18 7.94L20 8.5L18 9.06L16 9.63L14 10.19L12 10.75L10 11.31L8 11.88L6 12.44L4 13Z"); } 100% { d: path("M4 4L6 4.68L8 5.42L10 5.92L12 6.06L14 6.12L16 6.57L18 7.69L20 9.21L18 8.82L16 8.82L14 9.49L12 10.56L10 11.55L8 12.17L6 12.55L4 13Z"); } }
+  @keyframes mfFlagO { 0% { d: path("M4 4L6 4.68L8 5.42L10 5.92L12 6.06L14 6.12L16 6.57L18 7.69L20 9.21L18 8.82L16 8.82L14 9.49L12 10.56L10 11.55L8 12.17L6 12.55L4 13Z"); } 12.5% { d: path("M4 4L6 4.57L8 5.37L10 6.13L12 6.52L14 6.53L16 6.52L18 7.04L20 8.31L18 8.17L16 8.77L14 9.9L12 11.02L10 11.75L8 12.12L6 12.45L4 13Z"); } 25% { d: path("M4 4L6 4.47L8 5.17L10 6.07L12 6.82L14 7.1L16 6.97L18 6.92L20 7.53L18 8.04L16 9.22L14 10.47L12 11.32L10 11.7L8 11.92L6 12.34L4 13Z"); } 37.5% { d: path("M4 4L6 4.41L8 4.95L10 5.79L12 6.78L14 7.51L16 7.65L18 7.39L20 7.31L18 8.51L16 9.9L14 10.88L12 11.28L10 11.42L8 11.7L6 12.29L4 13Z"); } 50% { d: path("M4 4L6 4.45L8 4.83L10 5.45L12 6.44L14 7.51L16 8.18L18 8.18L20 7.79L18 9.31L16 10.43L14 10.88L12 10.94L10 11.08L8 11.58L6 12.32L4 13Z"); } 62.5% { d: path("M4 4L6 4.55L8 4.88L10 5.25L12 5.98L14 7.1L16 8.23L18 8.83L20 8.69L18 9.96L16 10.48L14 10.47L12 10.48L10 10.87L8 11.63L6 12.43L4 13Z"); } 75% { d: path("M4 4L6 4.66L8 5.08L10 5.3L12 5.68L14 6.53L16 7.78L18 8.96L20 9.47L18 10.08L16 10.03L14 9.9L12 10.18L10 10.93L8 11.83L6 12.53L4 13Z"); } 87.5% { d: path("M4 4L6 4.71L8 5.3L10 5.58L12 5.72L14 6.12L16 7.1L18 8.49L20 9.69L18 9.61L16 9.35L14 9.49L12 10.22L10 11.21L8 12.05L6 12.59L4 13Z"); } 100% { d: path("M4 4L6 4.68L8 5.42L10 5.92L12 6.06L14 6.12L16 6.57L18 7.69L20 9.21L18 8.82L16 8.82L14 9.49L12 10.56L10 11.55L8 12.17L6 12.55L4 13Z"); } }
+  [data-mf-anim="bulb"] > [data-ray] { opacity: 0; stroke-dasharray: 1 1.05; stroke-dashoffset: 1; }
+  [data-lit="1"] [data-mf-anim="bulb"] > [data-ray] { animation: mfRay 1600ms ease-in-out infinite; }
+  [data-lit="1"] [data-mf-anim="bulb"] > [data-ray]:nth-of-type(5) { animation-delay: 0ms; }
+  [data-lit="1"] [data-mf-anim="bulb"] > [data-ray]:nth-of-type(6), [data-lit="1"] [data-mf-anim="bulb"] > [data-ray]:nth-of-type(7) { animation-delay: 160ms; }
+  [data-lit="1"] [data-mf-anim="bulb"] > [data-ray]:nth-of-type(8), [data-lit="1"] [data-mf-anim="bulb"] > [data-ray]:nth-of-type(9) { animation-delay: 320ms; }
+  @keyframes mfRay { 0% { opacity: 0; stroke-dashoffset: 1; } 30% { opacity: 1; stroke-dashoffset: 0; } 70% { opacity: 1; stroke-dashoffset: 0; } 100% { opacity: 0; stroke-dashoffset: -1; } }
+  [data-lit="1"] [data-mf-anim="eye"] > :nth-child(2) { animation: mfLook 3200ms cubic-bezier(.45,0,.25,1) infinite; }
+  [data-lit="1"] [data-mf-anim="eye"] > :nth-child(1) { transform-origin: 50% 50%; animation: mfSquint 6400ms ease-in-out infinite; }
+  [data-lit="1"] [data-mf-anim="rocket"] > :nth-child(4) { animation: mfFlame 500ms ease-in-out infinite alternate; transform-origin: 100% 0%; }
+  [data-lit="1"] [data-mf-anim="target"] > :nth-child(1) { animation: mfRing 900ms cubic-bezier(.22,1,.36,1) both; }
+  [data-lit="1"] [data-mf-anim="target"] > :nth-child(2) { animation: mfRing 900ms cubic-bezier(.22,1,.36,1) 180ms both; }
+  [data-lit="1"] [data-mf-anim="target"] > :nth-child(3) { animation: mfRing 900ms cubic-bezier(.22,1,.36,1) 360ms both; }
+  [data-lit="1"] [data-mf-anim="infinity"] > * { stroke-dasharray: 0.65 0.35; animation: mfLoop 2600ms linear infinite; }
+  [data-mf-anim="box"] > [data-lid] { fill: #FFFFFF; transform-origin: 0% 100%; transition: transform 520ms cubic-bezier(.34,1.4,.64,1); }
+  [data-lit-copy] [data-mf-anim="box"] > [data-lid] { fill: #F7B5B0; }
+  [data-theme="dark"] [data-mf-anim="box"] > [data-lid] { fill: var(--bg); }
+  [data-lit="1"] [data-mf-anim="box"] > [data-lid] { transform: translate(-1px, -4.5px) rotate(-22deg); }
+  [data-mf-anim="rocket"] > [data-speed] { opacity: 0; stroke-dasharray: 0.55 1.5; stroke-dashoffset: 0.55; }
+  [data-lit="1"] [data-mf-anim="rocket"] > [data-speed] { animation: mfSpeed 700ms linear infinite; }
+  [data-lit="1"] [data-mf-anim="rocket"] > [data-speed]:nth-of-type(6) { animation-delay: 230ms; }
+  [data-lit="1"] [data-mf-anim="rocket"] > [data-speed]:nth-of-type(7) { animation-delay: 380ms; }
+  [data-lit="1"] [data-mf-anim="rocket"] > [data-speed]:nth-of-type(8) { animation-delay: 120ms; }
+  @keyframes mfSpeed { 0% { opacity: 0; stroke-dashoffset: 0.55; } 20% { opacity: 1; } 80% { opacity: 1; } 100% { opacity: 0; stroke-dashoffset: -1.1; } }
+  @keyframes mfZig { 0% { d: path("M7 12.3L10.25 13.6L13.5 8.8L16.75 10.2L20 6.9L20 6.9"); } 16.666% { d: path("M7 15.1L7 15.1L10.25 10.3L13.5 11.7L16.75 8.4L20 9.6"); } 16.667% { d: path("M7 15.1L10.25 10.3L13.5 11.7L16.75 8.4L20 9.6L20 9.6"); } 33.332% { d: path("M7 11.8L7 11.8L10.25 13.2L13.5 9.9L16.75 11.1L20 6.3"); } 33.333% { d: path("M7 11.8L10.25 13.2L13.5 9.9L16.75 11.1L20 6.3L20 6.3"); } 49.999% { d: path("M7 14.7L7 14.7L10.25 11.4L13.5 12.6L16.75 7.8L20 9.1"); } 50% { d: path("M7 14.7L10.25 11.4L13.5 12.6L16.75 7.8L20 9.1L20 9.1"); } 66.666% { d: path("M7 12.9L7 12.9L10.25 14.1L13.5 9.3L16.75 10.6L20 5.8"); } 66.667% { d: path("M7 12.9L10.25 14.1L13.5 9.3L16.75 10.6L20 5.8L20 5.8"); } 83.332% { d: path("M7 15.6L7 15.6L10.25 10.8L13.5 12.1L16.75 7.3L20 8.7"); } 83.333% { d: path("M7 15.6L10.25 10.8L13.5 12.1L16.75 7.3L20 8.7L20 8.7"); } 99.999% { d: path("M7 12.3L7 12.3L10.25 13.6L13.5 8.8L16.75 10.2L20 6.9"); } 100% { d: path("M7 12.3L10.25 13.6L13.5 8.8L16.75 10.2L20 6.9L20 6.9"); } }
+  @keyframes mfDraw { 0% { stroke-dashoffset: 1; opacity: 0; } 6% { opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 1; } }
+  @keyframes mfBeat { 0%, 100% { transform: scale(1); } 15% { transform: scale(1.14); } 30% { transform: scale(0.98); } 45% { transform: scale(1.1); } 65% { transform: scale(1); } }
+  @keyframes mfFire { 0%, 100% { transform: scale(1, 1) skewX(0deg); } 14% { transform: scale(0.97, 1.07) skewX(-3deg); } 28% { transform: scale(1.03, 0.95) skewX(2deg); } 43% { transform: scale(0.98, 1.1) skewX(4deg); } 57% { transform: scale(1.02, 0.97) skewX(-2deg); } 71% { transform: scale(0.96, 1.05) skewX(-4deg); } 86% { transform: scale(1.01, 0.98) skewX(1.5deg); } }
+  @keyframes mfSquint { 0%, 30% { transform: scaleY(1); } 40%, 54% { transform: scaleY(0.8); } 66%, 100% { transform: scaleY(1); } }
+  @keyframes mfLook { 0%, 100% { transform: translate(0, 0); } 12%, 24% { transform: translate(-3px, -0.6px); } 36%, 46% { transform: translate(3px, -1px); } 58%, 66% { transform: translate(1.6px, 1.2px); } 78%, 88% { transform: translate(-2px, 0.8px); } }
+  @keyframes mfFlame { 0% { transform: scale(1); } 100% { transform: scale(1.12); } }
+  @keyframes mfRing { 0% { transform: scale(1.6); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+  @keyframes mfLoop { 0% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: -1; } }
+  @media (prefers-reduced-motion: reduce) { [data-lit="1"] [data-mf-icon], [data-lit="1"] [data-mf-icon] > * { animation: none !important; } }
+  [data-mf-iconwrap], [data-mf-icon] { overflow: visible !important; }
 </style>
 </helmet>
 
@@ -1088,8 +1134,7 @@
             </div>
           </sc-if>
           <p style="margin:0;font-size: var(--t-label);font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--fg);opacity:0.5">{{ s.title }}</p>
-          <h3 style="margin: 0; max-width: none; font-size: clamp(22px,2vw,20px); line-height: 1.2; font-weight: 600; letter-spacing: -0.02em; text-wrap: pretty; font-family: archivo">{{ s.head }}</h3>
-          <p style="margin: 0 0 14px; max-width: 46ch; font-size: var(--t-sm); line-height: 1.5; color: var(--muted2); text-wrap: pretty">{{ s.body }}</p>
+          <h3 style="margin: 0 0 14px; max-width: none; font-size: clamp(22px,2vw,20px); line-height: 1.2; font-weight: 600; letter-spacing: -0.02em; text-wrap: pretty; font-family: archivo">{{ s.head }}</h3>
           <div style="display: flex; flex-wrap: wrap; gap: 5px 6px; padding-top: 2px; justify-content: flex-start; align-items: flex-start">
             <sc-for list="{{ s.tags }}" as="t" hint-placeholder-count="0">
               <span data-service-tag="" data-tip="{{ t.tip }}" style="display:inline-flex;align-items:center;height:23px;padding:0 10px;border-radius:999px;background:var(--chip);font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted2);max-width:100%">{{ t.label }}</span>
@@ -1105,53 +1150,53 @@
     <p data-reveal="" style="margin:0 0 clamp(14px,2vw,22px);width:fit-content;font-size: var(--t-label);font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--fg)">Manifesto</p><h2 data-reveal="" style="margin: 0 0 clamp(36px,5vw,64px); max-width: 22ch; font-size: var(--t-h1); line-height: 1; font-weight: 700; letter-spacing: -0.015em; text-wrap: balance"><span data-om-id="ff01d0e4:531" style="display: block; font-family: Archivo, system-ui, sans-serif; font-variation-settings: &quot;wdth&quot; 68; font-weight: 200; font-style: italic; letter-spacing: 0.018em;">Before we start.</span>What I stand for.</h2>
     
     <div data-manifesto-grid="" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,250px),1fr));gap:clamp(12px,1.4vw,20px)"><div data-blob-layer="" aria-hidden="true" style="position:absolute;inset:0;z-index:1;pointer-events:none;clip-path:inset(50%)"><div data-blob-lobe="" style="border-radius:50%"></div><div data-blob-lobe="" style="border-radius:50%"></div></div>
-        <div data-reveal="" style="display: flex; flex-direction: column; gap: 12px; min-height: clamp(260px,24vw,340px); padding: clamp(12px,1.2vw,16px); border-radius: 10px; opacity: 1; background-color: #FFFFFF">
-          <span aria-hidden="true" style="display: block; margin-bottom: auto; padding-bottom: 0px; font-family: 'Archivo','Archivo Narrow',system-ui,sans-serif; font-variation-settings: 'wdth' 68; font-size: clamp(56px,5.4vw,88px); line-height: 0.85; font-weight: 700; letter-spacing: -0.02em; color: #202133">01</span>
+        <div data-reveal="" style="display: flex; flex-direction: column; gap: 12px; min-height: 0; padding: clamp(12px,1.2vw,16px); border-radius: 6px; opacity: 1; background-color: #FFFFFF">
+          <span data-mf-num="" style="display:block;margin:0;font-size:var(--t-label);font-weight:600;letter-spacing:0.14em;line-height:1;color:var(--fg)">01</span>
           <h3 style="margin:0;font-size: var(--t-h3);line-height:1.08;font-weight:700;letter-spacing:-0.02em;color:var(--fg);text-wrap:balance">UX is<br>business</h3>
           <p style="margin: 0; width: 100%; max-width: none; font-size: var(--t-sm); line-height: 1.5; color: var(--muted2); text-wrap: wrap; height: 100%">Features are expected. Experience sets you apart and is what people pay for.</p>
         </div>
-        <div data-reveal="" style="display: flex; flex-direction: column; gap: 12px; min-height: clamp(260px,24vw,340px); padding: clamp(12px,1.2vw,16px); border-radius: 10px; opacity: 1; background-color: #FFFFFF">
-          <span aria-hidden="true" style="display: block; margin-bottom: auto; padding-bottom: 0px; font-family: 'Archivo','Archivo Narrow',system-ui,sans-serif; font-variation-settings: 'wdth' 68; font-size: clamp(56px,5.4vw,88px); line-height: 0.85; font-weight: 700; letter-spacing: -0.02em; color: #202133">02</span>
+        <div data-reveal="" style="display: flex; flex-direction: column; gap: 12px; min-height: 0; padding: clamp(12px,1.2vw,16px); border-radius: 6px; opacity: 1; background-color: #FFFFFF">
+          <span data-mf-num="" style="display:block;margin:0;font-size:var(--t-label);font-weight:600;letter-spacing:0.14em;line-height:1;color:var(--fg)">02</span>
           <h3 style="margin:0;font-size: var(--t-h3);line-height:1.08;font-weight:700;letter-spacing:-0.02em;color:var(--fg);text-wrap:balance">Your customers come first</h3>
           <p style="margin: 0; width: 100%; max-width: none; font-size: var(--t-sm); line-height: 1.5; color: var(--muted2); text-wrap: wrap; height: 100%">Even when that means disagreeing with you.</p>
         </div>
-        <div data-reveal="" style="display: flex; flex-direction: column; gap: 12px; min-height: clamp(260px,24vw,340px); padding: clamp(12px,1.2vw,16px); border-radius: 10px; opacity: 1; background-color: #FFFFFF">
-          <span aria-hidden="true" style="display: block; margin-bottom: auto; padding-bottom: 0px; font-family: 'Archivo','Archivo Narrow',system-ui,sans-serif; font-variation-settings: 'wdth' 68; font-size: clamp(56px,5.4vw,88px); line-height: 0.85; font-weight: 700; letter-spacing: -0.02em; color: #202133">03</span>
-          <h3 style="margin:0;font-size: var(--t-h3);line-height:1.08;font-weight:700;letter-spacing:-0.02em;color:var(--fg);text-wrap:balance">Technology changes,<br>people don’t</h3>
-          <p style="margin: 0; width: 100%; max-width: none; font-size: var(--t-sm); line-height: 1.5; color: var(--muted2); text-wrap: wrap; height: 100%">Technology keeps moving. How people work stays remarkably constant, so that’s where I start.</p>
-        </div>
-        <div data-reveal="" style="display: flex; flex-direction: column; gap: 12px; min-height: clamp(260px,24vw,340px); padding: clamp(12px,1.2vw,16px); border-radius: 10px; opacity: 1; background-color: #FFFFFF">
-          <span aria-hidden="true" style="display: block; margin-bottom: auto; padding-bottom: 0px; font-family: 'Archivo','Archivo Narrow',system-ui,sans-serif; font-variation-settings: 'wdth' 68; font-size: clamp(56px,5.4vw,88px); line-height: 0.85; font-weight: 700; letter-spacing: -0.02em; color: #202133">04</span>
-          <h3 style="margin:0;font-size: var(--t-h3);line-height:1.08;font-weight:700;letter-spacing:-0.02em;color:var(--fg);text-wrap:balance">The solution is not the problem</h3>
-          <p style="margin: 0; width: 100%; max-width: none; font-size: var(--t-sm); line-height: 1.5; color: var(--muted2); text-wrap: wrap; height: 100%">Before anything gets designed, we question the problem.</p>
-        </div>
-        <div data-reveal="" style="display: flex; flex-direction: column; gap: 12px; min-height: clamp(260px,24vw,340px); padding: clamp(12px,1.2vw,16px); border-radius: 10px; opacity: 1; background-color: #FFFFFF">
-          <span aria-hidden="true" style="display: block; margin-bottom: auto; padding-bottom: 0px; font-family: 'Archivo','Archivo Narrow',system-ui,sans-serif; font-variation-settings: 'wdth' 68; font-size: clamp(56px,5.4vw,88px); line-height: 0.85; font-weight: 700; letter-spacing: -0.02em; color: #202133">05</span>
-          <h3 style="margin:0;font-size: var(--t-h3);line-height:1.08;font-weight:700;letter-spacing:-0.02em;color:var(--fg);text-wrap:balance">Opinions lose to observation</h3>
-          <p style="margin: 0; width: 100%; max-width: none; font-size: var(--t-sm); line-height: 1.5; color: var(--muted2); text-wrap: wrap; height: 100%">I spend time inside the real work before a single screen exists.</p>
-        </div>
-        <div data-reveal="" style="display: flex; flex-direction: column; gap: 12px; min-height: clamp(260px,24vw,340px); padding: clamp(12px,1.2vw,16px); border-radius: 10px; opacity: 1; background-color: #FFFFFF">
-          <span aria-hidden="true" style="display: block; margin-bottom: auto; padding-bottom: 0px; font-family: 'Archivo','Archivo Narrow',system-ui,sans-serif; font-variation-settings: 'wdth' 68; font-size: clamp(56px,5.4vw,88px); line-height: 0.85; font-weight: 700; letter-spacing: -0.02em; color: #202133">06</span>
-          <h3 style="margin:0;font-size: var(--t-h3);line-height:1.08;font-weight:700;letter-spacing:-0.02em;color:var(--fg);text-wrap:balance">Dare to<br>think forward</h3>
-          <p style="margin: 0; width: 100%; max-width: none; font-size: var(--t-sm); line-height: 1.5; color: var(--muted2); text-wrap: wrap; height: 100%">Build a future of your own, born from gut feeling and grounded in insight. Dare to take a stance.</p>
-        </div>
-        <div data-reveal="" style="display: flex; flex-direction: column; gap: 12px; min-height: clamp(260px,24vw,340px); padding: clamp(12px,1.2vw,16px); border-radius: 10px; opacity: 1; background-color: #FFFFFF">
-          <span aria-hidden="true" style="display: block; margin-bottom: auto; padding-bottom: 0px; font-family: 'Archivo','Archivo Narrow',system-ui,sans-serif; font-variation-settings: 'wdth' 68; font-size: clamp(56px,5.4vw,88px); line-height: 0.85; font-weight: 700; letter-spacing: -0.02em; color: #202133">07</span>
-          <h3 style="margin:0;font-size: var(--t-h3);line-height:1.08;font-weight:700;letter-spacing:-0.02em;color:var(--fg);text-wrap:balance">Prototypes win the argument</h3>
-          <p style="margin: 0; width: 100%; max-width: none; font-size: var(--t-sm); line-height: 1.5; color: var(--muted2); text-wrap: wrap; height: 100%">Align all stakeholders through tangible experience, not words.</p>
-        </div>
-        <div data-reveal="" style="display: flex; flex-direction: column; gap: 12px; min-height: clamp(260px,24vw,340px); padding: clamp(12px,1.2vw,16px); border-radius: 10px; opacity: 1; background-color: #FFFFFF">
-          <span aria-hidden="true" style="display: block; margin-bottom: auto; padding-bottom: 0px; font-family: 'Archivo','Archivo Narrow',system-ui,sans-serif; font-variation-settings: 'wdth' 68; font-size: clamp(56px,5.4vw,88px); line-height: 0.85; font-weight: 700; letter-spacing: -0.02em; color: #202133">08</span>
+        <div data-reveal="" style="display: flex; flex-direction: column; gap: 12px; min-height: 0; padding: clamp(12px,1.2vw,16px); border-radius: 6px; opacity: 1; background-color: #FFFFFF">
+          <span data-mf-num="" style="display:block;margin:0;font-size:var(--t-label);font-weight:600;letter-spacing:0.14em;line-height:1;color:var(--fg)">03</span>
           <h3 style="margin:0;font-size: var(--t-h3);line-height:1.08;font-weight:700;letter-spacing:-0.02em;color:var(--fg);text-wrap:balance">Comfort kills<br>good work</h3>
           <p style="margin: 0; width: 100%; max-width: none; font-size: var(--t-sm); line-height: 1.5; color: var(--muted2); text-wrap: wrap; height: 100%">Don’t ask UX to break even. Ask it to grow the business.</p>
         </div>
-        <div data-reveal="" style="display: flex; flex-direction: column; gap: 12px; min-height: clamp(260px,24vw,340px); padding: clamp(12px,1.2vw,16px); border-radius: 10px; opacity: 1; background-color: #FFFFFF">
-          <span aria-hidden="true" style="display: block; margin-bottom: auto; padding-bottom: 0px; font-family: 'Archivo','Archivo Narrow',system-ui,sans-serif; font-variation-settings: 'wdth' 68; font-size: clamp(56px,5.4vw,88px); line-height: 0.85; font-weight: 700; letter-spacing: -0.02em; color: #202133">09</span>
+        <div data-reveal="" style="display: flex; flex-direction: column; gap: 12px; min-height: 0; padding: clamp(12px,1.2vw,16px); border-radius: 6px; opacity: 1; background-color: #FFFFFF">
+          <span data-mf-num="" style="display:block;margin:0;font-size:var(--t-label);font-weight:600;letter-spacing:0.14em;line-height:1;color:var(--fg)">04</span>
+          <h3 style="margin:0;font-size: var(--t-h3);line-height:1.08;font-weight:700;letter-spacing:-0.02em;color:var(--fg);text-wrap:balance">Technology changes,<br>people don’t</h3>
+          <p style="margin: 0; width: 100%; max-width: none; font-size: var(--t-sm); line-height: 1.5; color: var(--muted2); text-wrap: wrap; height: 100%">Technology keeps moving. How people work stays remarkably constant, so that’s where I start.</p>
+        </div>
+        <div data-reveal="" style="display: flex; flex-direction: column; gap: 12px; min-height: 0; padding: clamp(12px,1.2vw,16px); border-radius: 6px; opacity: 1; background-color: #FFFFFF">
+          <span data-mf-num="" style="display:block;margin:0;font-size:var(--t-label);font-weight:600;letter-spacing:0.14em;line-height:1;color:var(--fg)">05</span>
+          <h3 style="margin:0;font-size: var(--t-h3);line-height:1.08;font-weight:700;letter-spacing:-0.02em;color:var(--fg);text-wrap:balance">The solution is not the problem</h3>
+          <p style="margin: 0; width: 100%; max-width: none; font-size: var(--t-sm); line-height: 1.5; color: var(--muted2); text-wrap: wrap; height: 100%">Before anything gets designed, we question the problem.</p>
+        </div>
+        <div data-reveal="" style="display: flex; flex-direction: column; gap: 12px; min-height: 0; padding: clamp(12px,1.2vw,16px); border-radius: 6px; opacity: 1; background-color: #FFFFFF">
+          <span data-mf-num="" style="display:block;margin:0;font-size:var(--t-label);font-weight:600;letter-spacing:0.14em;line-height:1;color:var(--fg)">06</span>
+          <h3 style="margin:0;font-size: var(--t-h3);line-height:1.08;font-weight:700;letter-spacing:-0.02em;color:var(--fg);text-wrap:balance">Opinions lose to observation</h3>
+          <p style="margin: 0; width: 100%; max-width: none; font-size: var(--t-sm); line-height: 1.5; color: var(--muted2); text-wrap: wrap; height: 100%">I spend time inside the real work before a single screen exists.</p>
+        </div>
+        <div data-reveal="" style="display: flex; flex-direction: column; gap: 12px; min-height: 0; padding: clamp(12px,1.2vw,16px); border-radius: 6px; opacity: 1; background-color: #FFFFFF">
+          <span data-mf-num="" style="display:block;margin:0;font-size:var(--t-label);font-weight:600;letter-spacing:0.14em;line-height:1;color:var(--fg)">07</span>
+          <h3 style="margin:0;font-size: var(--t-h3);line-height:1.08;font-weight:700;letter-spacing:-0.02em;color:var(--fg);text-wrap:balance">Dare to<br>think forward</h3>
+          <p style="margin: 0; width: 100%; max-width: none; font-size: var(--t-sm); line-height: 1.5; color: var(--muted2); text-wrap: wrap; height: 100%">Build a future of your own, born from gut feeling and grounded in insight. Dare to take a stance.</p>
+        </div>
+        <div data-reveal="" style="display: flex; flex-direction: column; gap: 12px; min-height: 0; padding: clamp(12px,1.2vw,16px); border-radius: 6px; opacity: 1; background-color: #FFFFFF">
+          <span data-mf-num="" style="display:block;margin:0;font-size:var(--t-label);font-weight:600;letter-spacing:0.14em;line-height:1;color:var(--fg)">08</span>
+          <h3 style="margin:0;font-size: var(--t-h3);line-height:1.08;font-weight:700;letter-spacing:-0.02em;color:var(--fg);text-wrap:balance">Prototypes win the argument</h3>
+          <p style="margin: 0; width: 100%; max-width: none; font-size: var(--t-sm); line-height: 1.5; color: var(--muted2); text-wrap: wrap; height: 100%">Align all stakeholders through tangible experience, not words.</p>
+        </div>
+        <div data-reveal="" style="display: flex; flex-direction: column; gap: 12px; min-height: 0; padding: clamp(12px,1.2vw,16px); border-radius: 6px; opacity: 1; background-color: #FFFFFF">
+          <span data-mf-num="" style="display:block;margin:0;font-size:var(--t-label);font-weight:600;letter-spacing:0.14em;line-height:1;color:var(--fg)">09</span>
           <h3 style="margin:0;font-size: var(--t-h3);line-height:1.08;font-weight:700;letter-spacing:-0.02em;color:var(--fg);text-wrap:balance">Impact<br>over output</h3>
           <p style="margin: 0; width: 100%; max-width: none; font-size: var(--t-sm); line-height: 1.5; color: var(--muted2); text-wrap: wrap; height: 100%">I judge a release by what it does for people, not by whether it launched.</p>
         </div>
-        <div data-reveal="" style="display: flex; flex-direction: column; gap: 12px; min-height: clamp(260px,24vw,340px); padding: clamp(12px,1.2vw,16px); border-radius: 10px; opacity: 1; background-color: #FFFFFF">
-          <span aria-hidden="true" style="display: block; margin-bottom: auto; padding-bottom: 0px; font-family: 'Archivo','Archivo Narrow',system-ui,sans-serif; font-variation-settings: 'wdth' 68; font-size: clamp(56px,5.4vw,88px); line-height: 0.85; font-weight: 700; letter-spacing: -0.02em; color: #202133">10</span>
+        <div data-reveal="" style="display: flex; flex-direction: column; gap: 12px; min-height: 0; padding: clamp(12px,1.2vw,16px); border-radius: 6px; opacity: 1; background-color: #FFFFFF">
+          <span data-mf-num="" style="display:block;margin:0;font-size:var(--t-label);font-weight:600;letter-spacing:0.14em;line-height:1;color:var(--fg)">10</span>
           <h3 style="margin:0;font-size: var(--t-h3);line-height:1.08;font-weight:700;letter-spacing:-0.02em;color:var(--fg);text-wrap:balance">Built<br>to outlive</h3>
           <p style="margin: 0; width: 100%; max-width: none; font-size: var(--t-sm); line-height: 1.5; color: var(--muted2); text-wrap: wrap; height: 100%">Principles and patterns that keep working when I’m gone.</p>
         </div>
@@ -1161,53 +1206,53 @@
     <p data-reveal="" style="margin:0 0 clamp(14px,2vw,22px);width:fit-content;font-size: var(--t-label);font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--fg)">Manifest</p>
     <h2 data-reveal="" style="margin: 0 0 clamp(36px,5vw,64px); max-width: 22ch; font-size: var(--t-h1); line-height: 1; font-weight: 700; letter-spacing: -0.015em; text-wrap: balance"><span style="display:block;font-family:'Archivo',system-ui,sans-serif;font-variation-settings:'wdth' 68;font-weight:200;font-style:italic;letter-spacing:0.018em">Voordat we beginnen.</span>Waar ik voor sta.</h2>
     <div data-manifesto-grid="" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,250px),1fr));gap:clamp(12px,1.4vw,20px)"><div data-blob-layer="" aria-hidden="true" style="position:absolute;inset:0;z-index:1;pointer-events:none;clip-path:inset(50%)"><div data-blob-lobe="" style="border-radius:50%"></div><div data-blob-lobe="" style="border-radius:50%"></div></div>
-        <div data-reveal="" style="display: flex; flex-direction: column; gap: 12px; min-height: clamp(260px,24vw,340px); padding: clamp(12px,1.2vw,16px); border-radius: 10px; opacity: 1; background-color: #FFFFFF">
-          <span aria-hidden="true" style="display: block; margin-bottom: auto; padding-bottom: 0px; font-family: 'Archivo','Archivo Narrow',system-ui,sans-serif; font-variation-settings: 'wdth' 68; font-size: clamp(56px,5.4vw,88px); line-height: 0.85; font-weight: 700; letter-spacing: -0.02em; color: #202133">01</span>
+        <div data-reveal="" style="display: flex; flex-direction: column; gap: 12px; min-height: 0; padding: clamp(12px,1.2vw,16px); border-radius: 6px; opacity: 1; background-color: #FFFFFF">
+          <span data-mf-num="" style="display:block;margin:0;font-size:var(--t-label);font-weight:600;letter-spacing:0.14em;line-height:1;color:var(--fg)">01</span>
           <h3 style="margin:0;font-size: var(--t-h3);line-height:1.08;font-weight:700;letter-spacing:-0.02em;color:var(--fg);text-wrap:balance">UX is<br>business</h3>
           <p style="margin: 0; width: 100%; max-width: none; font-size: var(--t-sm); line-height: 1.5; color: var(--muted2); text-wrap: wrap; height: 100%">Features worden verwacht. De ervaring onderscheidt je en daar betalen mensen voor.</p>
         </div>
-        <div data-reveal="" style="display: flex; flex-direction: column; gap: 12px; min-height: clamp(260px,24vw,340px); padding: clamp(12px,1.2vw,16px); border-radius: 10px; opacity: 1; background-color: #FFFFFF">
-          <span aria-hidden="true" style="display: block; margin-bottom: auto; padding-bottom: 0px; font-family: 'Archivo','Archivo Narrow',system-ui,sans-serif; font-variation-settings: 'wdth' 68; font-size: clamp(56px,5.4vw,88px); line-height: 0.85; font-weight: 700; letter-spacing: -0.02em; color: #202133">02</span>
+        <div data-reveal="" style="display: flex; flex-direction: column; gap: 12px; min-height: 0; padding: clamp(12px,1.2vw,16px); border-radius: 6px; opacity: 1; background-color: #FFFFFF">
+          <span data-mf-num="" style="display:block;margin:0;font-size:var(--t-label);font-weight:600;letter-spacing:0.14em;line-height:1;color:var(--fg)">02</span>
           <h3 style="margin:0;font-size: var(--t-h3);line-height:1.08;font-weight:700;letter-spacing:-0.02em;color:var(--fg);text-wrap:balance">Jouw klanten komen eerst</h3>
           <p style="margin: 0; width: 100%; max-width: none; font-size: var(--t-sm); line-height: 1.5; color: var(--muted2); text-wrap: wrap; height: 100%">Soms betekent dat dat ik het niet met je eens ben.</p>
         </div>
-        <div data-reveal="" style="display: flex; flex-direction: column; gap: 12px; min-height: clamp(260px,24vw,340px); padding: clamp(12px,1.2vw,16px); border-radius: 10px; opacity: 1; background-color: #FFFFFF">
-          <span aria-hidden="true" style="display: block; margin-bottom: auto; padding-bottom: 0px; font-family: 'Archivo','Archivo Narrow',system-ui,sans-serif; font-variation-settings: 'wdth' 68; font-size: clamp(56px,5.4vw,88px); line-height: 0.85; font-weight: 700; letter-spacing: -0.02em; color: #202133">03</span>
-          <h3 style="margin:0;font-size: var(--t-h3);line-height:1.08;font-weight:700;letter-spacing:-0.02em;color:var(--fg);text-wrap:balance">Technologie verandert,<br>mensen niet</h3>
-          <p style="margin: 0; width: 100%; max-width: none; font-size: var(--t-sm); line-height: 1.5; color: var(--muted2); text-wrap: wrap; height: 100%">Technologie blijft veranderen. Hoe mensen werken blijft opvallend constant, dus daar begin ik.</p>
-        </div>
-        <div data-reveal="" style="display: flex; flex-direction: column; gap: 12px; min-height: clamp(260px,24vw,340px); padding: clamp(12px,1.2vw,16px); border-radius: 10px; opacity: 1; background-color: #FFFFFF">
-          <span aria-hidden="true" style="display: block; margin-bottom: auto; padding-bottom: 0px; font-family: 'Archivo','Archivo Narrow',system-ui,sans-serif; font-variation-settings: 'wdth' 68; font-size: clamp(56px,5.4vw,88px); line-height: 0.85; font-weight: 700; letter-spacing: -0.02em; color: #202133">04</span>
-          <h3 style="margin:0;font-size: var(--t-h3);line-height:1.08;font-weight:700;letter-spacing:-0.02em;color:var(--fg);text-wrap:balance">De oplossing is niet het probleem</h3>
-          <p style="margin: 0; width: 100%; max-width: none; font-size: var(--t-sm); line-height: 1.5; color: var(--muted2); text-wrap: wrap; height: 100%">Voordat er iets ontworpen wordt, stellen we het probleem ter discussie.</p>
-        </div>
-        <div data-reveal="" style="display: flex; flex-direction: column; gap: 12px; min-height: clamp(260px,24vw,340px); padding: clamp(12px,1.2vw,16px); border-radius: 10px; opacity: 1; background-color: #FFFFFF">
-          <span aria-hidden="true" style="display: block; margin-bottom: auto; padding-bottom: 0px; font-family: 'Archivo','Archivo Narrow',system-ui,sans-serif; font-variation-settings: 'wdth' 68; font-size: clamp(56px,5.4vw,88px); line-height: 0.85; font-weight: 700; letter-spacing: -0.02em; color: #202133">05</span>
-          <h3 style="margin:0;font-size: var(--t-h3);line-height:1.08;font-weight:700;letter-spacing:-0.02em;color:var(--fg);text-wrap:balance">Observatie verslaat mening</h3>
-          <p style="margin: 0; width: 100%; max-width: none; font-size: var(--t-sm); line-height: 1.5; color: var(--muted2); text-wrap: wrap; height: 100%">Ik zit eerst in het echte werk voordat er één scherm bestaat.</p>
-        </div>
-        <div data-reveal="" style="display: flex; flex-direction: column; gap: 12px; min-height: clamp(260px,24vw,340px); padding: clamp(12px,1.2vw,16px); border-radius: 10px; opacity: 1; background-color: #FFFFFF">
-          <span aria-hidden="true" style="display: block; margin-bottom: auto; padding-bottom: 0px; font-family: 'Archivo','Archivo Narrow',system-ui,sans-serif; font-variation-settings: 'wdth' 68; font-size: clamp(56px,5.4vw,88px); line-height: 0.85; font-weight: 700; letter-spacing: -0.02em; color: #202133">06</span>
-          <h3 style="margin:0;font-size: var(--t-h3);line-height:1.08;font-weight:700;letter-spacing:-0.02em;color:var(--fg);text-wrap:balance">Durf<br>vooruit te denken</h3>
-          <p style="margin: 0; width: 100%; max-width: none; font-size: var(--t-sm); line-height: 1.5; color: var(--muted2); text-wrap: wrap; height: 100%">Bouw aan een eigen toekomst, geboren uit gevoel en gegrond in inzicht. Durf stelling te nemen.</p>
-        </div>
-        <div data-reveal="" style="display: flex; flex-direction: column; gap: 12px; min-height: clamp(260px,24vw,340px); padding: clamp(12px,1.2vw,16px); border-radius: 10px; opacity: 1; background-color: #FFFFFF">
-          <span aria-hidden="true" style="display: block; margin-bottom: auto; padding-bottom: 0px; font-family: 'Archivo','Archivo Narrow',system-ui,sans-serif; font-variation-settings: 'wdth' 68; font-size: clamp(56px,5.4vw,88px); line-height: 0.85; font-weight: 700; letter-spacing: -0.02em; color: #202133">07</span>
-          <h3 style="margin:0;font-size: var(--t-h3);line-height:1.08;font-weight:700;letter-spacing:-0.02em;color:var(--fg);text-wrap:balance">Prototypes winnen de discussie</h3>
-          <p style="margin: 0; width: 100%; max-width: none; font-size: var(--t-sm); line-height: 1.5; color: var(--muted2); text-wrap: wrap; height: 100%">Breng alle stakeholders op één lijn met tastbare ervaringen, niet met woorden.</p>
-        </div>
-        <div data-reveal="" style="display: flex; flex-direction: column; gap: 12px; min-height: clamp(260px,24vw,340px); padding: clamp(12px,1.2vw,16px); border-radius: 10px; opacity: 1; background-color: #FFFFFF">
-          <span aria-hidden="true" style="display: block; margin-bottom: auto; padding-bottom: 0px; font-family: 'Archivo','Archivo Narrow',system-ui,sans-serif; font-variation-settings: 'wdth' 68; font-size: clamp(56px,5.4vw,88px); line-height: 0.85; font-weight: 700; letter-spacing: -0.02em; color: #202133">08</span>
+        <div data-reveal="" style="display: flex; flex-direction: column; gap: 12px; min-height: 0; padding: clamp(12px,1.2vw,16px); border-radius: 6px; opacity: 1; background-color: #FFFFFF">
+          <span data-mf-num="" style="display:block;margin:0;font-size:var(--t-label);font-weight:600;letter-spacing:0.14em;line-height:1;color:var(--fg)">03</span>
           <h3 style="margin:0;font-size: var(--t-h3);line-height:1.08;font-weight:700;letter-spacing:-0.02em;color:var(--fg);text-wrap:balance">Comfort doodt<br>goed werk</h3>
           <p style="margin: 0; width: 100%; max-width: none; font-size: var(--t-sm); line-height: 1.5; color: var(--muted2); text-wrap: wrap; height: 100%">Vraag UX niet om quitte te spelen. Vraag het om de business te laten groeien.</p>
         </div>
-        <div data-reveal="" style="display: flex; flex-direction: column; gap: 12px; min-height: clamp(260px,24vw,340px); padding: clamp(12px,1.2vw,16px); border-radius: 10px; opacity: 1; background-color: #FFFFFF">
-          <span aria-hidden="true" style="display: block; margin-bottom: auto; padding-bottom: 0px; font-family: 'Archivo','Archivo Narrow',system-ui,sans-serif; font-variation-settings: 'wdth' 68; font-size: clamp(56px,5.4vw,88px); line-height: 0.85; font-weight: 700; letter-spacing: -0.02em; color: #202133">09</span>
+        <div data-reveal="" style="display: flex; flex-direction: column; gap: 12px; min-height: 0; padding: clamp(12px,1.2vw,16px); border-radius: 6px; opacity: 1; background-color: #FFFFFF">
+          <span data-mf-num="" style="display:block;margin:0;font-size:var(--t-label);font-weight:600;letter-spacing:0.14em;line-height:1;color:var(--fg)">04</span>
+          <h3 style="margin:0;font-size: var(--t-h3);line-height:1.08;font-weight:700;letter-spacing:-0.02em;color:var(--fg);text-wrap:balance">Technologie verandert,<br>mensen niet</h3>
+          <p style="margin: 0; width: 100%; max-width: none; font-size: var(--t-sm); line-height: 1.5; color: var(--muted2); text-wrap: wrap; height: 100%">Technologie blijft veranderen. Hoe mensen werken blijft opvallend constant, dus daar begin ik.</p>
+        </div>
+        <div data-reveal="" style="display: flex; flex-direction: column; gap: 12px; min-height: 0; padding: clamp(12px,1.2vw,16px); border-radius: 6px; opacity: 1; background-color: #FFFFFF">
+          <span data-mf-num="" style="display:block;margin:0;font-size:var(--t-label);font-weight:600;letter-spacing:0.14em;line-height:1;color:var(--fg)">05</span>
+          <h3 style="margin:0;font-size: var(--t-h3);line-height:1.08;font-weight:700;letter-spacing:-0.02em;color:var(--fg);text-wrap:balance">De oplossing is niet het probleem</h3>
+          <p style="margin: 0; width: 100%; max-width: none; font-size: var(--t-sm); line-height: 1.5; color: var(--muted2); text-wrap: wrap; height: 100%">Voordat er iets ontworpen wordt, stellen we het probleem ter discussie.</p>
+        </div>
+        <div data-reveal="" style="display: flex; flex-direction: column; gap: 12px; min-height: 0; padding: clamp(12px,1.2vw,16px); border-radius: 6px; opacity: 1; background-color: #FFFFFF">
+          <span data-mf-num="" style="display:block;margin:0;font-size:var(--t-label);font-weight:600;letter-spacing:0.14em;line-height:1;color:var(--fg)">06</span>
+          <h3 style="margin:0;font-size: var(--t-h3);line-height:1.08;font-weight:700;letter-spacing:-0.02em;color:var(--fg);text-wrap:balance">Observatie verslaat mening</h3>
+          <p style="margin: 0; width: 100%; max-width: none; font-size: var(--t-sm); line-height: 1.5; color: var(--muted2); text-wrap: wrap; height: 100%">Ik zit eerst in het echte werk voordat er één scherm bestaat.</p>
+        </div>
+        <div data-reveal="" style="display: flex; flex-direction: column; gap: 12px; min-height: 0; padding: clamp(12px,1.2vw,16px); border-radius: 6px; opacity: 1; background-color: #FFFFFF">
+          <span data-mf-num="" style="display:block;margin:0;font-size:var(--t-label);font-weight:600;letter-spacing:0.14em;line-height:1;color:var(--fg)">07</span>
+          <h3 style="margin:0;font-size: var(--t-h3);line-height:1.08;font-weight:700;letter-spacing:-0.02em;color:var(--fg);text-wrap:balance">Durf<br>vooruit te denken</h3>
+          <p style="margin: 0; width: 100%; max-width: none; font-size: var(--t-sm); line-height: 1.5; color: var(--muted2); text-wrap: wrap; height: 100%">Bouw aan een eigen toekomst, geboren uit gevoel en gegrond in inzicht. Durf stelling te nemen.</p>
+        </div>
+        <div data-reveal="" style="display: flex; flex-direction: column; gap: 12px; min-height: 0; padding: clamp(12px,1.2vw,16px); border-radius: 6px; opacity: 1; background-color: #FFFFFF">
+          <span data-mf-num="" style="display:block;margin:0;font-size:var(--t-label);font-weight:600;letter-spacing:0.14em;line-height:1;color:var(--fg)">08</span>
+          <h3 style="margin:0;font-size: var(--t-h3);line-height:1.08;font-weight:700;letter-spacing:-0.02em;color:var(--fg);text-wrap:balance">Prototypes winnen de discussie</h3>
+          <p style="margin: 0; width: 100%; max-width: none; font-size: var(--t-sm); line-height: 1.5; color: var(--muted2); text-wrap: wrap; height: 100%">Breng alle stakeholders op één lijn met tastbare ervaringen, niet met woorden.</p>
+        </div>
+        <div data-reveal="" style="display: flex; flex-direction: column; gap: 12px; min-height: 0; padding: clamp(12px,1.2vw,16px); border-radius: 6px; opacity: 1; background-color: #FFFFFF">
+          <span data-mf-num="" style="display:block;margin:0;font-size:var(--t-label);font-weight:600;letter-spacing:0.14em;line-height:1;color:var(--fg)">09</span>
           <h3 style="margin:0;font-size: var(--t-h3);line-height:1.08;font-weight:700;letter-spacing:-0.02em;color:var(--fg);text-wrap:balance">Impact<br>boven output</h3>
           <p style="margin: 0; width: 100%; max-width: none; font-size: var(--t-sm); line-height: 1.5; color: var(--muted2); text-wrap: wrap; height: 100%">Ik beoordeel een release op wat die voor mensen doet, niet op of die live ging.</p>
         </div>
-        <div data-reveal="" style="display: flex; flex-direction: column; gap: 12px; min-height: clamp(260px,24vw,340px); padding: clamp(12px,1.2vw,16px); border-radius: 10px; opacity: 1; background-color: #FFFFFF">
-          <span aria-hidden="true" style="display: block; margin-bottom: auto; padding-bottom: 0px; font-family: 'Archivo','Archivo Narrow',system-ui,sans-serif; font-variation-settings: 'wdth' 68; font-size: clamp(56px,5.4vw,88px); line-height: 0.85; font-weight: 700; letter-spacing: -0.02em; color: #202133">10</span>
+        <div data-reveal="" style="display: flex; flex-direction: column; gap: 12px; min-height: 0; padding: clamp(12px,1.2vw,16px); border-radius: 6px; opacity: 1; background-color: #FFFFFF">
+          <span data-mf-num="" style="display:block;margin:0;font-size:var(--t-label);font-weight:600;letter-spacing:0.14em;line-height:1;color:var(--fg)">10</span>
           <h3 style="margin:0;font-size: var(--t-h3);line-height:1.08;font-weight:700;letter-spacing:-0.02em;color:var(--fg);text-wrap:balance">Gemaakt om<br>te blijven</h3>
           <p style="margin: 0; width: 100%; max-width: none; font-size: var(--t-sm); line-height: 1.5; color: var(--muted2); text-wrap: wrap; height: 100%">Principes en patronen die blijven werken als ik weg ben.</p>
         </div>
@@ -1402,7 +1447,7 @@ class Component extends DCLogic {
     const out = [];
     (c.tags || []).forEach(t => {
       const cat = this.catMap[t];
-      if (cat && out.indexOf(cat) < 0) out.push(cat);
+      if (cat && out.indexOf(cat) < 0 && (c.hideCats || []).indexOf(cat) < 0) out.push(cat);
     });
     if (this.aiCases.indexOf(c.key) > -1) out.push('AI design');
     if (this.personalCases.indexOf(c.key) > -1) out.push('Lab');
@@ -1686,7 +1731,7 @@ class Component extends DCLogic {
   'assets/img/hlp/framework.png': 'The framework that turned discussions about taste into decisions about direction',
   'assets/img/hlp/portal.png': 'One work environment built around the case and the official handling it',
   'assets/img/hlp/principles.png': 'The five principles every increment is measured against',
-  'assets/img/home/tk-home.jpg': 'The plenary hall of the Tweede Kamer during a debate',
+  'assets/img/home/tk-home-5.jpg': 'The plenary hall of the Tweede Kamer during a debate',
   'assets/img/hlp/rolverdeling.png': 'Who does what once oversight moves from correction to prevention',
   'assets/img/hlp/applicatielandschap.png': 'One case, twenty-two applications and the paths between them',
   'assets/img/hlp/dwl-login.png': 'Signing in to the digital payroll tax workplace',
@@ -1898,7 +1943,7 @@ class Component extends DCLogic {
         const floor = c.offsetHeight; // the clamp() min-height floor (lock removed)
         max = Math.max(max, h, floor);
       });
-      if (max > 0) g.style.setProperty('--mf-lock', Math.ceil(max) + 'px');
+      if (max > 0) g.style.setProperty('--mf-lock', Math.ceil(max + 40) + 'px');
     });
   };
   componentDidMount() {
@@ -2260,8 +2305,8 @@ class Component extends DCLogic {
     el.textContent = JSON.stringify({ '@context': 'https://schema.org', '@graph': graph });
     this.setLink('canonical', base);
     this.setProp('og:url', base);
-    this.setProp('og:image', abs('assets/img/home/tk-home.jpg'));
-    this.setMeta('twitter:image', abs('assets/img/home/tk-home.jpg'));
+    this.setProp('og:image', abs('assets/img/home/tk-home-5.jpg'));
+    this.setMeta('twitter:image', abs('assets/img/home/tk-home-5.jpg'));
   };
   seoSync = (key) => {
     const base = window.location.href.split('#')[0];
@@ -2745,8 +2790,8 @@ class Component extends DCLogic {
         ]
       },
       {
-        key: 'tweedekamer', year: '2026', num: '10', slot: 'dg-case-tweedekamer', src: 'assets/img/home/tk-home.jpg', placeholder: 'Tweede Kamer cover',
-        title: 'Making the visual part of the record', client: 'Tweede Kamer', tags: ['User research', 'UX design', 'Accessibility', 'Design system'], meta: 'Tweede Kamer \u00b7 UX design \u00b7 Accessibility',
+        key: 'tweedekamer', year: '2026', num: '10', slot: 'dg-case-tweedekamer', src: 'assets/img/home/tk-home-5.jpg', placeholder: 'Tweede Kamer cover',
+        title: 'Making the visual part of the record', client: 'Tweede Kamer', tags: ['User research', 'Accessibility', 'Design system'], hideCats: ['UX design'], meta: 'Tweede Kamer \u00b7 Accessibility',
         role: 'UX designer and researcher', team: 'Tweede Kamer information services, editors and accessibility specialists', outcome: 'A documented set of visual patterns applied at the source, so parliamentary visuals are legible and accessible by construction.',
         blurb: 'Redesigning how images and infographics live inside parliamentary documents (readable, accessible and part of the argument.',
         deck: 'Redesigning how images and infographics live in parliamentary documents',
@@ -2898,7 +2943,7 @@ class Component extends DCLogic {
     'assets/img/hlp/cover-portal.png': 'Concept screen of the payroll tax digital work environment',
     'assets/img/hlp/portal.png': 'HLP work environment concept: workstream, employer, payroll tax and treatment in one portal',
     'assets/img/hlp/principles.png': 'Overview of the five design principles guiding the work environment',
-    'assets/img/home/tk-home.jpg': 'View from the gallery over the Tweede Kamer plenary hall, members seated at wooden desks with blue chairs',
+    'assets/img/home/tk-home-5.jpg': 'View from the gallery over the Tweede Kamer plenary hall, members seated at wooden desks with blue chairs',
     'assets/img/hlp/rolverdeling.png': 'Diagram of the roles around payroll tax: Belastingdienst, administrative employee or intermediary, entrepreneur and oversight partner, with arrows showing how work and knowledge move between them',
     'assets/img/hlp/applicatielandschap.png': 'Screenshots of twenty-two separate legacy applications connected by winding lines showing how an official moves between them',
     'assets/img/hlp/dwl-login.png': 'Login screen of the Digitale Werkplek Loonheffingen with a photo of a business owner',
@@ -2925,7 +2970,7 @@ class Component extends DCLogic {
   altFor = (p, fb) => this.tr((p && this.alts[p]) || fb || '');
   isChrome = (p) => /\/planetyes\/(workflow-|organizer-|login|report-)|\/sidekick\/proto-final|\/hlp\/dwl-/.test(p || '');
   frameRatio = (p) => { const rr = this.ratios[p] || 1.6; return rr >= 1.2 ? rr : 1.6; };
-  ratios = {"assets/img/advance/cover.png":1.3333,"assets/img/advance/home.png":0.4621,"assets/img/advance/wizard.png":0.4621,"assets/img/advance/step.png":0.4621,"assets/img/advance/onboarding.png":0.4621,"assets/img/advance/board.png":1.6,"assets/img/hlp/rolverdeling.png":1.6,"assets/img/home/tk-home.jpg":1.6,"assets/img/hlp/applicatielandschap.png":1.7778,"assets/img/home/radboud-home.jpg":1.6,"assets/img/home/kvs-home.jpg":1.3333,"assets/img/home/cbs-home.jpg":1.3333,"assets/img/home/hupo-home.jpg":0.75,"assets/img/radboud/cover.jpg":1.6,"assets/img/css/cover.jpg":1.6,"assets/img/cbs/cover.jpg":1.6,"assets/img/hupo/cover.jpg":1.6,"assets/img/hlp/dwl-login.png":1.6707,"assets/img/hlp/dwl-werkvoorraad.png":1.6707,"assets/img/hlp/dwl-jaaroverzicht.png":1.6707,"assets/img/hlp/dwl-vaststellingen.png":1.6707,"assets/img/hlp/dwl-vaststellingen-historie.png":1.6707,"assets/img/hlp/dwl-blokkades.png":1.6707,"assets/img/sidekick/kickoff.png":1.1553,"assets/img/sidekick/discovery.png":1.2605,"assets/img/sidekick/design-sprint.png":1.8386,"assets/img/sidekick/proto-final.png":1.2769,"assets/img/sidekick/proto-steps.png":2.3107,"assets/img/sidekick/testing-anon.png":2.0882,"assets/img/planetyes/device-materiality-card.png":1.3335,"assets/img/planetyes/panels-card.jpg":1.3345,"assets/img/planetyes/device-materiality-cover.png":2,"assets/img/planetyes/lifecycle.png":1.777,"assets/img/planetyes/device-materiality.png":1.471,"assets/img/planetyes/device-results.png":1.471,"assets/img/planetyes/device-planning.png":1.501,"assets/img/planetyes/lifecycle-v2.jpg":1.5857,"assets/img/planetyes/workflow-planning.jpg":1.5397,"assets/img/planetyes/organizer-materiality.jpg":1.5397,"assets/img/planetyes/organizer-program.jpg":1.5397,"assets/img/planetyes/login.jpg":1.5397,"assets/img/planetyes/report-introduction.jpg":0.6407,"assets/img/planetyes/report-business.jpg":0.7865,"assets/img/sidekick/homepage.png":0.52,"assets/img/sidekick/hero.png":1.456,"assets/img/radboud/detail-1.png":1.3333,"assets/img/radboud/obs-1.jpg":1.7778,"assets/img/radboud/obs-2.jpg":0.75,"assets/img/radboud/obs-3.jpg":1.5009,"assets/img/radboud/brainstorm-1.jpg":1.3333,"assets/img/radboud/brainstorm-2.jpg":0.75,"assets/img/radboud/brainstorm-3.jpg":1.7778,"assets/img/radboud/concept.jpg":1.7778,"assets/img/radboud/card.jpg":2.3155,"assets/img/radboud/ui.jpg":2.0888,"assets/img/cbs/paper-transition.jpg":1.7544,"assets/img/cbs/activities.jpg":1.9656,"assets/img/cbs/gamification.jpg":1.6,"assets/img/cbs/ui.jpg":2.9685,"assets/img/cbs/user-testing.jpg":1.4733,"assets/img/css/context.jpg":1.6,"assets/img/css/brainstorm-1.jpg":1.3333,"assets/img/css/brainstorm-2.jpg":1.3333,"assets/img/css/multi-channel.jpg":2.439,"assets/img/css/ui.jpg":2.1025,"assets/img/css/images.jpg":4.7761,"assets/img/css/team.jpg":1.5109,"assets/img/hupo/research-1.jpg":1.3333,"assets/img/hupo/research-2.jpg":1.3333,"assets/img/hupo/research-3.jpg":1.3333,"assets/img/hupo/structure.jpg":1.6,"assets/img/hupo/system.jpg":1.9417,"assets/img/hupo/system-2.jpg":1.6,"assets/img/hupo/system-3.jpg":1.6,"assets/img/hupo/service-1.jpg":1.3333,"assets/img/hupo/service-2.jpg":0.8756,"assets/img/hlp/framework.png":1,"assets/img/hlp/principles.png":2.2195,"assets/img/hlp/portal.png":1.2048,"assets/img/hlp/werkprocessen.png":1.2222,"assets/img/hlp/cover-strategie.png":2,"assets/img/hlp/cover-portal.png":2};
+  ratios = {"assets/img/advance/cover.png":1.3333,"assets/img/advance/home.png":0.4621,"assets/img/advance/wizard.png":0.4621,"assets/img/advance/step.png":0.4621,"assets/img/advance/onboarding.png":0.4621,"assets/img/advance/board.png":1.6,"assets/img/hlp/rolverdeling.png":1.6,"assets/img/home/tk-home-5.jpg":1.6,"assets/img/hlp/applicatielandschap.png":1.7778,"assets/img/home/radboud-home.jpg":1.6,"assets/img/home/kvs-home.jpg":1.3333,"assets/img/home/cbs-home.jpg":1.3333,"assets/img/home/hupo-home.jpg":0.75,"assets/img/radboud/cover.jpg":1.6,"assets/img/css/cover.jpg":1.6,"assets/img/cbs/cover.jpg":1.6,"assets/img/hupo/cover.jpg":1.6,"assets/img/hlp/dwl-login.png":1.6707,"assets/img/hlp/dwl-werkvoorraad.png":1.6707,"assets/img/hlp/dwl-jaaroverzicht.png":1.6707,"assets/img/hlp/dwl-vaststellingen.png":1.6707,"assets/img/hlp/dwl-vaststellingen-historie.png":1.6707,"assets/img/hlp/dwl-blokkades.png":1.6707,"assets/img/sidekick/kickoff.png":1.1553,"assets/img/sidekick/discovery.png":1.2605,"assets/img/sidekick/design-sprint.png":1.8386,"assets/img/sidekick/proto-final.png":1.2769,"assets/img/sidekick/proto-steps.png":2.3107,"assets/img/sidekick/testing-anon.png":2.0882,"assets/img/planetyes/device-materiality-card.png":1.3335,"assets/img/planetyes/panels-card.jpg":1.3345,"assets/img/planetyes/device-materiality-cover.png":2,"assets/img/planetyes/lifecycle.png":1.777,"assets/img/planetyes/device-materiality.png":1.471,"assets/img/planetyes/device-results.png":1.471,"assets/img/planetyes/device-planning.png":1.501,"assets/img/planetyes/lifecycle-v2.jpg":1.5857,"assets/img/planetyes/workflow-planning.jpg":1.5397,"assets/img/planetyes/organizer-materiality.jpg":1.5397,"assets/img/planetyes/organizer-program.jpg":1.5397,"assets/img/planetyes/login.jpg":1.5397,"assets/img/planetyes/report-introduction.jpg":0.6407,"assets/img/planetyes/report-business.jpg":0.7865,"assets/img/sidekick/homepage.png":0.52,"assets/img/sidekick/hero.png":1.456,"assets/img/radboud/detail-1.png":1.3333,"assets/img/radboud/obs-1.jpg":1.7778,"assets/img/radboud/obs-2.jpg":0.75,"assets/img/radboud/obs-3.jpg":1.5009,"assets/img/radboud/brainstorm-1.jpg":1.3333,"assets/img/radboud/brainstorm-2.jpg":0.75,"assets/img/radboud/brainstorm-3.jpg":1.7778,"assets/img/radboud/concept.jpg":1.7778,"assets/img/radboud/card.jpg":2.3155,"assets/img/radboud/ui.jpg":2.0888,"assets/img/cbs/paper-transition.jpg":1.7544,"assets/img/cbs/activities.jpg":1.9656,"assets/img/cbs/gamification.jpg":1.6,"assets/img/cbs/ui.jpg":2.9685,"assets/img/cbs/user-testing.jpg":1.4733,"assets/img/css/context.jpg":1.6,"assets/img/css/brainstorm-1.jpg":1.3333,"assets/img/css/brainstorm-2.jpg":1.3333,"assets/img/css/multi-channel.jpg":2.439,"assets/img/css/ui.jpg":2.1025,"assets/img/css/images.jpg":4.7761,"assets/img/css/team.jpg":1.5109,"assets/img/hupo/research-1.jpg":1.3333,"assets/img/hupo/research-2.jpg":1.3333,"assets/img/hupo/research-3.jpg":1.3333,"assets/img/hupo/structure.jpg":1.6,"assets/img/hupo/system.jpg":1.9417,"assets/img/hupo/system-2.jpg":1.6,"assets/img/hupo/system-3.jpg":1.6,"assets/img/hupo/service-1.jpg":1.3333,"assets/img/hupo/service-2.jpg":0.8756,"assets/img/hlp/framework.png":1,"assets/img/hlp/principles.png":2.2195,"assets/img/hlp/portal.png":1.2048,"assets/img/hlp/werkprocessen.png":1.2222,"assets/img/hlp/cover-strategie.png":2,"assets/img/hlp/cover-portal.png":2};
   nl = {
     "An AI that turns an ambition into steps, and steps into something you can actually book.": "Een AI die een ambitie omzet in stappen, en stappen in iets dat je echt kunt boeken.",
     "A personal exploration of what AI can do inside an interface, built as an ambition tracker that plans your steps and finds the real world behind them.": "Een persoonlijke verkenning van wat AI in een interface kan doen, gebouwd als ambitie-app die je stappen plant en de echte wereld erachter vindt.",
@@ -3148,7 +3193,7 @@ class Component extends DCLogic {
     'A design vision that connects user insight, brand and business goals into one clear direction.': 'Een ontwerpvisie die gebruikersinzicht, merk en bedrijfsdoelen verbindt tot één heldere richting.',
     'That direction made into usable products and services, tested with the people who will use them.': 'Die richting vertaald naar bruikbare producten en diensten, getest met de mensen die ze gaan gebruiken.',
     'Sessions and talks where design, technology and human behaviour meet, for teams, clients and conferences.': 'Sessies en talks waar design, technologie en menselijk gedrag samenkomen, voor teams, klanten en congressen.',
-    'Discovering real opportunities behind the question': 'Echte kansen ontdekken achter de vraag',
+    'Finding the real opportunity behind the problem': 'Echte kansen ontdekken achter de vraag',
     'Turning insights into clear design direction': 'Inzichten omzetten in een heldere ontwerprichting',
     'Creating products and services worth using': 'Producten en diensten maken die mensen echt willen gebruiken',
     'To find the real treasures, I research how people behave and what they experience. Valuable insight is the key to lasting experiences and returning business.': 'Om de echte schatten te vinden onderzoek ik hoe mensen zich gedragen en wat ze ervaren. Waardevol inzicht is de sleutel tot blijvende ervaringen en terugkerende klanten.',
@@ -4854,7 +4899,7 @@ class Component extends DCLogic {
         { value: '2M+', label: tr('People served') }
       ],
       services: [
-        { illo: 'dg-service-research', title: 'Research', head: 'Discovering real opportunities behind the question', body: 'Studying how people behave and what they experience, so decisions rest on evidence instead of assumptions.', tags: ['Behavioural research', 'Context mapping', 'Competitor analysis', 'Usability testing', 'Journey mapping', 'Interviews', 'User research', 'Accessibility', 'Data analysis'] },
+        { illo: 'dg-service-research', title: 'Research', head: 'Finding the real opportunity behind the problem', body: 'Studying how people behave and what they experience, so decisions rest on evidence instead of assumptions.', tags: ['Behavioural research', 'Context mapping', 'Competitor analysis', 'Usability testing', 'Journey mapping', 'Interviews', 'User research', 'Accessibility', 'Data analysis'] },
  { illo: 'dg-service-strategy', title: 'Strategy', head: 'Turning insights into clear design direction', body: 'A design vision that connects user insight, brand and business goals into one clear direction.', tags: ['Value proposition', 'UX strategy', 'Product direction', 'Design vision', 'Roadmapping', 'Concept development', 'Business modelling', 'Digital transformation'] },
         { illo: 'dg-service-uxdesign', title: 'Design', head: 'Creating products and services worth using', body: 'That direction made into usable products and services, tested with the people who will use them.', tags: ['UX design', 'Interaction design', 'Service design', 'Prototyping', 'Design systems', 'Complex workflows', 'Information architecture', 'AI interaction', 'Behavioural design'] },
  { illo: 'dg-service-workshops', title: 'Workshops, talks & coaching', head: 'Moving teams and organisations forward', body: 'Sessions and talks where design, technology and human behaviour meet, for teams, clients and conferences.', tags: ['Knowledge sessions', 'Design critique', 'Co-design', 'Design leadership', 'Workshops', 'Design sprints', 'UX maturity', 'UX coaching', 'Agile UX', 'Guest lectures'] }
