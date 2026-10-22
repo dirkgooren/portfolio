@@ -355,6 +355,8 @@
   @keyframes dgCoverIn { from { opacity: 0; transform: translateY(48px); } to { opacity: 1; transform: none; } }
   [data-cover-img], [data-case-media] { animation: dgCoverIn 700ms cubic-bezier(.22,1,.36,1) 40ms both; }
 
+  @keyframes dgAixGlow { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.55; transform: scale(0.88); } }
+  @media (prefers-reduced-motion: reduce) { [data-aix-glow] { animation: none !important; } }
   @keyframes dgTagIn { from { opacity: 0; transform: translateY(-10px) scale(.86); } to { opacity: 1; transform: none; } }
   [data-case-tags] > * { opacity: 0; transform-origin: left center; animation: dgTagIn 520ms cubic-bezier(.34,1.7,.52,1) 300ms forwards; }
     [data-case-meta] [data-reveal] { opacity: 0; animation: dgCoverIn 620ms cubic-bezier(.22,1,.36,1) forwards; }
@@ -839,6 +841,12 @@
               <sc-if value="{{ c.advMark }}" hint-placeholder-val="{{ false }}">
                 <div aria-hidden="true" style="position:absolute;inset:0;pointer-events:none;clip-path:polygon(65.4375% 44.3333%, 66.152% 44.3333%, 68.9125% 53.8333%, 65.4375% 53.8333%)"><div data-adv-bar="" style="position:absolute;left:65.4375%;top:47.6667%;width:22%;height:1.3333%;background:#FF7A5E"></div><div data-adv-bar="" style="position:absolute;left:65.4375%;top:51%;width:22%;height:1.3333%;background:#FF7A5E"></div></div>
               </sc-if>
+              <sc-if value="{{ c.aixMark }}" hint-placeholder-val="{{ false }}">
+                <div data-aix="" role="img" aria-label="AIX LAB" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:#7D8A80;container-type:size">
+                  <div data-aix-glow="" aria-hidden="true" style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at 50% 50%, #C2CCC3 0%, #A5B1A7 30%, #8C998F 55%, rgba(125,138,128,0) 85%);animation:dgAixGlow 6s ease-in-out infinite"></div>
+                  <span data-aix-sq="" style="position:relative;z-index:1;display:block;width:1.48em;height:1.48em;font-family:'Archivo',sans-serif;font-stretch:62.5%;font-weight:700;font-size:14cqh;color:#FFFFFF"><span data-aix-l="" style="position:absolute;left:0;top:0;line-height:1;white-space:pre">A</span><span data-aix-l="" style="position:absolute;left:0;top:0;line-height:1;white-space:pre">I</span><span data-aix-l="" style="position:absolute;left:0;top:0;line-height:1;white-space:pre">X</span><span data-aix-l="" style="position:absolute;left:0;top:0;line-height:1;white-space:pre">L</span><span data-aix-l="" style="position:absolute;left:0;top:0;line-height:1;white-space:pre">A</span><span data-aix-l="" style="position:absolute;left:0;top:0;line-height:1;white-space:pre">B</span></span>
+                </div>
+              </sc-if>
               <sc-if value="{{ c.orbs }}" hint-placeholder-val="{{ false }}">
                 <div data-orb-zoom="" style="position:absolute;inset:0">
                 <div aria-hidden="true" style="position:absolute;inset:0;overflow:hidden;pointer-events:none;background:#fff">
@@ -1080,6 +1088,7 @@ class Component extends DCLogic {
   gateHash = 'eb8ff7e25a397ec86514ea6a5aade07badf932f25b5588018add22c6eabef39a';
   lockedCases = {
     sidekick: this.gateHash,
+    aix: this.gateHash,
     intelligence: this.gateHash,
     bmg: this.gateHash,
     'hlp-strategie': this.gateHash,
@@ -1113,7 +1122,9 @@ class Component extends DCLogic {
       "tweedekamer": "Tweede Kamer.dc.html",
       "design-systems": "Design systems.dc.html"
   };
-  pageFor = (key) => (this.casePages[key] ? this.pageName(this.casePages[key]) : this.HOME_PAGE + '#case/' + key);
+  // Cases that live on an external site.
+  caseUrls = { aix: 'https://aix-ashen.vercel.app/' };
+  pageFor = (key) => (this.caseUrls[key] ? this.caseUrls[key] : this.casePages[key] ? this.pageName(this.casePages[key]) : this.HOME_PAGE + '#case/' + key);
   // Locked cases route through the login page, which sends them on once the
   // password checks out.
   caseHref = (key) => (this.isLocked(key) ? this.pageName(this.LOGIN_PAGE) + '#case/' + key : this.pageFor(key));
@@ -1221,8 +1232,8 @@ class Component extends DCLogic {
     { key: 'bmg.png', name: 'Bank Mendes Gans', industry: 'Finance' }
   ];
   caseCats = ['Research', 'Strategy', 'AI design', 'Service design', 'UX design', 'Lab'];
-  personalCases = ['design-systems', 'advance', 'intelligence'];
-  aiCases = ['hlp', 'sidekick', 'design-systems', 'advance', 'intelligence'];
+  personalCases = ['design-systems', 'advance', 'intelligence', 'aix'];
+  aiCases = ['hlp', 'sidekick', 'design-systems', 'advance', 'intelligence', 'aix'];
   catMap = {
     'Research': 'Research', 'User research': 'Research', 'Behavioural design': 'Research',
     'Strategy': 'Strategy', 'UX strategy': 'Strategy', 'Product strategy': 'Strategy',
@@ -1667,6 +1678,7 @@ class Component extends DCLogic {
     bg.style.height = Math.round(r.top - pr.top + r.height / 6) + 'px';
   };
   componentDidMount() {
+    requestAnimationFrame(this.fitAix);
     this._heroBgRO = new ResizeObserver(() => this.syncHeroBg());
     requestAnimationFrame(() => { const pg = document.querySelector('[data-page]'); if (pg) this._heroBgRO.observe(pg); this.syncHeroBg(); });
     window.addEventListener('resize', this.syncHeroBg);
@@ -1917,6 +1929,7 @@ class Component extends DCLogic {
       this.openGate(key);
       return;
     }
+    if (key && this.caseUrls[key]) { window.location.replace(this.caseUrls[key]); return; }
     if (key === this.state.open) return;
     this.setState({ open: key });
     this.setDocTitle(key);
@@ -2360,6 +2373,13 @@ class Component extends DCLogic {
             'That is the point of leverage: the fix is not editing thousands of published documents, it is making the correct treatment the easiest one to produce.'
           ]}
         ]
+      },
+      {
+        key: 'aix', year: '2026', num: '13', aixMark: true, slot: '', src: 'aix', placeholder: 'AIX LAB',
+        title: 'Making AI easy', client: 'AIX LAB', tags: ['Research', 'UX design'], meta: 'AIX LAB \u00b7 Lab',
+        role: '', team: '', outcome: '', blurb: 'Making AI easy', deck: 'Making AI easy',
+        cover: '', coverSlot: '',
+        sections: []
       },
       {
         key: 'intelligence', year: '2026', num: '12', slot: 'dg-case-intelligence', src: 'assets/img/intelligence/cover.jpg', placeholder: 'The era of AI-empowered work cover',
@@ -4030,7 +4050,47 @@ class Component extends DCLogic {
     if (on) document.documentElement.setAttribute('data-overlay', 'ink');
     else document.documentElement.removeAttribute('data-overlay');
   }
+  // AIX LAB mark: places each letter by its ink bounds so the block is an
+  // exact square, outer letters flush to its edges, middle letters centred.
+  fitAix = () => {
+    const sqs = document.querySelectorAll('[data-aix-sq]');
+    if (!sqs.length) return;
+    if (!this._aixM) {
+      const font = "extra-condensed 700 100px 'Archivo'";
+      if (document.fonts && !document.fonts.check(font)) { if (!this._aixWait) { this._aixWait = 1; document.fonts.load(font).then(() => { this._aixWait = 0; this.fitAix(); }); } return; }
+      const ctx = document.createElement('canvas').getContext('2d');
+      ctx.font = font;
+      try { ctx.fontStretch = 'extra-condensed'; } catch (e) {}
+      const m = {};
+      'AIXLB'.split('').forEach(ch => { const t = ctx.measureText(ch); m[ch] = { l: t.actualBoundingBoxLeft / 100, r: t.actualBoundingBoxRight / 100, a: t.actualBoundingBoxAscent / 100, fa: t.fontBoundingBoxAscent / 100, fd: t.fontBoundingBoxDescent / 100 }; });
+      const cap = m.L.a, fa = m.L.fa, fd = m.L.fd, base = (1 - (fa + fd)) / 2 + fa;
+      const ink = ch => m[ch].l + m[ch].r;
+      const rowW = Math.max(ink('A') + ink('I') + ink('X'), ink('L') + ink('A') + ink('B'));
+      // Square side = the wider row; letters stretch vertically so the gap
+      // between the rows equals the width of the I.
+      const S = rowW + cap * 0.16, gap = ink('I');
+      const k = (S - gap) / 2 / cap;
+      const pos = [];
+      [['A', 'I', 'X', (S - gap) / 2], ['L', 'A', 'B', S]].forEach(([a, b, c, y]) => {
+        const top = y - base;
+        pos.push([m[a].l, top], [S / 2 - (m[b].r - m[b].l) / 2, top], [S - m[c].r, top]);
+      });
+      this._aixM = { S, pos, k, base, gap };
+    }
+    const { S, pos, k, base } = this._aixM;
+    sqs.forEach(sq => {
+      // Frame: border and inner padding both as wide as the I.
+      const g = this._aixM.gap;
+      sq.style.boxSizing = 'content-box';
+      sq.style.width = sq.style.height = S + 'em';
+      sq.style.padding = g + 'em';
+      sq.style.border = g + 'em solid #FFFFFF';
+      sq.style.borderRadius = g + 'em';
+      sq.querySelectorAll('[data-aix-l]').forEach((el, i) => { el.style.left = (pos[i][0] + g) + 'em'; el.style.top = (pos[i][1] + g) + 'em'; el.style.transformOrigin = '0 ' + base + 'em'; el.style.transform = 'scaleY(' + k + ')'; });
+    });
+  };
   componentDidUpdate() {
+    requestAnimationFrame(this.fitAix);
     requestAnimationFrame(this.syncHeroBg);
     if (this._resetSeen === undefined) this._resetSeen = !!this.props.resetSite;
     if (!!this.props.resetSite !== this._resetSeen) {
@@ -4151,8 +4211,8 @@ class Component extends DCLogic {
     // Three cases are pinned to the front of the grid; the rest fall back to
     // gated-last, then newest year. The lock test ignores unlock state so the
     // order stays identical logged in or out.
-    const pin = { sidekick: 0, planetyes: 1, hlp: 2 };
-    const rank = (c) => (pin[c.key] === undefined ? 3 : pin[c.key]);
+    const pin = { sidekick: 0, planetyes: 1, hlp: 2, aix: 3 };
+    const rank = (c) => (pin[c.key] === undefined ? 4 : pin[c.key]);
     const gated = (c) => (this.lockedCases[c.key] ? 1 : 0);
     const all = this.caseData().slice().sort((a, b) => rank(a) - rank(b) || gated(a) - gated(b) || yearOf(b) - yearOf(a));
     const idx = all.findIndex(c => c.key === this.state.open);
@@ -4277,7 +4337,7 @@ class Component extends DCLogic {
       pickCaseTag: this.pickCaseTag,
       cases: all
         .filter(c => this.state.caseTag === 'All' || this.catsFor(c).indexOf(this.state.caseTag) > -1)
-        .map(c => Object.assign({}, c, { deck: tr(c.deck), client: tr(c.client), tags: this.catsFor(c).map(tr), plainImg: !c.orbs && !c.fan && !c.evo, locked: this.isLocked(c.key), href: this.caseHref(c.key), typeCard: c.src ? '' : c.typeCover })),
+        .map(c => Object.assign({}, c, { deck: tr(c.deck), client: tr(c.client), tags: this.catsFor(c).map(tr), plainImg: !c.orbs && !c.fan && !c.evo && !c.aixMark, locked: this.isLocked(c.key), href: this.caseHref(c.key), typeCard: c.src ? '' : c.typeCover })),
       gate: !!this.state.gate,
       gateErr: this.state.gateErr,
       gateBusy: this.state.gateBusy,
