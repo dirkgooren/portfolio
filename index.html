@@ -431,7 +431,7 @@
   @keyframes dgCoverIn { from { opacity: 0; transform: translateY(48px); } to { opacity: 1; transform: none; } }
   [data-cover-img], [data-case-media] { animation: dgCoverIn 700ms cubic-bezier(.22,1,.36,1) 40ms both; }
 
-  @keyframes dgAixGlow { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.55; transform: scale(0.88); } }
+  @keyframes dgAixGlow { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.86); } }
   @media (prefers-reduced-motion: reduce) { [data-aix-glow] { animation: none !important; } }
   @keyframes dgTagIn { from { opacity: 0; transform: translateY(-10px) scale(.86); } to { opacity: 1; transform: none; } }
   [data-case-tags] > * { opacity: 0; transform-origin: left center; animation: dgTagIn 520ms cubic-bezier(.34,1.7,.52,1) 300ms forwards; }
@@ -964,7 +964,7 @@
               </sc-if>
               <sc-if value="{{ c.aixMark }}" hint-placeholder-val="{{ false }}">
                 <div data-aix="" role="img" aria-label="AIX LAB" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:#7D8A80;container-type:size">
-                  <div data-aix-glow="" aria-hidden="true" style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at 50% 50%, #C2CCC3 0%, #A5B1A7 30%, #8C998F 55%, rgba(125,138,128,0) 85%);animation:dgAixGlow 6s ease-in-out infinite"></div>
+                  <div data-aix-glow="" aria-hidden="true" style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at 50% 50%, #E4EBE4 0%, #C3CEC4 25%, #A0ADA2 50%, rgba(125,138,128,0) 85%);animation:dgAixGlow 6s ease-in-out infinite"></div>
                   <span data-aix-sq="" style="position:relative;z-index:1;display:block;width:1.48em;height:1.48em;font-family:'Archivo',sans-serif;font-stretch:62.5%;font-weight:700;font-size:14cqh;color:#FFFFFF"><span data-aix-l="" style="position:absolute;left:0;top:0;line-height:1;white-space:pre">A</span><span data-aix-l="" style="position:absolute;left:0;top:0;line-height:1;white-space:pre">I</span><span data-aix-l="" style="position:absolute;left:0;top:0;line-height:1;white-space:pre">X</span><span data-aix-l="" style="position:absolute;left:0;top:0;line-height:1;white-space:pre">L</span><span data-aix-l="" style="position:absolute;left:0;top:0;line-height:1;white-space:pre">A</span><span data-aix-l="" style="position:absolute;left:0;top:0;line-height:1;white-space:pre">B</span></span>
                 </div>
               </sc-if>
@@ -1328,7 +1328,7 @@ class Component extends DCLogic {
       "design-systems": "Design systems.dc.html"
   };
   // Cases that live on an external site.
-  caseUrls = { aix: 'https://aix-ashen.vercel.app/' };
+  caseUrls = { aix: 'https://aix-lab.vercel.app/' };
   pageFor = (key) => (this.caseUrls[key] ? this.caseUrls[key] : this.casePages[key] ? this.pageName(this.casePages[key]) : this.HOME_PAGE + '#case/' + key);
   // Locked cases route through the login page, which sends them on once the
   // password checks out.
@@ -4598,7 +4598,9 @@ class Component extends DCLogic {
       const pos = [];
       [['A', 'I', 'X', (S - gap) / 2], ['L', 'A', 'B', S]].forEach(([a, b, c, y]) => {
         const top = y - base;
-        pos.push([m[a].l, top], [S / 2 - (m[b].r - m[b].l) / 2, top], [S - m[c].r, top]);
+        // Middle letter sits so the two gaps in its row are equal.
+        const sp = (S - ink(a) - ink(b) - ink(c)) / 2;
+        pos.push([m[a].l, top], [ink(a) + sp + m[b].l, top], [S - m[c].r, top]);
       });
       this._aixM = { S, pos, k, base, gap };
     }
@@ -4608,10 +4610,15 @@ class Component extends DCLogic {
       const g = this._aixM.gap;
       sq.style.boxSizing = 'content-box';
       sq.style.width = sq.style.height = S + 'em';
-      sq.style.padding = g + 'em';
-      sq.style.border = g + 'em solid #FFFFFF';
-      sq.style.borderRadius = g + 'em';
-      sq.querySelectorAll('[data-aix-l]').forEach((el, i) => { el.style.left = (pos[i][0] + g) + 'em'; el.style.top = (pos[i][1] + g) + 'em'; el.style.transformOrigin = '0 ' + base + 'em'; el.style.transform = 'scaleY(' + k + ')'; });
+      // Frame drawn as a masked fill (not a CSS border) so it never snaps to
+      // whole pixels and always matches the I's width exactly.
+      sq.style.padding = 2 * g + 'em';
+      sq.style.border = 'none';
+      let fr = sq.querySelector('[data-aix-frame]');
+      if (!fr) { fr = document.createElement('span'); fr.setAttribute('data-aix-frame', ''); fr.setAttribute('aria-hidden', 'true'); sq.prepend(fr); }
+      const mk = 'linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)';
+      Object.assign(fr.style, { position: 'absolute', inset: '0', boxSizing: 'border-box', padding: g + 'em', borderRadius: g + 'em', background: '#FFFFFF', WebkitMask: mk, WebkitMaskComposite: 'xor', mask: mk, maskComposite: 'exclude', pointerEvents: 'none' });
+      sq.querySelectorAll('[data-aix-l]').forEach((el, i) => { el.style.left = (pos[i][0] + 2 * g) + 'em'; el.style.top = (pos[i][1] + 2 * g) + 'em'; el.style.transformOrigin = '0 ' + base + 'em'; el.style.transform = 'scaleY(' + k + ')'; });
     });
   };
   componentDidUpdate() {
